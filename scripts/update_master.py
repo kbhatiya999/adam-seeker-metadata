@@ -69,7 +69,7 @@ class VideoListUpdater:
     def get_channel_id_from_url(self, channel_url: str) -> Optional[str]:
         """Extract channel ID from YouTube channel URL using API or yt-dlp"""
         if self.api_key:
-            # Use YouTube API to get channel ID
+            logger.info("🔑 Using YouTube Data API to get channel ID")
             try:
                 # Extract channel handle from URL
                 if '@' in channel_url:
@@ -89,30 +89,34 @@ class VideoListUpdater:
                     for item in data.get('items', []):
                         if item['snippet']['title'].lower() == 'adam seeker official':
                             channel_id = item['id']['channelId']
-                            logger.info(f"Found channel ID: {channel_id}")
+                            logger.info(f"✅ Found channel ID via API: {channel_id}")
                             return channel_id
                     
                     # If exact match not found, return first result
                     if data.get('items'):
                         channel_id = data['items'][0]['id']['channelId']
-                        logger.info(f"Using first result channel ID: {channel_id}")
+                        logger.info(f"✅ Using first result channel ID via API: {channel_id}")
                         return channel_id
                         
             except Exception as e:
-                logger.error(f"Error getting channel ID from API: {e}")
+                logger.error(f"❌ Error getting channel ID from API: {e}")
                 return None
         else:
-            # Fallback to yt-dlp
+            logger.info("🔄 No API key provided, falling back to yt-dlp for channel ID")
             try:
                 with yt_dlp.YoutubeDL({'quiet': True}) as ydl:
                     info = ydl.extract_info(channel_url, download=False)
-                    return info.get('channel_id')
+                    channel_id = info.get('channel_id')
+                    if channel_id:
+                        logger.info(f"✅ Found channel ID via yt-dlp: {channel_id}")
+                    return channel_id
             except Exception as e:
-                logger.error(f"Error extracting channel ID with yt-dlp: {e}")
+                logger.error(f"❌ Error extracting channel ID with yt-dlp: {e}")
                 return None
     
     def fetch_videos_youtube_api(self, channel_id: str, max_results: int = 50) -> List[Dict]:
         """Fetch videos using YouTube Data API v3"""
+        logger.info(f"🔑 Fetching videos using YouTube Data API v3 (max: {max_results})")
         try:
             # Get uploads playlist
             uploads_url = f"{self.youtube_api_base}/channels"
@@ -127,10 +131,11 @@ class VideoListUpdater:
             
             data = response.json()
             if not data.get('items'):
-                logger.error("Channel not found or no uploads playlist")
+                logger.error("❌ Channel not found or no uploads playlist")
                 return []
             
             uploads_playlist_id = data['items'][0]['contentDetails']['relatedPlaylists']['uploads']
+            logger.info(f"📺 Found uploads playlist: {uploads_playlist_id}")
             
             # Get videos from uploads playlist
             videos_url = f"{self.youtube_api_base}/playlistItems"
@@ -161,15 +166,16 @@ class VideoListUpdater:
                 }
                 videos.append(video_info)
             
-            logger.info(f"Fetched {len(videos)} videos from YouTube API")
+            logger.info(f"✅ Successfully fetched {len(videos)} videos from YouTube Data API")
             return videos
             
         except Exception as e:
-            logger.error(f"Error fetching videos from YouTube API: {e}")
+            logger.error(f"❌ Error fetching videos from YouTube API: {e}")
             return []
     
     def fetch_videos_ytdlp(self) -> List[Dict]:
         """Fetch videos using yt-dlp as fallback"""
+        logger.info("🔄 Fetching videos using yt-dlp (fallback method)")
         try:
             ydl_opts = {
                 'quiet': True,
@@ -197,11 +203,11 @@ class VideoListUpdater:
                         }
                         videos.append(video_info)
                 
-                logger.info(f"Fetched {len(videos)} videos using yt-dlp")
+                logger.info(f"✅ Successfully fetched {len(videos)} videos using yt-dlp")
                 return videos
                 
         except Exception as e:
-            logger.error(f"Error fetching videos with yt-dlp: {e}")
+            logger.error(f"❌ Error fetching videos with yt-dlp: {e}")
             return []
     
     def get_existing_video_ids(self, master_data: Dict) -> set:
@@ -210,22 +216,25 @@ class VideoListUpdater:
     
     def update_master_list(self) -> Dict:
         """Main method to update the master video list"""
-        logger.info("Starting video list update...")
+        logger.info("🚀 Starting video list update...")
         
         # Load current master list
         master_data = self.load_master_list()
         existing_ids = self.get_existing_video_ids(master_data)
+        logger.info(f"📊 Current master list has {len(existing_ids)} existing videos")
         
         # Get channel ID
         channel_id = self.get_channel_id_from_url(self.channel_url)
         if not channel_id:
-            logger.error("Could not extract channel ID")
+            logger.error("❌ Could not extract channel ID")
             return {"new_videos": [], "total_videos": len(master_data.get('videos', [])), "updated": False}
         
         # Fetch new videos
         if self.api_key:
+            logger.info("🔑 Using YouTube Data API for video discovery")
             new_videos = self.fetch_videos_youtube_api(channel_id)
         else:
+            logger.info("🔄 Using yt-dlp for video discovery (no API key)")
             new_videos = self.fetch_videos_ytdlp()
         
         # Filter out existing videos
@@ -234,7 +243,7 @@ class VideoListUpdater:
             if video['video_id'] not in existing_ids
         ]
         
-        logger.info(f"Found {len(truly_new_videos)} new videos")
+        logger.info(f"🔍 Found {len(truly_new_videos)} new videos (filtered from {len(new_videos)} total)")
         
         # Add new videos to master list
         master_data['videos'].extend(truly_new_videos)
@@ -259,6 +268,12 @@ def main():
     
     # Create logs directory if it doesn't exist
     os.makedirs('logs', exist_ok=True)
+    
+    # Log configuration
+    if API_KEY:
+        logger.info(f"🔑 YouTube API key provided: {API_KEY[:10]}...")
+    else:
+        logger.info("⚠️  No YouTube API key provided - will use yt-dlp fallback")
     
     # Initialize updater
     updater = VideoListUpdater(MASTER_FILE, CHANNEL_URL, API_KEY)
