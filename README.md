@@ -7,8 +7,12 @@ This repository contains metadata and transcripts for the AdamSeekerOfficial You
 
 ### Prerequisites
 
-Install yt-dlp if you haven't already:
+Install yt-dlp using uv (recommended) or pip:
 ```bash
+# Using uv (recommended)
+uv add yt-dlp
+
+# Or using pip
 pip install yt-dlp
 ```
 
@@ -40,4 +44,35 @@ To download transcripts from a specific video, replace the channel URL with the 
 
 ```bash
 yt-dlp --write-subs --write-auto-subs --sub-langs en --skip-download "VIDEO_URL"
+```
+
+### Bulk Download from Links File
+
+To download transcripts from multiple videos using a list of URLs, create a text file with one URL per line:
+
+```bash
+# Create a file with video URLs
+echo "https://www.youtube.com/watch?v=VIDEO_ID_1" > video_links.txt
+echo "https://www.youtube.com/watch?v=VIDEO_ID_2" >> video_links.txt
+echo "https://www.youtube.com/watch?v=VIDEO_ID_3" >> video_links.txt
+
+# Download transcripts from all URLs in the file
+yt-dlp --write-subs --write-auto-subs --sub-langs en --skip-download --batch-file video_links.txt
+```
+
+### Advanced Bulk Download Options
+
+For more control over bulk downloads:
+
+```bash
+# Download with custom output directory and filename format
+yt-dlp --write-subs --write-auto-subs --sub-langs en --skip-download \
+  --output "transcripts/%(uploader)s/%(upload_date)s_%(title)s.%(ext)s" \
+  --batch-file video_links.txt
+
+# Download with progress tracking and error handling
+yt-dlp --write-subs --write-auto-subs --sub-langs en --skip-download \
+  --batch-file video_links.txt \
+  --ignore-errors \
+  --no-warnings
 ```
