@@ -4,6 +4,8 @@ Automated Video List Update Script
 
 This script fetches new videos from Adam Seeker's YouTube channel
 and updates the master video list with new entries.
+
+Use --rebuild to completely rebuild the master list from scratch.
 """
 
 import json
@@ -14,6 +16,7 @@ import yt_dlp
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional
 import logging
+import argparse
 
 # Configure logging
 logging.basicConfig(
@@ -261,14 +264,46 @@ class VideoListUpdater:
 
 def main():
     """Main entry point"""
+    parser = argparse.ArgumentParser(description='Update or rebuild master video list')
+    parser.add_argument('--rebuild', action='store_true',
+                       help='Completely rebuild the master list from scratch')
+    parser.add_argument('--master-file', default='data/videos_master.json',
+                       help='Path to master video list file')
+    parser.add_argument('--channel-url', default='https://www.youtube.com/@AdamSeekerOfficial',
+                       help='YouTube channel URL')
+    parser.add_argument('--force', action='store_true',
+                       help='Skip confirmation prompts (for rebuild)')
+    
+    args = parser.parse_args()
+    
     # Configuration
-    MASTER_FILE = "data/videos_master.json"
-    CHANNEL_URL = "https://www.youtube.com/@AdamSeekerOfficial"
-    API_KEY = os.getenv('YOUTUBE_API_KEY')  # Set this as environment variable
+    API_KEY = os.getenv('YOUTUBE_API_KEY')
     
     # Create logs directory if it doesn't exist
     os.makedirs('logs', exist_ok=True)
     
+    # Handle rebuild mode
+    if args.rebuild:
+        logger.info("🔄 Rebuild mode requested - delegating to rebuild script")
+        import subprocess
+        
+        rebuild_cmd = [
+            'python3', 'scripts/rebuild_master.py',
+            '--master-file', args.master_file,
+            '--channel-url', args.channel_url
+        ]
+        
+        if args.force:
+            rebuild_cmd.append('--force')
+        
+        try:
+            result = subprocess.run(rebuild_cmd, check=True)
+            return result.returncode
+        except subprocess.CalledProcessError as e:
+            logger.error(f"❌ Rebuild failed: {e}")
+            return e.returncode
+    
+    # Normal update mode
     # Log configuration
     if API_KEY:
         logger.info(f"🔑 YouTube API key provided: {API_KEY[:10]}...")
@@ -276,7 +311,7 @@ def main():
         logger.info("⚠️  No YouTube API key provided - will use yt-dlp fallback")
     
     # Initialize updater
-    updater = VideoListUpdater(MASTER_FILE, CHANNEL_URL, API_KEY)
+    updater = VideoListUpdater(args.master_file, args.channel_url, API_KEY)
     
     # Update master list
     result = updater.update_master_list()
