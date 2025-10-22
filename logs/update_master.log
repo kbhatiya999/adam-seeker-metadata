@@ -68,3 +68,15 @@
 2025-10-22 18:34:40,840 - ERROR - ❌ Error extracting channel ID with yt-dlp: ERROR: [youtube] 6nvRaMn-jsw: Sign in to confirm you’re not a bot. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies
 2025-10-22 18:34:40,842 - ERROR - ❌ Could not extract channel ID
 2025-10-22 18:34:40,842 - INFO - ℹ️ No new videos found
+2025-10-22 18:38:20,569 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2025-10-22 18:38:20,569 - INFO - 🚀 Starting video list update...
+2025-10-22 18:38:20,570 - INFO - 📊 Current master list has 42 existing videos
+2025-10-22 18:38:20,570 - INFO - 🔑 Using YouTube Data API to get channel ID
+2025-10-22 18:38:20,869 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-10-22 18:38:20,870 - INFO - 🔑 Using YouTube Data API for video discovery
+2025-10-22 18:38:20,870 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2025-10-22 18:38:20,966 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-10-22 18:38:21,124 - INFO - ✅ Successfully fetched 41 videos from YouTube Data API
+2025-10-22 18:38:21,126 - INFO - 🔍 Found 0 new videos (filtered from 41 total)
+2025-10-22 18:38:21,127 - INFO - Master list updated successfully
+2025-10-22 18:38:21,128 - INFO - ℹ️ No new videos found
