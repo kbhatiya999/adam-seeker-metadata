@@ -50,7 +50,7 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add data/videos_master.json
+        git add data/videos_master.json logs/
         git commit -m "🤖 Auto-update: Add new videos from Adam Seeker channel
         
         - Updated on: $(date -u '+%Y-%m-%d %H:%M:%S UTC')
