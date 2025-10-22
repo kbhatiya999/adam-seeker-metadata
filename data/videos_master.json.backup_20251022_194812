@@ -1,6 +1,33 @@
 {
   "videos": [
     {
+      "video_id": "EXAMPLE_VIDEO_ID",
+      "title": "Example Video Title",
+      "url": "https://www.youtube.com/watch?v=EXAMPLE_VIDEO_ID",
+      "upload_date": "2024-01-01",
+      "duration": "15:30",
+      "description": "Video description",
+      "tags": [
+        "islam",
+        "critique",
+        "theology"
+      ],
+      "transcript_file": "transcripts/EXAMPLE_VIDEO_ID.txt",
+      "categories": [
+        "critique-of-islam"
+      ],
+      "relevance_score": 9,
+      "key_topics": [
+        "topic1",
+        "topic2"
+      ],
+      "notes": "Why this video is relevant to your use case",
+      "status": "categorized",
+      "auto_detected": false,
+      "needs_review": false,
+      "last_checked": "2025-10-22"
+    },
+    {
       "video_id": "pQ6kScnKPgA",
       "title": "I am accepting Islam, if... मैं इस्लाम स्वीकार कर रहा हूँ, अगर...",
       "url": "https://www.youtube.com/watch?v=pQ6kScnKPgA",
@@ -453,8 +480,6 @@
     }
   ],
   "last_updated": "2025-10-22",
-  "total_videos": 41,
-  "channel_url": "https://www.youtube.com/@AdamSeekerOfficial",
-  "rebuild_date": "2025-10-22",
-  "rebuild_reason": "Complete rebuild from scratch"
+  "total_videos": 42,
+  "channel_url": "https://www.youtube.com/@AdamSeekerOfficial"
 }

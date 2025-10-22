@@ -1,0 +1,117 @@
+name: Update Video List
+
+on:
+  schedule:
+    # Run daily at 6 AM UTC
+    - cron: '0 6 * * *'
+  workflow_dispatch:  # Allow manual trigger
+  push:
+    paths:
+      - 'scripts/update_master.py'
+      - 'data/videos_master.json'
+
+jobs:
+  update-videos:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Run video update script
+      env:
+        YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+      run: |
+        python scripts/update_master.py
+    
+    - name: Check for changes
+      id: changes
+      run: |
+        if [ -n "$(git status --porcelain)" ]; then
+          echo "changes=true" >> $GITHUB_OUTPUT
+        else
+          echo "changes=false" >> $GITHUB_OUTPUT
+        fi
+    
+    - name: Commit and push changes
+      if: steps.changes.outputs.changes == 'true'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add data/videos_master.json logs/
+        git commit -m "🤖 Auto-update: Add new videos from Adam Seeker channel
+        
+        - Updated on: $(date -u '+%Y-%m-%d %H:%M:%S UTC')
+        - Check logs for details"
+        git push
+    
+    - name: Create notification issue
+      if: steps.changes.outputs.changes == 'true'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          const path = require('path');
+          
+          // Read the log file to get new video details
+          let logContent = '';
+          try {
+            logContent = fs.readFileSync('logs/update_master.log', 'utf8');
+          } catch (error) {
+            console.log('Could not read log file');
+          }
+          
+          // Extract new video information from logs
+          const newVideoLines = logContent.split('\n').filter(line => 
+            line.includes('🆕 New:') || line.includes('Successfully added')
+          );
+          
+          const issueBody = `## 🎥 New Videos Detected
+          
+          The automated video list update found new content from Adam Seeker's channel.
+          
+          **Update Details:**
+          ${newVideoLines.join('\n')}
+          
+          **Next Steps:**
+          - [ ] Review new videos for relevance
+          - [ ] Assign appropriate categories
+          - [ ] Set relevance scores (1-10)
+          - [ ] Add detailed notes
+          - [ ] Update status from "uncategorized" to "categorized"
+          
+          **Logs:**
+          \`\`\`
+          ${logContent.slice(-1000)} // Last 1000 characters
+          \`\`\`
+          
+          ---
+          *This issue was automatically created by the video update workflow.*`;
+          
+          github.rest.issues.create({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            title: `📺 New Videos Available for Review - ${new Date().toISOString().split('T')[0]}`,
+            body: issueBody,
+            labels: ['automation', 'videos', 'review-needed']
+          });
+    
+    - name: Upload logs
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: update-logs-${{ github.run_number }}
+        path: logs/
+        retention-days: 30
