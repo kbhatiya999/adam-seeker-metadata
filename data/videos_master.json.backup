@@ -7,15 +7,28 @@
       "upload_date": "2024-01-01",
       "duration": "15:30",
       "description": "Video description",
-      "tags": ["islam", "critique", "theology"],
+      "tags": [
+        "islam",
+        "critique",
+        "theology"
+      ],
       "transcript_file": "transcripts/EXAMPLE_VIDEO_ID.txt",
-      "categories": ["critique-of-islam"],
+      "categories": [
+        "critique-of-islam"
+      ],
       "relevance_score": 9,
-      "key_topics": ["topic1", "topic2"],
-      "notes": "Why this video is relevant to your use case"
+      "key_topics": [
+        "topic1",
+        "topic2"
+      ],
+      "notes": "Why this video is relevant to your use case",
+      "status": "categorized",
+      "auto_detected": false,
+      "needs_review": false,
+      "last_checked": "2025-10-22"
     }
   ],
-  "last_updated": "2024-01-01",
+  "last_updated": "2025-10-22",
   "total_videos": 1,
   "channel_url": "https://www.youtube.com/@AdamSeekerOfficial"
 }

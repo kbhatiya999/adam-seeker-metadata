@@ -67,21 +67,52 @@ class VideoListUpdater:
             raise
     
     def get_channel_id_from_url(self, channel_url: str) -> Optional[str]:
-        """Extract channel ID from YouTube channel URL"""
-        try:
-            with yt_dlp.YoutubeDL({'quiet': True}) as ydl:
-                info = ydl.extract_info(channel_url, download=False)
-                return info.get('channel_id')
-        except Exception as e:
-            logger.error(f"Error extracting channel ID: {e}")
-            return None
+        """Extract channel ID from YouTube channel URL using API or yt-dlp"""
+        if self.api_key:
+            # Use YouTube API to get channel ID
+            try:
+                # Extract channel handle from URL
+                if '@' in channel_url:
+                    channel_handle = channel_url.split('@')[-1]
+                    search_url = f"{self.youtube_api_base}/search"
+                    params = {
+                        'part': 'snippet',
+                        'q': channel_handle,
+                        'type': 'channel',
+                        'key': self.api_key
+                    }
+                    
+                    response = requests.get(search_url, params=params)
+                    response.raise_for_status()
+                    
+                    data = response.json()
+                    for item in data.get('items', []):
+                        if item['snippet']['title'].lower() == 'adam seeker official':
+                            channel_id = item['id']['channelId']
+                            logger.info(f"Found channel ID: {channel_id}")
+                            return channel_id
+                    
+                    # If exact match not found, return first result
+                    if data.get('items'):
+                        channel_id = data['items'][0]['id']['channelId']
+                        logger.info(f"Using first result channel ID: {channel_id}")
+                        return channel_id
+                        
+            except Exception as e:
+                logger.error(f"Error getting channel ID from API: {e}")
+                return None
+        else:
+            # Fallback to yt-dlp
+            try:
+                with yt_dlp.YoutubeDL({'quiet': True}) as ydl:
+                    info = ydl.extract_info(channel_url, download=False)
+                    return info.get('channel_id')
+            except Exception as e:
+                logger.error(f"Error extracting channel ID with yt-dlp: {e}")
+                return None
     
     def fetch_videos_youtube_api(self, channel_id: str, max_results: int = 50) -> List[Dict]:
         """Fetch videos using YouTube Data API v3"""
-        if not self.api_key:
-            logger.warning("No API key provided, falling back to yt-dlp")
-            return self.fetch_videos_ytdlp()
-        
         try:
             # Get uploads playlist
             uploads_url = f"{self.youtube_api_base}/channels"
@@ -135,7 +166,7 @@ class VideoListUpdater:
             
         except Exception as e:
             logger.error(f"Error fetching videos from YouTube API: {e}")
-            return self.fetch_videos_ytdlp()
+            return []
     
     def fetch_videos_ytdlp(self) -> List[Dict]:
         """Fetch videos using yt-dlp as fallback"""
@@ -189,7 +220,7 @@ class VideoListUpdater:
         channel_id = self.get_channel_id_from_url(self.channel_url)
         if not channel_id:
             logger.error("Could not extract channel ID")
-            return master_data
+            return {"new_videos": [], "total_videos": len(master_data.get('videos', [])), "updated": False}
         
         # Fetch new videos
         if self.api_key:
