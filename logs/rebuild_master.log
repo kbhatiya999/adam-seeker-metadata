@@ -17,3 +17,22 @@
 2025-10-22 19:48:13,448 - INFO - 📊 Total videos: 41
 2025-10-22 19:48:13,448 - INFO - 🔄 Preserved manual data: True
 2025-10-22 19:48:13,448 - INFO - 📦 Backup available: data/videos_master.json.backup_20251022_194812
+2025-10-23 01:33:03,802 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2025-10-23 01:33:03,803 - INFO - 📦 Created backup: data/videos_master.json.backup_20251023_013303
+2025-10-23 01:33:03,803 - INFO - 🚀 Starting COMPLETE master list rebuild...
+2025-10-23 01:33:03,803 - INFO - 📊 Found 41 existing videos to preserve data from
+2025-10-23 01:33:03,803 - INFO - 🔑 Using YouTube Data API to get channel ID
+2025-10-23 01:33:04,046 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-10-23 01:33:04,048 - INFO - 🔑 Using YouTube Data API for complete video discovery
+2025-10-23 01:33:04,048 - INFO - 🔑 Fetching ALL videos using YouTube Data API v3
+2025-10-23 01:33:04,133 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-10-23 01:33:04,133 - INFO - 📄 Fetching page 1...
+2025-10-23 01:33:04,307 - INFO - 📄 No more pages available
+2025-10-23 01:33:04,307 - INFO - ✅ Successfully fetched 41 videos from YouTube Data API
+2025-10-23 01:33:04,308 - INFO - 🔄 Preserving manual categorizations from old videos...
+2025-10-23 01:33:04,308 - INFO - ✅ Preserved manual data for 0 videos
+2025-10-23 01:33:04,309 - INFO - ✅ Successfully rebuilt master list with 41 videos
+2025-10-23 01:33:04,309 - INFO - 🎉 Rebuild completed successfully!
+2025-10-23 01:33:04,309 - INFO - 📊 Total videos: 41
+2025-10-23 01:33:04,309 - INFO - 🔄 Preserved manual data: True
+2025-10-23 01:33:04,309 - INFO - 📦 Backup available: data/videos_master.json.backup_20251023_013303
