@@ -1,0 +1,129 @@
+2025-10-25 05:52:55,185 - INFO - 🚀 Starting configuration validation tests...
+2025-10-25 05:52:55,185 - INFO - 
+==================================================
+2025-10-25 05:52:55,185 - INFO - Running test: Configuration Loading
+2025-10-25 05:52:55,185 - INFO - ==================================================
+2025-10-25 05:52:55,185 - INFO - 🔍 Validating configuration...
+2025-10-25 05:52:55,185 - INFO - Loading configuration from config.env
+2025-10-25 05:52:55,185 - WARNING - Cookies file specified but not found: ./cookies.txt
+2025-10-25 05:52:55,185 - INFO - Configuration validation passed
+2025-10-25 05:52:55,185 - INFO - Configuration loaded successfully
+2025-10-25 05:52:55,185 - INFO - ✅ Configuration loaded successfully
+2025-10-25 05:52:55,185 - INFO - ✅ Configuration Loading test passed
+2025-10-25 05:52:55,185 - INFO - 
+==================================================
+2025-10-25 05:52:55,185 - INFO - Running test: File Permissions
+2025-10-25 05:52:55,185 - INFO - ==================================================
+2025-10-25 05:52:55,185 - INFO - 🔍 Testing file permissions...
+2025-10-25 05:52:55,185 - INFO - ✅ Write permissions test passed
+2025-10-25 05:52:55,185 - INFO - ✅ File Permissions test passed
+2025-10-25 05:52:55,185 - INFO - 
+==================================================
+2025-10-25 05:52:55,185 - INFO - Running test: Video Fetcher
+2025-10-25 05:52:55,185 - INFO - ==================================================
+2025-10-25 05:52:55,185 - INFO - 🔍 Testing video fetcher...
+2025-10-25 05:52:55,185 - INFO - Initialized YouTube Data API fetcher
+2025-10-25 05:52:55,186 - INFO - ✅ Video fetcher created successfully (youtube_api)
+2025-10-25 05:52:55,186 - INFO - 🔍 Testing channel ID extraction...
+2025-10-25 05:52:55,186 - INFO - 🔑 Getting channel ID using YouTube Data API
+2025-10-25 05:52:55,247 - ERROR - ❌ Error getting channel ID from API: 400 Client Error: Bad Request for url: https://www.googleapis.com/youtube/v3/search?part=snippet&q=AdamSeekerOfficial&type=channel&key=your_api_key_here
+2025-10-25 05:52:55,247 - ERROR - ❌ Video fetcher test failed: Failed to get channel ID using YouTube API: 400 Client Error: Bad Request for url: https://www.googleapis.com/youtube/v3/search?part=snippet&q=AdamSeekerOfficial&type=channel&key=your_api_key_here
+2025-10-25 05:52:55,247 - ERROR - ❌ Video Fetcher test failed
+2025-10-25 05:52:55,248 - INFO - 
+==================================================
+2025-10-25 05:52:55,248 - INFO - Running test: Transcript Downloader
+2025-10-25 05:52:55,248 - INFO - ==================================================
+2025-10-25 05:52:55,248 - INFO - 🔍 Testing transcript downloader...
+2025-10-25 05:52:55,248 - WARNING - Cookies file specified but not found: ./cookies.txt
+2025-10-25 05:52:55,248 - INFO - Initialized yt-dlp transcript downloader
+2025-10-25 05:52:55,248 - INFO - Using cookies file: ./cookies.txt
+2025-10-25 05:52:55,248 - INFO - ✅ Transcript downloader created successfully (ytdlp)
+2025-10-25 05:52:55,248 - INFO - 🔍 Testing transcript availability check for dQw4w9WgXcQ...
+2025-10-25 05:52:55,248 - INFO - 🔍 Checking transcript availability for dQw4w9WgXcQ using yt-dlp
+2025-10-25 05:52:55,527 - ERROR - ❌ Error checking transcript availability with yt-dlp: ERROR: could not find chrome cookies database in "/home/ubuntu/.config/google-chrome"
+2025-10-25 05:52:55,527 - INFO - ℹ️ No transcript available for test video (this is normal)
+2025-10-25 05:52:55,527 - INFO - ✅ Transcript Downloader test passed
+2025-10-25 05:53:09,098 - INFO - 🚀 Starting configuration validation tests...
+2025-10-25 05:53:09,098 - INFO - 
+==================================================
+2025-10-25 05:53:09,098 - INFO - Running test: Configuration Loading
+2025-10-25 05:53:09,098 - INFO - ==================================================
+2025-10-25 05:53:09,098 - INFO - 🔍 Validating configuration...
+2025-10-25 05:53:09,098 - INFO - Loading configuration from config.env
+2025-10-25 05:53:09,098 - INFO - Configuration validation passed
+2025-10-25 05:53:09,098 - INFO - Configuration loaded successfully
+2025-10-25 05:53:09,098 - INFO - ✅ Configuration loaded successfully
+2025-10-25 05:53:09,098 - INFO - ✅ Configuration Loading test passed
+2025-10-25 05:53:09,099 - INFO - 
+==================================================
+2025-10-25 05:53:09,099 - INFO - Running test: File Permissions
+2025-10-25 05:53:09,099 - INFO - ==================================================
+2025-10-25 05:53:09,099 - INFO - 🔍 Testing file permissions...
+2025-10-25 05:53:09,099 - INFO - ✅ Write permissions test passed
+2025-10-25 05:53:09,099 - INFO - ✅ File Permissions test passed
+2025-10-25 05:53:09,099 - INFO - 
+==================================================
+2025-10-25 05:53:09,099 - INFO - Running test: Video Fetcher
+2025-10-25 05:53:09,099 - INFO - ==================================================
+2025-10-25 05:53:09,099 - INFO - 🔍 Testing video fetcher...
+2025-10-25 05:53:09,099 - INFO - Initialized yt-dlp fetcher
+2025-10-25 05:53:09,099 - INFO - ✅ Video fetcher created successfully (ytdlp)
+2025-10-25 05:53:09,099 - INFO - 🔍 Testing channel ID extraction...
+2025-10-25 05:53:09,099 - INFO - 🔄 Getting channel ID using yt-dlp
+2025-10-25 05:53:11,168 - ERROR - ❌ Error extracting channel ID with yt-dlp: ERROR: [youtube] VVff7NBz1fk: Sign in to confirm you’re not a bot. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies
+2025-10-25 05:53:11,168 - ERROR - ❌ Video fetcher test failed: Failed to get channel ID using yt-dlp: ERROR: [youtube] VVff7NBz1fk: Sign in to confirm you’re not a bot. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies
+2025-10-25 05:53:11,169 - ERROR - ❌ Video Fetcher test failed
+2025-10-25 05:53:11,169 - INFO - 
+==================================================
+2025-10-25 05:53:11,169 - INFO - Running test: Transcript Downloader
+2025-10-25 05:53:11,169 - INFO - ==================================================
+2025-10-25 05:53:11,169 - INFO - 🔍 Testing transcript downloader...
+2025-10-25 05:53:11,169 - INFO - Initialized yt-dlp transcript downloader
+2025-10-25 05:53:11,169 - INFO - ✅ Transcript downloader created successfully (ytdlp)
+2025-10-25 05:53:11,169 - INFO - 🔍 Testing transcript availability check for dQw4w9WgXcQ...
+2025-10-25 05:53:11,169 - INFO - 🔍 Checking transcript availability for dQw4w9WgXcQ using yt-dlp
+2025-10-25 05:53:14,029 - INFO - Transcript availability - Manual: True, Auto: True
+2025-10-25 05:53:14,030 - INFO - ✅ Transcript availability check successful
+2025-10-25 05:53:14,030 - INFO - ✅ Transcript Downloader test passed
+2025-10-25 06:36:49,757 - INFO - 🚀 Starting configuration validation tests...
+2025-10-25 06:36:49,757 - INFO - 
+==================================================
+2025-10-25 06:36:49,757 - INFO - Running test: Configuration Loading
+2025-10-25 06:36:49,757 - INFO - ==================================================
+2025-10-25 06:36:49,757 - INFO - 🔍 Validating configuration...
+2025-10-25 06:36:49,757 - INFO - Loading configuration from config.env
+2025-10-25 06:36:49,758 - INFO - Configuration validation passed
+2025-10-25 06:36:49,758 - INFO - Configuration loaded successfully
+2025-10-25 06:36:49,758 - INFO - ✅ Configuration loaded successfully
+2025-10-25 06:36:49,758 - INFO - ✅ Configuration Loading test passed
+2025-10-25 06:36:49,758 - INFO - 
+==================================================
+2025-10-25 06:36:49,758 - INFO - Running test: File Permissions
+2025-10-25 06:36:49,758 - INFO - ==================================================
+2025-10-25 06:36:49,758 - INFO - 🔍 Testing file permissions...
+2025-10-25 06:36:49,758 - INFO - ✅ Write permissions test passed
+2025-10-25 06:36:49,758 - INFO - ✅ File Permissions test passed
+2025-10-25 06:36:49,758 - INFO - 
+==================================================
+2025-10-25 06:36:49,758 - INFO - Running test: Video Fetcher
+2025-10-25 06:36:49,758 - INFO - ==================================================
+2025-10-25 06:36:49,758 - INFO - 🔍 Testing video fetcher...
+2025-10-25 06:36:49,758 - INFO - Initialized yt-dlp fetcher
+2025-10-25 06:36:49,758 - INFO - ✅ Video fetcher created successfully (ytdlp)
+2025-10-25 06:36:49,758 - INFO - 🔍 Testing channel ID extraction...
+2025-10-25 06:36:49,758 - INFO - 🔄 Getting channel ID using yt-dlp
+2025-10-25 06:36:51,762 - ERROR - ❌ Error extracting channel ID with yt-dlp: ERROR: [youtube] VVff7NBz1fk: Sign in to confirm you’re not a bot. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies
+2025-10-25 06:36:51,762 - ERROR - ❌ Video fetcher test failed: Failed to get channel ID using yt-dlp: ERROR: [youtube] VVff7NBz1fk: Sign in to confirm you’re not a bot. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies
+2025-10-25 06:36:51,763 - ERROR - ❌ Video Fetcher test failed
+2025-10-25 06:36:51,763 - INFO - 
+==================================================
+2025-10-25 06:36:51,763 - INFO - Running test: Transcript Downloader
+2025-10-25 06:36:51,763 - INFO - ==================================================
+2025-10-25 06:36:51,763 - INFO - 🔍 Testing transcript downloader...
+2025-10-25 06:36:51,763 - INFO - Initialized yt-dlp transcript downloader
+2025-10-25 06:36:51,763 - INFO - ✅ Transcript downloader created successfully (ytdlp)
+2025-10-25 06:36:51,763 - INFO - 🔍 Testing transcript availability check for dQw4w9WgXcQ...
+2025-10-25 06:36:51,763 - INFO - 🔍 Checking transcript availability for dQw4w9WgXcQ using yt-dlp
+2025-10-25 06:36:54,026 - INFO - Transcript availability - Manual: True, Auto: True
+2025-10-25 06:36:54,027 - INFO - ✅ Transcript availability check successful
+2025-10-25 06:36:54,027 - INFO - ✅ Transcript Downloader test passed

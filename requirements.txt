@@ -1,3 +1,4 @@
 yt-dlp>=2023.12.30
 requests>=2.31.0
 python-dateutil>=2.8.2
+youtube-transcript-api>=0.6.1
