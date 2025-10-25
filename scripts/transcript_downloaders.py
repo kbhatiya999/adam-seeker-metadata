@@ -146,9 +146,20 @@ class YouTubeTranscriptAPIDownloader(TranscriptDownloader):
         # Try to import youtube_transcript_api
         try:
             from youtube_transcript_api import YouTubeTranscriptApi
-            from youtube_transcript_api.formatters import VTTFormatter
-            self.YouTubeTranscriptApi = YouTubeTranscriptApi
-            self.VTTFormatter = VTTFormatter
+            from youtube_transcript_api.formatters import WebVTTFormatter
+            from youtube_transcript_api.proxies import WebshareProxyConfig
+            
+            # Create API instance with proxy if configured
+            if self.proxy_username and self.proxy_password:
+                proxy_config = WebshareProxyConfig(
+                    proxy_username=self.proxy_username,
+                    proxy_password=self.proxy_password
+                )
+                self.YouTubeTranscriptApi = YouTubeTranscriptApi(proxy_config=proxy_config)
+            else:
+                self.YouTubeTranscriptApi = YouTubeTranscriptApi()
+            
+            self.VTTFormatter = WebVTTFormatter
         except ImportError:
             raise ImportError("youtube-transcript-api is required for this method. Install with: pip install youtube-transcript-api")
         
@@ -163,21 +174,8 @@ class YouTubeTranscriptAPIDownloader(TranscriptDownloader):
         logger.info(f"🔍 Checking transcript availability for {video_id} using YouTube Transcript API")
         
         try:
-            # Set up proxy if specified
-            if self.proxy:
-                import os
-                os.environ['HTTP_PROXY'] = self.proxy
-                os.environ['HTTPS_PROXY'] = self.proxy
-            elif self.proxy_username and self.proxy_password:
-                # Use Webshare proxy configuration
-                from youtube_transcript_api.proxies import WebshareProxyConfig
-                proxy_config = WebshareProxyConfig(
-                    proxy_username=self.proxy_username,
-                    proxy_password=self.proxy_password
-                )
-                transcript_list = self.YouTubeTranscriptApi.list_transcripts(video_id, proxy_config=proxy_config)
-            else:
-                transcript_list = self.YouTubeTranscriptApi.list_transcripts(video_id)
+            # Use the configured API instance (proxy already set in constructor)
+            transcript_list = self.YouTubeTranscriptApi.list(video_id)
             
             # Check if any transcripts are available
             has_transcripts = False
@@ -197,22 +195,8 @@ class YouTubeTranscriptAPIDownloader(TranscriptDownloader):
         logger.info(f"📥 Downloading transcript for {video_id} using YouTube Transcript API")
         
         try:
-            # Set up proxy if specified
-            if self.proxy:
-                import os
-                os.environ['HTTP_PROXY'] = self.proxy
-                os.environ['HTTPS_PROXY'] = self.proxy
-                transcript_list = self.YouTubeTranscriptApi.list_transcripts(video_id)
-            elif self.proxy_username and self.proxy_password:
-                # Use Webshare proxy configuration
-                from youtube_transcript_api.proxies import WebshareProxyConfig
-                proxy_config = WebshareProxyConfig(
-                    proxy_username=self.proxy_username,
-                    proxy_password=self.proxy_password
-                )
-                transcript_list = self.YouTubeTranscriptApi.list_transcripts(video_id, proxy_config=proxy_config)
-            else:
-                transcript_list = self.YouTubeTranscriptApi.list_transcripts(video_id)
+            # Use the configured API instance (proxy already set in constructor)
+            transcript_list = self.YouTubeTranscriptApi.list(video_id)
             
             # Try to get English transcript first, then any available
             transcript = None

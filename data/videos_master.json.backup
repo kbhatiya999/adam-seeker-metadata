@@ -1,33 +1,6 @@
 {
   "videos": [
     {
-      "video_id": "EXAMPLE_VIDEO_ID",
-      "title": "Example Video Title",
-      "url": "https://www.youtube.com/watch?v=EXAMPLE_VIDEO_ID",
-      "upload_date": "2024-01-01",
-      "duration": "15:30",
-      "description": "Video description",
-      "tags": [
-        "islam",
-        "critique",
-        "theology"
-      ],
-      "transcript_file": "transcripts/EXAMPLE_VIDEO_ID.txt",
-      "categories": [
-        "critique-of-islam"
-      ],
-      "relevance_score": 9,
-      "key_topics": [
-        "topic1",
-        "topic2"
-      ],
-      "notes": "Why this video is relevant to your use case",
-      "status": "categorized",
-      "auto_detected": false,
-      "needs_review": false,
-      "last_checked": "2025-10-22"
-    },
-    {
       "video_id": "pQ6kScnKPgA",
       "title": "I am accepting Islam, if... मैं इस्लाम स्वीकार कर रहा हूँ, अगर...",
       "url": "https://www.youtube.com/watch?v=pQ6kScnKPgA",
@@ -36,7 +9,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "A0Wba3_wtJk",
@@ -47,7 +20,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "6nvRaMn-jsw",
@@ -58,7 +31,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "2-T2ELUFRA8",
@@ -69,7 +42,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "3NtQIE0NL7Y",
@@ -80,7 +53,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "6eanhTQ2SR8",
@@ -91,7 +64,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "ahEvTsEhqlc",
@@ -102,7 +75,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "wL52YMGMUeM",
@@ -113,7 +86,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "g_T4OWfzmP4",
@@ -124,7 +97,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "xT6m7Vla58w",
@@ -135,7 +108,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "cDn8OwCD8jM",
@@ -146,7 +119,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "aTvlu6S_2f8",
@@ -157,7 +130,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "lxx7fEGh2QA",
@@ -168,7 +141,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "Bz6Fl9UwNiI",
@@ -179,7 +152,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "BB6cTaofcUc",
@@ -190,7 +163,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "NMoYjqdR51o",
@@ -201,7 +174,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "Uhn9sDUEE38",
@@ -212,7 +185,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "AV8e2_Dzr5Q",
@@ -223,7 +196,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "oaZ3RcriCDY",
@@ -234,7 +207,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "pZYFI2CDFCk",
@@ -245,7 +218,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "L9ti8x6iGRo",
@@ -256,7 +229,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "zTa71MObS6w",
@@ -267,7 +240,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "u6EUnrxnDrU",
@@ -278,7 +251,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "rsN90BeJl3s",
@@ -289,7 +262,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "3R0z5s6_a-0",
@@ -300,7 +273,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "W4utWbP2unA",
@@ -311,7 +284,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "qpR29w5UJD0",
@@ -322,7 +295,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "Kse-LD7n4k0",
@@ -333,7 +306,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "WeBl6oaknpY",
@@ -344,7 +317,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "Zj4ZL0abgBs",
@@ -355,7 +328,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "tOnZ3OKBBFw",
@@ -366,7 +339,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "fAwlSRm1PN4",
@@ -377,7 +350,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "KvhaWdjXH9g",
@@ -388,7 +361,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "0rOZrT7Ar8s",
@@ -399,7 +372,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "QAKqfeSIcsA",
@@ -410,7 +383,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "UF4pWwhkEr4",
@@ -421,7 +394,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "Ef6S5J3KYg0",
@@ -432,7 +405,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "GgukoFsRLdU",
@@ -443,7 +416,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "lt_U_4xmbVE",
@@ -454,7 +427,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "hOzAfAkrkus",
@@ -465,7 +438,7 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
     },
     {
       "video_id": "OuqVu0CZ7-E",
@@ -476,10 +449,23 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2025-10-22"
+      "last_checked": "2025-10-23"
+    },
+    {
+      "video_id": "EJrDHdCNLOw",
+      "title": "Tawhid demolished by AI in 10 mins",
+      "url": "https://www.youtube.com/watch?v=EJrDHdCNLOw",
+      "upload_date": "2025-10-24",
+      "description": "if you like my videos and would like to support me, following is the patreon link\nhttps://www.patreon.com/adamseeker\n\nJoin this channel to get access to perks:\nhttps://www.youtube.com/channel/UCLXC98YXDDPoaVEQsWPg4ow/join\n\nInstagram Adam Seeker\nhttps://www.instagram.com/adamseekeroftruth/\n\nTwitter Adam Seeker\nhttps://twitter.com/@AdamSeekerUrdu\n\nTo contact me, please join my discord Server: \nhttps://discord.gg/KkDtkEVwbY\n\nMy Channels\nhttps://www.youtube.com/@adamseekerhindi (Urdu/Hindi/English M",
+      "status": "uncategorized",
+      "auto_detected": true,
+      "needs_review": true,
+      "last_checked": "2025-10-24"
     }
   ],
-  "last_updated": "2025-10-22",
+  "last_updated": "2025-10-24",
   "total_videos": 42,
-  "channel_url": "https://www.youtube.com/@AdamSeekerOfficial"
+  "channel_url": "https://www.youtube.com/@AdamSeekerOfficial",
+  "rebuild_date": "2025-10-23",
+  "rebuild_reason": "Complete rebuild from scratch"
 }

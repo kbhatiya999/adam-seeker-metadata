@@ -107,3 +107,25 @@
 2025-10-24 06:02:49,051 - INFO - ✅ Successfully added 1 new videos
 2025-10-24 06:02:49,051 - INFO - 📊 Total videos in master list: 42
 2025-10-24 06:02:49,051 - INFO - 🆕 New: Tawhid demolished by AI in 10 mins (2025-10-24)
+2025-10-25 06:48:49,490 - INFO - Loading configuration from config.env
+2025-10-25 06:48:49,491 - INFO - Configuration validation passed
+2025-10-25 06:48:49,491 - INFO - Configuration loaded successfully
+2025-10-25 06:48:49,491 - INFO - Initialized YouTube Data API fetcher
+2025-10-25 06:48:49,491 - INFO - Initialized yt-dlp transcript downloader
+2025-10-25 06:48:49,491 - INFO - Initialized with master method: youtube_api
+2025-10-25 06:48:49,491 - INFO - Initialized with transcript method: ytdlp
+2025-10-25 06:48:49,491 - INFO - 🚀 Starting configurable video list update...
+2025-10-25 06:48:49,491 - INFO - 📊 Current master list has 42 existing videos
+2025-10-25 06:48:49,491 - INFO - 🚀 Fetching videos using youtube_api method
+2025-10-25 06:48:49,491 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 10)
+2025-10-25 06:48:49,491 - INFO - 🔑 Getting channel ID using YouTube Data API
+2025-10-25 06:48:49,700 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-10-25 06:48:49,782 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-10-25 06:48:49,903 - INFO - ✅ Successfully fetched videos using YouTube Data API
+2025-10-25 06:48:49,904 - INFO - ✅ Successfully fetched 10 videos
+2025-10-25 06:48:49,904 - INFO - 🔍 Found 2 new videos (filtered from 10 total)
+2025-10-25 06:48:49,905 - INFO - Master list updated successfully
+2025-10-25 06:48:49,905 - INFO - ✅ Successfully added 2 new videos
+2025-10-25 06:48:49,905 - INFO - 📊 Total videos in master list: 44
+2025-10-25 06:48:49,905 - INFO - 🆕 New: Wife beating in Islam, Allowed or Not? इस्लाम में पत्नी को मारना, जायज़ है या नहीं? (2025-10-25)
+2025-10-25 06:48:49,905 - INFO - 🆕 New: Extremism and extremist behavior discussion with AI (2025-10-24)

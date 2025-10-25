@@ -127,3 +127,287 @@
 2025-10-25 06:36:54,026 - INFO - Transcript availability - Manual: True, Auto: True
 2025-10-25 06:36:54,027 - INFO - ✅ Transcript availability check successful
 2025-10-25 06:36:54,027 - INFO - ✅ Transcript Downloader test passed
+2025-10-25 06:48:30,163 - INFO - 🚀 Starting configuration validation tests...
+2025-10-25 06:48:30,163 - INFO - 
+==================================================
+2025-10-25 06:48:30,163 - INFO - Running test: Configuration Loading
+2025-10-25 06:48:30,163 - INFO - ==================================================
+2025-10-25 06:48:30,163 - INFO - 🔍 Validating configuration...
+2025-10-25 06:48:30,163 - INFO - Loading configuration from config.env
+2025-10-25 06:48:30,163 - INFO - Configuration validation passed
+2025-10-25 06:48:30,163 - INFO - Configuration loaded successfully
+2025-10-25 06:48:30,163 - INFO - ✅ Configuration loaded successfully
+2025-10-25 06:48:30,163 - INFO - ✅ Configuration Loading test passed
+2025-10-25 06:48:30,163 - INFO - 
+==================================================
+2025-10-25 06:48:30,163 - INFO - Running test: File Permissions
+2025-10-25 06:48:30,163 - INFO - ==================================================
+2025-10-25 06:48:30,163 - INFO - 🔍 Testing file permissions...
+2025-10-25 06:48:30,163 - INFO - ✅ Write permissions test passed
+2025-10-25 06:48:30,163 - INFO - ✅ File Permissions test passed
+2025-10-25 06:48:30,163 - INFO - 
+==================================================
+2025-10-25 06:48:30,163 - INFO - Running test: Video Fetcher
+2025-10-25 06:48:30,163 - INFO - ==================================================
+2025-10-25 06:48:30,163 - INFO - 🔍 Testing video fetcher...
+2025-10-25 06:48:30,163 - INFO - Initialized YouTube Data API fetcher
+2025-10-25 06:48:30,163 - INFO - ✅ Video fetcher created successfully (youtube_api)
+2025-10-25 06:48:30,163 - INFO - 🔍 Testing channel ID extraction...
+2025-10-25 06:48:30,163 - INFO - 🔑 Getting channel ID using YouTube Data API
+2025-10-25 06:48:30,381 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-10-25 06:48:30,381 - INFO - ✅ Channel ID extracted successfully: UCLXC98YXDDPoaVEQsWPg4ow
+2025-10-25 06:48:30,381 - INFO - 🔍 Testing video fetching (limited to 5 videos)...
+2025-10-25 06:48:30,382 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 5)
+2025-10-25 06:48:30,382 - INFO - 🔑 Getting channel ID using YouTube Data API
+2025-10-25 06:48:30,713 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-10-25 06:48:30,876 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-10-25 06:48:31,003 - INFO - ✅ Successfully fetched videos using YouTube Data API
+2025-10-25 06:48:31,003 - INFO - ✅ Successfully fetched 5 test videos
+2025-10-25 06:48:31,003 - INFO - Sample video: Wife beating in Islam, Allowed or Not? इस्लाम में ...
+2025-10-25 06:48:31,004 - INFO - ✅ Video Fetcher test passed
+2025-10-25 06:48:31,004 - INFO - 
+==================================================
+2025-10-25 06:48:31,004 - INFO - Running test: Transcript Downloader
+2025-10-25 06:48:31,004 - INFO - ==================================================
+2025-10-25 06:48:31,004 - INFO - 🔍 Testing transcript downloader...
+2025-10-25 06:48:31,004 - INFO - Initialized yt-dlp transcript downloader
+2025-10-25 06:48:31,004 - INFO - ✅ Transcript downloader created successfully (ytdlp)
+2025-10-25 06:48:31,004 - INFO - 🔍 Testing transcript availability check for dQw4w9WgXcQ...
+2025-10-25 06:48:31,004 - INFO - 🔍 Checking transcript availability for dQw4w9WgXcQ using yt-dlp
+2025-10-25 06:48:34,466 - INFO - Transcript availability - Manual: True, Auto: True
+2025-10-25 06:48:34,468 - INFO - ✅ Transcript availability check successful
+2025-10-25 06:48:34,468 - INFO - ✅ Transcript Downloader test passed
+2025-10-25 06:49:24,037 - INFO - 🚀 Starting configuration validation tests...
+2025-10-25 06:49:24,037 - INFO - 
+==================================================
+2025-10-25 06:49:24,037 - INFO - Running test: Configuration Loading
+2025-10-25 06:49:24,037 - INFO - ==================================================
+2025-10-25 06:49:24,037 - INFO - 🔍 Validating configuration...
+2025-10-25 06:49:24,037 - INFO - Loading configuration from config.env
+2025-10-25 06:49:24,037 - INFO - Configuration validation passed
+2025-10-25 06:49:24,037 - INFO - Configuration loaded successfully
+2025-10-25 06:49:24,037 - INFO - ✅ Configuration loaded successfully
+2025-10-25 06:49:24,037 - INFO - ✅ Configuration Loading test passed
+2025-10-25 06:49:24,037 - INFO - 
+==================================================
+2025-10-25 06:49:24,037 - INFO - Running test: File Permissions
+2025-10-25 06:49:24,037 - INFO - ==================================================
+2025-10-25 06:49:24,037 - INFO - 🔍 Testing file permissions...
+2025-10-25 06:49:24,037 - INFO - ✅ Write permissions test passed
+2025-10-25 06:49:24,037 - INFO - ✅ File Permissions test passed
+2025-10-25 06:49:24,037 - INFO - 
+==================================================
+2025-10-25 06:49:24,037 - INFO - Running test: Video Fetcher
+2025-10-25 06:49:24,037 - INFO - ==================================================
+2025-10-25 06:49:24,037 - INFO - 🔍 Testing video fetcher...
+2025-10-25 06:49:24,037 - INFO - Initialized YouTube Data API fetcher
+2025-10-25 06:49:24,037 - INFO - ✅ Video fetcher created successfully (youtube_api)
+2025-10-25 06:49:24,037 - INFO - 🔍 Testing channel ID extraction...
+2025-10-25 06:49:24,037 - INFO - 🔑 Getting channel ID using YouTube Data API
+2025-10-25 06:49:24,317 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-10-25 06:49:24,317 - INFO - ✅ Channel ID extracted successfully: UCLXC98YXDDPoaVEQsWPg4ow
+2025-10-25 06:49:24,317 - INFO - 🔍 Testing video fetching (limited to 5 videos)...
+2025-10-25 06:49:24,317 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 5)
+2025-10-25 06:49:24,318 - INFO - 🔑 Getting channel ID using YouTube Data API
+2025-10-25 06:49:24,618 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-10-25 06:49:24,786 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-10-25 06:49:24,917 - INFO - ✅ Successfully fetched videos using YouTube Data API
+2025-10-25 06:49:24,918 - INFO - ✅ Successfully fetched 5 test videos
+2025-10-25 06:49:24,918 - INFO - Sample video: Wife beating in Islam, Allowed or Not? इस्लाम में ...
+2025-10-25 06:49:24,918 - INFO - ✅ Video Fetcher test passed
+2025-10-25 06:49:24,918 - INFO - 
+==================================================
+2025-10-25 06:49:24,918 - INFO - Running test: Transcript Downloader
+2025-10-25 06:49:24,918 - INFO - ==================================================
+2025-10-25 06:49:24,918 - INFO - 🔍 Testing transcript downloader...
+2025-10-25 06:49:24,923 - ERROR - ❌ Transcript downloader test failed: youtube-transcript-api is required for this method. Install with: pip install youtube-transcript-api
+2025-10-25 06:49:24,923 - ERROR - ❌ Transcript Downloader test failed
+2025-10-25 06:49:33,385 - INFO - 🚀 Starting configuration validation tests...
+2025-10-25 06:49:33,385 - INFO - 
+==================================================
+2025-10-25 06:49:33,385 - INFO - Running test: Configuration Loading
+2025-10-25 06:49:33,385 - INFO - ==================================================
+2025-10-25 06:49:33,385 - INFO - 🔍 Validating configuration...
+2025-10-25 06:49:33,385 - INFO - Loading configuration from config.env
+2025-10-25 06:49:33,385 - INFO - Configuration validation passed
+2025-10-25 06:49:33,385 - INFO - Configuration loaded successfully
+2025-10-25 06:49:33,385 - INFO - ✅ Configuration loaded successfully
+2025-10-25 06:49:33,385 - INFO - ✅ Configuration Loading test passed
+2025-10-25 06:49:33,385 - INFO - 
+==================================================
+2025-10-25 06:49:33,385 - INFO - Running test: File Permissions
+2025-10-25 06:49:33,385 - INFO - ==================================================
+2025-10-25 06:49:33,385 - INFO - 🔍 Testing file permissions...
+2025-10-25 06:49:33,385 - INFO - ✅ Write permissions test passed
+2025-10-25 06:49:33,385 - INFO - ✅ File Permissions test passed
+2025-10-25 06:49:33,385 - INFO - 
+==================================================
+2025-10-25 06:49:33,385 - INFO - Running test: Video Fetcher
+2025-10-25 06:49:33,385 - INFO - ==================================================
+2025-10-25 06:49:33,385 - INFO - 🔍 Testing video fetcher...
+2025-10-25 06:49:33,385 - INFO - Initialized YouTube Data API fetcher
+2025-10-25 06:49:33,385 - INFO - ✅ Video fetcher created successfully (youtube_api)
+2025-10-25 06:49:33,385 - INFO - 🔍 Testing channel ID extraction...
+2025-10-25 06:49:33,385 - INFO - 🔑 Getting channel ID using YouTube Data API
+2025-10-25 06:49:33,750 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-10-25 06:49:33,751 - INFO - ✅ Channel ID extracted successfully: UCLXC98YXDDPoaVEQsWPg4ow
+2025-10-25 06:49:33,751 - INFO - 🔍 Testing video fetching (limited to 5 videos)...
+2025-10-25 06:49:33,751 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 5)
+2025-10-25 06:49:33,751 - INFO - 🔑 Getting channel ID using YouTube Data API
+2025-10-25 06:49:33,950 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-10-25 06:49:34,122 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-10-25 06:49:34,231 - INFO - ✅ Successfully fetched videos using YouTube Data API
+2025-10-25 06:49:34,231 - INFO - ✅ Successfully fetched 5 test videos
+2025-10-25 06:49:34,232 - INFO - Sample video: Wife beating in Islam, Allowed or Not? इस्लाम में ...
+2025-10-25 06:49:34,232 - INFO - ✅ Video Fetcher test passed
+2025-10-25 06:49:34,232 - INFO - 
+==================================================
+2025-10-25 06:49:34,232 - INFO - Running test: Transcript Downloader
+2025-10-25 06:49:34,232 - INFO - ==================================================
+2025-10-25 06:49:34,232 - INFO - 🔍 Testing transcript downloader...
+2025-10-25 06:49:34,236 - ERROR - ❌ Transcript downloader test failed: youtube-transcript-api is required for this method. Install with: pip install youtube-transcript-api
+2025-10-25 06:49:34,236 - ERROR - ❌ Transcript Downloader test failed
+2025-10-25 06:54:30,414 - INFO - 🚀 Starting configuration validation tests...
+2025-10-25 06:54:30,414 - INFO - 
+==================================================
+2025-10-25 06:54:30,414 - INFO - Running test: Configuration Loading
+2025-10-25 06:54:30,414 - INFO - ==================================================
+2025-10-25 06:54:30,414 - INFO - 🔍 Validating configuration...
+2025-10-25 06:54:30,414 - INFO - Loading configuration from config.env
+2025-10-25 06:54:30,414 - INFO - Configuration validation passed
+2025-10-25 06:54:30,414 - INFO - Configuration loaded successfully
+2025-10-25 06:54:30,414 - INFO - ✅ Configuration loaded successfully
+2025-10-25 06:54:30,414 - INFO - ✅ Configuration Loading test passed
+2025-10-25 06:54:30,414 - INFO - 
+==================================================
+2025-10-25 06:54:30,414 - INFO - Running test: File Permissions
+2025-10-25 06:54:30,414 - INFO - ==================================================
+2025-10-25 06:54:30,414 - INFO - 🔍 Testing file permissions...
+2025-10-25 06:54:30,414 - INFO - ✅ Write permissions test passed
+2025-10-25 06:54:30,414 - INFO - ✅ File Permissions test passed
+2025-10-25 06:54:30,414 - INFO - 
+==================================================
+2025-10-25 06:54:30,414 - INFO - Running test: Video Fetcher
+2025-10-25 06:54:30,414 - INFO - ==================================================
+2025-10-25 06:54:30,414 - INFO - 🔍 Testing video fetcher...
+2025-10-25 06:54:30,415 - INFO - Initialized YouTube Data API fetcher
+2025-10-25 06:54:30,415 - INFO - ✅ Video fetcher created successfully (youtube_api)
+2025-10-25 06:54:30,415 - INFO - 🔍 Testing channel ID extraction...
+2025-10-25 06:54:30,415 - INFO - 🔑 Getting channel ID using YouTube Data API
+2025-10-25 06:54:30,769 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-10-25 06:54:30,769 - INFO - ✅ Channel ID extracted successfully: UCLXC98YXDDPoaVEQsWPg4ow
+2025-10-25 06:54:30,769 - INFO - 🔍 Testing video fetching (limited to 5 videos)...
+2025-10-25 06:54:30,769 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 5)
+2025-10-25 06:54:30,770 - INFO - 🔑 Getting channel ID using YouTube Data API
+2025-10-25 06:54:31,004 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-10-25 06:54:31,076 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-10-25 06:54:31,211 - INFO - ✅ Successfully fetched videos using YouTube Data API
+2025-10-25 06:54:31,211 - INFO - ✅ Successfully fetched 5 test videos
+2025-10-25 06:54:31,211 - INFO - Sample video: Wife beating in Islam, Allowed or Not? इस्लाम में ...
+2025-10-25 06:54:31,211 - INFO - ✅ Video Fetcher test passed
+2025-10-25 06:54:31,211 - INFO - 
+==================================================
+2025-10-25 06:54:31,211 - INFO - Running test: Transcript Downloader
+2025-10-25 06:54:31,211 - INFO - ==================================================
+2025-10-25 06:54:31,211 - INFO - 🔍 Testing transcript downloader...
+2025-10-25 06:54:31,216 - INFO - Initialized YouTube Transcript API downloader
+2025-10-25 06:54:31,216 - INFO - Using Webshare proxy: oeatrvbv@proxy.webshare.io:80
+2025-10-25 06:54:31,216 - INFO - ✅ Transcript downloader created successfully (youtube_transcript_api)
+2025-10-25 06:54:31,216 - INFO - 🔍 Testing transcript availability check for dQw4w9WgXcQ...
+2025-10-25 06:54:31,216 - INFO - 🔍 Checking transcript availability for dQw4w9WgXcQ using YouTube Transcript API
+2025-10-25 06:54:41,496 - ERROR - ❌ Error checking transcript availability with YouTube Transcript API: HTTPSConnectionPool(host='www.google.com', port=443): Max retries exceeded with url: /sorry/index?continue=https://www.youtube.com/watch%3Fv%3DdQw4w9WgXcQ&q=EgTGF--GGKjo8ccGIjA2V09PXB9ixA7kMIkv4DdZNoXE9QUTiJk3tYNU4Jve5tdThFpMDE9XAiTWLTz_VAUyAnJSWgFD (Caused by ResponseError('too many 429 error responses'))
+2025-10-25 06:54:41,502 - INFO - ℹ️ No transcript available for test video (this is normal)
+2025-10-25 06:54:41,506 - INFO - ✅ Transcript Downloader test passed
+2025-10-25 06:55:05,292 - INFO - 🚀 Starting configuration validation tests...
+2025-10-25 06:55:05,293 - INFO - 
+==================================================
+2025-10-25 06:55:05,293 - INFO - Running test: Configuration Loading
+2025-10-25 06:55:05,293 - INFO - ==================================================
+2025-10-25 06:55:05,293 - INFO - 🔍 Validating configuration...
+2025-10-25 06:55:05,293 - INFO - Loading configuration from config.env
+2025-10-25 06:55:05,293 - INFO - Configuration validation passed
+2025-10-25 06:55:05,293 - INFO - Configuration loaded successfully
+2025-10-25 06:55:05,293 - INFO - ✅ Configuration loaded successfully
+2025-10-25 06:55:05,293 - INFO - ✅ Configuration Loading test passed
+2025-10-25 06:55:05,293 - INFO - 
+==================================================
+2025-10-25 06:55:05,293 - INFO - Running test: File Permissions
+2025-10-25 06:55:05,293 - INFO - ==================================================
+2025-10-25 06:55:05,293 - INFO - 🔍 Testing file permissions...
+2025-10-25 06:55:05,293 - INFO - ✅ Write permissions test passed
+2025-10-25 06:55:05,293 - INFO - ✅ File Permissions test passed
+2025-10-25 06:55:05,293 - INFO - 
+==================================================
+2025-10-25 06:55:05,293 - INFO - Running test: Video Fetcher
+2025-10-25 06:55:05,293 - INFO - ==================================================
+2025-10-25 06:55:05,293 - INFO - 🔍 Testing video fetcher...
+2025-10-25 06:55:05,293 - INFO - Initialized YouTube Data API fetcher
+2025-10-25 06:55:05,293 - INFO - ✅ Video fetcher created successfully (youtube_api)
+2025-10-25 06:55:05,293 - INFO - 🔍 Testing channel ID extraction...
+2025-10-25 06:55:05,293 - INFO - 🔑 Getting channel ID using YouTube Data API
+2025-10-25 06:55:05,408 - ERROR - ❌ Error getting channel ID from API: 400 Client Error: Bad Request for url: https://www.googleapis.com/youtube/v3/search?part=snippet&q=AdamSeekerOfficial&type=channel&key=invalid_key_test
+2025-10-25 06:55:05,408 - ERROR - ❌ Video fetcher test failed: Failed to get channel ID using YouTube API: 400 Client Error: Bad Request for url: https://www.googleapis.com/youtube/v3/search?part=snippet&q=AdamSeekerOfficial&type=channel&key=invalid_key_test
+2025-10-25 06:55:05,409 - ERROR - ❌ Video Fetcher test failed
+2025-10-25 06:55:05,409 - INFO - 
+==================================================
+2025-10-25 06:55:05,409 - INFO - Running test: Transcript Downloader
+2025-10-25 06:55:05,409 - INFO - ==================================================
+2025-10-25 06:55:05,409 - INFO - 🔍 Testing transcript downloader...
+2025-10-25 06:55:05,414 - INFO - Initialized YouTube Transcript API downloader
+2025-10-25 06:55:05,414 - INFO - Using Webshare proxy: oeatrvbv@proxy.webshare.io:80
+2025-10-25 06:55:05,414 - INFO - ✅ Transcript downloader created successfully (youtube_transcript_api)
+2025-10-25 06:55:05,414 - INFO - 🔍 Testing transcript availability check for dQw4w9WgXcQ...
+2025-10-25 06:55:05,414 - INFO - 🔍 Checking transcript availability for dQw4w9WgXcQ using YouTube Transcript API
+2025-10-25 06:55:07,757 - INFO - Transcript availability: True
+2025-10-25 06:55:07,757 - INFO - ✅ Transcript availability check successful
+2025-10-25 06:55:07,757 - INFO - ✅ Transcript Downloader test passed
+2025-10-25 06:55:30,259 - INFO - 🚀 Starting configuration validation tests...
+2025-10-25 06:55:30,259 - INFO - 
+==================================================
+2025-10-25 06:55:30,259 - INFO - Running test: Configuration Loading
+2025-10-25 06:55:30,259 - INFO - ==================================================
+2025-10-25 06:55:30,259 - INFO - 🔍 Validating configuration...
+2025-10-25 06:55:30,259 - INFO - Loading configuration from config.env
+2025-10-25 06:55:30,259 - INFO - Configuration validation passed
+2025-10-25 06:55:30,259 - INFO - Configuration loaded successfully
+2025-10-25 06:55:30,259 - INFO - ✅ Configuration loaded successfully
+2025-10-25 06:55:30,259 - INFO - ✅ Configuration Loading test passed
+2025-10-25 06:55:30,259 - INFO - 
+==================================================
+2025-10-25 06:55:30,259 - INFO - Running test: File Permissions
+2025-10-25 06:55:30,259 - INFO - ==================================================
+2025-10-25 06:55:30,259 - INFO - 🔍 Testing file permissions...
+2025-10-25 06:55:30,259 - INFO - ✅ Write permissions test passed
+2025-10-25 06:55:30,259 - INFO - ✅ File Permissions test passed
+2025-10-25 06:55:30,259 - INFO - 
+==================================================
+2025-10-25 06:55:30,260 - INFO - Running test: Video Fetcher
+2025-10-25 06:55:30,260 - INFO - ==================================================
+2025-10-25 06:55:30,260 - INFO - 🔍 Testing video fetcher...
+2025-10-25 06:55:30,260 - INFO - Initialized YouTube Data API fetcher
+2025-10-25 06:55:30,260 - INFO - ✅ Video fetcher created successfully (youtube_api)
+2025-10-25 06:55:30,260 - INFO - 🔍 Testing channel ID extraction...
+2025-10-25 06:55:30,260 - INFO - 🔑 Getting channel ID using YouTube Data API
+2025-10-25 06:55:30,467 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-10-25 06:55:30,468 - INFO - ✅ Channel ID extracted successfully: UCLXC98YXDDPoaVEQsWPg4ow
+2025-10-25 06:55:30,468 - INFO - 🔍 Testing video fetching (limited to 5 videos)...
+2025-10-25 06:55:30,468 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 5)
+2025-10-25 06:55:30,468 - INFO - 🔑 Getting channel ID using YouTube Data API
+2025-10-25 06:55:30,670 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-10-25 06:55:30,747 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-10-25 06:55:30,841 - INFO - ✅ Successfully fetched videos using YouTube Data API
+2025-10-25 06:55:30,841 - INFO - ✅ Successfully fetched 5 test videos
+2025-10-25 06:55:30,841 - INFO - Sample video: Wife beating in Islam, Allowed or Not? इस्लाम में ...
+2025-10-25 06:55:30,841 - INFO - ✅ Video Fetcher test passed
+2025-10-25 06:55:30,841 - INFO - 
+==================================================
+2025-10-25 06:55:30,841 - INFO - Running test: Transcript Downloader
+2025-10-25 06:55:30,841 - INFO - ==================================================
+2025-10-25 06:55:30,841 - INFO - 🔍 Testing transcript downloader...
+2025-10-25 06:55:30,846 - INFO - Initialized YouTube Transcript API downloader
+2025-10-25 06:55:30,846 - INFO - ✅ Transcript downloader created successfully (youtube_transcript_api)
+2025-10-25 06:55:30,846 - INFO - 🔍 Testing transcript availability check for dQw4w9WgXcQ...
+2025-10-25 06:55:30,846 - INFO - 🔍 Checking transcript availability for dQw4w9WgXcQ using YouTube Transcript API
+2025-10-25 06:55:32,042 - INFO - Transcript availability: True
+2025-10-25 06:55:32,042 - INFO - ✅ Transcript availability check successful
+2025-10-25 06:55:32,042 - INFO - ✅ Transcript Downloader test passed

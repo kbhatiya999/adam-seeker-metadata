@@ -16,3 +16,18 @@
 2025-10-25 06:36:59,518 - INFO - Initialized yt-dlp transcript downloader
 2025-10-25 06:36:59,518 - INFO - 🔍 Checking transcript availability for dQw4w9WgXcQ using yt-dlp
 2025-10-25 06:37:02,610 - INFO - Transcript availability - Manual: True, Auto: True
+2025-10-25 06:50:00,373 - INFO - Loading configuration from config.env
+2025-10-25 06:50:00,373 - INFO - Configuration validation passed
+2025-10-25 06:50:00,373 - INFO - Configuration loaded successfully
+2025-10-25 06:50:00,373 - INFO - Initialized YouTube Data API fetcher
+2025-10-25 06:50:00,373 - INFO - 🔑 Getting channel ID using YouTube Data API
+2025-10-25 06:50:00,665 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-10-25 06:55:50,324 - INFO - Loading configuration from config.env
+2025-10-25 06:55:50,324 - INFO - Configuration validation passed
+2025-10-25 06:55:50,324 - INFO - Configuration loaded successfully
+2025-10-25 06:55:50,324 - INFO - Initialized YouTube Data API fetcher
+2025-10-25 06:55:50,324 - INFO - 🔑 Getting channel ID using YouTube Data API
+2025-10-25 06:55:50,658 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-10-25 06:55:50,663 - INFO - Initialized YouTube Transcript API downloader
+2025-10-25 06:55:50,663 - INFO - 🔍 Checking transcript availability for dQw4w9WgXcQ using YouTube Transcript API
+2025-10-25 06:55:51,945 - INFO - Transcript availability: True
