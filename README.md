@@ -1,78 +1,117 @@
-# adam-seeker-metadata
-Metadata repository for YouTube channel https://www.youtube.com/@AdamSeekerOfficial
+# Python Learning Experiments
 
-## Downloading Transcripts with yt-dlp
+A comprehensive repository for exploring Python behavior through hands-on experiments and analysis.
 
-This repository contains metadata and transcripts for the AdamSeekerOfficial YouTube channel. You can download transcripts using the `yt-dlp` command-line tool.
+## 🎯 Purpose
 
-### Prerequisites
+This repository serves as a laboratory for understanding Python's internals, behaviors, and best practices through practical experiments. Each experiment is designed to reveal specific aspects of Python's behavior with embedded outputs and detailed analysis.
 
-Install yt-dlp using uv (recommended) or pip:
-```bash
-# Using uv (recommended)
-uv add yt-dlp
+## 📁 Repository Structure
 
-# Or using pip
-pip install yt-dlp
-```
+### Experiment Categories
 
-### Download Transcripts
+- **[Data Structures](experiments/data-structures/)** - Lists, dictionaries, sets, and custom structures
+- **[Functions](experiments/functions/)** - Closures, decorators, generators, and scope
+- **[Object-Oriented Programming](experiments/oop/)** - Classes, inheritance, and design patterns
+- **[File I/O](experiments/file-io/)** - File operations, encoding, and data persistence
+- **[Error Handling](experiments/error-handling/)** - Exceptions, debugging, and recovery patterns
 
-To download transcripts from all videos in the AdamSeekerOfficial channel:
+### Documentation
 
-```bash
-yt-dlp --write-subs --write-auto-subs --sub-langs en --skip-download "https://www.youtube.com/@AdamSeekerOfficial/videos"
-```
+- **[Learning Notes Framework](docs/learning-notes.md)** - Structured approach to documenting insights
+- **[Notion Workspace Integration](#notion-workspace)** - Direct links to organized learning materials
 
-To download transcripts from live streams only:
+## 🧪 Experiment Format
 
-```bash
-yt-dlp --write-subs --write-auto-subs --sub-langs en --skip-download "https://www.youtube.com/@AdamSeekerOfficial/streams"
-```
+Each experiment follows a consistent structure:
 
-### Command Options Explained
+1. **Objective** - What we're testing
+2. **Code** - The experimental implementation
+3. **Output** - Embedded results showing Python's behavior
+4. **Analysis** - Key insights and observations
+5. **Takeaways** - Practical implications and best practices
 
-- `--write-subs`: Download subtitles if available
-- `--write-auto-subs`: Download auto-generated subtitles
-- `--sub-langs en`: Specify language (English)
-- `--skip-download`: Skip downloading video files, only download transcripts
-- `--output "%(uploader)s/%(upload_date)s_%(title)s.%(ext)s"`: Optional: Customize output filename format
+## 🚀 Getting Started
 
-### Download Specific Video Transcripts
+1. Clone the repository
+2. Navigate to any experiment category
+3. Run the Python files to see the experiments in action
+4. Study the embedded outputs and analysis
+5. Document your own insights using the learning framework
 
-To download transcripts from a specific video, replace the channel URL with the video URL:
+## 📚 Notion Workspace
 
-```bash
-yt-dlp --write-subs --write-auto-subs --sub-langs en --skip-download "VIDEO_URL"
-```
+### Direct Links to Learning Sections
 
-### Bulk Download from Links File
+- **[Python Fundamentals](https://notion.so/kbhatiya999/python-fundamentals)** - Core concepts and basic experiments
+- **[Data Structures Deep Dive](https://notion.so/kbhatiya999/data-structures)** - Advanced data structure analysis
+- **[Function Mastery](https://notion.so/kbhatiya999/functions)** - Closures, decorators, and advanced function concepts
+- **[OOP Patterns](https://notion.so/kbhatiya999/oop-patterns)** - Object-oriented design and inheritance
+- **[I/O and Persistence](https://notion.so/kbhatiya999/file-io)** - File operations and data handling
+- **[Error Management](https://notion.so/kbhatiya999/error-handling)** - Exception handling and debugging
+- **[Performance Analysis](https://notion.so/kbhatiya999/performance)** - Memory usage and optimization
+- **[Best Practices](https://notion.so/kbhatiya999/best-practices)** - Coding standards and patterns
 
-To download transcripts from multiple videos using a list of URLs, create a text file with one URL per line:
+### Learning Workflow
 
-```bash
-# Create a file with video URLs
-echo "https://www.youtube.com/watch?v=VIDEO_ID_1" > video_links.txt
-echo "https://www.youtube.com/watch?v=VIDEO_ID_2" >> video_links.txt
-echo "https://www.youtube.com/watch?v=VIDEO_ID_3" >> video_links.txt
+1. **Explore** - Run experiments and observe behavior
+2. **Document** - Use the learning notes framework
+3. **Synthesize** - Connect concepts across categories
+4. **Apply** - Use insights in real projects
+5. **Share** - Contribute back to the community
 
-# Download transcripts from all URLs in the file
-yt-dlp --write-subs --write-auto-subs --sub-langs en --skip-download --batch-file video_links.txt
-```
+## 🔬 Example Experiments
 
-### Advanced Bulk Download Options
+### Data Structures
+- `list_memory_behavior.py` - Memory allocation and reference sharing
+- `dictionary_performance.py` - Hash table operations and collision handling
+- `string_immutability.py` - String modification and memory implications
 
-For more control over bulk downloads:
+### Functions
+- `closure_scope_behavior.py` - Variable capture and scope resolution
+- `decorator_execution_order.py` - Decorator stacking and execution flow
+- `generator_memory_usage.py` - Lazy evaluation and memory patterns
 
-```bash
-# Download with custom output directory and filename format
-yt-dlp --write-subs --write-auto-subs --sub-langs en --skip-download \
-  --output "transcripts/%(uploader)s/%(upload_date)s_%(title)s.%(ext)s" \
-  --batch-file video_links.txt
+### OOP
+- `inheritance_mro.py` - Method Resolution Order and multiple inheritance
+- `property_encapsulation.py` - Property decorators and data validation
+- `special_methods_behavior.py` - Magic methods and operator overloading
 
-# Download with progress tracking and error handling
-yt-dlp --write-subs --write-auto-subs --sub-langs en --skip-download \
-  --batch-file video_links.txt \
-  --ignore-errors \
-  --no-warnings
-```
+## 🎓 Learning Goals
+
+- **Understand Python Internals** - How Python actually works under the hood
+- **Master Best Practices** - Learn when and how to use different patterns
+- **Avoid Common Pitfalls** - Recognize and prevent typical mistakes
+- **Build Intuition** - Develop a feel for Python's behavior
+- **Debug Effectively** - Understand what's happening when things go wrong
+
+## 🤝 Contributing
+
+This repository is designed for learning and experimentation. Contributions are welcome:
+
+1. Add new experiments following the established format
+2. Improve existing experiments with better examples
+3. Share insights and analysis
+4. Suggest new categories or topics
+
+## 📖 Resources
+
+- [Python Documentation](https://docs.python.org/3/)
+- [Python Internals](https://realpython.com/python-internals/)
+- [Effective Python](https://effectivepython.com/)
+- [Fluent Python](https://www.oreilly.com/library/view/fluent-python/9781491946237/)
+
+## 🔗 Notion Workspace Integration
+
+The Notion workspace provides:
+- **Organized Learning Paths** - Structured progression through concepts
+- **Interactive Notes** - Rich formatting and linking capabilities
+- **Progress Tracking** - Monitor your learning journey
+- **Community Sharing** - Collaborate with other learners
+- **Resource Library** - Curated collection of Python resources
+
+Access the full workspace at: [Python Learning Experiments - Notion](https://notion.so/kbhatiya999/python-learning-experiments)
+
+---
+
+*Happy Learning! 🐍*
