@@ -37,6 +37,8 @@ class Config:
     ytdlp_use_proxy: bool
     
     # Proxy configuration
+    webshare_proxy_username: Optional[str]
+    webshare_proxy_password: Optional[str]
     webshare_proxy: Optional[str]
     
     # Notification settings
@@ -77,6 +79,8 @@ class ConfigManager:
             update_frequency=env_vars.get('UPDATE_FREQUENCY', 'daily'),
             ytdlp_cookies_file=env_vars.get('YTDLP_COOKIES_FILE'),
             ytdlp_use_proxy=env_vars.get('YTDLP_USE_PROXY', 'false').lower() == 'true',
+            webshare_proxy_username=env_vars.get('WEBSHARE_PROXY_USERNAME'),
+            webshare_proxy_password=env_vars.get('WEBSHARE_PROXY_PASSWORD'),
             webshare_proxy=env_vars.get('WEBSHARE_PROXY'),
             discord_webhook_url=env_vars.get('DISCORD_WEBHOOK_URL'),
             email_notifications=env_vars.get('EMAIL_NOTIFICATIONS', 'false').lower() == 'true',
@@ -133,10 +137,16 @@ class ConfigManager:
         if cookies_file and not os.path.exists(cookies_file):
             logger.warning(f"Cookies file specified but not found: {cookies_file}")
         
-        # Validate proxy format if specified
+        # Validate proxy configuration
+        proxy_username = env_vars.get('WEBSHARE_PROXY_USERNAME')
+        proxy_password = env_vars.get('WEBSHARE_PROXY_PASSWORD')
         proxy = env_vars.get('WEBSHARE_PROXY')
+        
         if proxy and not proxy.startswith('http://'):
             raise ValueError("WEBSHARE_PROXY must start with 'http://'")
+        
+        if (proxy_username or proxy_password) and not (proxy_username and proxy_password):
+            raise ValueError("Both WEBSHARE_PROXY_USERNAME and WEBSHARE_PROXY_PASSWORD must be provided together")
         
         logger.info("Configuration validation passed")
     
@@ -158,8 +168,11 @@ class ConfigManager:
         elif config.master_list_method == 'ytdlp':
             fetcher_config['cookies_file'] = config.ytdlp_cookies_file
             fetcher_config['use_proxy'] = config.ytdlp_use_proxy
-            if config.ytdlp_use_proxy and config.webshare_proxy:
-                fetcher_config['proxy'] = config.webshare_proxy
+            if config.ytdlp_use_proxy:
+                if config.webshare_proxy:
+                    fetcher_config['proxy'] = config.webshare_proxy
+                elif config.webshare_proxy_username and config.webshare_proxy_password:
+                    fetcher_config['proxy'] = f"http://{config.webshare_proxy_username}:{config.webshare_proxy_password}@proxy.webshare.io:80"
         
         return fetcher_config
     
@@ -174,12 +187,18 @@ class ConfigManager:
         if config.transcript_method == 'ytdlp':
             downloader_config['cookies_file'] = config.ytdlp_cookies_file
             downloader_config['use_proxy'] = config.ytdlp_use_proxy
-            if config.ytdlp_use_proxy and config.webshare_proxy:
-                downloader_config['proxy'] = config.webshare_proxy
+            if config.ytdlp_use_proxy:
+                if config.webshare_proxy:
+                    downloader_config['proxy'] = config.webshare_proxy
+                elif config.webshare_proxy_username and config.webshare_proxy_password:
+                    downloader_config['proxy'] = f"http://{config.webshare_proxy_username}:{config.webshare_proxy_password}@proxy.webshare.io:80"
         
         elif config.transcript_method == 'youtube_transcript_api':
             if config.webshare_proxy:
                 downloader_config['proxy'] = config.webshare_proxy
+            elif config.webshare_proxy_username and config.webshare_proxy_password:
+                downloader_config['proxy_username'] = config.webshare_proxy_username
+                downloader_config['proxy_password'] = config.webshare_proxy_password
         
         return downloader_config
 

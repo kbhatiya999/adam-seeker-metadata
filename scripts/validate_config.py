@@ -77,8 +77,10 @@ class ConfigValidator:
         print(f"yt-dlp Use Proxy: {self.config.ytdlp_use_proxy}")
         
         # Proxy settings
-        if self.config.webshare_proxy:
-            print(f"Proxy: {self.config.webshare_proxy[:20]}...")
+        if self.config.webshare_proxy_username and self.config.webshare_proxy_password:
+            print(f"Webshare Proxy: {self.config.webshare_proxy_username}@proxy.webshare.io:80")
+        elif self.config.webshare_proxy:
+            print(f"Custom Proxy: {self.config.webshare_proxy[:20]}...")
         else:
             print("Proxy: Not specified")
         

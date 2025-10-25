@@ -43,6 +43,14 @@ def demo_configuration():
         print(f"📋 Channel URL: {config.channel_url}")
         print(f"📋 Master File: {config.master_file}")
         
+        # Show proxy configuration
+        if config.webshare_proxy_username and config.webshare_proxy_password:
+            print(f"🔧 Webshare Proxy: {config.webshare_proxy_username}@proxy.webshare.io:80")
+        elif config.webshare_proxy:
+            print(f"🔧 Custom Proxy: {config.webshare_proxy[:20]}...")
+        else:
+            print("🔧 Proxy: Not configured")
+        
         # Show fetcher configuration
         fetcher_config = config_manager.get_master_fetcher_config()
         print(f"🔧 Fetcher Config: {fetcher_config}")

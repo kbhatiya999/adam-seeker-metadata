@@ -7,3 +7,12 @@
 2025-10-25 05:53:52,137 - INFO - Initialized yt-dlp transcript downloader
 2025-10-25 05:53:52,137 - INFO - 🔍 Checking transcript availability for dQw4w9WgXcQ using yt-dlp
 2025-10-25 05:53:54,389 - INFO - Transcript availability - Manual: True, Auto: True
+2025-10-25 06:36:57,628 - INFO - Loading configuration from config.env
+2025-10-25 06:36:57,628 - INFO - Configuration validation passed
+2025-10-25 06:36:57,628 - INFO - Configuration loaded successfully
+2025-10-25 06:36:57,628 - INFO - Initialized yt-dlp fetcher
+2025-10-25 06:36:57,628 - INFO - 🔄 Getting channel ID using yt-dlp
+2025-10-25 06:36:59,517 - ERROR - ❌ Error extracting channel ID with yt-dlp: ERROR: [youtube] VVff7NBz1fk: Sign in to confirm you’re not a bot. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies
+2025-10-25 06:36:59,518 - INFO - Initialized yt-dlp transcript downloader
+2025-10-25 06:36:59,518 - INFO - 🔍 Checking transcript availability for dQw4w9WgXcQ using yt-dlp
+2025-10-25 06:37:02,610 - INFO - Transcript availability - Manual: True, Auto: True

@@ -1,16 +1,8 @@
-name: Update Video List
+name: Download Transcripts
 
 on:
   workflow_dispatch:
     inputs:
-      master_list_method:
-        description: 'Master list method (youtube_api or ytdlp)'
-        required: true
-        default: 'youtube_api'
-        type: choice
-        options:
-          - youtube_api
-          - ytdlp
       transcript_method:
         description: 'Transcript method (ytdlp or youtube_transcript_api)'
         required: true
@@ -29,29 +21,19 @@ on:
         required: false
         default: false
         type: boolean
-      download_transcripts:
-        description: 'Download transcripts for videos'
-        required: false
-        default: false
-        type: boolean
       max_videos:
         description: 'Maximum number of videos to process'
         required: false
         default: '50'
         type: string
-      action_type:
-        description: 'Action to perform'
-        required: true
-        default: 'update'
-        type: choice
-        options:
-          - update
-          - rebuild
-          - download_transcripts_only
-          - validate_config
+      video_ids:
+        description: 'Specific video IDs to process (comma-separated, optional)'
+        required: false
+        default: ''
+        type: string
 
 jobs:
-  update-videos:
+  download-transcripts:
     runs-on: ubuntu-latest
     
     steps:
@@ -73,8 +55,8 @@ jobs:
         cat > config.env << EOF
         # Video List Automation Configuration
         
-        # Master List Method (youtube_api or ytdlp)
-        MASTER_LIST_METHOD=${{ inputs.master_list_method }}
+        # Master List Method (not used for transcript-only)
+        MASTER_LIST_METHOD=ytdlp
         
         # Transcript Method (ytdlp or youtube_transcript_api)
         TRANSCRIPT_METHOD=${{ inputs.transcript_method }}
@@ -123,23 +105,17 @@ jobs:
       run: |
         python scripts/validate_config.py
         
-    - name: Update master list
-      if: inputs.action_type == 'update'
+    - name: Download transcripts for specific videos
+      if: inputs.video_ids != ''
       run: |
-        python scripts/update_master_configurable.py ${{ inputs.download_transcripts == 'true' && '--download-transcripts' || '' }}
+        python scripts/manage_transcripts.py download-videos --video-ids ${{ inputs.video_ids }} --max-videos ${{ inputs.max_videos }}
         
-    - name: Rebuild master list
-      if: inputs.action_type == 'rebuild'
-      run: |
-        python scripts/rebuild_master_configurable.py ${{ inputs.download_transcripts == 'true' && '--download-transcripts' || '' }} --force
-        
-    - name: Download transcripts only
-      if: inputs.action_type == 'download_transcripts_only'
+    - name: Download missing transcripts
+      if: inputs.video_ids == ''
       run: |
         python scripts/manage_transcripts.py download-missing --max-videos ${{ inputs.max_videos }}
         
     - name: Show transcript statistics
-      if: inputs.download_transcripts == 'true' || inputs.action_type == 'download_transcripts_only'
       run: |
         python scripts/manage_transcripts.py stats
         
@@ -152,7 +128,7 @@ jobs:
         if git diff --staged --quiet; then
           echo "No changes to commit"
         else
-          git commit -m "Update video list via GitHub Action [skip ci]"
+          git commit -m "Download transcripts via GitHub Action [skip ci]"
           git push
         fi
         
@@ -160,5 +136,5 @@ jobs:
       if: always()
       uses: actions/upload-artifact@v3
       with:
-        name: logs-${{ github.run_number }}
+        name: transcript-logs-${{ github.run_number }}
         path: logs/

@@ -1,4 +1,4 @@
-name: Update Video List
+name: Validate Configuration
 
 on:
   workflow_dispatch:
@@ -29,29 +29,9 @@ on:
         required: false
         default: false
         type: boolean
-      download_transcripts:
-        description: 'Download transcripts for videos'
-        required: false
-        default: false
-        type: boolean
-      max_videos:
-        description: 'Maximum number of videos to process'
-        required: false
-        default: '50'
-        type: string
-      action_type:
-        description: 'Action to perform'
-        required: true
-        default: 'update'
-        type: choice
-        options:
-          - update
-          - rebuild
-          - download_transcripts_only
-          - validate_config
 
 jobs:
-  update-videos:
+  validate-config:
     runs-on: ubuntu-latest
     
     steps:
@@ -87,7 +67,7 @@ jobs:
         CHANNEL_URL=https://www.youtube.com/@AdamSeekerOfficial
         
         # Update Settings
-        MAX_VIDEOS_PER_UPDATE=${{ inputs.max_videos }}
+        MAX_VIDEOS_PER_UPDATE=50
         UPDATE_FREQUENCY=manual
         
         # yt-dlp Configuration (optional)
@@ -123,42 +103,13 @@ jobs:
       run: |
         python scripts/validate_config.py
         
-    - name: Update master list
-      if: inputs.action_type == 'update'
+    - name: Run demo
       run: |
-        python scripts/update_master_configurable.py ${{ inputs.download_transcripts == 'true' && '--download-transcripts' || '' }}
-        
-    - name: Rebuild master list
-      if: inputs.action_type == 'rebuild'
-      run: |
-        python scripts/rebuild_master_configurable.py ${{ inputs.download_transcripts == 'true' && '--download-transcripts' || '' }} --force
-        
-    - name: Download transcripts only
-      if: inputs.action_type == 'download_transcripts_only'
-      run: |
-        python scripts/manage_transcripts.py download-missing --max-videos ${{ inputs.max_videos }}
-        
-    - name: Show transcript statistics
-      if: inputs.download_transcripts == 'true' || inputs.action_type == 'download_transcripts_only'
-      run: |
-        python scripts/manage_transcripts.py stats
-        
-    - name: Commit changes
-      if: always()
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add data/transcripts/ data/videos_master.json logs/
-        if git diff --staged --quiet; then
-          echo "No changes to commit"
-        else
-          git commit -m "Update video list via GitHub Action [skip ci]"
-          git push
-        fi
+        python scripts/demo_configurable_system.py
         
     - name: Upload logs
       if: always()
       uses: actions/upload-artifact@v3
       with:
-        name: logs-${{ github.run_number }}
+        name: validation-logs-${{ github.run_number }}
         path: logs/
