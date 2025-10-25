@@ -1,6 +1,6 @@
 """
-Experiment: pydantic-settings-export enum handling
-Objective: Test how enums are exported and handled in different formats
+Experiment: pydantic-settings-export enum observation
+Objective: Observe how enums are exported and what the output looks like
 """
 
 import os
