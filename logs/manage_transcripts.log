@@ -1,0 +1,5 @@
+2025-10-25 05:53:22,260 - INFO - Loading configuration from config.env
+2025-10-25 05:53:22,260 - INFO - Configuration validation passed
+2025-10-25 05:53:22,260 - INFO - Configuration loaded successfully
+2025-10-25 05:53:22,260 - INFO - Initialized yt-dlp transcript downloader
+2025-10-25 05:53:22,260 - INFO - Initialized with transcript method: ytdlp
