@@ -122,3 +122,15 @@
 2025-10-25 06:02:50,785 - INFO - 📊 Total videos in master list: 44
 2025-10-25 06:02:50,785 - INFO - 🆕 New: Wife beating in Islam, Allowed or Not? इस्लाम में पत्नी को मारना, जायज़ है या नहीं? (2025-10-25)
 2025-10-25 06:02:50,785 - INFO - 🆕 New: Extremism and extremist behavior discussion with AI (2025-10-24)
+2025-10-26 06:02:42,466 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2025-10-26 06:02:42,466 - INFO - 🚀 Starting video list update...
+2025-10-26 06:02:42,467 - INFO - 📊 Current master list has 44 existing videos
+2025-10-26 06:02:42,467 - INFO - 🔑 Using YouTube Data API to get channel ID
+2025-10-26 06:02:42,679 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-10-26 06:02:42,680 - INFO - 🔑 Using YouTube Data API for video discovery
+2025-10-26 06:02:42,680 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2025-10-26 06:02:42,768 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-10-26 06:02:42,897 - INFO - ✅ Successfully fetched 44 videos from YouTube Data API
+2025-10-26 06:02:42,898 - INFO - 🔍 Found 0 new videos (filtered from 44 total)
+2025-10-26 06:02:42,899 - INFO - Master list updated successfully
+2025-10-26 06:02:42,899 - INFO - ℹ️ No new videos found
