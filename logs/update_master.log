@@ -134,3 +134,17 @@
 2025-10-26 06:02:42,898 - INFO - 🔍 Found 0 new videos (filtered from 44 total)
 2025-10-26 06:02:42,899 - INFO - Master list updated successfully
 2025-10-26 06:02:42,899 - INFO - ℹ️ No new videos found
+2025-10-27 06:03:00,246 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2025-10-27 06:03:00,246 - INFO - 🚀 Starting video list update...
+2025-10-27 06:03:00,246 - INFO - 📊 Current master list has 44 existing videos
+2025-10-27 06:03:00,246 - INFO - 🔑 Using YouTube Data API to get channel ID
+2025-10-27 06:03:00,451 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-10-27 06:03:00,452 - INFO - 🔑 Using YouTube Data API for video discovery
+2025-10-27 06:03:00,452 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2025-10-27 06:03:00,601 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-10-27 06:03:00,785 - INFO - ✅ Successfully fetched 45 videos from YouTube Data API
+2025-10-27 06:03:00,786 - INFO - 🔍 Found 1 new videos (filtered from 45 total)
+2025-10-27 06:03:00,787 - INFO - Master list updated successfully
+2025-10-27 06:03:00,787 - INFO - ✅ Successfully added 1 new videos
+2025-10-27 06:03:00,787 - INFO - 📊 Total videos in master list: 45
+2025-10-27 06:03:00,787 - INFO - 🆕 New: Pork Party with Layeeq-ur-Rehman (2025-10-26)
