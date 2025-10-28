@@ -148,3 +148,17 @@
 2025-10-27 06:03:00,787 - INFO - ✅ Successfully added 1 new videos
 2025-10-27 06:03:00,787 - INFO - 📊 Total videos in master list: 45
 2025-10-27 06:03:00,787 - INFO - 🆕 New: Pork Party with Layeeq-ur-Rehman (2025-10-26)
+2025-10-28 06:02:47,432 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2025-10-28 06:02:47,432 - INFO - 🚀 Starting video list update...
+2025-10-28 06:02:47,432 - INFO - 📊 Current master list has 45 existing videos
+2025-10-28 06:02:47,432 - INFO - 🔑 Using YouTube Data API to get channel ID
+2025-10-28 06:02:47,721 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-10-28 06:02:47,722 - INFO - 🔑 Using YouTube Data API for video discovery
+2025-10-28 06:02:47,722 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2025-10-28 06:02:47,840 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-10-28 06:02:48,033 - INFO - ✅ Successfully fetched 46 videos from YouTube Data API
+2025-10-28 06:02:48,034 - INFO - 🔍 Found 1 new videos (filtered from 46 total)
+2025-10-28 06:02:48,035 - INFO - Master list updated successfully
+2025-10-28 06:02:48,035 - INFO - ✅ Successfully added 1 new videos
+2025-10-28 06:02:48,035 - INFO - 📊 Total videos in master list: 46
+2025-10-28 06:02:48,035 - INFO - 🆕 New: Fate VS Free will - Debate with AI Grok (2025-10-27)
