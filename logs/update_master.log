@@ -162,3 +162,15 @@
 2025-10-28 06:02:48,035 - INFO - ✅ Successfully added 1 new videos
 2025-10-28 06:02:48,035 - INFO - 📊 Total videos in master list: 46
 2025-10-28 06:02:48,035 - INFO - 🆕 New: Fate VS Free will - Debate with AI Grok (2025-10-27)
+2025-10-29 06:02:55,582 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2025-10-29 06:02:55,583 - INFO - 🚀 Starting video list update...
+2025-10-29 06:02:55,583 - INFO - 📊 Current master list has 46 existing videos
+2025-10-29 06:02:55,584 - INFO - 🔑 Using YouTube Data API to get channel ID
+2025-10-29 06:02:55,946 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-10-29 06:02:55,947 - INFO - 🔑 Using YouTube Data API for video discovery
+2025-10-29 06:02:55,948 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2025-10-29 06:02:56,054 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-10-29 06:02:56,250 - INFO - ✅ Successfully fetched 46 videos from YouTube Data API
+2025-10-29 06:02:56,250 - INFO - 🔍 Found 0 new videos (filtered from 46 total)
+2025-10-29 06:02:56,252 - INFO - Master list updated successfully
+2025-10-29 06:02:56,252 - INFO - ℹ️ No new videos found
