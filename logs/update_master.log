@@ -188,3 +188,17 @@
 2025-10-30 06:02:58,785 - INFO - ✅ Successfully added 1 new videos
 2025-10-30 06:02:58,785 - INFO - 📊 Total videos in master list: 47
 2025-10-30 06:02:58,785 - INFO - 🆕 New: Thanks for your Support - Open Live Stream (2025-10-29)
+2025-10-31 06:02:49,140 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2025-10-31 06:02:49,140 - INFO - 🚀 Starting video list update...
+2025-10-31 06:02:49,141 - INFO - 📊 Current master list has 47 existing videos
+2025-10-31 06:02:49,141 - INFO - 🔑 Using YouTube Data API to get channel ID
+2025-10-31 06:02:49,383 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-10-31 06:02:49,384 - INFO - 🔑 Using YouTube Data API for video discovery
+2025-10-31 06:02:49,384 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2025-10-31 06:02:49,527 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-10-31 06:02:49,717 - INFO - ✅ Successfully fetched 48 videos from YouTube Data API
+2025-10-31 06:02:49,718 - INFO - 🔍 Found 1 new videos (filtered from 48 total)
+2025-10-31 06:02:49,720 - INFO - Master list updated successfully
+2025-10-31 06:02:49,720 - INFO - ✅ Successfully added 1 new videos
+2025-10-31 06:02:49,720 - INFO - 📊 Total videos in master list: 48
+2025-10-31 06:02:49,720 - INFO - 🆕 New: Muhammad and Aisha according to AI Grok (2025-10-30)
