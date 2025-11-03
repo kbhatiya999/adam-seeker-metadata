@@ -228,3 +228,15 @@
 2025-11-02 06:02:31,169 - INFO - ✅ Successfully added 1 new videos
 2025-11-02 06:02:31,169 - INFO - 📊 Total videos in master list: 49
 2025-11-02 06:02:31,169 - INFO - 🆕 New: Story time from Quran (2025-11-01)
+2025-11-03 06:02:47,244 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2025-11-03 06:02:47,244 - INFO - 🚀 Starting video list update...
+2025-11-03 06:02:47,245 - INFO - 📊 Current master list has 49 existing videos
+2025-11-03 06:02:47,245 - INFO - 🔑 Using YouTube Data API to get channel ID
+2025-11-03 06:02:47,471 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-11-03 06:02:47,471 - INFO - 🔑 Using YouTube Data API for video discovery
+2025-11-03 06:02:47,472 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2025-11-03 06:02:47,549 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-11-03 06:02:47,687 - INFO - ✅ Successfully fetched 49 videos from YouTube Data API
+2025-11-03 06:02:47,688 - INFO - 🔍 Found 0 new videos (filtered from 49 total)
+2025-11-03 06:02:47,689 - INFO - Master list updated successfully
+2025-11-03 06:02:47,689 - INFO - ℹ️ No new videos found
