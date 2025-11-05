@@ -254,3 +254,15 @@
 2025-11-04 06:02:43,686 - INFO - ✅ Successfully added 1 new videos
 2025-11-04 06:02:43,686 - INFO - 📊 Total videos in master list: 50
 2025-11-04 06:02:43,686 - INFO - 🆕 New: Only beat wife with a feather or a miswak - Adam Seeker vs AI (2025-11-03)
+2025-11-05 06:02:41,963 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2025-11-05 06:02:41,963 - INFO - 🚀 Starting video list update...
+2025-11-05 06:02:41,963 - INFO - 📊 Current master list has 50 existing videos
+2025-11-05 06:02:41,963 - INFO - 🔑 Using YouTube Data API to get channel ID
+2025-11-05 06:02:42,264 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-11-05 06:02:42,265 - INFO - 🔑 Using YouTube Data API for video discovery
+2025-11-05 06:02:42,265 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2025-11-05 06:02:42,433 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-11-05 06:02:42,625 - INFO - ✅ Successfully fetched 40 videos from YouTube Data API
+2025-11-05 06:02:42,625 - INFO - 🔍 Found 0 new videos (filtered from 40 total)
+2025-11-05 06:02:42,627 - INFO - Master list updated successfully
+2025-11-05 06:02:42,627 - INFO - ℹ️ No new videos found
