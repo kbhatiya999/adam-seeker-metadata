@@ -266,3 +266,17 @@
 2025-11-05 06:02:42,625 - INFO - 🔍 Found 0 new videos (filtered from 40 total)
 2025-11-05 06:02:42,627 - INFO - Master list updated successfully
 2025-11-05 06:02:42,627 - INFO - ℹ️ No new videos found
+2025-11-06 06:02:46,960 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2025-11-06 06:02:46,960 - INFO - 🚀 Starting video list update...
+2025-11-06 06:02:46,961 - INFO - 📊 Current master list has 50 existing videos
+2025-11-06 06:02:46,961 - INFO - 🔑 Using YouTube Data API to get channel ID
+2025-11-06 06:02:47,226 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-11-06 06:02:47,227 - INFO - 🔑 Using YouTube Data API for video discovery
+2025-11-06 06:02:47,228 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2025-11-06 06:02:47,333 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-11-06 06:02:47,513 - INFO - ✅ Successfully fetched 41 videos from YouTube Data API
+2025-11-06 06:02:47,514 - INFO - 🔍 Found 1 new videos (filtered from 41 total)
+2025-11-06 06:02:47,516 - INFO - Master list updated successfully
+2025-11-06 06:02:47,516 - INFO - ✅ Successfully added 1 new videos
+2025-11-06 06:02:47,516 - INFO - 📊 Total videos in master list: 51
+2025-11-06 06:02:47,516 - INFO - 🆕 New: Adam Seeker VS Muslim Student Faraz (2025-11-05)
