@@ -306,3 +306,15 @@
 2025-11-08 06:02:33,730 - INFO - ✅ Successfully added 1 new videos
 2025-11-08 06:02:33,731 - INFO - 📊 Total videos in master list: 52
 2025-11-08 06:02:33,731 - INFO - 🆕 New: End Islamophobia - इस्लामोफोबिया समाप्त करें (2025-11-07)
+2025-11-09 06:02:32,525 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2025-11-09 06:02:32,525 - INFO - 🚀 Starting video list update...
+2025-11-09 06:02:32,526 - INFO - 📊 Current master list has 52 existing videos
+2025-11-09 06:02:32,526 - INFO - 🔑 Using YouTube Data API to get channel ID
+2025-11-09 06:02:32,856 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-11-09 06:02:32,858 - INFO - 🔑 Using YouTube Data API for video discovery
+2025-11-09 06:02:32,858 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2025-11-09 06:02:32,962 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-11-09 06:02:33,161 - INFO - ✅ Successfully fetched 42 videos from YouTube Data API
+2025-11-09 06:02:33,162 - INFO - 🔍 Found 0 new videos (filtered from 42 total)
+2025-11-09 06:02:33,163 - INFO - Master list updated successfully
+2025-11-09 06:02:33,163 - INFO - ℹ️ No new videos found
