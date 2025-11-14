@@ -369,3 +369,18 @@
 2025-11-13 06:02:46,416 - INFO - 🔍 Found 0 new videos (filtered from 44 total)
 2025-11-13 06:02:46,418 - INFO - Master list updated successfully
 2025-11-13 06:02:46,418 - INFO - ℹ️ No new videos found
+2025-11-14 06:02:44,556 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2025-11-14 06:02:44,557 - INFO - 🚀 Starting video list update...
+2025-11-14 06:02:44,557 - INFO - 📊 Current master list has 54 existing videos
+2025-11-14 06:02:44,557 - INFO - 🔑 Using YouTube Data API to get channel ID
+2025-11-14 06:02:44,936 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-11-14 06:02:44,937 - INFO - 🔑 Using YouTube Data API for video discovery
+2025-11-14 06:02:44,937 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2025-11-14 06:02:45,041 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-11-14 06:02:45,257 - INFO - ✅ Successfully fetched 46 videos from YouTube Data API
+2025-11-14 06:02:45,258 - INFO - 🔍 Found 2 new videos (filtered from 46 total)
+2025-11-14 06:02:45,259 - INFO - Master list updated successfully
+2025-11-14 06:02:45,259 - INFO - ✅ Successfully added 2 new videos
+2025-11-14 06:02:45,259 - INFO - 📊 Total videos in master list: 56
+2025-11-14 06:02:45,259 - INFO - 🆕 New: Abid left Islam, but he can't say it ... (2025-11-13)
+2025-11-14 06:02:45,259 - INFO - 🆕 New: Adam Seeker VS Khalistani (2025-11-12)
