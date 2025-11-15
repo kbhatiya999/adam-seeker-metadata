@@ -384,3 +384,17 @@
 2025-11-14 06:02:45,259 - INFO - 📊 Total videos in master list: 56
 2025-11-14 06:02:45,259 - INFO - 🆕 New: Abid left Islam, but he can't say it ... (2025-11-13)
 2025-11-14 06:02:45,259 - INFO - 🆕 New: Adam Seeker VS Khalistani (2025-11-12)
+2025-11-15 06:14:57,269 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2025-11-15 06:14:57,269 - INFO - 🚀 Starting video list update...
+2025-11-15 06:14:57,270 - INFO - 📊 Current master list has 56 existing videos
+2025-11-15 06:14:57,270 - INFO - 🔑 Using YouTube Data API to get channel ID
+2025-11-15 06:14:57,480 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-11-15 06:14:57,481 - INFO - 🔑 Using YouTube Data API for video discovery
+2025-11-15 06:14:57,482 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2025-11-15 06:14:57,581 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-11-15 06:14:57,775 - INFO - ✅ Successfully fetched 47 videos from YouTube Data API
+2025-11-15 06:14:57,776 - INFO - 🔍 Found 1 new videos (filtered from 47 total)
+2025-11-15 06:14:57,778 - INFO - Master list updated successfully
+2025-11-15 06:14:57,778 - INFO - ✅ Successfully added 1 new videos
+2025-11-15 06:14:57,778 - INFO - 📊 Total videos in master list: 57
+2025-11-15 06:14:57,778 - INFO - 🆕 New: Muhammad hi Allah hai -- Gangadhar hi shaktiman hai (2025-11-15)
