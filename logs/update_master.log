@@ -422,3 +422,17 @@
 2025-11-17 06:17:56,094 - INFO - 🔍 Found 0 new videos (filtered from 47 total)
 2025-11-17 06:17:56,095 - INFO - Master list updated successfully
 2025-11-17 06:17:56,095 - INFO - ℹ️ No new videos found
+2025-11-18 06:17:06,914 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2025-11-18 06:17:06,914 - INFO - 🚀 Starting video list update...
+2025-11-18 06:17:06,915 - INFO - 📊 Current master list has 57 existing videos
+2025-11-18 06:17:06,915 - INFO - 🔑 Using YouTube Data API to get channel ID
+2025-11-18 06:17:07,147 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-11-18 06:17:07,148 - INFO - 🔑 Using YouTube Data API for video discovery
+2025-11-18 06:17:07,148 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2025-11-18 06:17:07,311 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-11-18 06:17:07,500 - INFO - ✅ Successfully fetched 48 videos from YouTube Data API
+2025-11-18 06:17:07,501 - INFO - 🔍 Found 1 new videos (filtered from 48 total)
+2025-11-18 06:17:07,503 - INFO - Master list updated successfully
+2025-11-18 06:17:07,503 - INFO - ✅ Successfully added 1 new videos
+2025-11-18 06:17:07,503 - INFO - 📊 Total videos in master list: 58
+2025-11-18 06:17:07,503 - INFO - 🆕 New: Adam Seeker Vs Leftist Grok about Islamophobia (2025-11-17)
