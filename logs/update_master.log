@@ -436,3 +436,17 @@
 2025-11-18 06:17:07,503 - INFO - ✅ Successfully added 1 new videos
 2025-11-18 06:17:07,503 - INFO - 📊 Total videos in master list: 58
 2025-11-18 06:17:07,503 - INFO - 🆕 New: Adam Seeker Vs Leftist Grok about Islamophobia (2025-11-17)
+2025-11-19 06:16:50,177 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2025-11-19 06:16:50,177 - INFO - 🚀 Starting video list update...
+2025-11-19 06:16:50,177 - INFO - 📊 Current master list has 58 existing videos
+2025-11-19 06:16:50,178 - INFO - 🔑 Using YouTube Data API to get channel ID
+2025-11-19 06:16:50,445 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-11-19 06:16:50,446 - INFO - 🔑 Using YouTube Data API for video discovery
+2025-11-19 06:16:50,446 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2025-11-19 06:16:50,544 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-11-19 06:16:50,866 - INFO - ✅ Successfully fetched 49 videos from YouTube Data API
+2025-11-19 06:16:50,867 - INFO - 🔍 Found 1 new videos (filtered from 49 total)
+2025-11-19 06:16:50,868 - INFO - Master list updated successfully
+2025-11-19 06:16:50,868 - INFO - ✅ Successfully added 1 new videos
+2025-11-19 06:16:50,868 - INFO - 📊 Total videos in master list: 59
+2025-11-19 06:16:50,868 - INFO - 🆕 New: Anything Remaining? इस्लाम में जो कुछ बचा है (2025-11-19)
