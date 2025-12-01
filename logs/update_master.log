@@ -450,3 +450,24 @@
 2025-11-19 06:16:50,868 - INFO - ✅ Successfully added 1 new videos
 2025-11-19 06:16:50,868 - INFO - 📊 Total videos in master list: 59
 2025-11-19 06:16:50,868 - INFO - 🆕 New: Anything Remaining? इस्लाम में जो कुछ बचा है (2025-11-19)
+2025-12-01 06:18:51,251 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2025-12-01 06:18:51,251 - INFO - 🚀 Starting video list update...
+2025-12-01 06:18:51,252 - INFO - 📊 Current master list has 59 existing videos
+2025-12-01 06:18:51,252 - INFO - 🔑 Using YouTube Data API to get channel ID
+2025-12-01 06:18:51,593 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-12-01 06:18:51,595 - INFO - 🔑 Using YouTube Data API for video discovery
+2025-12-01 06:18:51,595 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2025-12-01 06:18:51,692 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-12-01 06:18:51,909 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2025-12-01 06:18:51,910 - INFO - 🔍 Found 8 new videos (filtered from 50 total)
+2025-12-01 06:18:51,911 - INFO - Master list updated successfully
+2025-12-01 06:18:51,911 - INFO - ✅ Successfully added 8 new videos
+2025-12-01 06:18:51,911 - INFO - 📊 Total videos in master list: 67
+2025-12-01 06:18:51,911 - INFO - 🆕 New: What is Kalala (2025-12-01)
+2025-12-01 06:18:51,911 - INFO - 🆕 New: Why no female prophet in Islam? कोई महिला पैगंबर क्यों नहीं? (2025-11-29)
+2025-12-01 06:18:51,911 - INFO - 🆕 New: Islamophobia in essence (2025-11-27)
+2025-12-01 06:18:51,911 - INFO - 🆕 New: Prove me wrong if you can ... (2025-11-26)
+2025-12-01 06:18:51,911 - INFO - 🆕 New: Debate Al-Zutt and Muhammad (2025-11-26)
+2025-12-01 06:18:51,912 - INFO - 🆕 New: Curse of Allah be on .... (2025-11-25)
+2025-12-01 06:18:51,912 - INFO - 🆕 New: Women in Earth VS Hoors in Jannat - धरती की औरतें बनाम जन्नत की हूरें (2025-11-22)
+2025-12-01 06:18:51,912 - INFO - 🆕 New: Ex-Muslim @AdamSeekerOfficial  with Ex-Khalistani @TheSanghaShow (2025-11-21)
