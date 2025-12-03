@@ -485,3 +485,17 @@
 2025-12-02 06:02:48,951 - INFO - ✅ Successfully added 1 new videos
 2025-12-02 06:02:48,951 - INFO - 📊 Total videos in master list: 68
 2025-12-02 06:02:48,951 - INFO - 🆕 New: Discussion with Tabassum (2025-12-01)
+2025-12-03 06:02:42,496 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2025-12-03 06:02:42,496 - INFO - 🚀 Starting video list update...
+2025-12-03 06:02:42,497 - INFO - 📊 Current master list has 68 existing videos
+2025-12-03 06:02:42,497 - INFO - 🔑 Using YouTube Data API to get channel ID
+2025-12-03 06:02:42,818 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-12-03 06:02:42,819 - INFO - 🔑 Using YouTube Data API for video discovery
+2025-12-03 06:02:42,819 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2025-12-03 06:02:42,949 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-12-03 06:02:43,160 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2025-12-03 06:02:43,161 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2025-12-03 06:02:43,162 - INFO - Master list updated successfully
+2025-12-03 06:02:43,162 - INFO - ✅ Successfully added 1 new videos
+2025-12-03 06:02:43,162 - INFO - 📊 Total videos in master list: 69
+2025-12-03 06:02:43,162 - INFO - 🆕 New: 3 min main Moulan farrar (2025-12-02)
