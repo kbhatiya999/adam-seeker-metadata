@@ -513,3 +513,17 @@
 2025-12-04 06:02:30,544 - INFO - ✅ Successfully added 1 new videos
 2025-12-04 06:02:30,544 - INFO - 📊 Total videos in master list: 70
 2025-12-04 06:02:30,544 - INFO - 🆕 New: Kya Kehta hai Islam by Adam Seeker (2025-12-03)
+2025-12-05 06:02:45,890 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2025-12-05 06:02:45,890 - INFO - 🚀 Starting video list update...
+2025-12-05 06:02:45,891 - INFO - 📊 Current master list has 70 existing videos
+2025-12-05 06:02:45,891 - INFO - 🔑 Using YouTube Data API to get channel ID
+2025-12-05 06:02:46,172 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-12-05 06:02:46,173 - INFO - 🔑 Using YouTube Data API for video discovery
+2025-12-05 06:02:46,173 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2025-12-05 06:02:46,272 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-12-05 06:02:46,438 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2025-12-05 06:02:46,439 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2025-12-05 06:02:46,440 - INFO - Master list updated successfully
+2025-12-05 06:02:46,440 - INFO - ✅ Successfully added 1 new videos
+2025-12-05 06:02:46,440 - INFO - 📊 Total videos in master list: 71
+2025-12-05 06:02:46,440 - INFO - 🆕 New: The 1st Transwomen in the World (2025-12-04)
