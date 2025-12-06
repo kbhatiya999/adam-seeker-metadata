@@ -527,3 +527,15 @@
 2025-12-05 06:02:46,440 - INFO - ✅ Successfully added 1 new videos
 2025-12-05 06:02:46,440 - INFO - 📊 Total videos in master list: 71
 2025-12-05 06:02:46,440 - INFO - 🆕 New: The 1st Transwomen in the World (2025-12-04)
+2025-12-06 06:02:30,817 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2025-12-06 06:02:30,817 - INFO - 🚀 Starting video list update...
+2025-12-06 06:02:30,818 - INFO - 📊 Current master list has 71 existing videos
+2025-12-06 06:02:30,818 - INFO - 🔑 Using YouTube Data API to get channel ID
+2025-12-06 06:02:31,108 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-12-06 06:02:31,109 - INFO - 🔑 Using YouTube Data API for video discovery
+2025-12-06 06:02:31,110 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2025-12-06 06:02:31,301 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-12-06 06:02:31,561 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2025-12-06 06:02:31,561 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2025-12-06 06:02:31,563 - INFO - Master list updated successfully
+2025-12-06 06:02:31,563 - INFO - ℹ️ No new videos found
