@@ -539,3 +539,17 @@
 2025-12-06 06:02:31,561 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2025-12-06 06:02:31,563 - INFO - Master list updated successfully
 2025-12-06 06:02:31,563 - INFO - ℹ️ No new videos found
+2025-12-07 06:02:24,160 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2025-12-07 06:02:24,160 - INFO - 🚀 Starting video list update...
+2025-12-07 06:02:24,161 - INFO - 📊 Current master list has 71 existing videos
+2025-12-07 06:02:24,161 - INFO - 🔑 Using YouTube Data API to get channel ID
+2025-12-07 06:02:24,439 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-12-07 06:02:24,440 - INFO - 🔑 Using YouTube Data API for video discovery
+2025-12-07 06:02:24,440 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2025-12-07 06:02:24,556 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-12-07 06:02:24,769 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2025-12-07 06:02:24,770 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2025-12-07 06:02:24,771 - INFO - Master list updated successfully
+2025-12-07 06:02:24,771 - INFO - ✅ Successfully added 1 new videos
+2025-12-07 06:02:24,771 - INFO - 📊 Total videos in master list: 72
+2025-12-07 06:02:24,771 - INFO - 🆕 New: Jihad is misunderstood by Maulana Madani - मौलाना मदनी ने कहा कि जिहाद को गलत समझा गया है (2025-12-06)
