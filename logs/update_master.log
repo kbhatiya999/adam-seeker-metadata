@@ -580,3 +580,15 @@
 2025-12-09 06:02:56,602 - INFO - 📊 Total videos in master list: 74
 2025-12-09 06:02:56,602 - INFO - 🆕 New: Momin Sahil is more dangerous then ExMuslim Sahil (2025-12-08)
 2025-12-09 06:02:56,602 - INFO - 🆕 New: Discussion with Osama answer my 6 questions Adam (2025-12-08)
+2025-12-10 06:02:37,838 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2025-12-10 06:02:37,838 - INFO - 🚀 Starting video list update...
+2025-12-10 06:02:37,839 - INFO - 📊 Current master list has 74 existing videos
+2025-12-10 06:02:37,839 - INFO - 🔑 Using YouTube Data API to get channel ID
+2025-12-10 06:02:38,111 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-12-10 06:02:38,112 - INFO - 🔑 Using YouTube Data API for video discovery
+2025-12-10 06:02:38,112 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2025-12-10 06:02:38,222 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-12-10 06:02:38,441 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2025-12-10 06:02:38,442 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2025-12-10 06:02:38,444 - INFO - Master list updated successfully
+2025-12-10 06:02:38,444 - INFO - ℹ️ No new videos found
