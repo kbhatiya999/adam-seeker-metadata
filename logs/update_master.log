@@ -592,3 +592,17 @@
 2025-12-10 06:02:38,442 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2025-12-10 06:02:38,444 - INFO - Master list updated successfully
 2025-12-10 06:02:38,444 - INFO - ℹ️ No new videos found
+2025-12-11 06:02:43,817 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2025-12-11 06:02:43,817 - INFO - 🚀 Starting video list update...
+2025-12-11 06:02:43,818 - INFO - 📊 Current master list has 74 existing videos
+2025-12-11 06:02:43,818 - INFO - 🔑 Using YouTube Data API to get channel ID
+2025-12-11 06:02:44,094 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-12-11 06:02:44,095 - INFO - 🔑 Using YouTube Data API for video discovery
+2025-12-11 06:02:44,095 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2025-12-11 06:02:44,231 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-12-11 06:02:44,454 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2025-12-11 06:02:44,455 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2025-12-11 06:02:44,456 - INFO - Master list updated successfully
+2025-12-11 06:02:44,457 - INFO - ✅ Successfully added 1 new videos
+2025-12-11 06:02:44,457 - INFO - 📊 Total videos in master list: 75
+2025-12-11 06:02:44,457 - INFO - 🆕 New: Islam Akal Ka Nahi Nakal Ka Naam Hai (2025-12-10)
