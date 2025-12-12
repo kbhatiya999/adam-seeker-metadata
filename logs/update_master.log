@@ -606,3 +606,17 @@
 2025-12-11 06:02:44,457 - INFO - ✅ Successfully added 1 new videos
 2025-12-11 06:02:44,457 - INFO - 📊 Total videos in master list: 75
 2025-12-11 06:02:44,457 - INFO - 🆕 New: Islam Akal Ka Nahi Nakal Ka Naam Hai (2025-12-10)
+2025-12-12 06:02:39,581 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2025-12-12 06:02:39,581 - INFO - 🚀 Starting video list update...
+2025-12-12 06:02:39,581 - INFO - 📊 Current master list has 75 existing videos
+2025-12-12 06:02:39,582 - INFO - 🔑 Using YouTube Data API to get channel ID
+2025-12-12 06:02:39,865 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-12-12 06:02:39,866 - INFO - 🔑 Using YouTube Data API for video discovery
+2025-12-12 06:02:39,867 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2025-12-12 06:02:39,987 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-12-12 06:02:40,131 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2025-12-12 06:02:40,132 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2025-12-12 06:02:40,134 - INFO - Master list updated successfully
+2025-12-12 06:02:40,134 - INFO - ✅ Successfully added 1 new videos
+2025-12-12 06:02:40,134 - INFO - 📊 Total videos in master list: 76
+2025-12-12 06:02:40,134 - INFO - 🆕 New: Expending Universe In Quran Proved (2025-12-11)
