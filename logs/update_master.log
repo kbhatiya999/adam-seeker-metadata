@@ -620,3 +620,17 @@
 2025-12-12 06:02:40,134 - INFO - ✅ Successfully added 1 new videos
 2025-12-12 06:02:40,134 - INFO - 📊 Total videos in master list: 76
 2025-12-12 06:02:40,134 - INFO - 🆕 New: Expending Universe In Quran Proved (2025-12-11)
+2025-12-13 06:02:28,291 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2025-12-13 06:02:28,291 - INFO - 🚀 Starting video list update...
+2025-12-13 06:02:28,292 - INFO - 📊 Current master list has 76 existing videos
+2025-12-13 06:02:28,292 - INFO - 🔑 Using YouTube Data API to get channel ID
+2025-12-13 06:02:28,558 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-12-13 06:02:28,559 - INFO - 🔑 Using YouTube Data API for video discovery
+2025-12-13 06:02:28,559 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2025-12-13 06:02:28,693 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-12-13 06:02:28,884 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2025-12-13 06:02:28,885 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2025-12-13 06:02:28,886 - INFO - Master list updated successfully
+2025-12-13 06:02:28,887 - INFO - ✅ Successfully added 1 new videos
+2025-12-13 06:02:28,887 - INFO - 📊 Total videos in master list: 77
+2025-12-13 06:02:28,887 - INFO - 🆕 New: Discussion with Haider slavery is wrong (2025-12-12)
