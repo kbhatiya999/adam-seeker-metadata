@@ -662,3 +662,15 @@
 2025-12-15 06:02:46,587 - INFO - ✅ Successfully added 1 new videos
 2025-12-15 06:02:46,587 - INFO - 📊 Total videos in master list: 79
 2025-12-15 06:02:46,587 - INFO - 🆕 New: IQ and Islamic countries a new research (2025-12-08)
+2025-12-16 06:02:51,112 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2025-12-16 06:02:51,112 - INFO - 🚀 Starting video list update...
+2025-12-16 06:02:51,113 - INFO - 📊 Current master list has 79 existing videos
+2025-12-16 06:02:51,113 - INFO - 🔑 Using YouTube Data API to get channel ID
+2025-12-16 06:02:51,520 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-12-16 06:02:51,521 - INFO - 🔑 Using YouTube Data API for video discovery
+2025-12-16 06:02:51,522 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2025-12-16 06:02:51,625 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-12-16 06:02:51,853 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2025-12-16 06:02:51,854 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2025-12-16 06:02:51,855 - INFO - Master list updated successfully
+2025-12-16 06:02:51,855 - INFO - ℹ️ No new videos found
