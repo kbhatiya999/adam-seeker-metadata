@@ -674,3 +674,17 @@
 2025-12-16 06:02:51,854 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2025-12-16 06:02:51,855 - INFO - Master list updated successfully
 2025-12-16 06:02:51,855 - INFO - ℹ️ No new videos found
+2025-12-17 06:02:46,123 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2025-12-17 06:02:46,123 - INFO - 🚀 Starting video list update...
+2025-12-17 06:02:46,124 - INFO - 📊 Current master list has 79 existing videos
+2025-12-17 06:02:46,124 - INFO - 🔑 Using YouTube Data API to get channel ID
+2025-12-17 06:02:46,415 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-12-17 06:02:46,416 - INFO - 🔑 Using YouTube Data API for video discovery
+2025-12-17 06:02:46,417 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2025-12-17 06:02:46,525 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-12-17 06:02:46,733 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2025-12-17 06:02:46,734 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2025-12-17 06:02:46,735 - INFO - Master list updated successfully
+2025-12-17 06:02:46,735 - INFO - ✅ Successfully added 1 new videos
+2025-12-17 06:02:46,736 - INFO - 📊 Total videos in master list: 80
+2025-12-17 06:02:46,736 - INFO - 🆕 New: Attack in Sydney at a Jewish celebration - सिडनी में एक यहूदी समारोह में हमला (2025-12-16)
