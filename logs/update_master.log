@@ -700,3 +700,18 @@
 2025-12-18 06:02:39,010 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2025-12-18 06:02:39,011 - INFO - Master list updated successfully
 2025-12-18 06:02:39,011 - INFO - ℹ️ No new videos found
+2025-12-19 06:02:28,856 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2025-12-19 06:02:28,856 - INFO - 🚀 Starting video list update...
+2025-12-19 06:02:28,857 - INFO - 📊 Current master list has 80 existing videos
+2025-12-19 06:02:28,857 - INFO - 🔑 Using YouTube Data API to get channel ID
+2025-12-19 06:02:29,139 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-12-19 06:02:29,140 - INFO - 🔑 Using YouTube Data API for video discovery
+2025-12-19 06:02:29,140 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2025-12-19 06:02:29,231 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-12-19 06:02:29,403 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2025-12-19 06:02:29,404 - INFO - 🔍 Found 2 new videos (filtered from 50 total)
+2025-12-19 06:02:29,405 - INFO - Master list updated successfully
+2025-12-19 06:02:29,405 - INFO - ✅ Successfully added 2 new videos
+2025-12-19 06:02:29,405 - INFO - 📊 Total videos in master list: 82
+2025-12-19 06:02:29,405 - INFO - 🆕 New: Maa ka dudh piya ya nahiee? (2025-12-18)
+2025-12-19 06:02:29,405 - INFO - 🆕 New: Adam Decodes Mahmood Mandi's Jihad (2025-12-16)
