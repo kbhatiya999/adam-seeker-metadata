@@ -741,3 +741,17 @@
 2025-12-21 06:02:32,326 - INFO - ✅ Successfully added 1 new videos
 2025-12-21 06:02:32,326 - INFO - 📊 Total videos in master list: 83
 2025-12-21 06:02:32,326 - INFO - 🆕 New: Muhammad was astray - मुहम्मद गुमराह थे - محمد گمراہ تھا (2025-12-20)
+2025-12-22 06:02:47,558 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2025-12-22 06:02:47,559 - INFO - 🚀 Starting video list update...
+2025-12-22 06:02:47,560 - INFO - 📊 Current master list has 83 existing videos
+2025-12-22 06:02:47,560 - INFO - 🔑 Using YouTube Data API to get channel ID
+2025-12-22 06:02:47,898 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-12-22 06:02:47,899 - INFO - 🔑 Using YouTube Data API for video discovery
+2025-12-22 06:02:47,899 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2025-12-22 06:02:48,009 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-12-22 06:02:48,284 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2025-12-22 06:02:48,285 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2025-12-22 06:02:48,287 - INFO - Master list updated successfully
+2025-12-22 06:02:48,287 - INFO - ✅ Successfully added 1 new videos
+2025-12-22 06:02:48,287 - INFO - 📊 Total videos in master list: 84
+2025-12-22 06:02:48,287 - INFO - 🆕 New: Challenge by Adam Seeker in a song (2025-12-21)
