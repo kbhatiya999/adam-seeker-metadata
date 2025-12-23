@@ -755,3 +755,17 @@
 2025-12-22 06:02:48,287 - INFO - ✅ Successfully added 1 new videos
 2025-12-22 06:02:48,287 - INFO - 📊 Total videos in master list: 84
 2025-12-22 06:02:48,287 - INFO - 🆕 New: Challenge by Adam Seeker in a song (2025-12-21)
+2025-12-23 06:02:41,270 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2025-12-23 06:02:41,270 - INFO - 🚀 Starting video list update...
+2025-12-23 06:02:41,271 - INFO - 📊 Current master list has 84 existing videos
+2025-12-23 06:02:41,271 - INFO - 🔑 Using YouTube Data API to get channel ID
+2025-12-23 06:02:41,523 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-12-23 06:02:41,524 - INFO - 🔑 Using YouTube Data API for video discovery
+2025-12-23 06:02:41,524 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2025-12-23 06:02:41,622 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-12-23 06:02:41,841 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2025-12-23 06:02:41,842 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2025-12-23 06:02:41,844 - INFO - Master list updated successfully
+2025-12-23 06:02:41,844 - INFO - ✅ Successfully added 1 new videos
+2025-12-23 06:02:41,844 - INFO - 📊 Total videos in master list: 85
+2025-12-23 06:02:41,844 - INFO - 🆕 New: Merry Christmas (2025-12-22)
