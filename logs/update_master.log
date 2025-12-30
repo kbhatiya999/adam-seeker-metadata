@@ -844,3 +844,17 @@
 2025-12-29 06:03:21,914 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2025-12-29 06:03:21,916 - INFO - Master list updated successfully
 2025-12-29 06:03:21,916 - INFO - ℹ️ No new videos found
+2025-12-30 06:02:37,727 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2025-12-30 06:02:37,727 - INFO - 🚀 Starting video list update...
+2025-12-30 06:02:37,728 - INFO - 📊 Current master list has 87 existing videos
+2025-12-30 06:02:37,728 - INFO - 🔑 Using YouTube Data API to get channel ID
+2025-12-30 06:02:38,021 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2025-12-30 06:02:38,022 - INFO - 🔑 Using YouTube Data API for video discovery
+2025-12-30 06:02:38,023 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2025-12-30 06:02:38,142 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2025-12-30 06:02:38,377 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2025-12-30 06:02:38,378 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2025-12-30 06:02:38,379 - INFO - Master list updated successfully
+2025-12-30 06:02:38,379 - INFO - ✅ Successfully added 1 new videos
+2025-12-30 06:02:38,379 - INFO - 📊 Total videos in master list: 88
+2025-12-30 06:02:38,380 - INFO - 🆕 New: Sahil Vs two Muftis - Debate Review (2025-12-16)
