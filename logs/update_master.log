@@ -870,3 +870,18 @@
 2025-12-31 06:02:39,788 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2025-12-31 06:02:39,789 - INFO - Master list updated successfully
 2025-12-31 06:02:39,790 - INFO - ℹ️ No new videos found
+2026-01-01 06:02:48,878 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-01-01 06:02:48,878 - INFO - 🚀 Starting video list update...
+2026-01-01 06:02:48,879 - INFO - 📊 Current master list has 88 existing videos
+2026-01-01 06:02:48,879 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-01-01 06:02:49,334 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-01-01 06:02:49,335 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-01-01 06:02:49,335 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-01-01 06:02:49,443 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-01-01 06:02:49,675 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-01-01 06:02:49,676 - INFO - 🔍 Found 2 new videos (filtered from 50 total)
+2026-01-01 06:02:49,678 - INFO - Master list updated successfully
+2026-01-01 06:02:49,678 - INFO - ✅ Successfully added 2 new videos
+2026-01-01 06:02:49,678 - INFO - 📊 Total videos in master list: 90
+2026-01-01 06:02:49,678 - INFO - 🆕 New: New Year Gift - Is Allah a satan according to quran? (2025-12-31)
+2026-01-01 06:02:49,678 - INFO - 🆕 New: Kafar Kafar Song (2025-12-31)
