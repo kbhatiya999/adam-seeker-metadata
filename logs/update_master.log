@@ -897,3 +897,19 @@
 2026-01-02 06:02:38,807 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2026-01-02 06:02:38,809 - INFO - Master list updated successfully
 2026-01-02 06:02:38,809 - INFO - ℹ️ No new videos found
+2026-01-03 06:02:40,392 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-01-03 06:02:40,392 - INFO - 🚀 Starting video list update...
+2026-01-03 06:02:40,393 - INFO - 📊 Current master list has 90 existing videos
+2026-01-03 06:02:40,393 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-01-03 06:02:40,625 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-01-03 06:02:40,626 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-01-03 06:02:40,627 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-01-03 06:02:40,737 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-01-03 06:02:40,934 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-01-03 06:02:40,934 - INFO - 🔍 Found 3 new videos (filtered from 50 total)
+2026-01-03 06:02:40,936 - INFO - Master list updated successfully
+2026-01-03 06:02:40,936 - INFO - ✅ Successfully added 3 new videos
+2026-01-03 06:02:40,936 - INFO - 📊 Total videos in master list: 93
+2026-01-03 06:02:40,936 - INFO - 🆕 New: Handicap God - विकलांग भगवान (2026-01-03)
+2026-01-03 06:02:40,936 - INFO - 🆕 New: Handicap God - विकलांग भगवान 📱 (2026-01-03)
+2026-01-03 06:02:40,936 - INFO - 🆕 New: Exmuslim Sofiya ka safar (2026-01-02)
