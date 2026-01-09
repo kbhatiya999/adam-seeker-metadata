@@ -976,3 +976,15 @@
 2026-01-08 06:02:41,930 - INFO - 📊 Total videos in master list: 95
 2026-01-08 06:02:41,930 - INFO - 🆕 New: Rsool Allah was more shy than a virgin - رسول اللہ ﷺ کنواری سے زیادہ شرمیلا تھے۔ 📱 (2026-01-07)
 2026-01-08 06:02:41,930 - INFO - 🆕 New: Rsool Allah was more shy than a virgin - رسول اللہ ﷺ کنواری سے زیادہ شرمیلا تھے۔ (2026-01-07)
+2026-01-09 06:02:40,497 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-01-09 06:02:40,497 - INFO - 🚀 Starting video list update...
+2026-01-09 06:02:40,498 - INFO - 📊 Current master list has 95 existing videos
+2026-01-09 06:02:40,498 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-01-09 06:02:40,713 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-01-09 06:02:40,714 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-01-09 06:02:40,714 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-01-09 06:02:40,906 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-01-09 06:02:41,117 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-01-09 06:02:41,118 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-01-09 06:02:41,120 - INFO - Master list updated successfully
+2026-01-09 06:02:41,120 - INFO - ℹ️ No new videos found
