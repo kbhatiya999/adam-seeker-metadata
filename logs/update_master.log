@@ -1000,3 +1000,17 @@
 2026-01-10 06:02:30,510 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2026-01-10 06:02:30,512 - INFO - Master list updated successfully
 2026-01-10 06:02:30,512 - INFO - ℹ️ No new videos found
+2026-01-11 06:02:36,677 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-01-11 06:02:36,678 - INFO - 🚀 Starting video list update...
+2026-01-11 06:02:36,679 - INFO - 📊 Current master list has 95 existing videos
+2026-01-11 06:02:36,679 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-01-11 06:02:36,928 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-01-11 06:02:36,929 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-01-11 06:02:36,929 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-01-11 06:02:37,046 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-01-11 06:02:37,248 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-01-11 06:02:37,249 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-01-11 06:02:37,251 - INFO - Master list updated successfully
+2026-01-11 06:02:37,251 - INFO - ✅ Successfully added 1 new videos
+2026-01-11 06:02:37,251 - INFO - 📊 Total videos in master list: 96
+2026-01-11 06:02:37,251 - INFO - 🆕 New: True Religion Islam - حقیقی مذہب اسلام (2026-01-10)
