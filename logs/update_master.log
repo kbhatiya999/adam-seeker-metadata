@@ -1064,3 +1064,17 @@
 2026-01-15 06:02:34,609 - INFO - ✅ Successfully added 1 new videos
 2026-01-15 06:02:34,609 - INFO - 📊 Total videos in master list: 97
 2026-01-15 06:02:34,609 - INFO - 🆕 New: You are ignorant if you accept Quran اگر تم قرآن کو مانتے ہو تو تم جاہل ہو۔ (2026-01-14)
+2026-01-16 06:02:40,933 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-01-16 06:02:40,933 - INFO - 🚀 Starting video list update...
+2026-01-16 06:02:40,934 - INFO - 📊 Current master list has 97 existing videos
+2026-01-16 06:02:40,934 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-01-16 06:02:41,278 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-01-16 06:02:41,279 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-01-16 06:02:41,279 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-01-16 06:02:41,471 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-01-16 06:02:41,729 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-01-16 06:02:41,730 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-01-16 06:02:41,732 - INFO - Master list updated successfully
+2026-01-16 06:02:41,732 - INFO - ✅ Successfully added 1 new videos
+2026-01-16 06:02:41,732 - INFO - 📊 Total videos in master list: 98
+2026-01-16 06:02:41,732 - INFO - 🆕 New: Decoding Quran 5:32 (2026-01-16)
