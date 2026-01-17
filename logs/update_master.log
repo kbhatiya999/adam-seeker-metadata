@@ -1078,3 +1078,15 @@
 2026-01-16 06:02:41,732 - INFO - ✅ Successfully added 1 new videos
 2026-01-16 06:02:41,732 - INFO - 📊 Total videos in master list: 98
 2026-01-16 06:02:41,732 - INFO - 🆕 New: Decoding Quran 5:32 (2026-01-16)
+2026-01-17 06:02:28,715 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-01-17 06:02:28,715 - INFO - 🚀 Starting video list update...
+2026-01-17 06:02:28,717 - INFO - 📊 Current master list has 98 existing videos
+2026-01-17 06:02:28,717 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-01-17 06:02:29,051 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-01-17 06:02:29,052 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-01-17 06:02:29,052 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-01-17 06:02:29,165 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-01-17 06:02:29,347 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-01-17 06:02:29,348 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-01-17 06:02:29,349 - INFO - Master list updated successfully
+2026-01-17 06:02:29,350 - INFO - ℹ️ No new videos found
