@@ -1104,3 +1104,15 @@
 2026-01-18 06:02:29,046 - INFO - ✅ Successfully added 1 new videos
 2026-01-18 06:02:29,047 - INFO - 📊 Total videos in master list: 99
 2026-01-18 06:02:29,047 - INFO - 🆕 New: Muhammad the God of Islam - محمد - اسلام کا خدا (2026-01-17)
+2026-01-19 06:04:04,940 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-01-19 06:04:04,941 - INFO - 🚀 Starting video list update...
+2026-01-19 06:04:04,942 - INFO - 📊 Current master list has 99 existing videos
+2026-01-19 06:04:04,942 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-01-19 06:04:05,264 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-01-19 06:04:05,265 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-01-19 06:04:05,265 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-01-19 06:04:05,360 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-01-19 06:04:05,523 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-01-19 06:04:05,524 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-01-19 06:04:05,525 - INFO - Master list updated successfully
+2026-01-19 06:04:05,525 - INFO - ℹ️ No new videos found
