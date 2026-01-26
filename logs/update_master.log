@@ -1192,3 +1192,17 @@
 2026-01-25 06:02:32,660 - INFO - ✅ Successfully added 1 new videos
 2026-01-25 06:02:32,660 - INFO - 📊 Total videos in master list: 101
 2026-01-25 06:02:32,660 - INFO - 🆕 New: A crime which Muhammad did not do? - کوئی ایسا جرم بتاؤ جو محمد نے نہ کیا ہو۔ (2026-01-24)
+2026-01-26 06:03:47,552 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-01-26 06:03:47,552 - INFO - 🚀 Starting video list update...
+2026-01-26 06:03:47,553 - INFO - 📊 Current master list has 101 existing videos
+2026-01-26 06:03:47,553 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-01-26 06:03:47,848 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-01-26 06:03:47,849 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-01-26 06:03:47,849 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-01-26 06:03:47,985 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-01-26 06:03:48,216 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-01-26 06:03:48,217 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-01-26 06:03:48,219 - INFO - Master list updated successfully
+2026-01-26 06:03:48,219 - INFO - ✅ Successfully added 1 new videos
+2026-01-26 06:03:48,219 - INFO - 📊 Total videos in master list: 102
+2026-01-26 06:03:48,219 - INFO - 🆕 New: Momin Sahil Vs Muslimah Hira (2025-12-30)
