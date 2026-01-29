@@ -1230,3 +1230,17 @@
 2026-01-28 06:03:44,066 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2026-01-28 06:03:44,069 - INFO - Master list updated successfully
 2026-01-28 06:03:44,069 - INFO - ℹ️ No new videos found
+2026-01-29 06:11:00,793 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-01-29 06:11:00,793 - INFO - 🚀 Starting video list update...
+2026-01-29 06:11:00,795 - INFO - 📊 Current master list has 102 existing videos
+2026-01-29 06:11:00,795 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-01-29 06:11:01,144 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-01-29 06:11:01,145 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-01-29 06:11:01,145 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-01-29 06:11:01,282 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-01-29 06:11:01,512 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-01-29 06:11:01,513 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-01-29 06:11:01,515 - INFO - Master list updated successfully
+2026-01-29 06:11:01,515 - INFO - ✅ Successfully added 1 new videos
+2026-01-29 06:11:01,515 - INFO - 📊 Total videos in master list: 103
+2026-01-29 06:11:01,515 - INFO - 🆕 New: quran ko mukamal sabit karne per $10000 ka inam (2026-01-28)
