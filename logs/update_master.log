@@ -1244,3 +1244,17 @@
 2026-01-29 06:11:01,515 - INFO - ✅ Successfully added 1 new videos
 2026-01-29 06:11:01,515 - INFO - 📊 Total videos in master list: 103
 2026-01-29 06:11:01,515 - INFO - 🆕 New: quran ko mukamal sabit karne per $10000 ka inam (2026-01-28)
+2026-01-30 06:11:16,395 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-01-30 06:11:16,395 - INFO - 🚀 Starting video list update...
+2026-01-30 06:11:16,396 - INFO - 📊 Current master list has 103 existing videos
+2026-01-30 06:11:16,397 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-01-30 06:11:16,717 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-01-30 06:11:16,718 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-01-30 06:11:16,719 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-01-30 06:11:16,889 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-01-30 06:11:17,135 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-01-30 06:11:17,136 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-01-30 06:11:17,137 - INFO - Master list updated successfully
+2026-01-30 06:11:17,137 - INFO - ✅ Successfully added 1 new videos
+2026-01-30 06:11:17,138 - INFO - 📊 Total videos in master list: 104
+2026-01-30 06:11:17,138 - INFO - 🆕 New: Punjabi Molvi te dawat-e-islam (2026-01-29)
