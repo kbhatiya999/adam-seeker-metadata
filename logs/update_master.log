@@ -1270,3 +1270,17 @@
 2026-01-31 06:07:01,935 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2026-01-31 06:07:01,937 - INFO - Master list updated successfully
 2026-01-31 06:07:01,937 - INFO - ℹ️ No new videos found
+2026-02-01 06:13:50,849 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-02-01 06:13:50,850 - INFO - 🚀 Starting video list update...
+2026-02-01 06:13:50,851 - INFO - 📊 Current master list has 104 existing videos
+2026-02-01 06:13:50,851 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-02-01 06:13:51,098 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-02-01 06:13:51,099 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-02-01 06:13:51,099 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-02-01 06:13:51,197 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-02-01 06:13:51,360 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-02-01 06:13:51,361 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-02-01 06:13:51,363 - INFO - Master list updated successfully
+2026-02-01 06:13:51,363 - INFO - ✅ Successfully added 1 new videos
+2026-02-01 06:13:51,363 - INFO - 📊 Total videos in master list: 105
+2026-02-01 06:13:51,363 - INFO - 🆕 New: Koi musalman Muhammad ko apne se behtar sabit kar sakta hai? (2026-01-31)
