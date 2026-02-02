@@ -1284,3 +1284,18 @@
 2026-02-01 06:13:51,363 - INFO - ✅ Successfully added 1 new videos
 2026-02-01 06:13:51,363 - INFO - 📊 Total videos in master list: 105
 2026-02-01 06:13:51,363 - INFO - 🆕 New: Koi musalman Muhammad ko apne se behtar sabit kar sakta hai? (2026-01-31)
+2026-02-02 06:18:35,172 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-02-02 06:18:35,172 - INFO - 🚀 Starting video list update...
+2026-02-02 06:18:35,173 - INFO - 📊 Current master list has 105 existing videos
+2026-02-02 06:18:35,173 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-02-02 06:18:35,496 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-02-02 06:18:35,496 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-02-02 06:18:35,497 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-02-02 06:18:35,646 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-02-02 06:18:35,864 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-02-02 06:18:35,865 - INFO - 🔍 Found 2 new videos (filtered from 50 total)
+2026-02-02 06:18:35,867 - INFO - Master list updated successfully
+2026-02-02 06:18:35,867 - INFO - ✅ Successfully added 2 new videos
+2026-02-02 06:18:35,867 - INFO - 📊 Total videos in master list: 107
+2026-02-02 06:18:35,867 - INFO - 🆕 New: Mufti's are running from Adam Seeker (2026-02-01)
+2026-02-02 06:18:35,867 - INFO - 🆕 New: Rebeca 3 sal ki thi - Farhan ka dawah (2026-01-30)
