@@ -1311,3 +1311,17 @@
 2026-02-03 06:14:07,895 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2026-02-03 06:14:07,897 - INFO - Master list updated successfully
 2026-02-03 06:14:07,897 - INFO - ℹ️ No new videos found
+2026-02-04 06:12:40,376 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-02-04 06:12:40,376 - INFO - 🚀 Starting video list update...
+2026-02-04 06:12:40,377 - INFO - 📊 Current master list has 107 existing videos
+2026-02-04 06:12:40,377 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-02-04 06:12:40,801 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-02-04 06:12:40,802 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-02-04 06:12:40,802 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-02-04 06:12:40,941 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-02-04 06:12:41,163 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-02-04 06:12:41,163 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-02-04 06:12:41,174 - INFO - Master list updated successfully
+2026-02-04 06:12:41,174 - INFO - ✅ Successfully added 1 new videos
+2026-02-04 06:12:41,174 - INFO - 📊 Total videos in master list: 108
+2026-02-04 06:12:41,174 - INFO - 🆕 New: jhotay nabi ki nashaniyan? جھوٹے نبی کی نشانیاں؟ (2026-02-04)
