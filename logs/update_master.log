@@ -1325,3 +1325,17 @@
 2026-02-04 06:12:41,174 - INFO - ✅ Successfully added 1 new videos
 2026-02-04 06:12:41,174 - INFO - 📊 Total videos in master list: 108
 2026-02-04 06:12:41,174 - INFO - 🆕 New: jhotay nabi ki nashaniyan? جھوٹے نبی کی نشانیاں؟ (2026-02-04)
+2026-02-05 06:16:45,756 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-02-05 06:16:45,756 - INFO - 🚀 Starting video list update...
+2026-02-05 06:16:45,757 - INFO - 📊 Current master list has 108 existing videos
+2026-02-05 06:16:45,758 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-02-05 06:16:46,114 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-02-05 06:16:46,115 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-02-05 06:16:46,115 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-02-05 06:16:46,286 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-02-05 06:16:46,505 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-02-05 06:16:46,506 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-02-05 06:16:46,508 - INFO - Master list updated successfully
+2026-02-05 06:16:46,508 - INFO - ✅ Successfully added 1 new videos
+2026-02-05 06:16:46,508 - INFO - 📊 Total videos in master list: 109
+2026-02-05 06:16:46,508 - INFO - 🆕 New: History of Islamic Scriptures by Dr Jay Smith (2026-01-31)
