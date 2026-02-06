@@ -1339,3 +1339,17 @@
 2026-02-05 06:16:46,508 - INFO - ✅ Successfully added 1 new videos
 2026-02-05 06:16:46,508 - INFO - 📊 Total videos in master list: 109
 2026-02-05 06:16:46,508 - INFO - 🆕 New: History of Islamic Scriptures by Dr Jay Smith (2026-01-31)
+2026-02-06 06:14:24,649 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-02-06 06:14:24,649 - INFO - 🚀 Starting video list update...
+2026-02-06 06:14:24,651 - INFO - 📊 Current master list has 109 existing videos
+2026-02-06 06:14:24,651 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-02-06 06:14:24,900 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-02-06 06:14:24,901 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-02-06 06:14:24,901 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-02-06 06:14:24,980 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-02-06 06:14:25,171 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-02-06 06:14:25,172 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-02-06 06:14:25,174 - INFO - Master list updated successfully
+2026-02-06 06:14:25,174 - INFO - ✅ Successfully added 1 new videos
+2026-02-06 06:14:25,174 - INFO - 📊 Total videos in master list: 110
+2026-02-06 06:14:25,174 - INFO - 🆕 New: Ayub Khan justifying slavery (2026-02-05)
