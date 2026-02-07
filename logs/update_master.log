@@ -1353,3 +1353,17 @@
 2026-02-06 06:14:25,174 - INFO - ✅ Successfully added 1 new videos
 2026-02-06 06:14:25,174 - INFO - 📊 Total videos in master list: 110
 2026-02-06 06:14:25,174 - INFO - 🆕 New: Ayub Khan justifying slavery (2026-02-05)
+2026-02-07 06:09:34,699 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-02-07 06:09:34,700 - INFO - 🚀 Starting video list update...
+2026-02-07 06:09:34,701 - INFO - 📊 Current master list has 110 existing videos
+2026-02-07 06:09:34,701 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-02-07 06:09:34,956 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-02-07 06:09:34,957 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-02-07 06:09:34,957 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-02-07 06:09:35,025 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-02-07 06:09:35,174 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-02-07 06:09:35,176 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-02-07 06:09:35,178 - INFO - Master list updated successfully
+2026-02-07 06:09:35,179 - INFO - ✅ Successfully added 1 new videos
+2026-02-07 06:09:35,179 - INFO - 📊 Total videos in master list: 111
+2026-02-07 06:09:35,179 - INFO - 🆕 New: Ya Ummi Nabi ka asal matlab - اُمّی نبی کے حقیقی معنی (2026-02-07)
