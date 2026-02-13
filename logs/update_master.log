@@ -1430,3 +1430,15 @@
 2026-02-12 06:19:24,831 - INFO - 📊 Total videos in master list: 113
 2026-02-12 06:19:24,831 - INFO - 🆕 New: jihad means struggle جہاد کا مطلب جدوجہد ہے۔ (2026-02-11)
 2026-02-12 06:19:24,832 - INFO - 🆕 New: Haider and Indian Muftis (2026-01-25)
+2026-02-13 06:17:54,250 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-02-13 06:17:54,250 - INFO - 🚀 Starting video list update...
+2026-02-13 06:17:54,251 - INFO - 📊 Current master list has 113 existing videos
+2026-02-13 06:17:54,251 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-02-13 06:17:54,645 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-02-13 06:17:54,646 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-02-13 06:17:54,647 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-02-13 06:17:54,755 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-02-13 06:17:54,922 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-02-13 06:17:54,922 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-02-13 06:17:54,924 - INFO - Master list updated successfully
+2026-02-13 06:17:54,924 - INFO - ℹ️ No new videos found
