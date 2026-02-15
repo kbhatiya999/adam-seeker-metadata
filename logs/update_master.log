@@ -1457,3 +1457,15 @@
 2026-02-14 06:10:18,165 - INFO - 📊 Total videos in master list: 115
 2026-02-14 06:10:18,165 - INFO - 🆕 New: Sach Chupaao propaganda bano - Islam 2026 (2026-02-14)
 2026-02-14 06:10:18,165 - INFO - 🆕 New: Last words of Muhammad  #funny #islamicprophet #ali #muhammad (2026-02-13)
+2026-02-15 06:14:49,486 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-02-15 06:14:49,486 - INFO - 🚀 Starting video list update...
+2026-02-15 06:14:49,487 - INFO - 📊 Current master list has 115 existing videos
+2026-02-15 06:14:49,487 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-02-15 06:14:49,867 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-02-15 06:14:49,869 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-02-15 06:14:49,869 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-02-15 06:14:49,998 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-02-15 06:14:50,188 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-02-15 06:14:50,189 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-02-15 06:14:50,191 - INFO - Master list updated successfully
+2026-02-15 06:14:50,191 - INFO - ℹ️ No new videos found
