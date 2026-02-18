@@ -1498,3 +1498,17 @@
 2026-02-17 06:16:44,644 - INFO - 📊 Total videos in master list: 118
 2026-02-17 06:16:44,644 - INFO - 🆕 New: Hassan Allayaari ki historical beizzati - Debate Review (2026-02-16)
 2026-02-17 06:16:44,644 - INFO - 🆕 New: Ayub Khan VS ex exmuslim Sahil on slavery (2026-02-16)
+2026-02-18 06:19:20,122 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-02-18 06:19:20,122 - INFO - 🚀 Starting video list update...
+2026-02-18 06:19:20,124 - INFO - 📊 Current master list has 118 existing videos
+2026-02-18 06:19:20,124 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-02-18 06:19:20,388 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-02-18 06:19:20,390 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-02-18 06:19:20,390 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-02-18 06:19:20,564 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-02-18 06:19:20,855 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-02-18 06:19:20,855 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-02-18 06:19:20,857 - INFO - Master list updated successfully
+2026-02-18 06:19:20,858 - INFO - ✅ Successfully added 1 new videos
+2026-02-18 06:19:20,858 - INFO - 📊 Total videos in master list: 119
+2026-02-18 06:19:20,858 - INFO - 🆕 New: Ramadan Mubarak - رمضان مبارک (2026-02-18)
