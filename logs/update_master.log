@@ -1564,3 +1564,15 @@
 2026-02-22 06:12:05,094 - INFO - ✅ Successfully added 1 new videos
 2026-02-22 06:12:05,094 - INFO - 📊 Total videos in master list: 121
 2026-02-22 06:12:05,094 - INFO - 🆕 New: Quran was Sent down in Ramadan? - رمضان کا مہینہ جس میں قرآن نازل ہوا۔ (2026-02-21)
+2026-02-23 06:19:53,250 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-02-23 06:19:53,251 - INFO - 🚀 Starting video list update...
+2026-02-23 06:19:53,252 - INFO - 📊 Current master list has 121 existing videos
+2026-02-23 06:19:53,252 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-02-23 06:19:53,504 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-02-23 06:19:53,505 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-02-23 06:19:53,506 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-02-23 06:19:53,620 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-02-23 06:19:53,803 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-02-23 06:19:53,804 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-02-23 06:19:53,806 - INFO - Master list updated successfully
+2026-02-23 06:19:53,806 - INFO - ℹ️ No new videos found
