@@ -1576,3 +1576,18 @@
 2026-02-23 06:19:53,804 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2026-02-23 06:19:53,806 - INFO - Master list updated successfully
 2026-02-23 06:19:53,806 - INFO - ℹ️ No new videos found
+2026-02-24 06:18:14,848 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-02-24 06:18:14,848 - INFO - 🚀 Starting video list update...
+2026-02-24 06:18:14,850 - INFO - 📊 Current master list has 121 existing videos
+2026-02-24 06:18:14,850 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-02-24 06:18:15,102 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-02-24 06:18:15,103 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-02-24 06:18:15,103 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-02-24 06:18:15,223 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-02-24 06:18:15,448 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-02-24 06:18:15,449 - INFO - 🔍 Found 2 new videos (filtered from 50 total)
+2026-02-24 06:18:15,451 - INFO - Master list updated successfully
+2026-02-24 06:18:15,451 - INFO - ✅ Successfully added 2 new videos
+2026-02-24 06:18:15,451 - INFO - 📊 Total videos in master list: 123
+2026-02-24 06:18:15,451 - INFO - 🆕 New: Rakibul aur Suleman Finished ... (2026-02-23)
+2026-02-24 06:18:15,451 - INFO - 🆕 New: Creation of Sirat Rasool Allah, with Dr Jay Smith (2026-02-15)
