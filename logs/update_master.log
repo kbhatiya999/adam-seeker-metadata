@@ -1603,3 +1603,18 @@
 2026-02-25 06:23:43,365 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2026-02-25 06:23:43,367 - INFO - Master list updated successfully
 2026-02-25 06:23:43,367 - INFO - ℹ️ No new videos found
+2026-02-26 06:17:36,120 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-02-26 06:17:36,120 - INFO - 🚀 Starting video list update...
+2026-02-26 06:17:36,122 - INFO - 📊 Current master list has 123 existing videos
+2026-02-26 06:17:36,122 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-02-26 06:17:36,424 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-02-26 06:17:36,425 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-02-26 06:17:36,426 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-02-26 06:17:36,542 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-02-26 06:17:36,778 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-02-26 06:17:36,778 - INFO - 🔍 Found 2 new videos (filtered from 50 total)
+2026-02-26 06:17:36,780 - INFO - Master list updated successfully
+2026-02-26 06:17:36,780 - INFO - ✅ Successfully added 2 new videos
+2026-02-26 06:17:36,780 - INFO - 📊 Total videos in master list: 125
+2026-02-26 06:17:36,781 - INFO - 🆕 New: Rich Vs Poor Fasting of Ramadan - رمضان کے روزے امیر بمقابلہ غریب (2026-02-25)
+2026-02-26 06:17:36,781 - INFO - 🆕 New: Hypocrisy of Grok (2026-02-25)
