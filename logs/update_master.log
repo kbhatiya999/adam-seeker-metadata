@@ -1630,3 +1630,17 @@
 2026-02-27 06:13:52,452 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2026-02-27 06:13:52,454 - INFO - Master list updated successfully
 2026-02-27 06:13:52,454 - INFO - ℹ️ No new videos found
+2026-02-28 06:04:16,146 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-02-28 06:04:16,146 - INFO - 🚀 Starting video list update...
+2026-02-28 06:04:16,148 - INFO - 📊 Current master list has 125 existing videos
+2026-02-28 06:04:16,148 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-02-28 06:04:16,602 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-02-28 06:04:16,603 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-02-28 06:04:16,603 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-02-28 06:04:16,718 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-02-28 06:04:16,921 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-02-28 06:04:16,922 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-02-28 06:04:16,924 - INFO - Master list updated successfully
+2026-02-28 06:04:16,924 - INFO - ✅ Successfully added 1 new videos
+2026-02-28 06:04:16,924 - INFO - 📊 Total videos in master list: 126
+2026-02-28 06:04:16,924 - INFO - 🆕 New: Grok making funny jokes  #funny (2026-02-27)
