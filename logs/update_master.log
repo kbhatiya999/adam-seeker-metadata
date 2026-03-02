@@ -1658,3 +1658,15 @@
 2026-03-01 06:11:05,278 - INFO - ✅ Successfully added 1 new videos
 2026-03-01 06:11:05,278 - INFO - 📊 Total videos in master list: 127
 2026-03-01 06:11:05,278 - INFO - 🆕 New: Attack on Saleem Wastik in Ramadan - रमजान में सलीम वस्तिक पर हमला (2026-02-28)
+2026-03-02 06:14:07,469 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-03-02 06:14:07,469 - INFO - 🚀 Starting video list update...
+2026-03-02 06:14:07,470 - INFO - 📊 Current master list has 127 existing videos
+2026-03-02 06:14:07,470 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-03-02 06:14:07,814 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-03-02 06:14:07,815 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-03-02 06:14:07,815 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-03-02 06:14:07,953 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-03-02 06:14:08,225 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-03-02 06:14:08,226 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-03-02 06:14:08,227 - INFO - Master list updated successfully
+2026-03-02 06:14:08,228 - INFO - ℹ️ No new videos found
