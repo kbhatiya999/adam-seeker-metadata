@@ -1682,3 +1682,17 @@
 2026-03-03 06:12:00,157 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2026-03-03 06:12:00,159 - INFO - Master list updated successfully
 2026-03-03 06:12:00,159 - INFO - ℹ️ No new videos found
+2026-03-04 06:10:30,704 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-03-04 06:10:30,704 - INFO - 🚀 Starting video list update...
+2026-03-04 06:10:30,705 - INFO - 📊 Current master list has 127 existing videos
+2026-03-04 06:10:30,705 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-03-04 06:10:31,008 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-03-04 06:10:31,009 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-03-04 06:10:31,009 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-03-04 06:10:31,129 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-03-04 06:10:31,376 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-03-04 06:10:31,377 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-03-04 06:10:31,379 - INFO - Master list updated successfully
+2026-03-04 06:10:31,379 - INFO - ✅ Successfully added 1 new videos
+2026-03-04 06:10:31,379 - INFO - 📊 Total videos in master list: 128
+2026-03-04 06:10:31,379 - INFO - 🆕 New: Sahih-e-Sitta kuttab ki haqeqat - with Dr Jay Smith (2026-03-03)
