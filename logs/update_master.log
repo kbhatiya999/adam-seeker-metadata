@@ -1696,3 +1696,17 @@
 2026-03-04 06:10:31,379 - INFO - ✅ Successfully added 1 new videos
 2026-03-04 06:10:31,379 - INFO - 📊 Total videos in master list: 128
 2026-03-04 06:10:31,379 - INFO - 🆕 New: Sahih-e-Sitta kuttab ki haqeqat - with Dr Jay Smith (2026-03-03)
+2026-03-05 06:12:04,417 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-03-05 06:12:04,417 - INFO - 🚀 Starting video list update...
+2026-03-05 06:12:04,418 - INFO - 📊 Current master list has 128 existing videos
+2026-03-05 06:12:04,418 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-03-05 06:12:04,659 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-03-05 06:12:04,660 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-03-05 06:12:04,660 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-03-05 06:12:04,787 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-03-05 06:12:05,000 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-03-05 06:12:05,001 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-03-05 06:12:05,003 - INFO - Master list updated successfully
+2026-03-05 06:12:05,003 - INFO - ✅ Successfully added 1 new videos
+2026-03-05 06:12:05,003 - INFO - 📊 Total videos in master list: 129
+2026-03-05 06:12:05,003 - INFO - 🆕 New: Shia vs Sunni - Thank you Trump (2026-03-04)
