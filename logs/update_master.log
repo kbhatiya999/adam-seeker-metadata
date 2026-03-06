@@ -1710,3 +1710,17 @@
 2026-03-05 06:12:05,003 - INFO - ✅ Successfully added 1 new videos
 2026-03-05 06:12:05,003 - INFO - 📊 Total videos in master list: 129
 2026-03-05 06:12:05,003 - INFO - 🆕 New: Shia vs Sunni - Thank you Trump (2026-03-04)
+2026-03-06 06:10:41,978 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-03-06 06:10:41,978 - INFO - 🚀 Starting video list update...
+2026-03-06 06:10:41,980 - INFO - 📊 Current master list has 129 existing videos
+2026-03-06 06:10:41,980 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-03-06 06:10:42,371 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-03-06 06:10:42,372 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-03-06 06:10:42,372 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-03-06 06:10:42,535 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-03-06 06:10:42,754 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-03-06 06:10:42,755 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-03-06 06:10:42,757 - INFO - Master list updated successfully
+2026-03-06 06:10:42,757 - INFO - ✅ Successfully added 1 new videos
+2026-03-06 06:10:42,757 - INFO - 📊 Total videos in master list: 130
+2026-03-06 06:10:42,757 - INFO - 🆕 New: Hadith ki science ka asal roop - with Dr Jay Smith (2026-03-05)
