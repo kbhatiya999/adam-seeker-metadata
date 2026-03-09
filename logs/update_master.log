@@ -1750,3 +1750,15 @@
 2026-03-08 06:09:21,994 - INFO - ✅ Successfully added 1 new videos
 2026-03-08 06:09:21,994 - INFO - 📊 Total videos in master list: 131
 2026-03-08 06:09:21,994 - INFO - 🆕 New: Allah messed up for umar - اللہ نے عمر کے لیے گڑبڑ کر دی ۔ (2026-03-07)
+2026-03-09 06:17:03,997 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-03-09 06:17:03,997 - INFO - 🚀 Starting video list update...
+2026-03-09 06:17:03,999 - INFO - 📊 Current master list has 131 existing videos
+2026-03-09 06:17:03,999 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-03-09 06:17:04,251 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-03-09 06:17:04,252 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-03-09 06:17:04,252 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-03-09 06:17:04,421 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-03-09 06:17:04,672 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-03-09 06:17:04,673 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-03-09 06:17:04,675 - INFO - Master list updated successfully
+2026-03-09 06:17:04,675 - INFO - ℹ️ No new videos found
