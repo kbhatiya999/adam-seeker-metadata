@@ -1812,3 +1812,17 @@
 2026-03-13 06:12:45,063 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2026-03-13 06:12:45,065 - INFO - Master list updated successfully
 2026-03-13 06:12:45,065 - INFO - ℹ️ No new videos found
+2026-03-14 06:11:06,461 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-03-14 06:11:06,461 - INFO - 🚀 Starting video list update...
+2026-03-14 06:11:06,463 - INFO - 📊 Current master list has 132 existing videos
+2026-03-14 06:11:06,463 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-03-14 06:11:06,731 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-03-14 06:11:06,732 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-03-14 06:11:06,732 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-03-14 06:11:06,844 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-03-14 06:11:07,092 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-03-14 06:11:07,093 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-03-14 06:11:07,095 - INFO - Master list updated successfully
+2026-03-14 06:11:07,096 - INFO - ✅ Successfully added 1 new videos
+2026-03-14 06:11:07,096 - INFO - 📊 Total videos in master list: 133
+2026-03-14 06:11:07,096 - INFO - 🆕 New: Jesus is Muslim #jesus #muslim (2026-03-13)
