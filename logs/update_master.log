@@ -1840,3 +1840,15 @@
 2026-03-15 06:16:33,070 - INFO - ✅ Successfully added 1 new videos
 2026-03-15 06:16:33,070 - INFO - 📊 Total videos in master list: 134
 2026-03-15 06:16:33,070 - INFO - 🆕 New: taqdeer ka likha koi nahi badal sakta (2026-03-14)
+2026-03-16 06:26:43,320 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-03-16 06:26:43,320 - INFO - 🚀 Starting video list update...
+2026-03-16 06:26:43,322 - INFO - 📊 Current master list has 134 existing videos
+2026-03-16 06:26:43,322 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-03-16 06:26:43,603 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-03-16 06:26:43,604 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-03-16 06:26:43,605 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-03-16 06:26:43,771 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-03-16 06:26:43,990 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-03-16 06:26:43,991 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-03-16 06:26:43,994 - INFO - Master list updated successfully
+2026-03-16 06:26:43,994 - INFO - ℹ️ No new videos found
