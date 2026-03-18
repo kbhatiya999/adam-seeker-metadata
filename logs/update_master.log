@@ -1866,3 +1866,15 @@
 2026-03-17 06:18:27,819 - INFO - ✅ Successfully added 1 new videos
 2026-03-17 06:18:27,819 - INFO - 📊 Total videos in master list: 135
 2026-03-17 06:18:27,819 - INFO - 🆕 New: Zakir Niak VS Adam Seeker #zakirnaik #adamseeker (2026-03-16)
+2026-03-18 06:19:20,895 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-03-18 06:19:20,895 - INFO - 🚀 Starting video list update...
+2026-03-18 06:19:20,897 - INFO - 📊 Current master list has 135 existing videos
+2026-03-18 06:19:20,897 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-03-18 06:19:21,137 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-03-18 06:19:21,138 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-03-18 06:19:21,138 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-03-18 06:19:21,225 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-03-18 06:19:21,459 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-03-18 06:19:21,460 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-03-18 06:19:21,462 - INFO - Master list updated successfully
+2026-03-18 06:19:21,462 - INFO - ℹ️ No new videos found
