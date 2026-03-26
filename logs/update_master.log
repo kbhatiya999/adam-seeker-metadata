@@ -1964,3 +1964,17 @@
 2026-03-25 06:18:39,828 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2026-03-25 06:18:39,830 - INFO - Master list updated successfully
 2026-03-25 06:18:39,830 - INFO - ℹ️ No new videos found
+2026-03-26 06:20:57,928 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-03-26 06:20:57,928 - INFO - 🚀 Starting video list update...
+2026-03-26 06:20:57,929 - INFO - 📊 Current master list has 136 existing videos
+2026-03-26 06:20:57,930 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-03-26 06:20:58,215 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-03-26 06:20:58,216 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-03-26 06:20:58,217 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-03-26 06:20:58,305 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-03-26 06:20:58,552 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-03-26 06:20:58,553 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-03-26 06:20:58,555 - INFO - Master list updated successfully
+2026-03-26 06:20:58,555 - INFO - ✅ Successfully added 1 new videos
+2026-03-26 06:20:58,555 - INFO - 📊 Total videos in master list: 137
+2026-03-26 06:20:58,555 - INFO - 🆕 New: World War III (2026-03-25)
