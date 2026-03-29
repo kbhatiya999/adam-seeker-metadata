@@ -2004,3 +2004,15 @@
 2026-03-28 06:16:45,243 - INFO - ✅ Successfully added 1 new videos
 2026-03-28 06:16:45,243 - INFO - 📊 Total videos in master list: 138
 2026-03-28 06:16:45,243 - INFO - 🆕 New: Iran, Israel War and Dajjal - ईरान-इज़राइल युद्ध और दज्जाल (2026-03-27)
+2026-03-29 06:20:32,411 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-03-29 06:20:32,411 - INFO - 🚀 Starting video list update...
+2026-03-29 06:20:32,413 - INFO - 📊 Current master list has 138 existing videos
+2026-03-29 06:20:32,413 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-03-29 06:20:32,747 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-03-29 06:20:32,748 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-03-29 06:20:32,748 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-03-29 06:20:32,866 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-03-29 06:20:33,071 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-03-29 06:20:33,072 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-03-29 06:20:33,187 - INFO - Master list updated successfully
+2026-03-29 06:20:33,188 - INFO - ℹ️ No new videos found
