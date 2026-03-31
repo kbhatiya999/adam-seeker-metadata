@@ -2028,3 +2028,17 @@
 2026-03-30 06:31:21,405 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2026-03-30 06:31:21,408 - INFO - Master list updated successfully
 2026-03-30 06:31:21,408 - INFO - ℹ️ No new videos found
+2026-03-31 06:24:30,256 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-03-31 06:24:30,256 - INFO - 🚀 Starting video list update...
+2026-03-31 06:24:30,258 - INFO - 📊 Current master list has 138 existing videos
+2026-03-31 06:24:30,258 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-03-31 06:24:30,618 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-03-31 06:24:30,619 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-03-31 06:24:30,619 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-03-31 06:24:30,777 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-03-31 06:24:31,009 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-03-31 06:24:31,010 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-03-31 06:24:31,012 - INFO - Master list updated successfully
+2026-03-31 06:24:31,012 - INFO - ✅ Successfully added 1 new videos
+2026-03-31 06:24:31,012 - INFO - 📊 Total videos in master list: 139
+2026-03-31 06:24:31,012 - INFO - 🆕 New: Debate With Mohammad Anas (2026-03-30)
