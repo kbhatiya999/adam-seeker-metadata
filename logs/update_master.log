@@ -2054,3 +2054,17 @@
 2026-04-01 06:29:45,025 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2026-04-01 06:29:45,027 - INFO - Master list updated successfully
 2026-04-01 06:29:45,027 - INFO - ℹ️ No new videos found
+2026-04-02 06:21:45,569 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-04-02 06:21:45,569 - INFO - 🚀 Starting video list update...
+2026-04-02 06:21:45,571 - INFO - 📊 Current master list has 139 existing videos
+2026-04-02 06:21:45,571 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-04-02 06:21:45,851 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-04-02 06:21:45,852 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-04-02 06:21:45,852 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-04-02 06:21:45,948 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-04-02 06:21:46,106 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-04-02 06:21:46,107 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-04-02 06:21:46,110 - INFO - Master list updated successfully
+2026-04-02 06:21:46,110 - INFO - ✅ Successfully added 1 new videos
+2026-04-02 06:21:46,110 - INFO - 📊 Total videos in master list: 140
+2026-04-02 06:21:46,110 - INFO - 🆕 New: Maria Shahbaz Case and Pakistan's hidden war against Christians -  مسيحيون کے خلاف پاکستان کی جنگ (2026-04-01)
