@@ -2068,3 +2068,17 @@
 2026-04-02 06:21:46,110 - INFO - ✅ Successfully added 1 new videos
 2026-04-02 06:21:46,110 - INFO - 📊 Total videos in master list: 140
 2026-04-02 06:21:46,110 - INFO - 🆕 New: Maria Shahbaz Case and Pakistan's hidden war against Christians -  مسيحيون کے خلاف پاکستان کی جنگ (2026-04-01)
+2026-04-03 06:21:40,006 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-04-03 06:21:40,007 - INFO - 🚀 Starting video list update...
+2026-04-03 06:21:40,008 - INFO - 📊 Current master list has 140 existing videos
+2026-04-03 06:21:40,008 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-04-03 06:21:40,306 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-04-03 06:21:40,306 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-04-03 06:21:40,306 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-04-03 06:21:40,381 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-04-03 06:21:40,557 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-04-03 06:21:40,557 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-04-03 06:21:40,560 - INFO - Master list updated successfully
+2026-04-03 06:21:40,560 - INFO - ✅ Successfully added 1 new videos
+2026-04-03 06:21:40,560 - INFO - 📊 Total videos in master list: 141
+2026-04-03 06:21:40,560 - INFO - 🆕 New: Debate: Matthew Suleman VS Mir Lateef - Is Quran the words of God? (2026-04-03)
