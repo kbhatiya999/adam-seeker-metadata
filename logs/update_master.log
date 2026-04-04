@@ -2082,3 +2082,17 @@
 2026-04-03 06:21:40,560 - INFO - ✅ Successfully added 1 new videos
 2026-04-03 06:21:40,560 - INFO - 📊 Total videos in master list: 141
 2026-04-03 06:21:40,560 - INFO - 🆕 New: Debate: Matthew Suleman VS Mir Lateef - Is Quran the words of God? (2026-04-03)
+2026-04-04 06:17:37,568 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-04-04 06:17:37,568 - INFO - 🚀 Starting video list update...
+2026-04-04 06:17:37,569 - INFO - 📊 Current master list has 141 existing videos
+2026-04-04 06:17:37,570 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-04-04 06:17:37,833 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-04-04 06:17:37,834 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-04-04 06:17:37,835 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-04-04 06:17:37,967 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-04-04 06:17:38,160 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-04-04 06:17:38,161 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-04-04 06:17:38,163 - INFO - Master list updated successfully
+2026-04-04 06:17:38,163 - INFO - ✅ Successfully added 1 new videos
+2026-04-04 06:17:38,163 - INFO - 📊 Total videos in master list: 142
+2026-04-04 06:17:38,163 - INFO - 🆕 New: Debate Review - Matthew Suleman VS Mir Lateef - Is the Quran the word of God? (2026-04-03)
