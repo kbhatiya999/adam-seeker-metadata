@@ -2096,3 +2096,17 @@
 2026-04-04 06:17:38,163 - INFO - ✅ Successfully added 1 new videos
 2026-04-04 06:17:38,163 - INFO - 📊 Total videos in master list: 142
 2026-04-04 06:17:38,163 - INFO - 🆕 New: Debate Review - Matthew Suleman VS Mir Lateef - Is the Quran the word of God? (2026-04-03)
+2026-04-05 06:22:14,601 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-04-05 06:22:14,601 - INFO - 🚀 Starting video list update...
+2026-04-05 06:22:14,603 - INFO - 📊 Current master list has 142 existing videos
+2026-04-05 06:22:14,603 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-04-05 06:22:14,939 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-04-05 06:22:14,940 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-04-05 06:22:14,941 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-04-05 06:22:15,016 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-04-05 06:22:15,173 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-04-05 06:22:15,174 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-04-05 06:22:15,176 - INFO - Master list updated successfully
+2026-04-05 06:22:15,176 - INFO - ✅ Successfully added 1 new videos
+2026-04-05 06:22:15,177 - INFO - 📊 Total videos in master list: 143
+2026-04-05 06:22:15,177 - INFO - 🆕 New: Good Friday and then He is Risen .... (2026-04-04)
