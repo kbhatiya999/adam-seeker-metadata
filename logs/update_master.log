@@ -2161,3 +2161,15 @@
 2026-04-09 06:27:53,606 - INFO - 📊 Total videos in master list: 145
 2026-04-09 06:27:53,606 - INFO - 🆕 New: Aminah's Pregnancy of four years long - چار سال طویل آمنہ کے حمل کا راز (2026-04-08)
 2026-04-09 06:27:53,606 - INFO - 🆕 New: Debate review - Tuheedi Bishop ki Baaja di Adam Seeker ne (2026-04-08)
+2026-04-10 06:31:40,187 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-04-10 06:31:40,187 - INFO - 🚀 Starting video list update...
+2026-04-10 06:31:40,189 - INFO - 📊 Current master list has 145 existing videos
+2026-04-10 06:31:40,189 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-04-10 06:31:40,490 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-04-10 06:31:40,492 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-04-10 06:31:40,492 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-04-10 06:31:40,603 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-04-10 06:31:40,975 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-04-10 06:31:40,976 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-04-10 06:31:40,978 - INFO - Master list updated successfully
+2026-04-10 06:31:40,978 - INFO - ℹ️ No new videos found
