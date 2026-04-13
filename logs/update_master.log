@@ -2199,3 +2199,15 @@
 2026-04-12 06:28:13,363 - INFO - ✅ Successfully added 1 new videos
 2026-04-12 06:28:13,363 - INFO - 📊 Total videos in master list: 146
 2026-04-12 06:28:13,363 - INFO - 🆕 New: Sarkar ki rangraliyan - سرکار کی رنگیلیاں (2026-04-11)
+2026-04-13 06:37:57,554 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-04-13 06:37:57,554 - INFO - 🚀 Starting video list update...
+2026-04-13 06:37:57,556 - INFO - 📊 Current master list has 146 existing videos
+2026-04-13 06:37:57,556 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-04-13 06:37:57,850 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-04-13 06:37:57,851 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-04-13 06:37:57,851 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-04-13 06:37:57,974 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-04-13 06:37:58,360 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-04-13 06:37:58,361 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-04-13 06:37:58,364 - INFO - Master list updated successfully
+2026-04-13 06:37:58,364 - INFO - ℹ️ No new videos found
