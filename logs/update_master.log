@@ -2249,3 +2249,15 @@
 2026-04-16 06:32:17,023 - INFO - ✅ Successfully added 1 new videos
 2026-04-16 06:32:17,023 - INFO - 📊 Total videos in master list: 147
 2026-04-16 06:32:17,023 - INFO - 🆕 New: Jihad and the modern world - जिहाद और आधुनिक विश्व - جہاد اور جدید دنیا (2026-04-15)
+2026-04-17 06:32:12,237 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-04-17 06:32:12,237 - INFO - 🚀 Starting video list update...
+2026-04-17 06:32:12,239 - INFO - 📊 Current master list has 147 existing videos
+2026-04-17 06:32:12,239 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-04-17 06:32:12,546 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-04-17 06:32:12,547 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-04-17 06:32:12,547 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-04-17 06:32:12,651 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-04-17 06:32:13,015 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-04-17 06:32:13,016 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-04-17 06:32:13,018 - INFO - Master list updated successfully
+2026-04-17 06:32:13,018 - INFO - ℹ️ No new videos found
