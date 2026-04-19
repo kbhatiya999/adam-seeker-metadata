@@ -2273,3 +2273,17 @@
 2026-04-18 06:21:38,791 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2026-04-18 06:21:38,792 - INFO - Master list updated successfully
 2026-04-18 06:21:38,792 - INFO - ℹ️ No new videos found
+2026-04-19 06:30:10,878 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-04-19 06:30:10,878 - INFO - 🚀 Starting video list update...
+2026-04-19 06:30:10,880 - INFO - 📊 Current master list has 147 existing videos
+2026-04-19 06:30:10,880 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-04-19 06:30:11,159 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-04-19 06:30:11,160 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-04-19 06:30:11,160 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-04-19 06:30:11,290 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-04-19 06:30:11,552 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-04-19 06:30:11,553 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-04-19 06:30:11,555 - INFO - Master list updated successfully
+2026-04-19 06:30:11,555 - INFO - ✅ Successfully added 1 new videos
+2026-04-19 06:30:11,555 - INFO - 📊 Total videos in master list: 148
+2026-04-19 06:30:11,555 - INFO - 🆕 New: Islam qabol karane ka ek niya tariqah - maria shahbaz case ki haqikat (2026-04-18)
