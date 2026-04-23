@@ -2323,3 +2323,17 @@
 2026-04-22 06:32:44,428 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2026-04-22 06:32:44,430 - INFO - Master list updated successfully
 2026-04-22 06:32:44,430 - INFO - ℹ️ No new videos found
+2026-04-23 06:33:05,131 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-04-23 06:33:05,131 - INFO - 🚀 Starting video list update...
+2026-04-23 06:33:05,133 - INFO - 📊 Current master list has 148 existing videos
+2026-04-23 06:33:05,133 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-04-23 06:33:05,397 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-04-23 06:33:05,398 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-04-23 06:33:05,398 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-04-23 06:33:05,494 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-04-23 06:33:05,743 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-04-23 06:33:05,744 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-04-23 06:33:05,747 - INFO - Master list updated successfully
+2026-04-23 06:33:05,747 - INFO - ✅ Successfully added 1 new videos
+2026-04-23 06:33:05,747 - INFO - 📊 Total videos in master list: 149
+2026-04-23 06:33:05,747 - INFO - 🆕 New: Holy fighting in Islam (2026-04-22)
