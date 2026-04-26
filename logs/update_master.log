@@ -2363,3 +2363,15 @@
 2026-04-25 06:26:49,666 - INFO - ✅ Successfully added 1 new videos
 2026-04-25 06:26:49,666 - INFO - 📊 Total videos in master list: 150
 2026-04-25 06:26:49,666 - INFO - 🆕 New: Debate: Trinity VS Oneness (2026-04-24)
+2026-04-26 06:33:31,602 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-04-26 06:33:31,602 - INFO - 🚀 Starting video list update...
+2026-04-26 06:33:31,603 - INFO - 📊 Current master list has 150 existing videos
+2026-04-26 06:33:31,603 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-04-26 06:33:31,967 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-04-26 06:33:31,968 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-04-26 06:33:31,968 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-04-26 06:33:32,082 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-04-26 06:33:32,463 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-04-26 06:33:32,463 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-04-26 06:33:32,465 - INFO - Master list updated successfully
+2026-04-26 06:33:32,466 - INFO - ℹ️ No new videos found
