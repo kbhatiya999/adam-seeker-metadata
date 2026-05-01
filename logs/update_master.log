@@ -2425,3 +2425,15 @@
 2026-04-30 06:47:09,048 - INFO - ✅ Successfully added 1 new videos
 2026-04-30 06:47:09,048 - INFO - 📊 Total videos in master list: 151
 2026-04-30 06:47:09,048 - INFO - 🆕 New: Why you should accept Islam?  aap ko Islam kiyon qabol karna chahiye? (2026-04-29)
+2026-05-01 06:49:35,604 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-05-01 06:49:35,604 - INFO - 🚀 Starting video list update...
+2026-05-01 06:49:35,606 - INFO - 📊 Current master list has 151 existing videos
+2026-05-01 06:49:35,607 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-05-01 06:49:35,934 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-05-01 06:49:35,935 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-05-01 06:49:35,935 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-05-01 06:49:36,006 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-05-01 06:49:36,386 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-05-01 06:49:36,387 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-05-01 06:49:36,389 - INFO - Master list updated successfully
+2026-05-01 06:49:36,389 - INFO - ℹ️ No new videos found
