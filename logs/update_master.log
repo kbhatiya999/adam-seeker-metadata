@@ -2463,3 +2463,15 @@
 2026-05-03 06:47:03,871 - INFO - ✅ Successfully added 1 new videos
 2026-05-03 06:47:03,871 - INFO - 📊 Total videos in master list: 152
 2026-05-03 06:47:03,871 - INFO - 🆕 New: was Muhammad a Muslim?  क्या मोहम्मद एक मुसलमान था ? (2026-05-02)
+2026-05-04 06:55:39,132 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-05-04 06:55:39,132 - INFO - 🚀 Starting video list update...
+2026-05-04 06:55:39,134 - INFO - 📊 Current master list has 152 existing videos
+2026-05-04 06:55:39,134 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-05-04 06:55:39,435 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-05-04 06:55:39,436 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-05-04 06:55:39,436 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-05-04 06:55:39,550 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-05-04 06:55:39,925 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-05-04 06:55:39,926 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-05-04 06:55:39,928 - INFO - Master list updated successfully
+2026-05-04 06:55:39,928 - INFO - ℹ️ No new videos found
