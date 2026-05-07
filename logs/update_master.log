@@ -2501,3 +2501,17 @@
 2026-05-06 06:49:34,218 - INFO - ✅ Successfully added 1 new videos
 2026-05-06 06:49:34,218 - INFO - 📊 Total videos in master list: 153
 2026-05-06 06:49:34,219 - INFO - 🆕 New: Yousaf Bhatti Isai Muslim exposed - یوسف بھٹی عیسائی مسلم بے نقاب (2026-05-05)
+2026-05-07 06:54:06,567 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-05-07 06:54:06,567 - INFO - 🚀 Starting video list update...
+2026-05-07 06:54:06,569 - INFO - 📊 Current master list has 153 existing videos
+2026-05-07 06:54:06,569 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-05-07 06:54:06,865 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-05-07 06:54:06,866 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-05-07 06:54:06,866 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-05-07 06:54:06,997 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-05-07 06:54:07,438 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-05-07 06:54:07,439 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-05-07 06:54:07,441 - INFO - Master list updated successfully
+2026-05-07 06:54:07,442 - INFO - ✅ Successfully added 1 new videos
+2026-05-07 06:54:07,442 - INFO - 📊 Total videos in master list: 154
+2026-05-07 06:54:07,442 - INFO - 🆕 New: Understanding Nikkah a Valid marriage (2026-05-06)
