@@ -2515,3 +2515,15 @@
 2026-05-07 06:54:07,442 - INFO - ✅ Successfully added 1 new videos
 2026-05-07 06:54:07,442 - INFO - 📊 Total videos in master list: 154
 2026-05-07 06:54:07,442 - INFO - 🆕 New: Understanding Nikkah a Valid marriage (2026-05-06)
+2026-05-08 06:31:20,242 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-05-08 06:31:20,242 - INFO - 🚀 Starting video list update...
+2026-05-08 06:31:20,244 - INFO - 📊 Current master list has 154 existing videos
+2026-05-08 06:31:20,244 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-05-08 06:31:20,540 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-05-08 06:31:20,541 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-05-08 06:31:20,541 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-05-08 06:31:20,687 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-05-08 06:31:21,128 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-05-08 06:31:21,129 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-05-08 06:31:21,131 - INFO - Master list updated successfully
+2026-05-08 06:31:21,131 - INFO - ℹ️ No new videos found
