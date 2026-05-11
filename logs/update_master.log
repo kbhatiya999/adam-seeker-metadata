@@ -2553,3 +2553,15 @@
 2026-05-10 06:50:03,579 - INFO - ✅ Successfully added 1 new videos
 2026-05-10 06:50:03,580 - INFO - 📊 Total videos in master list: 155
 2026-05-10 06:50:03,580 - INFO - 🆕 New: muhammad  aik "behtarin" namona ha ?? (2026-05-09)
+2026-05-11 07:03:09,562 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-05-11 07:03:09,563 - INFO - 🚀 Starting video list update...
+2026-05-11 07:03:09,565 - INFO - 📊 Current master list has 155 existing videos
+2026-05-11 07:03:09,565 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-05-11 07:03:09,810 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-05-11 07:03:09,811 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-05-11 07:03:09,812 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-05-11 07:03:09,942 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-05-11 07:03:10,388 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-05-11 07:03:10,389 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-05-11 07:03:10,391 - INFO - Master list updated successfully
+2026-05-11 07:03:10,391 - INFO - ℹ️ No new videos found
