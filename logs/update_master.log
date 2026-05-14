@@ -2589,3 +2589,17 @@
 2026-05-13 06:56:03,249 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2026-05-13 06:56:03,251 - INFO - Master list updated successfully
 2026-05-13 06:56:03,251 - INFO - ℹ️ No new videos found
+2026-05-14 06:55:10,540 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-05-14 06:55:10,540 - INFO - 🚀 Starting video list update...
+2026-05-14 06:55:10,542 - INFO - 📊 Current master list has 155 existing videos
+2026-05-14 06:55:10,542 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-05-14 06:55:10,788 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-05-14 06:55:10,789 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-05-14 06:55:10,789 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-05-14 06:55:10,916 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-05-14 06:55:11,350 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-05-14 06:55:11,350 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-05-14 06:55:11,353 - INFO - Master list updated successfully
+2026-05-14 06:55:11,353 - INFO - ✅ Successfully added 1 new videos
+2026-05-14 06:55:11,353 - INFO - 📊 Total videos in master list: 156
+2026-05-14 06:55:11,353 - INFO - 🆕 New: $10,000 challenge - Prove Islam was the religion of Abraham  and win !! (2026-05-14)
