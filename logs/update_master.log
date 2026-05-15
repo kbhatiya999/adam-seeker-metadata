@@ -2603,3 +2603,17 @@
 2026-05-14 06:55:11,353 - INFO - ✅ Successfully added 1 new videos
 2026-05-14 06:55:11,353 - INFO - 📊 Total videos in master list: 156
 2026-05-14 06:55:11,353 - INFO - 🆕 New: $10,000 challenge - Prove Islam was the religion of Abraham  and win !! (2026-05-14)
+2026-05-15 07:00:13,855 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-05-15 07:00:13,855 - INFO - 🚀 Starting video list update...
+2026-05-15 07:00:13,857 - INFO - 📊 Current master list has 156 existing videos
+2026-05-15 07:00:13,857 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-05-15 07:00:14,138 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-05-15 07:00:14,139 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-05-15 07:00:14,139 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-05-15 07:00:14,245 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-05-15 07:00:14,618 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-05-15 07:00:14,619 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-05-15 07:00:14,621 - INFO - Master list updated successfully
+2026-05-15 07:00:14,622 - INFO - ✅ Successfully added 1 new videos
+2026-05-15 07:00:14,622 - INFO - 📊 Total videos in master list: 157
+2026-05-15 07:00:14,622 - INFO - 🆕 New: Yousaf Bhatti running way from debate - یوسف بھٹی بحث سے بھاگتے ہوئے (2026-05-14)
