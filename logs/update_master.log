@@ -2617,3 +2617,17 @@
 2026-05-15 07:00:14,622 - INFO - ✅ Successfully added 1 new videos
 2026-05-15 07:00:14,622 - INFO - 📊 Total videos in master list: 157
 2026-05-15 07:00:14,622 - INFO - 🆕 New: Yousaf Bhatti running way from debate - یوسف بھٹی بحث سے بھاگتے ہوئے (2026-05-14)
+2026-05-16 06:42:43,914 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-05-16 06:42:43,914 - INFO - 🚀 Starting video list update...
+2026-05-16 06:42:43,918 - INFO - 📊 Current master list has 157 existing videos
+2026-05-16 06:42:43,918 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-05-16 06:42:44,234 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-05-16 06:42:44,235 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-05-16 06:42:44,235 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-05-16 06:42:44,332 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-05-16 06:42:44,622 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-05-16 06:42:44,623 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-05-16 06:42:44,626 - INFO - Master list updated successfully
+2026-05-16 06:42:44,626 - INFO - ✅ Successfully added 1 new videos
+2026-05-16 06:42:44,626 - INFO - 📊 Total videos in master list: 158
+2026-05-16 06:42:44,626 - INFO - 🆕 New: Is Islam an Abrahamic deen? کیا اسلام دین ابراہیمی ہے؟ (2026-05-16)
