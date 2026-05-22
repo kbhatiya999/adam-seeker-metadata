@@ -2693,3 +2693,15 @@
 2026-05-21 07:10:19,762 - INFO - ✅ Successfully added 1 new videos
 2026-05-21 07:10:19,762 - INFO - 📊 Total videos in master list: 159
 2026-05-21 07:10:19,762 - INFO - 🆕 New: Hajj 2026 with Adam Seeker (2026-05-20)
+2026-05-22 07:06:00,600 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-05-22 07:06:00,600 - INFO - 🚀 Starting video list update...
+2026-05-22 07:06:00,602 - INFO - 📊 Current master list has 159 existing videos
+2026-05-22 07:06:00,602 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-05-22 07:06:00,876 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-05-22 07:06:00,877 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-05-22 07:06:00,877 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-05-22 07:06:00,996 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-05-22 07:06:01,324 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-05-22 07:06:01,324 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-05-22 07:06:01,327 - INFO - Master list updated successfully
+2026-05-22 07:06:01,327 - INFO - ℹ️ No new videos found
