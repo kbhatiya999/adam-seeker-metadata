@@ -2717,3 +2717,17 @@
 2026-05-23 06:50:02,449 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2026-05-23 06:50:02,452 - INFO - Master list updated successfully
 2026-05-23 06:50:02,452 - INFO - ℹ️ No new videos found
+2026-05-24 07:00:48,300 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-05-24 07:00:48,300 - INFO - 🚀 Starting video list update...
+2026-05-24 07:00:48,302 - INFO - 📊 Current master list has 159 existing videos
+2026-05-24 07:00:48,302 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-05-24 07:00:48,623 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-05-24 07:00:48,624 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-05-24 07:00:48,624 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-05-24 07:00:48,726 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-05-24 07:00:49,111 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-05-24 07:00:49,112 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-05-24 07:00:49,114 - INFO - Master list updated successfully
+2026-05-24 07:00:49,115 - INFO - ✅ Successfully added 1 new videos
+2026-05-24 07:00:49,115 - INFO - 📊 Total videos in master list: 160
+2026-05-24 07:00:49,115 - INFO - 🆕 New: Sacrifice by Ibrahim and Eid Adha - قربانی ابراہیم اور عید الاضحی (2026-05-23)
