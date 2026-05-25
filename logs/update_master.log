@@ -2731,3 +2731,17 @@
 2026-05-24 07:00:49,115 - INFO - ✅ Successfully added 1 new videos
 2026-05-24 07:00:49,115 - INFO - 📊 Total videos in master list: 160
 2026-05-24 07:00:49,115 - INFO - 🆕 New: Sacrifice by Ibrahim and Eid Adha - قربانی ابراہیم اور عید الاضحی (2026-05-23)
+2026-05-25 07:25:50,834 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-05-25 07:25:50,834 - INFO - 🚀 Starting video list update...
+2026-05-25 07:25:50,836 - INFO - 📊 Current master list has 160 existing videos
+2026-05-25 07:25:50,836 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-05-25 07:25:51,189 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-05-25 07:25:51,190 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-05-25 07:25:51,191 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-05-25 07:25:51,328 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-05-25 07:25:51,806 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-05-25 07:25:51,807 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-05-25 07:25:51,810 - INFO - Master list updated successfully
+2026-05-25 07:25:51,810 - INFO - ✅ Successfully added 1 new videos
+2026-05-25 07:25:51,810 - INFO - 📊 Total videos in master list: 161
+2026-05-25 07:25:51,810 - INFO - 🆕 New: Debate with Khan Amgah (2026-05-22)
