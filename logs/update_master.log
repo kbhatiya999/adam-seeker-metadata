@@ -2745,3 +2745,15 @@
 2026-05-25 07:25:51,810 - INFO - ✅ Successfully added 1 new videos
 2026-05-25 07:25:51,810 - INFO - 📊 Total videos in master list: 161
 2026-05-25 07:25:51,810 - INFO - 🆕 New: Debate with Khan Amgah (2026-05-22)
+2026-05-26 07:04:38,535 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-05-26 07:04:38,535 - INFO - 🚀 Starting video list update...
+2026-05-26 07:04:38,537 - INFO - 📊 Current master list has 161 existing videos
+2026-05-26 07:04:38,537 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-05-26 07:04:38,886 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-05-26 07:04:38,887 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-05-26 07:04:38,887 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-05-26 07:04:38,994 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-05-26 07:04:39,505 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-05-26 07:04:39,506 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-05-26 07:04:39,508 - INFO - Master list updated successfully
+2026-05-26 07:04:39,508 - INFO - ℹ️ No new videos found
