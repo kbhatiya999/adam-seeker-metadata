@@ -2771,3 +2771,15 @@
 2026-05-27 07:19:10,900 - INFO - ✅ Successfully added 1 new videos
 2026-05-27 07:19:10,900 - INFO - 📊 Total videos in master list: 162
 2026-05-27 07:19:10,900 - INFO - 🆕 New: Eid Adha Mubarak (2026-05-27)
+2026-05-28 07:12:15,789 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-05-28 07:12:15,789 - INFO - 🚀 Starting video list update...
+2026-05-28 07:12:15,791 - INFO - 📊 Current master list has 162 existing videos
+2026-05-28 07:12:15,791 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-05-28 07:12:16,078 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-05-28 07:12:16,079 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-05-28 07:12:16,079 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-05-28 07:12:16,193 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-05-28 07:12:16,604 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-05-28 07:12:16,605 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-05-28 07:12:16,607 - INFO - Master list updated successfully
+2026-05-28 07:12:16,608 - INFO - ℹ️ No new videos found
