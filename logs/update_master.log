@@ -2821,3 +2821,15 @@
 2026-05-31 07:13:05,678 - INFO - ✅ Successfully added 1 new videos
 2026-05-31 07:13:05,678 - INFO - 📊 Total videos in master list: 163
 2026-05-31 07:13:05,678 - INFO - 🆕 New: All Prophets were sinners Only God is sinless - تمام انبیاء گنہگار تھے صرف خدا بے گناہ ہے (2026-05-30)
+2026-06-01 07:36:59,501 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-06-01 07:36:59,501 - INFO - 🚀 Starting video list update...
+2026-06-01 07:36:59,503 - INFO - 📊 Current master list has 163 existing videos
+2026-06-01 07:36:59,503 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-06-01 07:36:59,792 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-06-01 07:36:59,793 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-06-01 07:36:59,794 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-06-01 07:36:59,903 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-06-01 07:37:00,249 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-06-01 07:37:00,250 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-06-01 07:37:00,252 - INFO - Master list updated successfully
+2026-06-01 07:37:00,252 - INFO - ℹ️ No new videos found
