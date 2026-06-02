@@ -2833,3 +2833,17 @@
 2026-06-01 07:37:00,250 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2026-06-01 07:37:00,252 - INFO - Master list updated successfully
 2026-06-01 07:37:00,252 - INFO - ℹ️ No new videos found
+2026-06-02 07:31:02,451 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-06-02 07:31:02,451 - INFO - 🚀 Starting video list update...
+2026-06-02 07:31:02,453 - INFO - 📊 Current master list has 163 existing videos
+2026-06-02 07:31:02,453 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-06-02 07:31:02,734 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-06-02 07:31:02,735 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-06-02 07:31:02,735 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-06-02 07:31:02,840 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-06-02 07:31:03,259 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-06-02 07:31:03,259 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-06-02 07:31:03,262 - INFO - Master list updated successfully
+2026-06-02 07:31:03,262 - INFO - ✅ Successfully added 1 new videos
+2026-06-02 07:31:03,262 - INFO - 📊 Total videos in master list: 164
+2026-06-02 07:31:03,262 - INFO - 🆕 New: Adam Seeker VS Moulana Muhammad Ramzan (2026-06-01)
