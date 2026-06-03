@@ -2847,3 +2847,17 @@
 2026-06-02 07:31:03,262 - INFO - ✅ Successfully added 1 new videos
 2026-06-02 07:31:03,262 - INFO - 📊 Total videos in master list: 164
 2026-06-02 07:31:03,262 - INFO - 🆕 New: Adam Seeker VS Moulana Muhammad Ramzan (2026-06-01)
+2026-06-03 07:33:55,846 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-06-03 07:33:55,846 - INFO - 🚀 Starting video list update...
+2026-06-03 07:33:55,848 - INFO - 📊 Current master list has 164 existing videos
+2026-06-03 07:33:55,848 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-06-03 07:33:56,137 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-06-03 07:33:56,138 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-06-03 07:33:56,139 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-06-03 07:33:56,250 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-06-03 07:33:56,656 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-06-03 07:33:56,657 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-06-03 07:33:56,660 - INFO - Master list updated successfully
+2026-06-03 07:33:56,660 - INFO - ✅ Successfully added 1 new videos
+2026-06-03 07:33:56,660 - INFO - 📊 Total videos in master list: 165
+2026-06-03 07:33:56,660 - INFO - 🆕 New: What is Allah?- اللہ کیا ہے؟ (2026-06-03)
