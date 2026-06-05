@@ -2873,3 +2873,17 @@
 2026-06-04 07:30:47,180 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2026-06-04 07:30:47,184 - INFO - Master list updated successfully
 2026-06-04 07:30:47,184 - INFO - ℹ️ No new videos found
+2026-06-05 07:22:16,105 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-06-05 07:22:16,105 - INFO - 🚀 Starting video list update...
+2026-06-05 07:22:16,109 - INFO - 📊 Current master list has 165 existing videos
+2026-06-05 07:22:16,109 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-06-05 07:22:16,375 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-06-05 07:22:16,376 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-06-05 07:22:16,376 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-06-05 07:22:16,473 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-06-05 07:22:16,807 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-06-05 07:22:16,808 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-06-05 07:22:16,811 - INFO - Master list updated successfully
+2026-06-05 07:22:16,811 - INFO - ✅ Successfully added 1 new videos
+2026-06-05 07:22:16,811 - INFO - 📊 Total videos in master list: 166
+2026-06-05 07:22:16,811 - INFO - 🆕 New: Challenge to all unitarians/Oneness/Messianic oneness (2026-06-04)
