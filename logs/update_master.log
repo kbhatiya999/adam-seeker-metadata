@@ -2887,3 +2887,17 @@
 2026-06-05 07:22:16,811 - INFO - ✅ Successfully added 1 new videos
 2026-06-05 07:22:16,811 - INFO - 📊 Total videos in master list: 166
 2026-06-05 07:22:16,811 - INFO - 🆕 New: Challenge to all unitarians/Oneness/Messianic oneness (2026-06-04)
+2026-06-06 06:58:59,553 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-06-06 06:58:59,553 - INFO - 🚀 Starting video list update...
+2026-06-06 06:58:59,555 - INFO - 📊 Current master list has 166 existing videos
+2026-06-06 06:58:59,556 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-06-06 06:58:59,790 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-06-06 06:58:59,791 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-06-06 06:58:59,791 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-06-06 06:58:59,887 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-06-06 06:59:00,194 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-06-06 06:59:00,195 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-06-06 06:59:00,197 - INFO - Master list updated successfully
+2026-06-06 06:59:00,198 - INFO - ✅ Successfully added 1 new videos
+2026-06-06 06:59:00,198 - INFO - 📊 Total videos in master list: 167
+2026-06-06 06:59:00,198 - INFO - 🆕 New: Allah ne hum se itni muhabbat kiya, ki usne hamare liye apna pair kurban kar diya (2026-06-06)
