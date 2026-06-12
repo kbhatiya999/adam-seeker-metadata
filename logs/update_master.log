@@ -2963,3 +2963,15 @@
 2026-06-11 07:32:19,566 - INFO - ✅ Successfully added 1 new videos
 2026-06-11 07:32:19,566 - INFO - 📊 Total videos in master list: 168
 2026-06-11 07:32:19,566 - INFO - 🆕 New: Allah Vs Shaitan - اللہ بمقابلہ شیطان (2026-06-10)
+2026-06-12 07:30:23,818 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-06-12 07:30:23,819 - INFO - 🚀 Starting video list update...
+2026-06-12 07:30:23,820 - INFO - 📊 Current master list has 168 existing videos
+2026-06-12 07:30:23,820 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-06-12 07:30:24,040 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-06-12 07:30:24,041 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-06-12 07:30:24,041 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-06-12 07:30:24,167 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-06-12 07:30:24,668 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-06-12 07:30:24,668 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-06-12 07:30:24,671 - INFO - Master list updated successfully
+2026-06-12 07:30:24,671 - INFO - ℹ️ No new videos found
