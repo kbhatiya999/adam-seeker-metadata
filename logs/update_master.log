@@ -2975,3 +2975,17 @@
 2026-06-12 07:30:24,668 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2026-06-12 07:30:24,671 - INFO - Master list updated successfully
 2026-06-12 07:30:24,671 - INFO - ℹ️ No new videos found
+2026-06-13 07:13:02,118 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-06-13 07:13:02,118 - INFO - 🚀 Starting video list update...
+2026-06-13 07:13:02,121 - INFO - 📊 Current master list has 168 existing videos
+2026-06-13 07:13:02,121 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-06-13 07:13:02,415 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-06-13 07:13:02,416 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-06-13 07:13:02,416 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-06-13 07:13:02,578 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-06-13 07:13:03,026 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-06-13 07:13:03,027 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-06-13 07:13:03,029 - INFO - Master list updated successfully
+2026-06-13 07:13:03,029 - INFO - ✅ Successfully added 1 new videos
+2026-06-13 07:13:03,029 - INFO - 📊 Total videos in master list: 169
+2026-06-13 07:13:03,029 - INFO - 🆕 New: Allah ne diya dhokha aur Isa ko zinda apne paas bula liya (2026-06-13)
