@@ -3001,3 +3001,15 @@
 2026-06-14 07:29:56,274 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2026-06-14 07:29:56,277 - INFO - Master list updated successfully
 2026-06-14 07:29:56,277 - INFO - ℹ️ No new videos found
+2026-06-15 07:48:23,841 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-06-15 07:48:23,841 - INFO - 🚀 Starting video list update...
+2026-06-15 07:48:23,843 - INFO - 📊 Current master list has 169 existing videos
+2026-06-15 07:48:23,843 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-06-15 07:48:24,065 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-06-15 07:48:24,066 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-06-15 07:48:24,067 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-06-15 07:48:24,220 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-06-15 07:48:24,609 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-06-15 07:48:24,611 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-06-15 07:48:24,613 - INFO - Master list updated successfully
+2026-06-15 07:48:24,613 - INFO - ℹ️ No new videos found
