@@ -3051,3 +3051,15 @@
 2026-06-18 07:32:52,266 - INFO - ✅ Successfully added 1 new videos
 2026-06-18 07:32:52,266 - INFO - 📊 Total videos in master list: 170
 2026-06-18 07:32:52,266 - INFO - 🆕 New: Wishing you all the happiness of Muharram  آپ سب کو محرم کی خوشیاں مبارک ہوں۔ (2026-06-17)
+2026-06-19 07:44:49,397 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-06-19 07:44:49,397 - INFO - 🚀 Starting video list update...
+2026-06-19 07:44:49,400 - INFO - 📊 Current master list has 170 existing videos
+2026-06-19 07:44:49,400 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-06-19 07:44:49,678 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-06-19 07:44:49,679 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-06-19 07:44:49,679 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-06-19 07:44:49,831 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-06-19 07:44:50,265 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-06-19 07:44:50,266 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-06-19 07:44:50,269 - INFO - Master list updated successfully
+2026-06-19 07:44:50,269 - INFO - ℹ️ No new videos found
