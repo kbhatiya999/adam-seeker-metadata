@@ -3078,3 +3078,15 @@
 2026-06-20 07:14:36,875 - INFO - 📊 Total videos in master list: 172
 2026-06-20 07:14:36,875 - INFO - 🆕 New: Musalman muhammad ke ghar walon ko kise ijjat dite hen? (2026-06-20)
 2026-06-20 07:14:36,875 - INFO - 🆕 New: allahyari debate sy farar! (2026-06-19)
+2026-06-21 07:31:58,956 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-06-21 07:31:58,956 - INFO - 🚀 Starting video list update...
+2026-06-21 07:31:58,958 - INFO - 📊 Current master list has 172 existing videos
+2026-06-21 07:31:58,958 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-06-21 07:31:59,276 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-06-21 07:31:59,277 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-06-21 07:31:59,277 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-06-21 07:31:59,397 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-06-21 07:31:59,795 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-06-21 07:31:59,796 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-06-21 07:31:59,799 - INFO - Master list updated successfully
+2026-06-21 07:31:59,799 - INFO - ℹ️ No new videos found
