@@ -3114,3 +3114,17 @@
 2026-06-23 07:07:42,928 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2026-06-23 07:07:42,929 - INFO - Master list updated successfully
 2026-06-23 07:07:42,929 - INFO - ℹ️ No new videos found
+2026-06-24 07:04:57,233 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-06-24 07:04:57,233 - INFO - 🚀 Starting video list update...
+2026-06-24 07:04:57,235 - INFO - 📊 Current master list has 172 existing videos
+2026-06-24 07:04:57,235 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-06-24 07:04:57,546 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-06-24 07:04:57,547 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-06-24 07:04:57,548 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-06-24 07:04:57,666 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-06-24 07:04:58,118 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-06-24 07:04:58,119 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-06-24 07:04:58,121 - INFO - Master list updated successfully
+2026-06-24 07:04:58,122 - INFO - ✅ Successfully added 1 new videos
+2026-06-24 07:04:58,122 - INFO - 📊 Total videos in master list: 173
+2026-06-24 07:04:58,122 - INFO - 🆕 New: Islamic Jiziyah is the Best way ... (2026-06-23)
