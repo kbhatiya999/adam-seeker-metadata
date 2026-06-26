@@ -3142,3 +3142,15 @@
 2026-06-25 07:04:51,955 - INFO - ✅ Successfully added 1 new videos
 2026-06-25 07:04:51,955 - INFO - 📊 Total videos in master list: 174
 2026-06-25 07:04:51,955 - INFO - 🆕 New: Tamam alam-e-islam ko Ashura ki bohat bohat khushiyan mubarak hoon (2026-06-25)
+2026-06-26 07:11:18,609 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-06-26 07:11:18,609 - INFO - 🚀 Starting video list update...
+2026-06-26 07:11:18,611 - INFO - 📊 Current master list has 174 existing videos
+2026-06-26 07:11:18,611 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-06-26 07:11:18,889 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-06-26 07:11:18,890 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-06-26 07:11:18,891 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-06-26 07:11:19,025 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-06-26 07:11:19,424 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-06-26 07:11:19,425 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-06-26 07:11:19,428 - INFO - Master list updated successfully
+2026-06-26 07:11:19,428 - INFO - ℹ️ No new videos found
