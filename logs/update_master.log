@@ -3166,3 +3166,17 @@
 2026-06-27 06:59:23,288 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2026-06-27 06:59:23,290 - INFO - Master list updated successfully
 2026-06-27 06:59:23,290 - INFO - ℹ️ No new videos found
+2026-06-28 07:15:38,064 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-06-28 07:15:38,065 - INFO - 🚀 Starting video list update...
+2026-06-28 07:15:38,066 - INFO - 📊 Current master list has 174 existing videos
+2026-06-28 07:15:38,066 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-06-28 07:15:38,289 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-06-28 07:15:38,290 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-06-28 07:15:38,290 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-06-28 07:15:38,419 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-06-28 07:15:38,860 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-06-28 07:15:38,860 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-06-28 07:15:38,862 - INFO - Master list updated successfully
+2026-06-28 07:15:38,863 - INFO - ✅ Successfully added 1 new videos
+2026-06-28 07:15:38,863 - INFO - 📊 Total videos in master list: 175
+2026-06-28 07:15:38,863 - INFO - 🆕 New: Kiya Islam ghair maslmon ko ijjat deta hay? (2026-06-27)
