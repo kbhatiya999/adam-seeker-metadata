@@ -3218,3 +3218,15 @@
 2026-07-01 07:22:59,302 - INFO - ✅ Successfully added 1 new videos
 2026-07-01 07:22:59,302 - INFO - 📊 Total videos in master list: 176
 2026-07-01 07:22:59,302 - INFO - 🆕 New: Can you Advocate for your prophet? کیا آپ اپنے نبی کی وکالت کر سکتے ہیں؟ (2026-07-01)
+2026-07-02 07:02:01,201 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-07-02 07:02:01,201 - INFO - 🚀 Starting video list update...
+2026-07-02 07:02:01,204 - INFO - 📊 Current master list has 176 existing videos
+2026-07-02 07:02:01,204 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-07-02 07:02:01,476 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-07-02 07:02:01,477 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-07-02 07:02:01,478 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-07-02 07:02:01,586 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-07-02 07:02:01,954 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-07-02 07:02:01,955 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-07-02 07:02:01,958 - INFO - Master list updated successfully
+2026-07-02 07:02:01,958 - INFO - ℹ️ No new videos found
