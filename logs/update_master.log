@@ -3290,3 +3290,17 @@
 2026-07-07 09:21:06,729 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2026-07-07 09:21:06,733 - INFO - Master list updated successfully
 2026-07-07 09:21:06,733 - INFO - ℹ️ No new videos found
+2026-07-08 08:05:35,108 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-07-08 08:05:35,108 - INFO - 🚀 Starting video list update...
+2026-07-08 08:05:35,110 - INFO - 📊 Current master list has 176 existing videos
+2026-07-08 08:05:35,110 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-07-08 08:05:35,368 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-07-08 08:05:35,369 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-07-08 08:05:35,369 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-07-08 08:05:35,504 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-07-08 08:05:35,931 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-07-08 08:05:35,932 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-07-08 08:05:35,935 - INFO - Master list updated successfully
+2026-07-08 08:05:35,935 - INFO - ✅ Successfully added 1 new videos
+2026-07-08 08:05:35,935 - INFO - 📊 Total videos in master list: 177
+2026-07-08 08:05:35,935 - INFO - 🆕 New: Muslim and Non-Muslim Societies: Possible? मुस्लिम और गैर-मुस्लिम समाज: क्या जुड़ाव संभव है? (2026-07-08)
