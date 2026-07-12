@@ -3340,3 +3340,17 @@
 2026-07-11 07:37:51,552 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2026-07-11 07:37:51,555 - INFO - Master list updated successfully
 2026-07-11 07:37:51,555 - INFO - ℹ️ No new videos found
+2026-07-12 07:56:42,829 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-07-12 07:56:42,829 - INFO - 🚀 Starting video list update...
+2026-07-12 07:56:42,831 - INFO - 📊 Current master list has 177 existing videos
+2026-07-12 07:56:42,831 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-07-12 07:56:43,086 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-07-12 07:56:43,087 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-07-12 07:56:43,087 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-07-12 07:56:43,227 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-07-12 07:56:43,610 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-07-12 07:56:43,611 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-07-12 07:56:43,614 - INFO - Master list updated successfully
+2026-07-12 07:56:43,614 - INFO - ✅ Successfully added 1 new videos
+2026-07-12 07:56:43,614 - INFO - 📊 Total videos in master list: 178
+2026-07-12 07:56:43,614 - INFO - 🆕 New: Cuse of God - परमेश्वर के श्राप के अधीन कौन है? خدا کی لعنت میں کون ہے؟ (2026-07-11)
