@@ -3392,3 +3392,15 @@
 2026-07-15 07:48:13,707 - INFO - ✅ Successfully added 1 new videos
 2026-07-15 07:48:13,707 - INFO - 📊 Total videos in master list: 179
 2026-07-15 07:48:13,707 - INFO - 🆕 New: Hell or Heaven? جنت یا جہنم जन्नत या जहन्नुम? (2026-07-15)
+2026-07-16 07:52:56,075 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-07-16 07:52:56,075 - INFO - 🚀 Starting video list update...
+2026-07-16 07:52:56,077 - INFO - 📊 Current master list has 179 existing videos
+2026-07-16 07:52:56,077 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-07-16 07:52:56,321 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-07-16 07:52:56,322 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-07-16 07:52:56,323 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-07-16 07:52:56,408 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-07-16 07:52:56,828 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-07-16 07:52:56,829 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-07-16 07:52:56,832 - INFO - Master list updated successfully
+2026-07-16 07:52:56,832 - INFO - ℹ️ No new videos found
