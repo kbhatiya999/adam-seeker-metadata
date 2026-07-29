@@ -3548,3 +3548,19 @@
 2026-07-28 08:11:59,198 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2026-07-28 08:11:59,200 - INFO - Master list updated successfully
 2026-07-28 08:11:59,200 - INFO - ℹ️ No new videos found
+2026-07-29 08:16:53,099 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-07-29 08:16:53,099 - INFO - 🚀 Starting video list update...
+2026-07-29 08:16:53,102 - INFO - 📊 Current master list has 179 existing videos
+2026-07-29 08:16:53,102 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-07-29 08:16:53,582 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-07-29 08:16:53,583 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-07-29 08:16:53,583 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-07-29 08:16:53,660 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-07-29 08:16:54,142 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-07-29 08:16:54,143 - INFO - 🔍 Found 3 new videos (filtered from 50 total)
+2026-07-29 08:16:54,145 - INFO - Master list updated successfully
+2026-07-29 08:16:54,146 - INFO - ✅ Successfully added 3 new videos
+2026-07-29 08:16:54,146 - INFO - 📊 Total videos in master list: 182
+2026-07-29 08:16:54,146 - INFO - 🆕 New: Wives of Muhammad - Muhammad ki bevian (2026-07-29)
+2026-07-29 08:16:54,146 - INFO - 🆕 New: I am back (2026-07-28)
+2026-07-29 08:16:54,146 - INFO - 🆕 New: Adnan Solangi debate se farrar .... (2026-07-28)
