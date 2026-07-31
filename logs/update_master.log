@@ -3578,3 +3578,15 @@
 2026-07-30 08:04:52,115 - INFO - ✅ Successfully added 1 new videos
 2026-07-30 08:04:52,115 - INFO - 📊 Total videos in master list: 183
 2026-07-30 08:04:52,115 - INFO - 🆕 New: Adam Seeker VS Ex-Christian (2026-07-28)
+2026-07-31 08:30:59,683 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-07-31 08:30:59,683 - INFO - 🚀 Starting video list update...
+2026-07-31 08:30:59,685 - INFO - 📊 Current master list has 183 existing videos
+2026-07-31 08:30:59,685 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-07-31 08:31:00,002 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-07-31 08:31:00,003 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-07-31 08:31:00,003 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-07-31 08:31:00,107 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-07-31 08:31:00,561 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-07-31 08:31:00,562 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-07-31 08:31:00,565 - INFO - Master list updated successfully
+2026-07-31 08:31:00,565 - INFO - ℹ️ No new videos found
