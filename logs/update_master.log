@@ -3618,3 +3618,15 @@
 2026-08-02 08:02:39,781 - INFO - ✅ Successfully added 1 new videos
 2026-08-02 08:02:39,781 - INFO - 📊 Total videos in master list: 185
 2026-08-02 08:02:39,781 - INFO - 🆕 New: khaas pakistani masihiyon ke liye - masih ki muhabbat or apana dafa karna (2026-07-29)
+2026-08-03 08:59:38,351 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-08-03 08:59:38,351 - INFO - 🚀 Starting video list update...
+2026-08-03 08:59:38,353 - INFO - 📊 Current master list has 185 existing videos
+2026-08-03 08:59:38,353 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-08-03 08:59:38,623 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-08-03 08:59:38,624 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-08-03 08:59:38,624 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-08-03 08:59:38,712 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-08-03 08:59:39,064 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-08-03 08:59:39,065 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-08-03 08:59:39,067 - INFO - Master list updated successfully
+2026-08-03 08:59:39,067 - INFO - ℹ️ No new videos found
