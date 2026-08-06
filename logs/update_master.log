@@ -3656,3 +3656,15 @@
 2026-08-05 08:13:59,689 - INFO - ✅ Successfully added 1 new videos
 2026-08-05 08:13:59,689 - INFO - 📊 Total videos in master list: 186
 2026-08-05 08:13:59,689 - INFO - 🆕 New: Was Muhammad the first Muslim? - کیا حضرت محمد پہلے مسلمان تھے؟ (2026-08-05)
+2026-08-06 08:12:19,770 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-08-06 08:12:19,770 - INFO - 🚀 Starting video list update...
+2026-08-06 08:12:19,774 - INFO - 📊 Current master list has 186 existing videos
+2026-08-06 08:12:19,774 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-08-06 08:12:20,079 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-08-06 08:12:20,080 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-08-06 08:12:20,080 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-08-06 08:12:20,165 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-08-06 08:12:20,560 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-08-06 08:12:20,561 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-08-06 08:12:20,564 - INFO - Master list updated successfully
+2026-08-06 08:12:20,564 - INFO - ℹ️ No new videos found
