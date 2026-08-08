@@ -3680,3 +3680,17 @@
 2026-08-07 06:58:01,281 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2026-08-07 06:58:01,284 - INFO - Master list updated successfully
 2026-08-07 06:58:01,284 - INFO - ℹ️ No new videos found
+2026-08-08 06:31:52,094 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-08-08 06:31:52,094 - INFO - 🚀 Starting video list update...
+2026-08-08 06:31:52,096 - INFO - 📊 Current master list has 186 existing videos
+2026-08-08 06:31:52,096 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-08-08 06:31:52,361 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-08-08 06:31:52,362 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-08-08 06:31:52,362 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-08-08 06:31:52,514 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-08-08 06:31:53,035 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-08-08 06:31:53,036 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-08-08 06:31:53,038 - INFO - Master list updated successfully
+2026-08-08 06:31:53,038 - INFO - ✅ Successfully added 1 new videos
+2026-08-08 06:31:53,039 - INFO - 📊 Total videos in master list: 187
+2026-08-08 06:31:53,039 - INFO - 🆕 New: Adam and Dr Jay Smith (2026-08-07)
