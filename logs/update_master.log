@@ -3708,3 +3708,15 @@
 2026-08-09 06:35:50,094 - INFO - ✅ Successfully added 1 new videos
 2026-08-09 06:35:50,094 - INFO - 📊 Total videos in master list: 188
 2026-08-09 06:35:50,095 - INFO - 🆕 New: kiya muhammad nabi the? (2026-08-08)
+2026-08-10 07:06:57,715 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-08-10 07:06:57,715 - INFO - 🚀 Starting video list update...
+2026-08-10 07:06:57,717 - INFO - 📊 Current master list has 188 existing videos
+2026-08-10 07:06:57,717 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-08-10 07:06:57,972 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-08-10 07:06:57,973 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-08-10 07:06:57,973 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-08-10 07:06:58,093 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-08-10 07:06:58,486 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-08-10 07:06:58,486 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-08-10 07:06:58,489 - INFO - Master list updated successfully
+2026-08-10 07:06:58,489 - INFO - ℹ️ No new videos found
