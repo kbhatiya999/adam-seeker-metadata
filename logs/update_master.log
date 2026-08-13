@@ -3746,3 +3746,15 @@
 2026-08-12 07:05:36,680 - INFO - ✅ Successfully added 1 new videos
 2026-08-12 07:05:36,680 - INFO - 📊 Total videos in master list: 189
 2026-08-12 07:05:36,680 - INFO - 🆕 New: tawhid and Islam - Logical or Illogical?? (2026-08-12)
+2026-08-13 07:09:14,006 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-08-13 07:09:14,007 - INFO - 🚀 Starting video list update...
+2026-08-13 07:09:14,009 - INFO - 📊 Current master list has 189 existing videos
+2026-08-13 07:09:14,009 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-08-13 07:09:14,228 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-08-13 07:09:14,229 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-08-13 07:09:14,229 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-08-13 07:09:14,334 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-08-13 07:09:14,801 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-08-13 07:09:14,802 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-08-13 07:09:14,805 - INFO - Master list updated successfully
+2026-08-13 07:09:14,805 - INFO - ℹ️ No new videos found
