@@ -3796,3 +3796,15 @@
 2026-08-16 06:20:29,991 - INFO - ✅ Successfully added 1 new videos
 2026-08-16 06:20:29,991 - INFO - 📊 Total videos in master list: 190
 2026-08-16 06:20:29,991 - INFO - 🆕 New: Independence of India - Birth of Pakistan -- and Islam (2026-08-15)
+2026-08-17 06:30:36,848 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-08-17 06:30:36,848 - INFO - 🚀 Starting video list update...
+2026-08-17 06:30:36,850 - INFO - 📊 Current master list has 190 existing videos
+2026-08-17 06:30:36,850 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-08-17 06:30:37,071 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-08-17 06:30:37,071 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-08-17 06:30:37,072 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-08-17 06:30:37,162 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-08-17 06:30:37,709 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-08-17 06:30:37,710 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-08-17 06:30:37,713 - INFO - Master list updated successfully
+2026-08-17 06:30:37,713 - INFO - ℹ️ No new videos found
