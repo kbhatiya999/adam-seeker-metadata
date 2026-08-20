@@ -3834,3 +3834,15 @@
 2026-08-19 06:23:49,148 - INFO - ✅ Successfully added 1 new videos
 2026-08-19 06:23:49,149 - INFO - 📊 Total videos in master list: 191
 2026-08-19 06:23:49,149 - INFO - 🆕 New: Adam ki paidaish or Quran ki ayaat (2026-08-19)
+2026-08-20 06:24:47,020 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-08-20 06:24:47,021 - INFO - 🚀 Starting video list update...
+2026-08-20 06:24:47,023 - INFO - 📊 Current master list has 191 existing videos
+2026-08-20 06:24:47,023 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-08-20 06:24:47,319 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-08-20 06:24:47,320 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-08-20 06:24:47,320 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-08-20 06:24:47,420 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-08-20 06:24:47,736 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-08-20 06:24:47,737 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-08-20 06:24:47,740 - INFO - Master list updated successfully
+2026-08-20 06:24:47,740 - INFO - ℹ️ No new videos found
