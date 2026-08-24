@@ -3884,3 +3884,15 @@
 2026-08-23 06:21:03,824 - INFO - ✅ Successfully added 1 new videos
 2026-08-23 06:21:03,824 - INFO - 📊 Total videos in master list: 192
 2026-08-23 06:21:03,824 - INFO - 🆕 New: Fate and Free will - قسمت اور آزاد مرضی - किस्मत और इच्छा-शक्ति (2026-08-22)
+2026-08-24 06:33:56,626 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-08-24 06:33:56,626 - INFO - 🚀 Starting video list update...
+2026-08-24 06:33:56,628 - INFO - 📊 Current master list has 192 existing videos
+2026-08-24 06:33:56,628 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-08-24 06:33:56,897 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-08-24 06:33:56,898 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-08-24 06:33:56,898 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-08-24 06:33:57,005 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-08-24 06:33:57,355 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-08-24 06:33:57,356 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-08-24 06:33:57,359 - INFO - Master list updated successfully
+2026-08-24 06:33:57,359 - INFO - ℹ️ No new videos found
