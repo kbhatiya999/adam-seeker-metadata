@@ -3934,3 +3934,15 @@
 2026-08-27 17:01:35,853 - INFO - ✅ Successfully added 1 new videos
 2026-08-27 17:01:35,853 - INFO - 📊 Total videos in master list: 193
 2026-08-27 17:01:35,853 - INFO - 🆕 New: Eid Milad Nabi Mubarik (2026-08-26)
+2026-08-28 17:50:22,733 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-08-28 17:50:22,733 - INFO - 🚀 Starting video list update...
+2026-08-28 17:50:22,735 - INFO - 📊 Current master list has 193 existing videos
+2026-08-28 17:50:22,736 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-08-28 17:50:23,077 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-08-28 17:50:23,078 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-08-28 17:50:23,078 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-08-28 17:50:23,191 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-08-28 17:50:23,583 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-08-28 17:50:23,584 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-08-28 17:50:23,587 - INFO - Master list updated successfully
+2026-08-28 17:50:23,587 - INFO - ℹ️ No new videos found
