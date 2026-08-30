@@ -3960,3 +3960,15 @@
 2026-08-29 11:54:52,272 - INFO - ✅ Successfully added 1 new videos
 2026-08-29 11:54:52,272 - INFO - 📊 Total videos in master list: 194
 2026-08-29 11:54:52,272 - INFO - 🆕 New: Muhammad a Pagan? बुतपरस्त - بت پرست (2026-08-29)
+2026-08-30 10:52:05,140 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-08-30 10:52:05,140 - INFO - 🚀 Starting video list update...
+2026-08-30 10:52:05,142 - INFO - 📊 Current master list has 194 existing videos
+2026-08-30 10:52:05,143 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-08-30 10:52:05,447 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-08-30 10:52:05,448 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-08-30 10:52:05,448 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-08-30 10:52:05,537 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-08-30 10:52:05,865 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-08-30 10:52:05,866 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-08-30 10:52:05,869 - INFO - Master list updated successfully
+2026-08-30 10:52:05,869 - INFO - ℹ️ No new videos found
