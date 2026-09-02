@@ -3996,3 +3996,17 @@
 2026-09-01 10:42:00,814 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2026-09-01 10:42:00,816 - INFO - Master list updated successfully
 2026-09-01 10:42:00,816 - INFO - ℹ️ No new videos found
+2026-09-02 10:07:02,226 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-09-02 10:07:02,226 - INFO - 🚀 Starting video list update...
+2026-09-02 10:07:02,229 - INFO - 📊 Current master list has 194 existing videos
+2026-09-02 10:07:02,229 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-09-02 10:07:02,521 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-09-02 10:07:02,522 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-09-02 10:07:02,523 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-09-02 10:07:02,635 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-09-02 10:07:02,919 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-09-02 10:07:02,920 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-09-02 10:07:02,923 - INFO - Master list updated successfully
+2026-09-02 10:07:02,923 - INFO - ✅ Successfully added 1 new videos
+2026-09-02 10:07:02,923 - INFO - 📊 Total videos in master list: 195
+2026-09-02 10:07:02,923 - INFO - 🆕 New: Allah Isa Ibn mariam ka hukam manta tha (2026-09-02)
