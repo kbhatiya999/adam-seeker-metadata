@@ -4046,3 +4046,17 @@
 2026-09-05 09:36:13,523 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2026-09-05 09:36:13,526 - INFO - Master list updated successfully
 2026-09-05 09:36:13,526 - INFO - ℹ️ No new videos found
+2026-09-06 09:51:12,755 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-09-06 09:51:12,756 - INFO - 🚀 Starting video list update...
+2026-09-06 09:51:12,757 - INFO - 📊 Current master list has 195 existing videos
+2026-09-06 09:51:12,757 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-09-06 09:51:13,037 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-09-06 09:51:13,038 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-09-06 09:51:13,038 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-09-06 09:51:13,156 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-09-06 09:51:13,679 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-09-06 09:51:13,680 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-09-06 09:51:13,682 - INFO - Master list updated successfully
+2026-09-06 09:51:13,682 - INFO - ✅ Successfully added 1 new videos
+2026-09-06 09:51:13,682 - INFO - 📊 Total videos in master list: 196
+2026-09-06 09:51:13,682 - INFO - 🆕 New: Bolti kitab; allah ko maloom nahiee (2026-09-05)
