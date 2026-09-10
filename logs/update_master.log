@@ -4098,3 +4098,15 @@
 2026-09-09 10:18:45,260 - INFO - ✅ Successfully added 1 new videos
 2026-09-09 10:18:45,260 - INFO - 📊 Total videos in master list: 197
 2026-09-09 10:18:45,260 - INFO - 🆕 New: Islam main Jjinn (2026-09-09)
+2026-09-10 10:12:02,299 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-09-10 10:12:02,299 - INFO - 🚀 Starting video list update...
+2026-09-10 10:12:02,303 - INFO - 📊 Current master list has 197 existing videos
+2026-09-10 10:12:02,303 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-09-10 10:12:02,600 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-09-10 10:12:02,601 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-09-10 10:12:02,601 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-09-10 10:12:02,743 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-09-10 10:12:03,163 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-09-10 10:12:03,164 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-09-10 10:12:03,167 - INFO - Master list updated successfully
+2026-09-10 10:12:03,167 - INFO - ℹ️ No new videos found
