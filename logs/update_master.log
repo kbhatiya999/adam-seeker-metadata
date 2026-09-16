@@ -4170,3 +4170,17 @@
 2026-09-15 10:37:52,597 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
 2026-09-15 10:37:52,600 - INFO - Master list updated successfully
 2026-09-15 10:37:52,600 - INFO - ℹ️ No new videos found
+2026-09-16 10:26:10,483 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-09-16 10:26:10,483 - INFO - 🚀 Starting video list update...
+2026-09-16 10:26:10,485 - INFO - 📊 Current master list has 197 existing videos
+2026-09-16 10:26:10,485 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-09-16 10:26:10,731 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-09-16 10:26:10,732 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-09-16 10:26:10,732 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-09-16 10:26:10,893 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-09-16 10:26:11,373 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-09-16 10:26:11,374 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-09-16 10:26:11,376 - INFO - Master list updated successfully
+2026-09-16 10:26:11,376 - INFO - ✅ Successfully added 1 new videos
+2026-09-16 10:26:11,376 - INFO - 📊 Total videos in master list: 198
+2026-09-16 10:26:11,376 - INFO - 🆕 New: Kia Quran Allah ka kalam hai? (2026-09-16)
