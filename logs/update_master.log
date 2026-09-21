@@ -4234,3 +4234,15 @@
 2026-09-20 10:14:25,329 - INFO - ✅ Successfully added 1 new videos
 2026-09-20 10:14:25,329 - INFO - 📊 Total videos in master list: 199
 2026-09-20 10:14:25,329 - INFO - 🆕 New: Comedy Night with Adam Seeker - shan-e-Muhammad (2026-09-19)
+2026-09-21 11:20:59,397 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-09-21 11:20:59,398 - INFO - 🚀 Starting video list update...
+2026-09-21 11:20:59,400 - INFO - 📊 Current master list has 199 existing videos
+2026-09-21 11:20:59,400 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-09-21 11:20:59,670 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-09-21 11:20:59,671 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-09-21 11:20:59,671 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-09-21 11:20:59,826 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-09-21 11:21:00,298 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-09-21 11:21:00,299 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-09-21 11:21:00,302 - INFO - Master list updated successfully
+2026-09-21 11:21:00,302 - INFO - ℹ️ No new videos found
