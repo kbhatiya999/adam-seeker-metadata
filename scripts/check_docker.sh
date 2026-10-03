@@ -6,7 +6,7 @@ if command -v docker >/dev/null 2>&1; then
   if docker info >/dev/null 2>&1; then
     echo "✅ Docker is installed and running"
   else
-    echo "⚠️  Docker is installed but not running. Start Docker Desktop before using act: tasks."
+    echo "⚠️  Docker is installed but not running. Run `mise run docker:start` (Colima or Docker Desktop) before using act: tasks."
   fi
   exit 0
 fi

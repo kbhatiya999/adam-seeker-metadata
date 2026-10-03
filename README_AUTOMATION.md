@@ -122,6 +122,16 @@ mise run act:videos:update                    # 2. run the workflow locally in D
 mise run gh:videos:update                     # 3. trigger the REAL workflow on GitHub and watch it
 ```
 
+### Docker lifecycle (Colima first, then Docker Desktop)
+
+```bash
+mise run docker:start     # start Colima / Docker Desktop and wait until ready
+mise run docker:stop      # remove this project's containers/volumes, then stop Docker to free resources
+mise run docker:cleanup   # remove only leftover containers/volumes, keep Docker running
+```
+
+`act:` tasks start Docker automatically if it is down, remove any old leftovers before running (never reuse stale state), always clean up afterwards (even on failure or Ctrl-C), and stop Docker only if that run started it. `docker:stop` leaves Docker running if other containers are in use.
+
 ### Cleaning up (nuke)
 
 ```bash

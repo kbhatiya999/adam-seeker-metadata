@@ -39,17 +39,29 @@ run = "fnox exec -- uv run python scripts/manage_videos.py"
 
 # ---- act: run the workflows locally in Docker ----------------------------
 
+[tasks."docker:start"]
+description = "[docker] Start Docker Desktop if installed and wait until ready"
+run = "scripts/docker.sh start"
+
+[tasks."docker:stop"]
+description = "[docker] Remove this project's containers/volumes, then quit Docker Desktop to free resources"
+run = "scripts/docker.sh stop"
+
+[tasks."docker:cleanup"]
+description = "[docker] Remove leftover (orphaned) containers/volumes from this project, keep Docker running"
+run = "scripts/docker.sh cleanup"
+
 [tasks."act:list"]
 description = "[act] List the workflows/jobs act can run"
 run = "act -l"
 
 [tasks."act:videos:update"]
-description = "[act] Run update-videos.yml locally (needs Docker; no commit/push/issue)"
-run = "fnox exec -- act workflow_dispatch -W .github/workflows/update-videos.yml -s YOUTUBE_API_KEY"
+description = "[act] Run update-videos.yml locally (starts Docker if needed, cleans up after; no commit/push/issue)"
+run = "scripts/docker.sh run -- fnox exec -- act workflow_dispatch -W .github/workflows/update-videos.yml -s YOUTUBE_API_KEY"
 
 [tasks."act:videos:rebuild"]
-description = "[act] Run rebuild-videos.yml locally (needs Docker; no commit/push/issue)"
-run = "fnox exec -- act workflow_dispatch -W .github/workflows/rebuild-videos.yml -s YOUTUBE_API_KEY"
+description = "[act] Run rebuild-videos.yml locally (starts Docker if needed, cleans up after; no commit/push/issue)"
+run = "scripts/docker.sh run -- fnox exec -- act workflow_dispatch -W .github/workflows/rebuild-videos.yml -s YOUTUBE_API_KEY"
 
 # ---- gh: trigger the real workflows on GitHub ----------------------------
 # Uses the current branch unless REF is set (REF=main mise run gh:videos:update).
