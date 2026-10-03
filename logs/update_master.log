@@ -4274,3 +4274,18 @@
 2026-09-23 10:25:05,936 - INFO - ✅ Successfully added 1 new videos
 2026-09-23 10:25:05,936 - INFO - 📊 Total videos in master list: 201
 2026-09-23 10:25:05,936 - INFO - 🆕 New: kya muhammad ek sacche insaan the? (2026-09-23)
+2026-10-03 03:11:32,366 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
+2026-10-03 03:11:32,366 - INFO - 🚀 Starting video list update...
+2026-10-03 03:11:32,368 - INFO - 📊 Current master list has 201 existing videos
+2026-10-03 03:11:32,368 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-10-03 03:11:32,618 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-10-03 03:11:32,619 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-10-03 03:11:32,619 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-10-03 03:11:32,718 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-10-03 03:11:33,259 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-10-03 03:11:33,259 - INFO - 🔍 Found 2 new videos (filtered from 50 total)
+2026-10-03 03:11:33,262 - INFO - Master list updated successfully
+2026-10-03 03:11:33,262 - INFO - ✅ Successfully added 2 new videos
+2026-10-03 03:11:33,262 - INFO - 📊 Total videos in master list: 203
+2026-10-03 03:11:33,262 - INFO - 🆕 New: Suleman aur uska udta khatola (2026-09-30)
+2026-10-03 03:11:33,262 - INFO - 🆕 New: Allah and Muhammad (2026-09-26)
