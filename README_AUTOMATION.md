@@ -43,7 +43,8 @@ This system automatically maintains your master video list by discovering new vi
 │   └── update_master.log           # Update logs
 ├── .github/workflows/
 │   └── update-videos.yml           # GitHub Actions workflow
-├── requirements.txt                # Python dependencies
+├── pyproject.toml / uv.lock        # Python dependencies (uv)
+├── mise.toml                       # Tools and tasks (mise)
 └── config.env                      # Configuration file
 ```
 
@@ -106,6 +107,19 @@ python scripts/setup_automation.py
 - Validates all required files
 - Creates sample configuration
 - Provides setup instructions
+
+## 🧰 Local Setup and Testing (mise + uv)
+
+```bash
+mise install                # Python, uv, act
+cp .env.example .env        # then set YOUTUBE_API_KEY
+mise run setup              # uv sync
+mise run update             # run the update script
+mise run manage report      # run the management script
+mise run ci:update          # run the GitHub workflow locally with act (Docker must be running)
+```
+
+`mise run ci:*` skips the commit, push, issue and artifact steps (they are guarded by `!env.ACT`), so you can test the workflow without publishing anything.
 
 ## 🤖 GitHub Actions Automation
 
@@ -262,10 +276,10 @@ ls -la scripts/
 **4. Missing Dependencies**
 ```bash
 # Install requirements
-pip install -r requirements.txt
+mise run setup
 
 # Or install individually
-pip install yt-dlp requests python-dateutil
+uv add yt-dlp requests python-dateutil
 ```
 
 ### Debug Mode

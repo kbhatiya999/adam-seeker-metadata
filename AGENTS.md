@@ -20,5 +20,10 @@ Metadata repo for the YouTube channel https://www.youtube.com/@AdamSeekerOfficia
 - `data/videos_master.json` is written with `indent=2, ensure_ascii=False`; keep that format to avoid noisy diffs.
 - Update the READMEs when workflow behavior changes.
 
-## Setup
-`pip install -r requirements.txt`, then e.g. `YOUTUBE_API_KEY=... python scripts/update_master.py`.
+## Setup and tasks (mise + uv)
+Tools and tasks are defined in `mise.toml`; dependencies in `pyproject.toml` / `uv.lock` (no requirements.txt).
+- `mise install` then `mise run setup` — install Python 3.12, uv, act and sync `.venv`.
+- Put `YOUTUBE_API_KEY` in `.env` (git-ignored; see `.env.example`).
+- `mise run update` / `rebuild` / `manage <subcommand>` — run the scripts.
+- `mise run ci:update` / `ci:rebuild` — run the GitHub workflows locally with `act` (needs Docker running). Commit, push, issue and artifact steps are skipped when `ACT` is set, so a local run never publishes anything. Workflows call `mise run ...`, so local and CI run the same commands.
+- After changing dependencies run `uv lock` and commit `uv.lock`.

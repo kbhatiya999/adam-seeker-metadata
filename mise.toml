@@ -1,0 +1,36 @@
+[tools]
+python = "3.12"
+uv = "latest"
+act = "latest"
+
+[env]
+# Load YOUTUBE_API_KEY etc. from a local, git-ignored file
+_.file = { path = ".env", redact = true }
+
+[tasks.setup]
+description = "Install Python dependencies into .venv"
+run = "uv sync"
+
+[tasks.update]
+description = "Fetch new videos and update data/videos_master.json"
+run = "uv run python scripts/update_master.py"
+
+[tasks.rebuild]
+description = "Rebuild the master list from scratch"
+run = "uv run python scripts/rebuild_master.py --force"
+
+[tasks.manage]
+description = "Manage/categorize videos (pass a subcommand, e.g. `mise run manage report`)"
+run = "uv run python scripts/manage_videos.py"
+
+[tasks."ci:update"]
+description = "Run the update-videos GitHub workflow locally with act (needs Docker; no commit/push/issue)"
+run = "act workflow_dispatch -W .github/workflows/update-videos.yml -s YOUTUBE_API_KEY"
+
+[tasks."ci:rebuild"]
+description = "Run the rebuild-videos GitHub workflow locally with act (needs Docker; no commit/push/issue)"
+run = "act workflow_dispatch -W .github/workflows/rebuild-videos.yml -s YOUTUBE_API_KEY"
+
+[tasks."ci:list"]
+description = "List the workflows/jobs act can run"
+run = "act -l"
