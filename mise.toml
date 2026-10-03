@@ -47,6 +47,10 @@ run = "scripts/docker.sh start"
 description = "[docker] Remove this project's containers/volumes, then quit Docker Desktop to free resources"
 run = "scripts/docker.sh stop"
 
+[tasks."docker:diagnose"]
+description = "[docker] Show host vs Docker allocated/free CPU, memory, disk, and how to change it permanently (read-only)"
+run = "scripts/docker_diagnose.sh"
+
 [tasks."docker:cleanup"]
 description = "[docker] Remove leftover (orphaned) containers/volumes from this project, keep Docker running"
 run = "scripts/docker.sh cleanup"

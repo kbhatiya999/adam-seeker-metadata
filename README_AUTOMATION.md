@@ -128,6 +128,7 @@ mise run gh:videos:update                     # 3. trigger the REAL workflow on 
 mise run docker:start     # start Colima / Docker Desktop and wait until ready
 mise run docker:stop      # remove this project's containers/volumes, then stop Docker to free resources
 mise run docker:cleanup   # remove only leftover containers/volumes, keep Docker running
+mise run docker:diagnose  # host vs Docker CPU/RAM/disk, what's free, and how to change it permanently
 ```
 
 `act:` tasks start Docker automatically if it is down, remove any old leftovers before running (never reuse stale state), always clean up afterwards (even on failure or Ctrl-C), and stop Docker only if that run started it. `docker:stop` leaves Docker running if other containers are in use.
