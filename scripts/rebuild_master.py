@@ -12,6 +12,7 @@ WARNING: This will replace your existing master list!
 """
 
 import json
+import re
 import os
 import sys
 import requests
@@ -31,6 +32,21 @@ logging.basicConfig(
     ]
 )
 logger = logging.getLogger(__name__)
+
+def iter_video_entries(info):
+    """Yield real video entries from a yt-dlp result, descending into nested playlists.
+
+    The bare channel URL returns its tabs (Videos, Live, Shorts) as entries; those are
+    playlists, not videos, and must not be treated as videos.
+    """
+    for entry in (info or {}).get('entries') or []:
+        if not entry:
+            continue
+        if entry.get('_type') == 'playlist' or 'entries' in entry:
+            yield from iter_video_entries(entry)
+        elif re.fullmatch(r'[A-Za-z0-9_-]{11}', entry.get('id') or ''):
+            yield entry
+
 
 class MasterListRebuilder:
     def __init__(self, master_file: str, channel_url: str, api_key: Optional[str] = None):
@@ -200,24 +216,23 @@ class MasterListRebuilder:
             }
             
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-                info = ydl.extract_info(self.channel_url, download=False)
+                info = ydl.extract_info(self.channel_url.rstrip('/') + '/videos', download=False)
                 
                 videos = []
-                for entry in info.get('entries', []):
-                    if entry.get('id'):
-                        video_info = {
-                            'video_id': entry['id'],
-                            'title': entry.get('title', 'Unknown Title'),
-                            'url': f"https://www.youtube.com/watch?v={entry['id']}",
-                            'upload_date': entry.get('upload_date', ''),
-                            'duration': entry.get('duration', 0),
-                            'description': entry.get('description', '')[:500],
-                            'status': 'uncategorized',
-                            'auto_detected': True,
-                            'needs_review': True,
-                            'last_checked': datetime.now().isoformat()[:10]
-                        }
-                        videos.append(video_info)
+                for entry in iter_video_entries(info):
+                    video_info = {
+                        'video_id': entry['id'],
+                        'title': entry.get('title', 'Unknown Title'),
+                        'url': f"https://www.youtube.com/watch?v={entry['id']}",
+                        'upload_date': entry.get('upload_date', ''),
+                        'duration': entry.get('duration', 0),
+                        'description': entry.get('description', '')[:500],
+                        'status': 'uncategorized',
+                        'auto_detected': True,
+                        'needs_review': True,
+                        'last_checked': datetime.now().isoformat()[:10]
+                    }
+                    videos.append(video_info)
                 
                 logger.info(f"✅ Successfully fetched {len(videos)} videos using yt-dlp")
                 return videos
