@@ -1,6 +1,17 @@
 {
   "videos": [
     {
+      "video_id": "p8sbX52xSdY",
+      "title": "rang rang Rangila ree  - controversial legacy",
+      "url": "https://www.youtube.com/watch?v=p8sbX52xSdY",
+      "upload_date": "2026-10-03",
+      "description": "if you like Adam Seeker's videos and would like to support, join patreon link\nhttps://www.patreon.com/adamseeker\n\ntiktok account\nhttps://www.tiktok.com/@adam.seeker.official\n#rangila\n#rasul\n#controversy\n#muhammad",
+      "status": "uncategorized",
+      "auto_detected": true,
+      "needs_review": true,
+      "last_checked": "2026-10-03"
+    },
+    {
       "video_id": "2Vtn-67B238",
       "title": "Suleman aur uska udta khatola",
       "url": "https://www.youtube.com/watch?v=2Vtn-67B238",
@@ -2235,7 +2246,7 @@
     }
   ],
   "last_updated": "2026-10-03",
-  "total_videos": 203,
+  "total_videos": 204,
   "channel_url": "https://www.youtube.com/@AdamSeekerOfficial",
   "rebuild_date": "2025-10-23",
   "rebuild_reason": "Complete rebuild from scratch"
