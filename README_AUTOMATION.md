@@ -114,7 +114,7 @@ python scripts/setup_automation.py
 ```bash
 mise install                                  # Python, uv, act, fnox, gh
 cp fnox.local.toml.example fnox.local.toml    # set YOUTUBE_API_KEY (git-ignored)
-mise run setup                                # uv sync
+mise run install                              # uv sync + checks Docker, offers to install it if missing
 
 mise run local:videos:update                  # 1. run the script directly
 mise run local:videos:manage report           #    run the management script

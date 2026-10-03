@@ -10,6 +10,11 @@ act = "latest"
 fnox = "latest"
 gh = "latest"
 
+[tasks.install]
+description = "Full first-time setup: install tools, sync Python deps, check Docker (offers to install it)"
+depends = ["setup"]
+run = "scripts/check_docker.sh"
+
 [tasks.setup]
 description = "Install Python dependencies into .venv"
 run = "uv sync"
