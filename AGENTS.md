@@ -22,8 +22,12 @@ Metadata repo for the YouTube channel https://www.youtube.com/@AdamSeekerOfficia
 
 ## Setup and tasks (mise + uv)
 Tools and tasks are defined in `mise.toml`; dependencies in `pyproject.toml` / `uv.lock` (no requirements.txt).
-- `mise install` then `mise run setup` — install Python 3.12, uv, act and sync `.venv`.
+- `mise install` then `mise run setup` — install Python 3.12, uv, act, fnox, gh and sync `.venv`.
 - Secrets use fnox: declared in `fnox.toml`; put `YOUTUBE_API_KEY` in the git-ignored `fnox.local.toml` (copy `fnox.local.toml.example`), which overrides `fnox.toml`. Tasks run via `fnox exec`; in CI the key comes from the environment. Never commit `fnox.local.toml`.
-- `mise run videos:update` / `videos:rebuild` / `videos:manage <subcommand>` — run the scripts.
-- `mise run ci:update-videos` / `ci:rebuild-videos` — run the GitHub workflows locally with `act` (needs Docker running). Commit, push, issue and artifact steps are skipped when `ACT` is set, so a local run never publishes anything. Workflows call `mise run ...`, so local and CI run the same commands.
+- Task names are `<where>:<area>:<action>`. The first scope says where it runs:
+  - `local:` runs the code directly: `local:videos:update` / `local:videos:rebuild` / `local:videos:manage <subcommand>`.
+  - `act:` runs the workflow locally in Docker: `act:videos:update` / `act:videos:rebuild` / `act:list`. Commit, push, issue and artifact steps are skipped when `ACT` is set, so it never publishes anything.
+  - `gh:` triggers the REAL workflow on GitHub and watches it: `gh:videos:update` / `gh:videos:rebuild` / `gh:list`. It really commits and creates issues. Uses the current branch (or `REF=...`); the ref must be pushed and the workflow must exist on the default branch.
+  - `setup` is unscoped (repo-wide).
+- Workflows call the `local:` tasks, so local, act and GitHub run the same commands. Test order: `local:` then `act:` then `gh:`.
 - After changing dependencies run `uv lock` and commit `uv.lock`.

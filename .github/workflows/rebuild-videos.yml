@@ -10,7 +10,7 @@ jobs:
   rebuild-videos:
     runs-on: ubuntu-latest
     env:
-      MISE_DISABLE_TOOLS: act  # local-only; fnox is kept because tasks run via `fnox exec`
+      MISE_DISABLE_TOOLS: act,gh  # local-only tools; fnox is kept because tasks run via `fnox exec`
     
     steps:
     - name: Checkout repository
@@ -28,7 +28,7 @@ jobs:
       env:
         YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
       run: |
-        mise run videos:rebuild
+        mise run local:videos:rebuild
     
     - name: Check for changes
       id: changes
