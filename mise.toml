@@ -25,6 +25,10 @@ run = "uv sync"
 
 # ---- local: run the scripts directly -------------------------------------
 
+[tasks."local:apikey:setup"]
+description = "[local] Guided YouTube API key setup: opens the console, validates your key, saves it to fnox.local.toml (optionally to the GitHub secret)"
+run = "scripts/api_key.sh"
+
 [tasks."local:videos:update"]
 description = "[local] Fetch new videos and update data/videos_master.json"
 run = "fnox exec -- uv run python scripts/update_master.py"
