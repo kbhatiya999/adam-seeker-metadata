@@ -115,9 +115,9 @@ python scripts/setup_automation.py
 mise install                # Python, uv, act
 cp fnox.local.toml.example fnox.local.toml   # set YOUTUBE_API_KEY (git-ignored)
 mise run setup              # uv sync
-mise run update             # run the update script
-mise run manage report      # run the management script
-mise run ci:update          # run the GitHub workflow locally with act (Docker must be running)
+mise run videos:update      # run the update script
+mise run videos:manage report # run the management script
+mise run ci:update-videos   # run the GitHub workflow locally with act (Docker must be running)
 ```
 
 `mise run ci:*` skips the commit, push, issue and artifact steps (they are guarded by `!env.ACT`), so you can test the workflow without publishing anything.

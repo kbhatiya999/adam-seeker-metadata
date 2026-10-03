@@ -8,23 +8,23 @@ fnox = "latest"
 description = "Install Python dependencies into .venv"
 run = "uv sync"
 
-[tasks.update]
+[tasks."videos:update"]
 description = "Fetch new videos and update data/videos_master.json"
 run = "fnox exec -- uv run python scripts/update_master.py"
 
-[tasks.rebuild]
+[tasks."videos:rebuild"]
 description = "Rebuild the master list from scratch"
 run = "fnox exec -- uv run python scripts/rebuild_master.py --force"
 
-[tasks.manage]
-description = "Manage/categorize videos (pass a subcommand, e.g. `mise run manage report`)"
+[tasks."videos:manage"]
+description = "Manage/categorize videos (pass a subcommand, e.g. `mise run videos:manage report`)"
 run = "fnox exec -- uv run python scripts/manage_videos.py"
 
-[tasks."ci:update"]
+[tasks."ci:update-videos"]
 description = "Run the update-videos GitHub workflow locally with act (needs Docker; no commit/push/issue)"
 run = "fnox exec -- act workflow_dispatch -W .github/workflows/update-videos.yml -s YOUTUBE_API_KEY"
 
-[tasks."ci:rebuild"]
+[tasks."ci:rebuild-videos"]
 description = "Run the rebuild-videos GitHub workflow locally with act (needs Docker; no commit/push/issue)"
 run = "fnox exec -- act workflow_dispatch -W .github/workflows/rebuild-videos.yml -s YOUTUBE_API_KEY"
 

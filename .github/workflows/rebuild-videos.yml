@@ -28,7 +28,7 @@ jobs:
       env:
         YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
       run: |
-        mise run rebuild
+        mise run videos:rebuild
     
     - name: Check for changes
       id: changes
