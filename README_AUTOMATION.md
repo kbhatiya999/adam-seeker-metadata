@@ -114,7 +114,8 @@ The system includes a GitHub Actions workflow that runs automatically:
 - **Schedule:** Daily at 6 AM UTC
 - **Manual trigger:** Available via GitHub UI
 - **Auto-commit:** Commits new videos to repository
-- **Notifications:** Creates GitHub issues for new videos
+- **Notifications:** Maintains a single rolling "New Videos Available for Review" GitHub issue, adding a dated comment for each update (a new issue is created only after the previous one is closed)
+- **Ordering:** `data/videos_master.json` is kept sorted by `upload_date`, newest first
 - **Logs:** Uploads detailed logs as artifacts
 
 ### Setup GitHub Actions
@@ -175,11 +176,11 @@ The master list now includes automation fields:
 1. **Discovery:** Script fetches latest videos from YouTube
 2. **Comparison:** Identifies new videos not in master list
 3. **Addition:** Adds new videos with status "uncategorized"
-4. **Notification:** Creates GitHub issue for manual review
+4. **Notification:** Comments on the open rolling review issue (or creates it if none is open)
 5. **Commit:** Automatically commits changes to repository
 
 ### Weekly Manual Review
-1. **Review:** Check GitHub issues for new videos
+1. **Review:** Check the rolling review issue for new videos, then close it when done
 2. **Categorize:** Use management script to assign categories
 3. **Score:** Set relevance scores (1-10)
 4. **Notes:** Add detailed notes about usefulness
@@ -293,7 +294,7 @@ Add your own categories in the management script or config file.
 
 ## 📝 Best Practices
 
-1. **Regular Review:** Check GitHub issues weekly for new videos
+1. **Regular Review:** Check the rolling review issue weekly and close it after review
 2. **Consistent Scoring:** Use 1-10 scale consistently
 3. **Detailed Notes:** Add meaningful notes for future reference
 4. **Backup Strategy:** System creates automatic backups
