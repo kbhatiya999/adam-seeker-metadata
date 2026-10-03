@@ -10,7 +10,7 @@ jobs:
   rebuild-videos:
     runs-on: ubuntu-latest
     env:
-      MISE_DISABLE_TOOLS: act,gh  # local-only tools; fnox is kept because tasks run via `fnox exec`
+      MISE_DISABLE_TOOLS: act,gh,gcloud  # local-only tools; fnox is kept because tasks run via `fnox exec`
     
     steps:
     - name: Checkout repository
