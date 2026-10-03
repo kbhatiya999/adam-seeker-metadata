@@ -43,7 +43,9 @@ This system automatically maintains your master video list by discovering new vi
 │   └── update_master.log           # Update logs
 ├── .github/workflows/
 │   └── update-videos.yml           # GitHub Actions workflow
-├── requirements.txt                # Python dependencies
+├── pyproject.toml / uv.lock        # Python dependencies (uv)
+├── mise.toml                       # Tools and tasks (mise)
+├── fnox.toml                       # Secret declarations (fnox)
 └── config.env                      # Configuration file
 ```
 
@@ -106,6 +108,50 @@ python scripts/setup_automation.py
 - Validates all required files
 - Creates sample configuration
 - Provides setup instructions
+
+## 🧰 Local Setup and Testing (mise + uv)
+
+```bash
+mise install                                  # Python, uv, act, fnox, gh
+cp fnox.local.toml.example fnox.local.toml    # set YOUTUBE_API_KEY (git-ignored)
+mise run install                              # uv sync + checks Docker, offers to install it if missing
+
+mise run local:videos:update                  # 1. run the script directly
+mise run local:videos:manage report           #    run the management script
+mise run act:videos:update                    # 2. run the workflow locally in Docker (needs Docker)
+mise run gh:videos:update                     # 3. trigger the REAL workflow on GitHub and watch it
+```
+
+### Docker lifecycle (Colima first, then Docker Desktop)
+
+```bash
+mise run docker:start     # start Colima / Docker Desktop and wait until ready
+mise run docker:stop      # remove this project's containers/volumes, then stop Docker to free resources
+mise run docker:cleanup   # remove only leftover containers/volumes, keep Docker running
+mise run docker:diagnose  # host vs Docker CPU/RAM/disk, what's free, and how to change it permanently
+```
+
+`act:` tasks start Docker automatically if it is down, remove any old leftovers before running (never reuse stale state), always clean up afterwards (even on failure or Ctrl-C), and stop Docker only if that run started it. `docker:stop` leaves Docker running if other containers are in use.
+
+### Cleaning up (nuke)
+
+```bash
+mise run nuke -- --dry-run   # show what would be removed
+mise run nuke                # .venv, .act/, project Docker containers/volumes/image (asks first)
+mise run nuke -- --all       # also uv cache, act-toolcache volume, this project's mise tools, fnox.local.toml
+```
+
+Docker resources created by `act` are labelled `project=adam-seeker-metadata` and the cache dirs live in `.act/` (see `.actrc`), so nuke removes only what this project created. Docker itself is not uninstalled.
+
+Task names are `<where>:<area>:<action>`; the first scope says where it runs:
+
+| Scope | Runs | Publishes? |
+|---|---|---|
+| `local:` | the scripts directly on your machine | no (but edits `data/` and `logs/` in your working tree) |
+| `act:` | the GitHub workflow in Docker via `act` | no (commit, push, issue and artifact steps are skipped via `!env.ACT`) |
+| `gh:` | the real workflow on GitHub (`gh workflow run`, then watches it) | **yes**: commits to the ref and opens/comments on issues |
+
+`gh:` tasks use the current branch (or `REF=<branch>`). The ref must be pushed, and the workflow must exist on the default branch to be dispatchable. Run `mise tasks` to list everything.
 
 ## 🤖 GitHub Actions Automation
 
@@ -262,10 +308,10 @@ ls -la scripts/
 **4. Missing Dependencies**
 ```bash
 # Install requirements
-pip install -r requirements.txt
+mise run setup
 
 # Or install individually
-pip install yt-dlp requests python-dateutil
+uv add yt-dlp requests python-dateutil
 ```
 
 ### Debug Mode
