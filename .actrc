@@ -5,3 +5,4 @@
 --cache-server-path=.act/cache
 --artifact-server-path=.act/artifacts
 --container-options=--label=project=adam-seeker-metadata
+--container-daemon-socket=/var/run/docker.sock

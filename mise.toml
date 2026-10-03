@@ -61,11 +61,11 @@ run = "act -l"
 
 [tasks."act:videos:update"]
 description = "[act] Run update-videos.yml locally (starts Docker if needed, cleans up after; no commit/push/issue)"
-run = "scripts/docker.sh run -- fnox exec -- act workflow_dispatch -W .github/workflows/update-videos.yml -s YOUTUBE_API_KEY"
+run = '''scripts/docker.sh run -- fnox exec -- sh -c 'act workflow_dispatch -W .github/workflows/update-videos.yml ${YOUTUBE_API_KEY:+-s YOUTUBE_API_KEY}' '''
 
 [tasks."act:videos:rebuild"]
 description = "[act] Run rebuild-videos.yml locally (starts Docker if needed, cleans up after; no commit/push/issue)"
-run = "scripts/docker.sh run -- fnox exec -- act workflow_dispatch -W .github/workflows/rebuild-videos.yml -s YOUTUBE_API_KEY"
+run = '''scripts/docker.sh run -- fnox exec -- sh -c 'act workflow_dispatch -W .github/workflows/rebuild-videos.yml ${YOUTUBE_API_KEY:+-s YOUTUBE_API_KEY}' '''
 
 # ---- gh: trigger the real workflows on GitHub ----------------------------
 # Uses the current branch unless REF is set (REF=main mise run gh:videos:update).
