@@ -14,7 +14,7 @@ jobs:
   update-videos:
     runs-on: ubuntu-latest
     env:
-      MISE_DISABLE_TOOLS: act  # only needed locally
+      MISE_DISABLE_TOOLS: act  # local-only; fnox is kept because tasks run via `fnox exec`
     
     steps:
     - name: Checkout repository

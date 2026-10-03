@@ -45,6 +45,7 @@ This system automatically maintains your master video list by discovering new vi
 │   └── update-videos.yml           # GitHub Actions workflow
 ├── pyproject.toml / uv.lock        # Python dependencies (uv)
 ├── mise.toml                       # Tools and tasks (mise)
+├── fnox.toml                       # Secret declarations (fnox)
 └── config.env                      # Configuration file
 ```
 
@@ -112,7 +113,7 @@ python scripts/setup_automation.py
 
 ```bash
 mise install                # Python, uv, act
-cp .env.example .env        # then set YOUTUBE_API_KEY
+cp fnox.local.toml.example fnox.local.toml   # set YOUTUBE_API_KEY (git-ignored)
 mise run setup              # uv sync
 mise run update             # run the update script
 mise run manage report      # run the management script

@@ -1,5 +1,6 @@
 __pycache__/
 *.pyc
 .venv/
-.env
+fnox.local.toml
 .secrets
+.fnox.local.toml

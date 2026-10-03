@@ -1,0 +1,8 @@
+# Secret declarations for local runs and CI. Never put real values here.
+# Local override: create fnox.local.toml (git-ignored; see fnox.local.toml.example).
+# In GitHub Actions the key comes from the YOUTUBE_API_KEY secret via the
+# environment; fnox passes an already-set env var through.
+
+[secrets.YOUTUBE_API_KEY]
+description = "YouTube Data API v3 key (optional; falls back to yt-dlp when unset)"
+if_missing = "warn"

@@ -23,7 +23,7 @@ Metadata repo for the YouTube channel https://www.youtube.com/@AdamSeekerOfficia
 ## Setup and tasks (mise + uv)
 Tools and tasks are defined in `mise.toml`; dependencies in `pyproject.toml` / `uv.lock` (no requirements.txt).
 - `mise install` then `mise run setup` — install Python 3.12, uv, act and sync `.venv`.
-- Put `YOUTUBE_API_KEY` in `.env` (git-ignored; see `.env.example`).
+- Secrets use fnox: declared in `fnox.toml`; put `YOUTUBE_API_KEY` in the git-ignored `fnox.local.toml` (copy `fnox.local.toml.example`), which overrides `fnox.toml`. Tasks run via `fnox exec`; in CI the key comes from the environment. Never commit `fnox.local.toml`.
 - `mise run update` / `rebuild` / `manage <subcommand>` — run the scripts.
 - `mise run ci:update` / `ci:rebuild` — run the GitHub workflows locally with `act` (needs Docker running). Commit, push, issue and artifact steps are skipped when `ACT` is set, so a local run never publishes anything. Workflows call `mise run ...`, so local and CI run the same commands.
 - After changing dependencies run `uv lock` and commit `uv.lock`.
