@@ -9,11 +9,16 @@ uv = "latest"
 act = "latest"
 fnox = "latest"
 gh = "latest"
+gcloud = "latest"
+
+[env]
+# gcloud's installer needs Python 3.10+; use mise's Python instead of the macOS system one
+CLOUDSDK_PYTHON = "{{ get_env(name='MISE_DATA_DIR', default=env.HOME ~ '/.local/share/mise') }}/installs/python/3.12/bin/python"
 
 [tasks.install]
-description = "Full first-time setup: install tools, sync Python deps, check Docker (offers to install it)"
+description = "Full first-time setup: install tools (incl. gcloud), sync Python deps, check Docker (offers to install it)"
 depends = ["setup"]
-run = "scripts/check_docker.sh"
+run = ["scripts/ensure_gcloud.sh", "scripts/check_docker.sh"]
 
 [tasks.nuke]
 description = "Opposite of install: remove .venv, .act, Docker containers/volumes/image for this project (flags: --all, --yes, --dry-run; e.g. `mise run nuke -- --dry-run`)"

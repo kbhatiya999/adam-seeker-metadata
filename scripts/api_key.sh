@@ -16,6 +16,49 @@ if has_key; then
   case "$a" in [yY]*) ;; *) echo "Keeping existing key."; exit 0 ;; esac
 fi
 
+key=""
+from_gcloud=0
+
+gcloud_create_key() {
+  local acct project out name
+  acct="$(gcloud auth list --filter=status:ACTIVE --format='value(account)' 2>/dev/null | head -1)"
+  if [ -z "$acct" ]; then
+    echo "Sign in to Google (opens your browser)..."
+    gcloud auth login || return 1
+    acct="$(gcloud auth list --filter=status:ACTIVE --format='value(account)' | head -1)"
+  fi
+  echo "Signed in as: $acct"
+  project="$(gcloud config get-value project 2>/dev/null)"
+  echo "Your projects:"; gcloud projects list --format='table(projectId,name)' 2>/dev/null | head -15
+  read -r -p "Project ID to use [${project:-none}] (enter a NEW id to create it): " p
+  project="${p:-$project}"
+  [ -n "$project" ] || { echo "No project given."; return 1; }
+  if ! gcloud projects describe "$project" >/dev/null 2>&1; then
+    read -r -p "Project '$project' does not exist. Create it? [y/N] " c
+    case "$c" in [yY]*) gcloud projects create "$project" || return 1 ;; *) return 1 ;; esac
+  fi
+  echo "Enabling YouTube Data API v3 on $project..."
+  gcloud services enable youtube.googleapis.com --project "$project" || return 1
+  echo "Creating an API key restricted to the YouTube Data API..."
+  out="$(gcloud services api-keys create --display-name=adam-seeker-metadata \
+        --api-target=service=youtube.googleapis.com --project "$project" --format=json)" || return 1
+  key="$(printf '%s' "$out" | python3 -c 'import json,sys; d=json.load(sys.stdin); print((d.get("response") or d).get("keyString",""))' 2>/dev/null)"
+  if [ -z "$key" ]; then
+    name="$(printf '%s' "$out" | python3 -c 'import json,sys; d=json.load(sys.stdin); print((d.get("response") or d).get("name",""))' 2>/dev/null)"
+    [ -n "$name" ] && key="$(gcloud services api-keys get-key-string "$name" --format='value(keyString)')"
+  fi
+  [ -n "$key" ] || { echo "Could not read the new key; get it from $KEY_URL"; return 1; }
+  from_gcloud=1
+}
+
+if command -v gcloud >/dev/null 2>&1 && gcloud --version >/dev/null 2>&1; then
+  read -r -p "Create the key automatically with gcloud (you sign in with your own Google account)? [Y/n] " g
+  case "$g" in [nN]*) ;; *) gcloud_create_key || { echo "gcloud path failed; falling back to the manual steps."; key=""; } ;; esac
+else
+  echo "(gcloud not available: run 'mise run install' to get it; using the manual steps.)"
+fi
+
+if [ -z "$key" ]; then
 cat <<EOF2
 Get a YouTube Data API v3 key (free; the daily quota of 10,000 units is plenty for this repo):
 
@@ -24,9 +67,6 @@ Get a YouTube Data API v3 key (free; the daily quota of 10,000 units is plenty f
   3. Create the key: Credentials -> Create credentials -> API key:   $KEY_URL
   4. Recommended: edit the key -> "API restrictions" -> Restrict key -> YouTube Data API v3.
   5. Copy the key and paste it below.
-
-  (CLI alternative if you use gcloud:  gcloud services enable youtube.googleapis.com &&
-   gcloud services api-keys create --display-name=adam-seeker-metadata --api-target=service=youtube.googleapis.com)
 EOF2
 
 if [ -t 0 ] && [ "$(uname -s)" = Darwin ]; then
@@ -38,10 +78,17 @@ printf 'Paste your API key (input hidden): '
 read -rs key; echo
 key="$(printf '%s' "$key" | tr -d '[:space:]')"
 [ -n "$key" ] || { echo "No key entered."; exit 1; }
+fi
 
 # Validate with one cheap call (1 quota unit); the key goes in a header via stdin, not argv/URL.
-resp="$(printf 'header = "x-goog-api-key: %s"\n' "$key" | curl -s -K - \
-  'https://www.googleapis.com/youtube/v3/videos?part=id&id=dQw4w9WgXcQ')"
+# New keys can take a minute to propagate, so retry when we just created it
+attempts=1; [ "$from_gcloud" = 1 ] && attempts=8
+for i in $(seq "$attempts"); do
+  resp="$(printf 'header = "x-goog-api-key: %s"\n' "$key" | curl -s -K - \
+    'https://www.googleapis.com/youtube/v3/videos?part=id&id=dQw4w9WgXcQ')"
+  printf '%s' "$resp" | grep -q '"items"' && break
+  if [ "$i" -lt "$attempts" ]; then echo "Key not active yet, retrying in 10s ($i/$attempts)..."; sleep 10; fi
+done
 if ! printf '%s' "$resp" | grep -q '"items"'; then
   reason="$(printf '%s' "$resp" | sed -n 's/.*"message": *"\([^"]*\)".*/\1/p' | head -1)"
   echo "❌ Key rejected by the YouTube API: ${reason:-no valid response}"
