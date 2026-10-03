@@ -122,6 +122,14 @@ mise run act:videos:update                    # 2. run the workflow locally in D
 mise run gh:videos:update                     # 3. trigger the REAL workflow on GitHub and watch it
 ```
 
+### Getting a YouTube API key
+
+```bash
+mise run local:apikey:setup   # guided: opens the Google Cloud pages, validates your key, saves it to fnox.local.toml
+```
+
+The key is free and has to be created from your own Google account (it can't be fetched automatically). Without a key the scripts fall back to yt-dlp, which is slower and has no upload dates. The task can also set the `YOUTUBE_API_KEY` GitHub secret so the daily workflow uses the API.
+
 ### Docker lifecycle (Colima first, then Docker Desktop)
 
 ```bash
