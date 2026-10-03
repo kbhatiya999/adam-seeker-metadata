@@ -28,6 +28,7 @@ Tools and tasks are defined in `mise.toml`; dependencies in `pyproject.toml` / `
   - `local:` runs the code directly: `local:videos:update` / `local:videos:rebuild` / `local:videos:manage <subcommand>`.
   - `act:` runs the workflow locally in Docker: `act:videos:update` / `act:videos:rebuild` / `act:list`. Commit, push, issue and artifact steps are skipped when `ACT` is set, so it never publishes anything.
   - `gh:` triggers the REAL workflow on GitHub and watches it: `gh:videos:update` / `gh:videos:rebuild` / `gh:list`. It really commits and creates issues. Uses the current branch (or `REF=...`); the ref must be pushed and the workflow must exist on the default branch.
-  - `install` (full first-time setup) and `setup` (just `uv sync`) are unscoped (repo-wide).
+  - `install` (full first-time setup), `setup` (just `uv sync`) and `nuke` (cleanup) are unscoped (repo-wide).
+- `mise run nuke` is the opposite of `install`: removes `.venv`, `.act/` and this project's Docker containers (label `project=adam-seeker-metadata`), their volumes, and the act runner image. Flags after `--`: `--dry-run`, `--yes`, `--all` (also uv cache, `act-toolcache` volume, this project's mise tool versions, `fnox.local.toml`). Everything act creates is predictable (see `.actrc`: label, `.act/` dirs, pinned image) so nuke can find it. Docker itself is never uninstalled. If you add new Docker/act artifacts, keep them labelled/under `.act/` and update `scripts/nuke.sh`.
 - Workflows call the `local:` tasks, so local, act and GitHub run the same commands. Test order: `local:` then `act:` then `gh:`.
 - After changing dependencies run `uv lock` and commit `uv.lock`.

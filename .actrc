@@ -1,2 +1,7 @@
 -P ubuntu-latest=catthehacker/ubuntu:act-latest
 --container-architecture linux/arm64
+--rm
+--action-cache-path=.act/actions
+--cache-server-path=.act/cache
+--artifact-server-path=.act/artifacts
+--container-options=--label=project=adam-seeker-metadata

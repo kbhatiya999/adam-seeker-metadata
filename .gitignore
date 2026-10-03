@@ -4,3 +4,4 @@ __pycache__/
 fnox.local.toml
 .secrets
 .fnox.local.toml
+.act/

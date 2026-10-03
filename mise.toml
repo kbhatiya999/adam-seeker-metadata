@@ -15,6 +15,10 @@ description = "Full first-time setup: install tools, sync Python deps, check Doc
 depends = ["setup"]
 run = "scripts/check_docker.sh"
 
+[tasks.nuke]
+description = "Opposite of install: remove .venv, .act, Docker containers/volumes/image for this project (flags: --all, --yes, --dry-run; e.g. `mise run nuke -- --dry-run`)"
+run = "scripts/nuke.sh"
+
 [tasks.setup]
 description = "Install Python dependencies into .venv"
 run = "uv sync"

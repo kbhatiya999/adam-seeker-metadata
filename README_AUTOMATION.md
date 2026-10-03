@@ -122,6 +122,16 @@ mise run act:videos:update                    # 2. run the workflow locally in D
 mise run gh:videos:update                     # 3. trigger the REAL workflow on GitHub and watch it
 ```
 
+### Cleaning up (nuke)
+
+```bash
+mise run nuke -- --dry-run   # show what would be removed
+mise run nuke                # .venv, .act/, project Docker containers/volumes/image (asks first)
+mise run nuke -- --all       # also uv cache, act-toolcache volume, this project's mise tools, fnox.local.toml
+```
+
+Docker resources created by `act` are labelled `project=adam-seeker-metadata` and the cache dirs live in `.act/` (see `.actrc`), so nuke removes only what this project created. Docker itself is not uninstalled.
+
 Task names are `<where>:<area>:<action>`; the first scope says where it runs:
 
 | Scope | Runs | Publishes? |
