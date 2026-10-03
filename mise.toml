@@ -1,36 +1,95 @@
+# Task names: <where>:<area>:<action>
+#   local: run the code directly on this machine
+#   act:   run the GitHub workflow locally in Docker via act (never commits/pushes/creates issues)
+#   gh:    trigger the REAL workflow on GitHub (it commits, pushes and opens/comments on issues)
+
 [tools]
 python = "3.12"
 uv = "latest"
 act = "latest"
+fnox = "latest"
+gh = "latest"
 
-[env]
-# Load YOUTUBE_API_KEY etc. from a local, git-ignored file
-_.file = { path = ".env", redact = true }
+[tasks.install]
+description = "Full first-time setup: install tools, sync Python deps, check Docker (offers to install it)"
+depends = ["setup"]
+run = "scripts/check_docker.sh"
+
+[tasks.nuke]
+description = "Opposite of install: remove .venv, .act, Docker containers/volumes/image for this project (flags: --all, --yes, --dry-run; e.g. `mise run nuke -- --dry-run`)"
+run = "scripts/nuke.sh"
 
 [tasks.setup]
 description = "Install Python dependencies into .venv"
 run = "uv sync"
 
-[tasks.update]
-description = "Fetch new videos and update data/videos_master.json"
-run = "uv run python scripts/update_master.py"
+# ---- local: run the scripts directly -------------------------------------
 
-[tasks.rebuild]
-description = "Rebuild the master list from scratch"
-run = "uv run python scripts/rebuild_master.py --force"
+[tasks."local:videos:update"]
+description = "[local] Fetch new videos and update data/videos_master.json"
+run = "fnox exec -- uv run python scripts/update_master.py"
 
-[tasks.manage]
-description = "Manage/categorize videos (pass a subcommand, e.g. `mise run manage report`)"
-run = "uv run python scripts/manage_videos.py"
+[tasks."local:videos:rebuild"]
+description = "[local] Rebuild the master list from scratch"
+run = "fnox exec -- uv run python scripts/rebuild_master.py --force"
 
-[tasks."ci:update"]
-description = "Run the update-videos GitHub workflow locally with act (needs Docker; no commit/push/issue)"
-run = "act workflow_dispatch -W .github/workflows/update-videos.yml -s YOUTUBE_API_KEY"
+[tasks."local:videos:manage"]
+description = "[local] Manage/categorize videos (pass a subcommand, e.g. `mise run local:videos:manage report`)"
+run = "fnox exec -- uv run python scripts/manage_videos.py"
 
-[tasks."ci:rebuild"]
-description = "Run the rebuild-videos GitHub workflow locally with act (needs Docker; no commit/push/issue)"
-run = "act workflow_dispatch -W .github/workflows/rebuild-videos.yml -s YOUTUBE_API_KEY"
+# ---- act: run the workflows locally in Docker ----------------------------
 
-[tasks."ci:list"]
-description = "List the workflows/jobs act can run"
+[tasks."docker:start"]
+description = "[docker] Start Docker Desktop if installed and wait until ready"
+run = "scripts/docker.sh start"
+
+[tasks."docker:stop"]
+description = "[docker] Remove this project's containers/volumes, then quit Docker Desktop to free resources"
+run = "scripts/docker.sh stop"
+
+[tasks."docker:diagnose"]
+description = "[docker] Show host vs Docker allocated/free CPU, memory, disk, and how to change it permanently (read-only)"
+run = "scripts/docker_diagnose.sh"
+
+[tasks."docker:cleanup"]
+description = "[docker] Remove leftover (orphaned) containers/volumes from this project, keep Docker running"
+run = "scripts/docker.sh cleanup"
+
+[tasks."act:list"]
+description = "[act] List the workflows/jobs act can run"
 run = "act -l"
+
+[tasks."act:videos:update"]
+description = "[act] Run update-videos.yml locally (starts Docker if needed, cleans up after; no commit/push/issue)"
+run = "scripts/docker.sh run -- fnox exec -- act workflow_dispatch -W .github/workflows/update-videos.yml -s YOUTUBE_API_KEY"
+
+[tasks."act:videos:rebuild"]
+description = "[act] Run rebuild-videos.yml locally (starts Docker if needed, cleans up after; no commit/push/issue)"
+run = "scripts/docker.sh run -- fnox exec -- act workflow_dispatch -W .github/workflows/rebuild-videos.yml -s YOUTUBE_API_KEY"
+
+# ---- gh: trigger the real workflows on GitHub ----------------------------
+# Uses the current branch unless REF is set (REF=main mise run gh:videos:update).
+# The workflow file must exist on the default branch to be dispatchable, and the
+# ref must be pushed. The run really commits to that ref and creates issues.
+
+[tasks."gh:videos:update"]
+description = "[gh] Trigger the REAL update-videos workflow on GitHub and watch it"
+run = '''
+ref="${REF:-$(git branch --show-current)}"
+gh workflow run update-videos.yml --ref "$ref"
+sleep 5
+gh run watch --exit-status "$(gh run list --workflow update-videos.yml --branch "$ref" --limit 1 --json databaseId -q '.[0].databaseId')"
+'''
+
+[tasks."gh:videos:rebuild"]
+description = "[gh] Trigger the REAL rebuild-videos workflow on GitHub and watch it"
+run = '''
+ref="${REF:-$(git branch --show-current)}"
+gh workflow run rebuild-videos.yml --ref "$ref"
+sleep 5
+gh run watch --exit-status "$(gh run list --workflow rebuild-videos.yml --branch "$ref" --limit 1 --json databaseId -q '.[0].databaseId')"
+'''
+
+[tasks."gh:list"]
+description = "[gh] List recent workflow runs on GitHub"
+run = "gh run list --limit 10"
