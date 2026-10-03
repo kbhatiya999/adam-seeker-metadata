@@ -302,6 +302,9 @@ class MasterListRebuilder:
         if preserve_manual and old_videos:
             all_videos = self.preserve_manual_data(all_videos, old_videos)
         
+        # Keep the list sorted newest first
+        all_videos.sort(key=lambda v: v.get('upload_date', ''), reverse=True)
+        
         # Create new master list
         new_master_data = {
             "videos": all_videos,

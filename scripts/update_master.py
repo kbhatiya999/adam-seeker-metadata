@@ -56,6 +56,9 @@ class VideoListUpdater:
             if os.path.exists(self.master_file):
                 os.rename(self.master_file, backup_file)
             
+            # Keep the list sorted newest first
+            data['videos'].sort(key=lambda v: v.get('upload_date', ''), reverse=True)
+            
             # Save updated data
             with open(self.master_file, 'w', encoding='utf-8') as f:
                 json.dump(data, f, indent=2, ensure_ascii=False)
