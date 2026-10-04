@@ -31,3 +31,7 @@ if_missing = "ignore"
 [secrets.MASTER_LIST_METHOD]
 description = "youtube_api or ytdlp for discovering videos (unset = API if a key is present, else yt-dlp)"
 if_missing = "ignore"
+
+[secrets.TRANSCRIPT_FORMAT]
+description = "Subtitle format: srt (default), srv1, ttml or vtt"
+if_missing = "ignore"

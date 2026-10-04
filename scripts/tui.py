@@ -81,13 +81,14 @@ def _manage_build(v: Values) -> List[str]:
 
 def _transcripts_build(v: Values) -> List[str]:
     c = v["cmd"]
+    fmt = ["--format", v["format"]] if v.get("format") and c in ("download-missing", "download", "compare") else []
     if c in ("stats", "list-missing"):
         return mise("local:transcripts:manage", c)
     if c == "compare":
-        return mise("local:transcripts:compare", v["video_id"])
+        return mise("local:transcripts:manage", *fmt, "compare", v["video_id"])
     if c == "download-missing":
-        return mise("local:transcripts:manage", "--method", v["method"], c, "--limit", v["limit"])
-    return mise("local:transcripts:manage", "--method", v["method"], c, v["video_id"])
+        return mise("local:transcripts:manage", "--method", v["method"], *fmt, c, "--limit", v["limit"])
+    return mise("local:transcripts:manage", "--method", v["method"], *fmt, c, v["video_id"])
 
 
 def _nuke_build(v: Values) -> List[str]:
@@ -131,6 +132,9 @@ ACTIONS: List[Action] = [
                   "stats"),
             Field("method", "Method", "select", TRANSCRIPT_METHODS, "youtube_transcript_api",
                   lambda v: v["cmd"] in ("download-missing", "download", "check")),
+            Field("format", "Subtitle format (srt is small and clean; vtt is large)", "select",
+                  [("srt", "srt"), ("ttml", "ttml"), ("srv1", "srv1"), ("vtt", "vtt")], "srt",
+                  lambda v: v["cmd"] in ("download-missing", "download", "compare")),
             Field("limit", "How many videos", "input", default="5", visible=lambda v: v["cmd"] == "download-missing"),
             Field("video_id", "Video ID", "input", visible=lambda v: v["cmd"] in ("download", "check", "compare"))]),
     Action("method-set", "Methods", "Change a method",

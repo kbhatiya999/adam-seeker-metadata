@@ -311,6 +311,8 @@ class MasterListRebuilder:
                 # Preserve transcript file
                 if old_video.get('transcript_file'):
                     video['transcript_file'] = old_video['transcript_file']
+                if old_video.get('transcript_text_file'):
+                    video['transcript_text_file'] = old_video['transcript_text_file']
         
         logger.info(f"✅ Preserved manual data for {preserved_count} videos")
         return new_videos
