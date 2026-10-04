@@ -29,6 +29,7 @@ jobs:
     - name: Rebuild master video list
       env:
         YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        MASTER_LIST_METHOD: ${{ vars.MASTER_LIST_METHOD }}  # empty = implicit (API if key, else yt-dlp)
       run: |
         mise run local:videos:rebuild
     

@@ -45,8 +45,31 @@ def iter_video_entries(info):
             yield entry
 
 
+METHODS = ('youtube_api', 'ytdlp')
+
+
+def resolve_method(api_key):
+    """Decide how videos are discovered.
+
+    MASTER_LIST_METHOD=youtube_api|ytdlp is explicit: that method is used, there is NO fallback,
+    and any failure ends the run with a non-zero exit code. If it is unset, the old implicit
+    behaviour applies (API when a key is present, otherwise yt-dlp) and failures are only logged.
+    Returns (method, explicit).
+    """
+    method = (os.getenv('MASTER_LIST_METHOD') or '').strip() or None
+    if method is None:
+        return ('youtube_api' if api_key else 'ytdlp'), False
+    if method not in METHODS:
+        sys.exit(f"MASTER_LIST_METHOD must be one of {', '.join(METHODS)} (got {method!r})")
+    if method == 'youtube_api' and not api_key:
+        sys.exit("MASTER_LIST_METHOD=youtube_api but YOUTUBE_API_KEY is not set (no fallback). "
+                 "Set the key (mise run local:apikey:setup) or choose ytdlp.")
+    return method, True
+
+
 class VideoListUpdater:
-    def __init__(self, master_file: str, channel_url: str, api_key: Optional[str] = None):
+    def __init__(self, master_file: str, channel_url: str, api_key: Optional[str] = None, strict: bool = False):
+        self.strict = strict  # explicit method: raise on failure instead of logging and continuing
         self.master_file = master_file
         self.channel_url = channel_url
         self.api_key = api_key
@@ -122,18 +145,26 @@ class VideoListUpdater:
                         
             except Exception as e:
                 logger.error(f"❌ Error getting channel ID from API: {e}")
+                if self.strict:
+                    raise
                 return None
         else:
-            logger.info("🔄 No API key provided, falling back to yt-dlp for channel ID")
+            logger.info("🔄 Using yt-dlp for channel ID")
             try:
-                with yt_dlp.YoutubeDL({'quiet': True}) as ydl:
-                    info = ydl.extract_info(channel_url, download=False)
+                # Flat, one entry: reads the channel page only. A full extraction opens the channel's
+                # first video, and YouTube answers that request from cloud IPs (e.g. GitHub Actions)
+                # with "Sign in to confirm you're not a bot".
+                opts = {'quiet': True, 'extract_flat': True, 'playlist_items': '1'}
+                with yt_dlp.YoutubeDL(opts) as ydl:
+                    info = ydl.extract_info(channel_url.rstrip('/') + '/videos', download=False)
                     channel_id = info.get('channel_id')
                     if channel_id:
                         logger.info(f"✅ Found channel ID via yt-dlp: {channel_id}")
                     return channel_id
             except Exception as e:
                 logger.error(f"❌ Error extracting channel ID with yt-dlp: {e}")
+                if self.strict:
+                    raise
                 return None
     
     def fetch_videos_youtube_api(self, channel_id: str, max_results: int = 50) -> List[Dict]:
@@ -193,6 +224,8 @@ class VideoListUpdater:
             
         except Exception as e:
             logger.error(f"❌ Error fetching videos from YouTube API: {e}")
+            if self.strict:
+                raise
             return []
     
     def fetch_videos_ytdlp(self) -> List[Dict]:
@@ -229,6 +262,8 @@ class VideoListUpdater:
                 
         except Exception as e:
             logger.error(f"❌ Error fetching videos with yt-dlp: {e}")
+            if self.strict:
+                raise
             return []
     
     def get_existing_video_ids(self, master_data: Dict) -> set:
@@ -248,6 +283,8 @@ class VideoListUpdater:
         channel_id = self.get_channel_id_from_url(self.channel_url)
         if not channel_id:
             logger.error("❌ Could not extract channel ID")
+            if self.strict:
+                raise RuntimeError("Could not extract channel ID")
             return {"new_videos": [], "total_videos": len(master_data.get('videos', [])), "updated": False}
         
         # Fetch new videos
@@ -255,8 +292,11 @@ class VideoListUpdater:
             logger.info("🔑 Using YouTube Data API for video discovery")
             new_videos = self.fetch_videos_youtube_api(channel_id)
         else:
-            logger.info("🔄 Using yt-dlp for video discovery (no API key)")
+            logger.info("🔄 Using yt-dlp for video discovery")
             new_videos = self.fetch_videos_ytdlp()
+        
+        if self.strict and not new_videos:
+            raise RuntimeError("The chosen method returned no videos (no fallback)")
         
         # Filter out existing videos
         truly_new_videos = [
@@ -323,16 +363,28 @@ def main():
     
     # Normal update mode
     # Log configuration
+    method, explicit = resolve_method(API_KEY)
+    if explicit:
+        logger.info(f"⚙️  MASTER_LIST_METHOD={method} (explicit, no fallback)")
+    else:
+        logger.info(f"⚙️  MASTER_LIST_METHOD not set: using {method} "
+                    f"({'API key present' if API_KEY else 'no API key, yt-dlp fallback'})")
     if API_KEY:
         logger.info("🔑 YouTube API key provided")
-    else:
-        logger.info("⚠️  No YouTube API key provided - will use yt-dlp fallback")
+    if method == 'ytdlp':
+        API_KEY = None  # explicit ytdlp must not use the API even if a key is present
     
     # Initialize updater
-    updater = VideoListUpdater(args.master_file, args.channel_url, API_KEY)
+    updater = VideoListUpdater(args.master_file, args.channel_url, API_KEY, strict=explicit)
     
     # Update master list
-    result = updater.update_master_list()
+    try:
+        result = updater.update_master_list()
+    except Exception as e:
+        if not explicit:
+            raise
+        logger.error(f"❌ Update failed with method {method}: {e}")
+        sys.exit(1)
     
     if result['updated']:
         logger.info(f"✅ Successfully added {len(result['new_videos'])} new videos")

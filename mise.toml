@@ -24,6 +24,15 @@ run = ["scripts/ensure_gcloud.sh", "scripts/check_docker.sh"]
 description = "Opposite of install: remove .venv, .act, Docker containers/volumes/image for this project (flags: --all, --yes, --dry-run; e.g. `mise run nuke -- --dry-run`)"
 run = "scripts/nuke.sh"
 
+[tasks.menu]
+description = "Interactive terminal UI: pick where to run (local/act/gh), what to run and its options"
+run = "uv run python scripts/tui.py"
+interactive = true
+
+[tasks.test]
+description = "Run the tests (TUI flows with Textual's headless pilot)"
+run = "uv run pytest -q tests"
+
 [tasks.setup]
 description = "Install Python dependencies into .venv"
 run = "uv sync"
@@ -49,6 +58,14 @@ run = "fnox exec -- uv run python scripts/manage_videos.py"
 [tasks."local:transcripts:manage"]
 description = "[local] Download/manage transcripts (e.g. `mise run local:transcripts:manage -- --method ytdlp download-missing --limit 5`; subcommands: stats, list-missing, download-missing, download, check)"
 run = "fnox exec -- uv run python scripts/transcripts.py"
+
+[tasks."local:method:set"]
+description = "[local] Set a method in fnox.local.toml: `mise run local:method:set -- master-list ytdlp|youtube_api|unset` or `-- transcript ytdlp|youtube_transcript_api|unset`"
+run = "scripts/method.sh local set"
+
+[tasks."local:method:show"]
+description = "[local] Show the methods set in fnox.local.toml"
+run = "scripts/method.sh local show"
 
 # ---- act: run the workflows locally in Docker ----------------------------
 
@@ -80,6 +97,14 @@ run = '''scripts/docker.sh run -- fnox exec -- sh -c 'act workflow_dispatch -W .
 description = "[act] Run rebuild-videos.yml locally (starts Docker if needed, cleans up after; no commit/push/issue)"
 run = '''scripts/docker.sh run -- fnox exec -- sh -c 'act workflow_dispatch -W .github/workflows/rebuild-videos.yml ${YOUTUBE_API_KEY:+-s YOUTUBE_API_KEY}' '''
 
+[tasks."act:method:set"]
+description = "[act] Set a method in .vars (what act:videos:* uses): `mise run act:method:set -- master-list ytdlp|youtube_api|unset`"
+run = "scripts/method.sh act set"
+
+[tasks."act:method:show"]
+description = "[act] Show the methods set in .vars"
+run = "scripts/method.sh act show"
+
 # ---- gh: trigger the real workflows on GitHub ----------------------------
 # Uses the current branch unless REF is set (REF=main mise run gh:videos:update).
 # The workflow file must exist on the default branch to be dispatchable, and the
@@ -102,6 +127,14 @@ gh workflow run rebuild-videos.yml --ref "$ref"
 sleep 5
 gh run watch --exit-status "$(gh run list --workflow rebuild-videos.yml --branch "$ref" --limit 1 --json databaseId -q '.[0].databaseId')"
 '''
+
+[tasks."gh:method:set"]
+description = "[gh] Set a method as a REPOSITORY VARIABLE used by the real workflows: `mise run gh:method:set -- master-list ytdlp|youtube_api|unset`"
+run = "scripts/method.sh gh set"
+
+[tasks."gh:method:show"]
+description = "[gh] Show the methods set as repository variables"
+run = "scripts/method.sh gh show"
 
 [tasks."gh:list"]
 description = "[gh] List recent workflow runs on GitHub"
