@@ -41,3 +41,5 @@ Status: **findings and a plan, not built yet** (except where marked "done").
 - A video with no captions yet (e.g. a live stream from the last day or two) correctly fails with both methods.
 - To make transcripts work on GitHub you need a proxy (`PROXY_URL` / `WEBSHARE_PROXY_USERNAME`+`WEBSHARE_PROXY_PASSWORD`) or cookies. Cookies tied to a Google account risk the account being flagged and expire (rotate while the browser is open; nominally 1-2 years). Planned: `YTDLP_COOKIES_B64` for local/act/gh; no transcripts workflow exists yet.
 - Transcript files (`data/transcripts/`) are git-ignored: they are large.
+
+- Compared on a 4.7-hour video (2026-10-05): both methods produced byte-identical plain text (42,703 words); they differ only in the VTT (yt-dlp 2.8 MB with rolling duplicate cues, youtube-transcript-api 0.66 MB). `mise run local:transcripts:compare -- VIDEO_ID` (PR #350) reproduces this.
