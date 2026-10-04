@@ -40,30 +40,53 @@ def transcript_path(video_id: str) -> str:
     return os.path.join(TRANSCRIPT_DIR, f'{video_id}.vtt')
 
 
+def pick_language(info: dict) -> Optional[tuple]:
+    """Pick ONE caption track: (language, is_automatic).
+
+    Asking yt-dlp for several languages (e.g. 'en.*') makes YouTube answer HTTP 429, and
+    machine-translated tracks (such as 'en' on a Hindi video) are rate-limited the hardest.
+    So use the video's own language: a manual track (English if there is one), otherwise the
+    automatic original ('xx-orig'), otherwise automatic English, otherwise the first one.
+    """
+    # 'live_chat' is the chat replay of a live stream, not captions
+    manual = {k: v for k, v in (info.get('subtitles') or {}).items() if k != 'live_chat'}
+    auto = {k: v for k, v in (info.get('automatic_captions') or {}).items() if k != 'live_chat'}
+    if manual:
+        return ('en' if 'en' in manual else next(iter(manual))), False
+    if auto:
+        orig = next((k for k in auto if k.endswith('-orig')), None)
+        if orig:
+            return orig, True
+        return ('en' if 'en' in auto else next(iter(auto))), True
+    return None
+
+
 def download_ytdlp(video_id: str, cookies_file: Optional[str], proxy: Optional[str]) -> Optional[str]:
     import yt_dlp
     if cookies_file and not os.path.exists(cookies_file):
         raise TranscriptError(f'Cookies file not found: {cookies_file}')
     os.makedirs(TRANSCRIPT_DIR, exist_ok=True)
-    opts = {
-        'quiet': True,
-        'skip_download': True,
-        'writesubtitles': True,
-        'writeautomaticsub': True,
-        'subtitleslangs': ['en.*', 'en'],
-        'subtitlesformat': 'vtt',
-        'outtmpl': os.path.join(TRANSCRIPT_DIR, '%(id)s'),
-    }
+    url = f'https://www.youtube.com/watch?v={video_id}'
+    base = {'quiet': True, 'no_warnings': True, 'skip_download': True}
     if cookies_file:
-        opts['cookiefile'] = cookies_file
+        base['cookiefile'] = cookies_file
     if proxy:
-        opts['proxy'] = proxy
+        base['proxy'] = proxy
     try:
+        with yt_dlp.YoutubeDL(base) as ydl:
+            info = ydl.extract_info(url, download=False)
+        choice = pick_language(info)
+        if not choice:
+            return None
+        lang, is_auto = choice
+        logger.info('%s: using %s captions in %s', video_id, 'automatic' if is_auto else 'manual', lang)
+        opts = dict(base, writesubtitles=not is_auto, writeautomaticsub=is_auto, subtitleslangs=[lang],
+                    subtitlesformat='vtt', outtmpl=os.path.join(TRANSCRIPT_DIR, '%(id)s'))
         with yt_dlp.YoutubeDL(opts) as ydl:
-            ydl.download([f'https://www.youtube.com/watch?v={video_id}'])
+            ydl.download([url])
     except Exception as e:
         raise TranscriptError(f'yt-dlp failed: {e}') from e
-    # yt-dlp names files <id>.<lang>.vtt; normalise to <id>.vtt
+    # yt-dlp names the file <id>.<lang>.vtt; normalise to <id>.vtt
     found = sorted(glob.glob(os.path.join(TRANSCRIPT_DIR, f'{video_id}.*.vtt')))
     if not found:
         return None
@@ -216,9 +239,13 @@ def main() -> int:
             logger.warning('%s: no transcript available', vid)
             failed += 1
             continue
-        master.link(vid, path)
-        master.save()
-        logger.info('%s: saved %s', vid, path)
+        try:
+            master.link(vid, path)
+            master.save()
+        except TranscriptError as e:
+            logger.warning('%s: transcript saved to %s but %s', vid, path, e)
+        else:
+            logger.info('%s: saved %s', vid, path)
         ok += 1
     print(f'Done: {ok} downloaded, {failed} failed/unavailable')
     return 0 if failed == 0 else 1
