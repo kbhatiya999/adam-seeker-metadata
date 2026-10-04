@@ -24,6 +24,15 @@ run = ["scripts/ensure_gcloud.sh", "scripts/check_docker.sh"]
 description = "Opposite of install: remove .venv, .act, Docker containers/volumes/image for this project (flags: --all, --yes, --dry-run; e.g. `mise run nuke -- --dry-run`)"
 run = "scripts/nuke.sh"
 
+[tasks.menu]
+description = "Interactive terminal UI: pick where to run (local/act/gh), what to run and its options"
+run = "uv run python scripts/tui.py"
+interactive = true
+
+[tasks.test]
+description = "Run the tests (TUI flows with Textual's headless pilot)"
+run = "uv run pytest -q tests"
+
 [tasks.setup]
 description = "Install Python dependencies into .venv"
 run = "uv sync"

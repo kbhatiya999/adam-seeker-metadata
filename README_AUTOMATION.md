@@ -122,6 +122,14 @@ mise run act:videos:update                    # 2. run the workflow locally in D
 mise run gh:videos:update                     # 3. trigger the REAL workflow on GitHub and watch it
 ```
 
+### Interactive menu
+
+```bash
+mise run menu
+```
+
+A terminal UI: pick an action (update/rebuild videos, transcripts, change a method, API key, Docker, nuke...), choose where to run it (local / act / real GitHub) and its options, review the exact command, then run it. Anything that publishes to GitHub, rebuilds the list, or deletes asks for confirmation first. Keys: arrows + Enter to choose, Esc to go back, `q` to quit.
+
 ### Switching methods (local / act / GitHub)
 
 Two settings choose how things are fetched. Each place a job runs keeps its own copy:
