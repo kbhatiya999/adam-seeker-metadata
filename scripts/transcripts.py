@@ -17,10 +17,12 @@ Optional environment (declared in fnox.toml):
 """
 
 import argparse
+import contextlib
 import glob
 import json
 import logging
 import os
+import re
 import sys
 from datetime import datetime
 from typing import Dict, List, Optional
@@ -34,6 +36,32 @@ logger = logging.getLogger('transcripts')
 
 class TranscriptError(Exception):
     """Raised when the chosen method cannot produce a transcript."""
+
+
+def to_plain_text(vtt_path: str) -> str:
+    """WebVTT -> running text (no timestamps, cues, tags or repeated rolling lines)."""
+    lines: List[str] = []
+    with open(vtt_path, encoding='utf-8') as f:
+        for raw in f:
+            line = raw.strip()
+            if (not line or line == 'WEBVTT' or line.startswith(('Kind:', 'Language:', 'NOTE'))
+                    or '-->' in line or line.isdigit()):
+                continue
+            line = re.sub(r'<[^>]+>', '', line).strip()
+            if line and (not lines or lines[-1] != line):
+                lines.append(line)
+    return ' '.join(lines)
+
+
+@contextlib.contextmanager
+def transcript_dir(path: str):
+    """Temporarily write transcripts somewhere else (used by `compare`)."""
+    global TRANSCRIPT_DIR
+    old, TRANSCRIPT_DIR = TRANSCRIPT_DIR, path
+    try:
+        yield
+    finally:
+        TRANSCRIPT_DIR = old
 
 
 def transcript_path(video_id: str) -> str:
@@ -173,6 +201,37 @@ class Master:
         raise TranscriptError(f'Video {video_id} not in master list')
 
 
+def compare(video_id: str, env: Dict[str, Optional[str]]) -> int:
+    """Run both methods independently (no fallback) into data/transcripts/compare/<id>/<method>/
+    and print how they differ. The master list is not touched."""
+    rows, results = [], {}
+    for method in METHODS:
+        out_dir = os.path.join(TRANSCRIPT_DIR, 'compare', video_id, method)
+        os.makedirs(out_dir, exist_ok=True)
+        try:
+            with transcript_dir(out_dir):
+                path = download(video_id, method, env)
+        except TranscriptError as e:
+            rows.append((method, 'FAILED', str(e).strip().splitlines()[0][:70], '', '', ''))
+            continue
+        if not path:
+            rows.append((method, 'none', 'no transcript available', '', '', ''))
+            continue
+        text = to_plain_text(path)
+        txt_path = os.path.splitext(path)[0] + '.txt'
+        with open(txt_path, 'w', encoding='utf-8') as f:
+            f.write(text + '\n')
+        results[method] = (path, txt_path)
+        rows.append((method, 'ok', f'{os.path.getsize(path) // 1024} KB vtt',
+                     f'{len(text.split())} words', f'{len(text)} chars', txt_path))
+    print(f'\nCompare for {video_id}')
+    for method, status, a, b, c, d in rows:
+        print(f'  {method:<24} {status:<7} {a}  {b}  {c}')
+        for label, p in zip(('vtt', 'txt'), results.get(method, ())):
+            print(f'  {"":<24}         {label}: {p}')
+    return 0 if len(results) == len(METHODS) else 1
+
+
 def resolve_method(arg: Optional[str]) -> str:
     method = arg or os.getenv('TRANSCRIPT_METHOD')
     if method not in METHODS:
@@ -204,6 +263,8 @@ def main() -> int:
     d1.add_argument('video_id')
     c1 = sub.add_parser('check', help='Check whether a transcript is available for one video')
     c1.add_argument('video_id')
+    cp = sub.add_parser('compare', help='Download one video with BOTH methods side by side (nothing is linked)')
+    cp.add_argument('video_id')
     args = p.parse_args()
 
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -218,6 +279,9 @@ def main() -> int:
         for v in master.missing()[:args.limit]:
             print(f"{v['video_id']}  {v.get('upload_date', '')}  {v.get('title', '')[:70]}")
         return 0
+
+    if args.cmd == 'compare':
+        return compare(args.video_id, read_env())
 
     method, env = resolve_method(args.method), read_env()
     logger.info('Method: %s (no fallback)', method)

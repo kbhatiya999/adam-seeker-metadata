@@ -67,6 +67,10 @@ run = "scripts/method.sh local set"
 description = "[local] Show the methods set in fnox.local.toml"
 run = "scripts/method.sh local show"
 
+[tasks."local:transcripts:compare"]
+description = "[local] Download one video's transcript with BOTH methods side by side: `mise run local:transcripts:compare -- VIDEO_ID` (files under data/transcripts/compare/<id>/)"
+run = "fnox exec -- uv run python scripts/transcripts.py compare"
+
 # ---- act: run the workflows locally in Docker ----------------------------
 
 [tasks."docker:start"]

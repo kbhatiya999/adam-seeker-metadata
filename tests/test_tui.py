@@ -22,6 +22,8 @@ def test_build_commands():
         ["mise", "run", "act:method:set", "--", "transcript", "ytdlp"]
     assert action("transcripts").build({"cmd": "download-missing", "method": "ytdlp", "limit": "3"}) == \
         ["mise", "run", "local:transcripts:manage", "--", "--method", "ytdlp", "download-missing", "--limit", "3"]
+    assert action("transcripts").build({"cmd": "compare", "video_id": "abc"}) == \
+        ["mise", "run", "local:transcripts:compare", "--", "abc"]
     assert action("nuke").build({"dry": True, "all": True, "yes": False}) == \
         ["mise", "run", "nuke", "--", "--dry-run", "--all"]
     assert action("nuke").danger({"dry": False, "yes": True}) and not action("nuke").danger({"dry": True, "yes": True})

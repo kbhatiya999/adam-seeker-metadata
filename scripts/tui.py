@@ -83,6 +83,8 @@ def _transcripts_build(v: Values) -> List[str]:
     c = v["cmd"]
     if c in ("stats", "list-missing"):
         return mise("local:transcripts:manage", c)
+    if c == "compare":
+        return mise("local:transcripts:compare", v["video_id"])
     if c == "download-missing":
         return mise("local:transcripts:manage", "--method", v["method"], c, "--limit", v["limit"])
     return mise("local:transcripts:manage", "--method", v["method"], c, v["video_id"])
@@ -125,11 +127,12 @@ ACTIONS: List[Action] = [
            "Download or inspect transcripts. The method is explicit, with no fallback.",
            _transcripts_build,
            [Field("cmd", "What", "select",
-                  [(c, c) for c in ("stats", "list-missing", "download-missing", "download", "check")], "stats"),
+                  [(c, c) for c in ("stats", "list-missing", "download-missing", "download", "check", "compare")],
+                  "stats"),
             Field("method", "Method", "select", TRANSCRIPT_METHODS, "youtube_transcript_api",
                   lambda v: v["cmd"] in ("download-missing", "download", "check")),
             Field("limit", "How many videos", "input", default="5", visible=lambda v: v["cmd"] == "download-missing"),
-            Field("video_id", "Video ID", "input", visible=lambda v: v["cmd"] in ("download", "check"))]),
+            Field("video_id", "Video ID", "input", visible=lambda v: v["cmd"] in ("download", "check", "compare"))]),
     Action("method-set", "Methods", "Change a method",
            "Set master-list or transcript method for local, act or the real GitHub workflows.",
            lambda v: mise(f"{v['where']}:method:set", v["setting"], v["value"]),
