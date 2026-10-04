@@ -11,6 +11,7 @@ Metadata repo for the YouTube channel https://www.youtube.com/@AdamSeekerOfficia
 - `.github/workflows/update-videos.yml` — daily at 06:00 UTC, plus manual runs; no push triggers.
 - `.github/workflows/rebuild-videos.yml` — manual rebuild (workflow_dispatch only). Both workflows share a concurrency group so they never push at the same time. Do not add `push:` triggers: a push that touched a script once started a real rebuild on main.
 - `logs/` — script logs, committed by the workflow.
+- Findings and plans on video details (flat/RSS/API sources, the 15-video RSS window, rebuild merge) and transcripts per environment: `docs/video-details-and-transcripts.md`.
 - Docs: `README.md` (yt-dlp transcripts), `README_AUTOMATION.md`, `README_REBUILD.md`.
 
 ## Conventions
