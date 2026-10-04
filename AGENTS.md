@@ -8,8 +8,8 @@ Metadata repo for the YouTube channel https://www.youtube.com/@AdamSeekerOfficia
 - `scripts/rebuild_master.py` — full rebuild from scratch.
 - `scripts/transcripts.py` — transcript download/management (`stats`, `list-missing`, `download-missing`, `download`, `check`). Method is explicit (`--method` or `TRANSCRIPT_METHOD`: `ytdlp` or `youtube_transcript_api`), no default and NO fallback. Saves `data/transcripts/<id>.vtt` (git-ignored; transcripts are large) and links `transcript_file`/`transcript_downloaded`/`transcript_download_date` in the master list. Optional proxy/cookies via `PROXY_URL`, `WEBSHARE_PROXY_USERNAME/PASSWORD`, `YTDLP_COOKIES_FILE` (declared in `fnox.toml`).
 - `scripts/manage_videos.py` — manual categorizing/scoring (`list-uncategorized`, `categorize`, `priority`, `report`, `interactive`).
-- `.github/workflows/update-videos.yml` — daily at 06:00 UTC (also manual and on script/data pushes).
-- `.github/workflows/rebuild-videos.yml` — manual rebuild.
+- `.github/workflows/update-videos.yml` — daily at 06:00 UTC, plus manual runs; no push triggers.
+- `.github/workflows/rebuild-videos.yml` — manual rebuild (workflow_dispatch only). Both workflows share a concurrency group so they never push at the same time. Do not add `push:` triggers: a push that touched a script once started a real rebuild on main.
 - `logs/` — script logs, committed by the workflow.
 - Docs: `README.md` (yt-dlp transcripts), `README_AUTOMATION.md`, `README_REBUILD.md`.
 
