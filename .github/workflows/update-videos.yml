@@ -35,13 +35,18 @@ jobs:
       run: |
         mise run local:videos:update
     
-    - name: Check for changes
+    - name: Check for new videos
       id: changes
       run: |
-        if [ -n "$(git status --porcelain)" ]; then
+        # Only real additions count. The script also bumps last_updated and appends to the
+        # log on every run, which must not trigger a commit or a notification.
+        new_videos=$(git diff -U0 data/videos_master.json | grep -c '^+.*"video_id"' || true)
+        echo "new_videos=$new_videos" >> $GITHUB_OUTPUT
+        if [ "$new_videos" -gt 0 ]; then
           echo "changes=true" >> $GITHUB_OUTPUT
         else
           echo "changes=false" >> $GITHUB_OUTPUT
+          echo "No new videos; skipping commit and notification (logs are still uploaded as an artifact)."
         fi
     
     - name: Commit and push changes
@@ -50,7 +55,7 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add data/videos_master.json logs/
-        git commit -m "🤖 Auto-update: Add new videos from Adam Seeker channel
+        git commit -m "🤖 Auto-update: Add ${{ steps.changes.outputs.new_videos }} new video(s) from Adam Seeker channel
         
         - Updated on: $(date -u '+%Y-%m-%d %H:%M:%S UTC')
         - Check logs for details"
