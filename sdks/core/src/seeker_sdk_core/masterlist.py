@@ -18,6 +18,9 @@ Video = Dict[str, Any]
 
 # Fields copied back from the old list when a video is rebuilt (manual work, transcript links).
 PRESERVED_FIELDS = ("relevance_score", "notes", "key_topics", "transcript_file", "transcript_text_file")
+# Fields a source may not provide (yt-dlp's flat listing has no date or description): the old value
+# is kept when the fresh one is empty, so a rebuild never blanks them.
+FILL_IF_EMPTY = ("upload_date", "description")
 
 
 def today() -> str:
@@ -60,6 +63,9 @@ def merge_manual(new_videos: List[Video], old_videos: Iterable[Video]) -> Tuple[
         old = old_by_id.get(video["video_id"])
         if not old:
             continue
+        for key in FILL_IF_EMPTY:
+            if not video.get(key) and old.get(key):
+                video[key] = old[key]
         if old.get("categories"):
             video["categories"] = old["categories"]
             video["status"] = "categorized"

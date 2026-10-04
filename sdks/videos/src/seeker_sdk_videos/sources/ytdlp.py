@@ -1,8 +1,12 @@
 """Video source: yt-dlp, flat listing (no API key; works from cloud IPs like GitHub Actions).
 
-Flat means yt-dlp reads only the channel's list page and never opens a video, because YouTube
-blocks single-video requests from cloud IPs. The list gives id, title, duration and view count,
-but not the upload date or description.
+Flat means yt-dlp reads only the list page and never opens a video, because YouTube blocks
+single-video requests from cloud IPs. The list gives id, title, duration and view count, but not
+the upload date or description (a rebuild keeps the ones already in the list).
+
+Videos are read from the channel's **uploads playlist** (`UU<channel id>`), which holds every public
+upload: regular videos, live streams and shorts. The channel's `/videos` tab alone holds only the
+regular uploads (58 of this channel's 194 videos; the rest are live streams).
 """
 
 import logging
@@ -24,7 +28,15 @@ class YtDlpSource(VideoSource):
 
     @staticmethod
     def _videos_url(channel_url: str) -> str:
+        """The channel's /videos tab: enough to read the channel id, NOT a complete video list."""
         return channel_url.rstrip("/") + "/videos"
+
+    @staticmethod
+    def uploads_url(channel_id: str) -> str:
+        """Every public upload of a channel: its uploads playlist is the channel id with UC -> UU."""
+        if not channel_id.startswith("UC"):
+            raise ValueError(f"unexpected channel id {channel_id!r} (expected UC...)")
+        return f"https://www.youtube.com/playlist?list=UU{channel_id[2:]}"
 
     def channel_id(self, channel_url: str) -> Optional[str]:
         logger.info("🔄 Using yt-dlp for channel ID")
@@ -45,12 +57,12 @@ class YtDlpSource(VideoSource):
                 raise
             return None
 
-    def _fetch(self, limit: int, announce: str) -> List[Dict[str, Any]]:
+    def _fetch(self, channel_id: str, limit: int, announce: str) -> List[Dict[str, Any]]:
         logger.info(announce)
         try:
             opts = {"quiet": True, "extract_flat": True, "playlistend": limit}
             with yt_dlp.YoutubeDL(opts) as ydl:
-                info = ydl.extract_info(self._videos_url(self.config.channel_url or ""), download=False)
+                info = ydl.extract_info(self.uploads_url(channel_id), download=False)
                 videos = [
                     new_video(
                         entry["id"],
@@ -71,8 +83,8 @@ class YtDlpSource(VideoSource):
             return []
 
     def fetch_recent(self, channel_id: str, limit: int = 50) -> List[Dict[str, Any]]:
-        return self._fetch(limit, "🔄 Fetching videos using yt-dlp (fallback method)")
+        return self._fetch(channel_id, limit, "🔄 Fetching videos using yt-dlp (fallback method)")
 
     def fetch_all(self, channel_id: str) -> List[Dict[str, Any]]:
         # Much higher limit for a complete rebuild
-        return self._fetch(1000, "🔄 Fetching ALL videos using yt-dlp (fallback method)")
+        return self._fetch(channel_id, 1000, "🔄 Fetching ALL videos using yt-dlp (fallback method)")

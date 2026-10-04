@@ -47,14 +47,26 @@ def test_ytdlp_source_uses_flat_listing_and_builds_videos(monkeypatch):
     source = ytdlp.YtDlpSource(SourceConfig(channel_url="https://www.youtube.com/@x/"))
     assert source.channel_id("https://www.youtube.com/@x/") == "UCx"
     assert FakeYDL.calls[0] == {"quiet": True, "extract_flat": True, "playlist_items": "1"}  # flat, never opens a video
-    assert FakeYDL.calls[1] == "https://www.youtube.com/@x/videos"
+    assert FakeYDL.calls[1] == "https://www.youtube.com/@x/videos"  # the tab is only used to read the channel id
     videos = source.fetch_recent("UCx", limit=3)
     assert FakeYDL.calls[-2]["playlistend"] == 3
+    assert FakeYDL.calls[-1] == "https://www.youtube.com/playlist?list=UUx"  # uploads playlist: videos AND live streams
     assert videos == [{"video_id": "aaaaaaaaaaa", "title": "T", "url": "https://www.youtube.com/watch?v=aaaaaaaaaaa",
                        "upload_date": "", "duration": 61, "description": "", "status": "uncategorized",
                        "auto_detected": True, "needs_review": True, "last_checked": "2026-01-02"}]
     source.fetch_all("UCx")
     assert FakeYDL.calls[-2]["playlistend"] == 1000
+
+
+def test_uploads_url_and_bad_channel_id():
+    assert ytdlp.YtDlpSource.uploads_url("UCLXC98YXDDPoaVEQsWPg4ow") == \
+        "https://www.youtube.com/playlist?list=UULXC98YXDDPoaVEQsWPg4ow"
+    with pytest.raises(ValueError):
+        ytdlp.YtDlpSource.uploads_url("PLsomething")
+    # a bad id is an error in strict mode and a logged empty result otherwise
+    assert ytdlp.YtDlpSource(SourceConfig(channel_url="u")).fetch_recent("PLx") == []
+    with pytest.raises(ValueError):
+        ytdlp.YtDlpSource(SourceConfig(channel_url="u", strict=True)).fetch_all("PLx")
 
 
 def test_ytdlp_source_strict_raises_non_strict_returns_empty(monkeypatch):
@@ -63,10 +75,10 @@ def test_ytdlp_source_strict_raises_non_strict_returns_empty(monkeypatch):
             raise RuntimeError("blocked")
 
     monkeypatch.setattr(ytdlp.yt_dlp, "YoutubeDL", Boom)
-    assert ytdlp.YtDlpSource(SourceConfig(channel_url="u")).fetch_recent("c") == []
+    assert ytdlp.YtDlpSource(SourceConfig(channel_url="u")).fetch_recent("UCc") == []
     assert ytdlp.YtDlpSource(SourceConfig(channel_url="u")).channel_id("u") is None
     with pytest.raises(RuntimeError):
-        ytdlp.YtDlpSource(SourceConfig(channel_url="u", strict=True)).fetch_recent("c")
+        ytdlp.YtDlpSource(SourceConfig(channel_url="u", strict=True)).fetch_recent("UCc")
 
 
 # ---------------------------------------------------------------- YouTube API
