@@ -9,6 +9,9 @@ KEY_URL="https://console.cloud.google.com/apis/credentials"
 LIB_URL="https://console.cloud.google.com/apis/library/youtube.googleapis.com"
 LOCAL_FILE="fnox.local.toml"
 
+# Print the command before running it (commands that would contain the key are shown redacted)
+show() { printf '  \033[2m$ %s\033[0m\n' "$*" >&2; }
+
 has_key() { grep -q '^YOUTUBE_API_KEY' "$LOCAL_FILE" 2>/dev/null; }
 
 if has_key; then
@@ -24,28 +27,32 @@ gcloud_create_key() {
   acct="$(gcloud auth list --filter=status:ACTIVE --format='value(account)' 2>/dev/null | head -1)"
   if [ -z "$acct" ]; then
     echo "Sign in to Google (opens your browser)..."
+    show gcloud auth login
     gcloud auth login || return 1
     acct="$(gcloud auth list --filter=status:ACTIVE --format='value(account)' | head -1)"
   fi
   echo "Signed in as: $acct"
   project="$(gcloud config get-value project 2>/dev/null)"
-  echo "Your projects:"; gcloud projects list --format='table(projectId,name)' 2>/dev/null | head -15
+  echo "Your projects:"; show gcloud projects list --format='table(projectId,name)'; gcloud projects list --format='table(projectId,name)' 2>/dev/null | head -15
   read -r -p "Project ID to use [${project:-none}] (enter a NEW id to create it): " p
   project="${p:-$project}"
   [ -n "$project" ] || { echo "No project given."; return 1; }
   if ! gcloud projects describe "$project" >/dev/null 2>&1; then
     read -r -p "Project '$project' does not exist. Create it? [y/N] " c
-    case "$c" in [yY]*) gcloud projects create "$project" || return 1 ;; *) return 1 ;; esac
+    case "$c" in [yY]*) show gcloud projects create "$project"; gcloud projects create "$project" || return 1 ;; *) return 1 ;; esac
   fi
   echo "Enabling YouTube Data API v3 on $project..."
+  show gcloud services enable youtube.googleapis.com --project "$project"
   gcloud services enable youtube.googleapis.com --project "$project" || return 1
   echo "Creating an API key restricted to the YouTube Data API..."
+  show gcloud services api-keys create --display-name=adam-seeker-metadata --api-target=service=youtube.googleapis.com --project "$project" --format=json '(output captured, not printed)'
+  # stderr is hidden too: gcloud prints the created key there
   out="$(gcloud services api-keys create --display-name=adam-seeker-metadata \
-        --api-target=service=youtube.googleapis.com --project "$project" --format=json)" || return 1
+        --api-target=service=youtube.googleapis.com --project "$project" --format=json 2>/dev/null)" || { echo "key creation failed; re-run the command above to see the error"; return 1; }
   key="$(printf '%s' "$out" | python3 -c 'import json,sys; d=json.load(sys.stdin); print((d.get("response") or d).get("keyString",""))' 2>/dev/null)"
   if [ -z "$key" ]; then
     name="$(printf '%s' "$out" | python3 -c 'import json,sys; d=json.load(sys.stdin); print((d.get("response") or d).get("name",""))' 2>/dev/null)"
-    [ -n "$name" ] && key="$(gcloud services api-keys get-key-string "$name" --format='value(keyString)')"
+    if [ -n "$name" ]; then show gcloud services api-keys get-key-string "$name" --format='value(keyString)' '(output captured, not printed)'; key="$(gcloud services api-keys get-key-string "$name" --format='value(keyString)' 2>/dev/null)"; fi
   fi
   [ -n "$key" ] || { echo "Could not read the new key; get it from $KEY_URL"; return 1; }
   from_gcloud=1
@@ -71,7 +78,7 @@ EOF2
 
 if [ -t 0 ] && [ "$(uname -s)" = Darwin ]; then
   read -r -p "Open the Google Cloud pages in your browser now? [Y/n] " o
-  case "$o" in [nN]*) ;; *) open "$LIB_URL"; open "$KEY_URL" ;; esac
+  case "$o" in [nN]*) ;; *) show open "$LIB_URL"; open "$LIB_URL"; show open "$KEY_URL"; open "$KEY_URL" ;; esac
 fi
 
 printf 'Paste your API key (input hidden): '
@@ -84,6 +91,7 @@ fi
 # New keys can take a minute to propagate, so retry when we just created it
 attempts=1; [ "$from_gcloud" = 1 ] && attempts=8
 for i in $(seq "$attempts"); do
+  [ "$i" = 1 ] && show "printf 'header = \"x-goog-api-key: <hidden>\"' | curl -s -K - 'https://www.googleapis.com/youtube/v3/videos?part=id&id=dQw4w9WgXcQ'"
   resp="$(printf 'header = "x-goog-api-key: %s"\n' "$key" | curl -s -K - \
     'https://www.googleapis.com/youtube/v3/videos?part=id&id=dQw4w9WgXcQ')"
   printf '%s' "$resp" | grep -q '"items"' && break
@@ -98,6 +106,7 @@ fi
 echo "✅ Key works"
 
 umask 077
+show "python3: set YOUTUBE_API_KEY = { default = \"<hidden>\" } under [secrets] in $LOCAL_FILE (replaces the line if present, keeps other secrets)"
 KEY="$key" python3 - "$LOCAL_FILE" <<'PY'
 import os, re, sys
 path = sys.argv[1]; key = os.environ["KEY"]
@@ -111,13 +120,14 @@ else:
     text = text.replace("[secrets]\n", "[secrets]\n" + line + "\n", 1)
 open(path, "w").write(text)
 PY
+show chmod 600 "$LOCAL_FILE"
 chmod 600 "$LOCAL_FILE"
 echo "Saved to $LOCAL_FILE (git-ignored, mode 600)."
 
 if command -v gh >/dev/null 2>&1 && gh auth status >/dev/null 2>&1; then
   read -r -p "Also store it as the GitHub Actions secret YOUTUBE_API_KEY for this repo? [y/N] " g
   case "$g" in
-    [yY]*) printf '%s' "$key" | gh secret set YOUTUBE_API_KEY && echo "✅ GitHub secret set" ;;
+    [yY]*) show "printf '%s' <hidden> | gh secret set YOUTUBE_API_KEY   (repo: $(gh repo view --json nameWithOwner -q .nameWithOwner))"; printf '%s' "$key" | gh secret set YOUTUBE_API_KEY && echo "✅ GitHub secret set" ;;
     *) echo "Skipped. Later: mise run local:apikey:setup, or set it in repo Settings -> Secrets and variables -> Actions." ;;
   esac
 fi
