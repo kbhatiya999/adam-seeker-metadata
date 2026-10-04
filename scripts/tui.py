@@ -81,7 +81,12 @@ def _manage_build(v: Values) -> List[str]:
 
 def _transcripts_build(v: Values) -> List[str]:
     c = v["cmd"]
-    fmt = ["--format", v["format"]] if v.get("format") and c in ("download-missing", "download", "compare") else []
+    fmt = []
+    if c in ("download-missing", "download", "compare"):
+        if v.get("format"):
+            fmt += ["--format", v["format"]]
+        if v.get("final"):
+            fmt += ["--final", v["final"]]
     if c in ("stats", "list-missing"):
         return mise("local:transcripts:manage", c)
     if c == "compare":
@@ -132,8 +137,12 @@ ACTIONS: List[Action] = [
                   "stats"),
             Field("method", "Method", "select", TRANSCRIPT_METHODS, "youtube_transcript_api",
                   lambda v: v["cmd"] in ("download-missing", "download", "check")),
-            Field("format", "Subtitle format (srt is small and clean; vtt is large)", "select",
-                  [("srt", "srt"), ("ttml", "ttml"), ("srv1", "srv1"), ("vtt", "vtt")], "srt",
+            Field("format", "Format to DOWNLOAD (yt-dlp only; ttml/srv1/srt are small, vtt is large)", "select",
+                  [("ttml", "ttml"), ("srv1", "srv1"), ("srt", "srt"), ("vtt", "vtt")], "ttml",
+                  lambda v: v["cmd"] in ("download-missing", "download", "compare")),
+            Field("final", "FINAL files (the post-processor converts into these)", "select",
+                  [("srt + txt", "srt,txt"), ("txt only", "txt"), ("srt only", "srt"), ("vtt + txt", "vtt,txt"),
+                   ("srt + vtt + txt", "srt,vtt,txt")], "srt,txt",
                   lambda v: v["cmd"] in ("download-missing", "download", "compare")),
             Field("limit", "How many videos", "input", default="5", visible=lambda v: v["cmd"] == "download-missing"),
             Field("video_id", "Video ID", "input", visible=lambda v: v["cmd"] in ("download", "check", "compare"))]),

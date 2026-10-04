@@ -33,5 +33,9 @@ description = "youtube_api or ytdlp for discovering videos (unset = API if a key
 if_missing = "ignore"
 
 [secrets.TRANSCRIPT_FORMAT]
-description = "Subtitle format: srt (default), srv1, ttml or vtt"
+description = "Format yt-dlp downloads: ttml (default), srv1, srt or vtt"
+if_missing = "ignore"
+
+[secrets.TRANSCRIPT_FINAL]
+description = "Final transcript files, comma separated from srt,vtt,txt (default srt,txt)"
 if_missing = "ignore"

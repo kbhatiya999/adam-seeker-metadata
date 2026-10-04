@@ -8,17 +8,20 @@ if the chosen method fails, the failure is reported and nothing else is tried.
   ytdlp                   yt-dlp (optional cookies file, optional proxy URL)
   youtube_transcript_api  youtube-transcript-api (optional Webshare or generic proxy)
 
-Each transcript is saved as data/transcripts/<video_id>.<format> (default srt) plus a plain-text
-<video_id>.txt, and linked from the master list (transcript_file, transcript_text_file,
-transcript_downloaded, transcript_download_date).
+Two separate choices:
+  --format  what yt-dlp DOWNLOADS from YouTube: ttml (default), srv1, srt or vtt. yt-dlp's `vtt` is
+            YouTube's rolling-caption WebVTT (4x bigger, repeated lines), so it is not the default.
+            Only used by the ytdlp method; youtube_transcript_api always starts from its own SRT.
+  --final   the FINAL files you end up with, comma separated: srt, vtt, txt (default srt,txt).
+            A post-processor converts the downloaded file into these (the source is deleted unless
+            --keep-source). For yt-dlp this is a real yt-dlp post-processor (TextPostProcessor).
 
-Format (--format or TRANSCRIPT_FORMAT): srt (default), srv1, ttml, vtt. yt-dlp's `vtt` is YouTube's
-rolling-caption WebVTT: ~4x bigger with repeated lines, so it is not the default. srv1 and ttml
-are yt-dlp only; youtube_transcript_api supports srt and vtt. With yt-dlp the .txt is produced by
-a yt-dlp post-processor (TextPostProcessor).
+Files are data/transcripts/<video_id>.<final> and are linked from the master list:
+transcript_file (srt, else vtt, else txt), transcript_text_file (txt), transcript_downloaded,
+transcript_download_date.
 
 Optional environment (declared in fnox.toml):
-  TRANSCRIPT_METHOD, TRANSCRIPT_FORMAT, YTDLP_COOKIES_FILE, PROXY_URL,
+  TRANSCRIPT_METHOD, TRANSCRIPT_FORMAT, TRANSCRIPT_FINAL, YTDLP_COOKIES_FILE, PROXY_URL,
   WEBSHARE_PROXY_USERNAME, WEBSHARE_PROXY_PASSWORD
 """
 
@@ -32,12 +35,16 @@ import re
 import sys
 import xml.etree.ElementTree as ET
 from datetime import datetime
-from typing import Dict, List, Optional
+import html
+from typing import Dict, List, Optional, Tuple
 
 METHODS = ('ytdlp', 'youtube_transcript_api')
 TRANSCRIPT_DIR = 'data/transcripts'
-FORMATS = ('srt', 'srv1', 'ttml', 'vtt')
-TRANSCRIPT_FORMAT = 'srt'
+SOURCE_FORMATS = ('ttml', 'srv1', 'srt', 'vtt')
+FINAL_FORMATS = ('srt', 'vtt', 'txt')
+SOURCE_FORMAT = 'ttml'
+FINALS = ('srt', 'txt')
+KEEP_SOURCE = False
 LANGS = ['en']
 
 logger = logging.getLogger('transcripts')
@@ -47,38 +54,93 @@ class TranscriptError(Exception):
     """Raised when the chosen method cannot produce a transcript."""
 
 
-def to_plain_text(path: str) -> str:
-    """Subtitle file (srt, vtt, srv1, ttml) -> running text without timestamps or repeated lines."""
+Cue = Tuple[float, float, str]
+
+
+def _seconds(value: str) -> float:
+    value = value.strip().rstrip('s')  # ttml may say "12.5s"
+    if ':' not in value:
+        return float(value)
+    total = 0.0
+    for part in value.replace(',', '.').split(':'):
+        total = total * 60 + float(part)
+    return total
+
+
+def _merge_repeats(cues: List[Cue]) -> List[Cue]:
+    merged: List[Cue] = []
+    for start, end, text in cues:
+        if merged and merged[-1][2] == text:
+            merged[-1] = (merged[-1][0], max(merged[-1][1], end), text)
+        else:
+            merged.append((start, end, text))
+    return merged
+
+
+def parse_cues(path: str) -> List[Cue]:
+    """Subtitle file (ttml, srv1, srt, vtt) -> [(start_s, end_s, text)], adjacent repeats merged."""
     ext = os.path.splitext(path)[1].lower().lstrip('.')
-    if ext in ('srv1', 'ttml'):
-        root = ET.parse(path).getroot()
-        tag = 'text' if ext == 'srv1' else '{http://www.w3.org/ns/ttml}p'
-        raw = [' '.join(''.join(el.itertext()).split()) for el in root.iter(tag)]
+    cues: List[Cue] = []
+    if ext == 'ttml':
+        for p in ET.parse(path).getroot().iter('{http://www.w3.org/ns/ttml}p'):
+            text = ' '.join(''.join(p.itertext()).split())
+            if text:
+                cues.append((_seconds(p.get('begin')), _seconds(p.get('end')), text))
+    elif ext == 'srv1':
+        for t in ET.parse(path).getroot().iter('text'):
+            text = ' '.join(html.unescape(''.join(t.itertext())).split())
+            start = float(t.get('start'))
+            if text:
+                cues.append((start, start + float(t.get('dur', '0')), text))
     else:  # srt / vtt
-        raw = []
         with open(path, encoding='utf-8') as f:
-            for line in f:
-                line = line.strip()
-                if (not line or line == 'WEBVTT' or line.startswith(('Kind:', 'Language:', 'NOTE'))
-                        or '-->' in line or line.isdigit()):
-                    continue
-                raw.append(re.sub(r'<[^>]+>', '', line).strip())
-    lines: List[str] = []
-    for line in raw:
-        if line and (not lines or lines[-1] != line):
-            lines.append(line)
-    return ' '.join(lines)
+            content = f.read().replace('\r\n', '\n')
+        for block in re.split(r'\n\s*\n', content):
+            lines = block.strip().split('\n')
+            idx = next((i for i, line in enumerate(lines) if '-->' in line), None)
+            if idx is None:
+                continue
+            start, end = [x.strip().split(' ')[0] for x in lines[idx].split('-->')]
+            text = ' '.join(re.sub(r'<[^>]+>', '', line).strip() for line in lines[idx + 1:]).strip()
+            if text:
+                cues.append((_seconds(start), _seconds(end), text))
+    return _merge_repeats(cues)
 
 
-def write_text_file(subtitle_path: str) -> str:
-    txt = os.path.splitext(subtitle_path)[0] + '.txt'
-    with open(txt, 'w', encoding='utf-8') as f:
-        f.write(to_plain_text(subtitle_path) + '\n')
-    return txt
+def _stamp(t: float, sep: str) -> str:
+    ms = round(t * 1000)
+    h, ms = divmod(ms, 3600000)
+    m, ms = divmod(ms, 60000)
+    s, ms = divmod(ms, 1000)
+    return f'{h:02}:{m:02}:{s:02}{sep}{ms:03}'
+
+
+def render(cues: List[Cue], fmt: str) -> str:
+    if fmt == 'txt':
+        return ' '.join(text for _, _, text in cues) + '\n'
+    if fmt == 'srt':
+        return '\n'.join(f'{i}\n{_stamp(a, ",")} --> {_stamp(b, ",")}\n{text}\n'
+                         for i, (a, b, text) in enumerate(cues, 1))
+    if fmt == 'vtt':
+        return 'WEBVTT\n\n' + '\n'.join(f'{_stamp(a, ".")} --> {_stamp(b, ".")}\n{text}\n' for a, b, text in cues)
+    raise ValueError(f'unknown final format {fmt}')
+
+
+def produce_finals(source_path: str, stem: str, finals, keep_source: bool) -> Dict[str, str]:
+    """Convert a downloaded subtitle file into the final formats next to it (<stem>.<fmt>)."""
+    cues = parse_cues(source_path)
+    out: Dict[str, str] = {}
+    for fmt in finals:
+        out[fmt] = f'{stem}.{fmt}'
+        with open(out[fmt], 'w', encoding='utf-8') as f:
+            f.write(render(cues, fmt))
+    if not keep_source and source_path not in out.values():
+        os.remove(source_path)
+    return out
 
 
 def make_text_postprocessor(ydl):
-    """yt-dlp post-processor: after the subtitle file is written, also write <name>.txt."""
+    """yt-dlp post-processor: turn each downloaded subtitle file into the FINAL formats."""
     from yt_dlp.postprocessor import PostProcessor
 
     class TextPostProcessor(PostProcessor):
@@ -86,7 +148,7 @@ def make_text_postprocessor(ydl):
             for sub in (info.get('requested_subtitles') or {}).values():
                 path = sub.get('filepath')
                 if path and os.path.exists(path):
-                    write_text_file(path)
+                    produce_finals(path, os.path.splitext(path)[0], FINALS, KEEP_SOURCE)
             return [], info
 
     return TextPostProcessor(ydl)
@@ -103,8 +165,16 @@ def transcript_dir(path: str):
         TRANSCRIPT_DIR = old
 
 
-def transcript_path(video_id: str) -> str:
-    return os.path.join(TRANSCRIPT_DIR, f'{video_id}.{TRANSCRIPT_FORMAT}')
+def transcript_path(video_id: str, ext: str) -> str:
+    return os.path.join(TRANSCRIPT_DIR, f'{video_id}.{ext}')
+
+
+def primary_path(video_id: str) -> Optional[str]:
+    """The file linked as transcript_file: srt, else vtt, else txt (whichever final exists)."""
+    for ext in ('srt', 'vtt', 'txt'):
+        if ext in FINALS and os.path.exists(transcript_path(video_id, ext)):
+            return transcript_path(video_id, ext)
+    return None
 
 
 def pick_language(info: dict) -> Optional[tuple]:
@@ -148,25 +218,24 @@ def download_ytdlp(video_id: str, cookies_file: Optional[str], proxy: Optional[s
         lang, is_auto = choice
         logger.info('%s: using %s captions in %s', video_id, 'automatic' if is_auto else 'manual', lang)
         opts = dict(base, writesubtitles=not is_auto, writeautomaticsub=is_auto, subtitleslangs=[lang],
-                    subtitlesformat=TRANSCRIPT_FORMAT, outtmpl=os.path.join(TRANSCRIPT_DIR, '%(id)s'))
+                    subtitlesformat=SOURCE_FORMAT, outtmpl=os.path.join(TRANSCRIPT_DIR, '%(id)s'))
         with yt_dlp.YoutubeDL(opts) as ydl:
             ydl.add_post_processor(make_text_postprocessor(ydl), when='before_dl')
             ydl.download([url])
     except Exception as e:
         raise TranscriptError(f'yt-dlp failed: {e}') from e
-    # yt-dlp names the files <id>.<lang>.<format> and <id>.<lang>.txt; normalise to <id>.<format> / <id>.txt
-    found = sorted(glob.glob(os.path.join(TRANSCRIPT_DIR, f'{video_id}.*.{TRANSCRIPT_FORMAT}')))
-    if not found:
-        return None
-    os.replace(found[0], transcript_path(video_id))
-    txts = sorted(glob.glob(os.path.join(TRANSCRIPT_DIR, f'{video_id}.*.txt')))
-    if txts:
-        os.replace(txts[0], os.path.splitext(transcript_path(video_id))[0] + '.txt')
-        for extra in txts[1:]:
+    # yt-dlp names files <id>.<lang>.<ext>; normalise every file we keep to <id>.<ext>
+    kept = list(FINALS) + ([SOURCE_FORMAT] if KEEP_SOURCE else [])
+    got_any = False
+    for ext in dict.fromkeys(kept):
+        found = sorted(glob.glob(os.path.join(TRANSCRIPT_DIR, f'{video_id}.*.{ext}')))
+        if not found:
+            continue
+        got_any = True
+        os.replace(found[0], transcript_path(video_id, ext))
+        for extra in found[1:]:
             os.remove(extra)
-    for extra in found[1:]:
-        os.remove(extra)
-    return transcript_path(video_id)
+    return primary_path(video_id) if got_any else None
 
 
 def _transcript_api(proxy: Optional[str], ws_user: Optional[str], ws_pass: Optional[str]):
@@ -181,11 +250,7 @@ def _transcript_api(proxy: Optional[str], ws_user: Optional[str], ws_pass: Optio
 
 def download_transcript_api(video_id: str, proxy: Optional[str], ws_user: Optional[str],
                             ws_pass: Optional[str]) -> Optional[str]:
-    from youtube_transcript_api.formatters import SRTFormatter, WebVTTFormatter
-    formatter = {'srt': SRTFormatter, 'vtt': WebVTTFormatter}.get(TRANSCRIPT_FORMAT)
-    if formatter is None:
-        raise TranscriptError(f"youtube_transcript_api supports formats srt and vtt, not {TRANSCRIPT_FORMAT} "
-                              f"(use --method ytdlp for it)")
+    from youtube_transcript_api.formatters import SRTFormatter
     api = _transcript_api(proxy, ws_user, ws_pass)
     try:
         transcripts = list(api.list(video_id))
@@ -196,10 +261,11 @@ def download_transcript_api(video_id: str, proxy: Optional[str], ws_user: Option
     except Exception as e:
         raise TranscriptError(f'youtube-transcript-api failed: {e}') from e
     os.makedirs(TRANSCRIPT_DIR, exist_ok=True)
-    with open(transcript_path(video_id), 'w', encoding='utf-8') as f:
-        f.write(formatter().format_transcript(fetched))
-    write_text_file(transcript_path(video_id))
-    return transcript_path(video_id)
+    source = transcript_path(video_id, 'source.srt')  # the library's own SRT is the source
+    with open(source, 'w', encoding='utf-8') as f:
+        f.write(SRTFormatter().format_transcript(fetched))
+    produce_finals(source, os.path.join(TRANSCRIPT_DIR, video_id), FINALS, KEEP_SOURCE)
+    return primary_path(video_id)
 
 
 def check_available(video_id: str, method: str, env: Dict[str, Optional[str]]) -> bool:
@@ -270,18 +336,18 @@ def compare(video_id: str, env: Dict[str, Optional[str]]) -> int:
         if not path:
             rows.append((method, 'none', 'no transcript available', '', '', ''))
             continue
-        txt_path = os.path.splitext(path)[0] + '.txt'
-        if not os.path.exists(txt_path):
-            write_text_file(path)
-        text = open(txt_path, encoding='utf-8').read()
-        results[method] = (path, txt_path)
-        rows.append((method, 'ok', f'{os.path.getsize(path) // 1024} KB {TRANSCRIPT_FORMAT}',
-                     f'{len(text.split())} words', f'{len(text)} chars', txt_path))
-    print(f'\nCompare for {video_id}')
+        folder = os.path.dirname(path)
+        files = [(ext, os.path.join(folder, f'{video_id}.{ext}')) for ext in FINALS
+                 if os.path.exists(os.path.join(folder, f'{video_id}.{ext}'))]
+        words = len(' '.join(text for _, _, text in parse_cues(path)).split())
+        results[method] = files
+        rows.append((method, 'ok', f'{os.path.getsize(path) // 1024} KB {os.path.splitext(path)[1][1:]}',
+                     f'{words} words', '', ''))
+    print(f'\nCompare for {video_id}  (downloaded as {SOURCE_FORMAT}, final: {",".join(FINALS)})')
     for method, status, a, b, c, d in rows:
-        print(f'  {method:<24} {status:<7} {a}  {b}  {c}')
-        for label, p in zip((TRANSCRIPT_FORMAT, 'txt'), results.get(method, ())):
-            print(f'  {"":<24}         {label}: {p}')
+        print(f'  {method:<24} {status:<7} {a}  {b}')
+        for ext, p in results.get(method, ()):
+            print(f'  {"":<24}         {ext}: {p}')
     return 0 if len(results) == len(METHODS) else 1
 
 
@@ -306,7 +372,10 @@ def main() -> int:
     p = argparse.ArgumentParser(description='Download and manage video transcripts')
     p.add_argument('--master-file', default='data/videos_master.json')
     p.add_argument('--method', choices=METHODS, help='transcript method (or set TRANSCRIPT_METHOD)')
-    p.add_argument('--format', choices=FORMATS, help='subtitle format (or TRANSCRIPT_FORMAT; default srt)')
+    p.add_argument('--format', choices=SOURCE_FORMATS,
+                   help='format yt-dlp DOWNLOADS (or TRANSCRIPT_FORMAT; default ttml; ytdlp method only)')
+    p.add_argument('--final', help='FINAL formats, comma separated from srt,vtt,txt (or TRANSCRIPT_FINAL; default srt,txt)')
+    p.add_argument('--keep-source', action='store_true', help='also keep the downloaded file')
     sub = p.add_subparsers(dest='cmd', required=True)
     sub.add_parser('stats', help='Show how many videos have transcripts')
     lm = sub.add_parser('list-missing', help='List videos without a transcript')
@@ -321,11 +390,15 @@ def main() -> int:
     cp.add_argument('video_id')
     args = p.parse_args()
 
-    global TRANSCRIPT_FORMAT
-    fmt = args.format or os.getenv('TRANSCRIPT_FORMAT') or TRANSCRIPT_FORMAT
-    if fmt not in FORMATS:
-        sys.exit(f'Format must be one of {", ".join(FORMATS)} (got {fmt!r})')
-    TRANSCRIPT_FORMAT = fmt
+    global SOURCE_FORMAT, FINALS, KEEP_SOURCE
+    fmt = args.format or os.getenv('TRANSCRIPT_FORMAT') or SOURCE_FORMAT
+    if fmt not in SOURCE_FORMATS:
+        sys.exit(f'--format must be one of {", ".join(SOURCE_FORMATS)} (got {fmt!r})')
+    finals = tuple(dict.fromkeys(x.strip() for x in (args.final or os.getenv('TRANSCRIPT_FINAL') or ','.join(FINALS)).split(',') if x.strip()))
+    bad = [x for x in finals if x not in FINAL_FORMATS]
+    if bad or not finals:
+        sys.exit(f'--final must be a comma separated list from {", ".join(FINAL_FORMATS)} (got {bad or "nothing"})')
+    SOURCE_FORMAT, FINALS, KEEP_SOURCE = fmt, finals, args.keep_source
 
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
     master = Master(args.master_file)
@@ -344,7 +417,8 @@ def main() -> int:
         return compare(args.video_id, read_env())
 
     method, env = resolve_method(args.method), read_env()
-    logger.info('Method: %s (no fallback)', method)
+    logger.info('Method: %s (no fallback); download format: %s; final: %s',
+                method, SOURCE_FORMAT if method == 'ytdlp' else 'srt (library)', ','.join(FINALS))
 
     if args.cmd == 'check':
         print('available' if check_available(args.video_id, method, env) else 'not available')
