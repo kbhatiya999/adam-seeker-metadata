@@ -6,6 +6,7 @@ Metadata repo for the YouTube channel https://www.youtube.com/@AdamSeekerOfficia
 - `data/videos_master.json` — master list (`videos`, `last_updated`, `total_videos`, `channel_url`). Auto-updated; also holds `.backup` copies.
 - `scripts/update_master.py` — daily update; `--rebuild` does a full rebuild. Needs `YOUTUBE_API_KEY`.
 - `scripts/rebuild_master.py` — full rebuild from scratch.
+- `scripts/transcripts.py` — transcript download/management (`stats`, `list-missing`, `download-missing`, `download`, `check`). Method is explicit (`--method` or `TRANSCRIPT_METHOD`: `ytdlp` or `youtube_transcript_api`), no default and NO fallback. Saves `data/transcripts/<id>.vtt` (git-ignored; transcripts are large) and links `transcript_file`/`transcript_downloaded`/`transcript_download_date` in the master list. Optional proxy/cookies via `PROXY_URL`, `WEBSHARE_PROXY_USERNAME/PASSWORD`, `YTDLP_COOKIES_FILE` (declared in `fnox.toml`).
 - `scripts/manage_videos.py` — manual categorizing/scoring (`list-uncategorized`, `categorize`, `priority`, `report`, `interactive`).
 - `.github/workflows/update-videos.yml` — daily at 06:00 UTC (also manual and on script/data pushes).
 - `.github/workflows/rebuild-videos.yml` — manual rebuild.
@@ -25,7 +26,7 @@ Tools and tasks are defined in `mise.toml`; dependencies in `pyproject.toml` / `
 - `mise install` then `mise run install` — installs the tools (Python 3.12, uv, act, fnox, gh, gcloud), syncs `.venv` (`setup`), and runs `scripts/check_docker.sh`, which checks Docker (needed only for `act:` tasks) and offers to install it with Homebrew on macOS if missing.
 - Secrets use fnox: declared in `fnox.toml`; put `YOUTUBE_API_KEY` in the git-ignored `fnox.local.toml` (copy `fnox.local.toml.example`), which overrides `fnox.toml`. Tasks run via `fnox exec`; in CI the key comes from the environment. Never commit `fnox.local.toml`.
 - Task names are `<where>:<area>:<action>`. The first scope says where it runs:
-  - `local:` runs the code directly: `local:videos:update` / `local:videos:rebuild` / `local:videos:manage <subcommand>`.
+  - `local:` runs the code directly: `local:videos:update` / `local:videos:rebuild` / `local:videos:manage <subcommand>`, `local:transcripts:manage -- <args>` (e.g. `-- --method youtube_transcript_api download-missing --limit 5`).
   - `act:` runs the workflow locally in Docker: `act:videos:update` / `act:videos:rebuild` / `act:list`. Commit, push, issue and artifact steps are skipped when `ACT` is set, so it never publishes anything.
   - `gh:` triggers the REAL workflow on GitHub and watches it: `gh:videos:update` / `gh:videos:rebuild` / `gh:list`. It really commits and creates issues. Uses the current branch (or `REF=...`); the ref must be pushed and the workflow must exist on the default branch.
   - `install` (full first-time setup), `setup` (just `uv sync`) and `nuke` (cleanup) are unscoped (repo-wide).

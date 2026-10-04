@@ -122,6 +122,18 @@ mise run act:videos:update                    # 2. run the workflow locally in D
 mise run gh:videos:update                     # 3. trigger the REAL workflow on GitHub and watch it
 ```
 
+### Transcripts
+
+```bash
+mise run local:transcripts:manage -- stats
+mise run local:transcripts:manage -- list-missing
+mise run local:transcripts:manage -- --method youtube_transcript_api download-missing --limit 5
+mise run local:transcripts:manage -- --method ytdlp download VIDEO_ID
+mise run local:transcripts:manage -- --method ytdlp check VIDEO_ID
+```
+
+You must choose the method (`--method` or `TRANSCRIPT_METHOD`): `ytdlp` or `youtube_transcript_api`. There is no default and no fallback: if the chosen method fails (for example YouTube answers HTTP 429), it says so and moves on. Transcripts are saved to `data/transcripts/<id>.vtt` (git-ignored, they are large) and linked in the master list. YouTube often blocks cloud IPs, so for CI you may need a proxy (`PROXY_URL` or `WEBSHARE_PROXY_USERNAME`/`WEBSHARE_PROXY_PASSWORD`) or cookies (`YTDLP_COOKIES_FILE`).
+
 ### Getting a YouTube API key
 
 ```bash
