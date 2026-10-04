@@ -46,6 +46,10 @@ run = "fnox exec -- uv run python scripts/rebuild_master.py --force"
 description = "[local] Manage/categorize videos (pass a subcommand, e.g. `mise run local:videos:manage report`)"
 run = "fnox exec -- uv run python scripts/manage_videos.py"
 
+[tasks."local:transcripts:manage"]
+description = "[local] Download/manage transcripts (e.g. `mise run local:transcripts:manage -- --method ytdlp download-missing --limit 5`; subcommands: stats, list-missing, download-missing, download, check)"
+run = "fnox exec -- uv run python scripts/transcripts.py"
+
 # ---- act: run the workflows locally in Docker ----------------------------
 
 [tasks."docker:start"]
