@@ -137,10 +137,14 @@ class MasterListRebuilder:
                     raise
                 return None
         else:
-            logger.info("🔄 No API key provided, falling back to yt-dlp for channel ID")
+            logger.info("🔄 Using yt-dlp for channel ID")
             try:
-                with yt_dlp.YoutubeDL({'quiet': True}) as ydl:
-                    info = ydl.extract_info(channel_url, download=False)
+                # Flat, one entry: reads the channel page only. A full extraction opens the channel's
+                # first video, and YouTube answers that request from cloud IPs (e.g. GitHub Actions)
+                # with "Sign in to confirm you're not a bot".
+                opts = {'quiet': True, 'extract_flat': True, 'playlist_items': '1'}
+                with yt_dlp.YoutubeDL(opts) as ydl:
+                    info = ydl.extract_info(channel_url.rstrip('/') + '/videos', download=False)
                     channel_id = info.get('channel_id')
                     if channel_id:
                         logger.info(f"✅ Found channel ID via yt-dlp: {channel_id}")
@@ -339,7 +343,7 @@ class MasterListRebuilder:
             logger.info("🔑 Using YouTube Data API for complete video discovery")
             all_videos = self.fetch_all_videos_youtube_api(channel_id)
         else:
-            logger.info("🔄 Using yt-dlp for complete video discovery (no API key)")
+            logger.info("🔄 Using yt-dlp for complete video discovery")
             all_videos = self.fetch_all_videos_ytdlp()
         
         if not all_videos:
