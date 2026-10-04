@@ -2,9 +2,11 @@ name: Rebuild Video List
 
 on:
   workflow_dispatch:  # Manual trigger only
-  push:
-    paths:
-      - 'scripts/rebuild_master.py'
+
+concurrency:
+  # Both workflows rewrite data/videos_master.json and push; never run them at the same time
+  group: videos-master-data
+  cancel-in-progress: false
 
 jobs:
   rebuild-videos:
