@@ -324,7 +324,7 @@ def main():
     # Normal update mode
     # Log configuration
     if API_KEY:
-        logger.info(f"🔑 YouTube API key provided: {API_KEY[:10]}...")
+        logger.info("🔑 YouTube API key provided")
     else:
         logger.info("⚠️  No YouTube API key provided - will use yt-dlp fallback")
     
