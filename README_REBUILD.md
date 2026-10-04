@@ -24,13 +24,13 @@ This system provides comprehensive tools to rebuild your master video list from 
 ### **Method 1: Command Line (Local)**
 ```bash
 # Basic rebuild (with confirmation)
-python3 scripts/update_master.py --rebuild
+uv run seeker videos update --rebuild
 
 # Force rebuild (no confirmation)
-python3 scripts/update_master.py --rebuild --force
+uv run seeker videos update --rebuild --force
 
 # Direct rebuild script
-python3 scripts/rebuild_master.py --force
+uv run seeker videos rebuild --force
 ```
 
 ### **Method 2: GitHub Actions (Remote)**
@@ -43,7 +43,7 @@ python3 scripts/rebuild_master.py --force
 
 ### **Update Script with Rebuild Flag**
 ```bash
-python3 scripts/update_master.py [OPTIONS]
+uv run seeker videos update [OPTIONS]
 
 Options:
   --rebuild              Completely rebuild the master list from scratch
@@ -54,7 +54,7 @@ Options:
 
 ### **Dedicated Rebuild Script**
 ```bash
-python3 scripts/rebuild_master.py [OPTIONS]
+uv run seeker videos rebuild [OPTIONS]
 
 Options:
   --master-file FILE     Path to master video list file
@@ -198,7 +198,7 @@ If something goes wrong:
 ```bash
 # Use yt-dlp fallback
 unset YOUTUBE_API_KEY
-python3 scripts/rebuild_master.py --force
+uv run seeker videos rebuild --force
 ```
 
 **2. Permission Errors**
@@ -228,7 +228,7 @@ ls -la data/videos_master.json.backup_*
 cp data/videos_master.json.backup_20251022_194812 data/videos_master.json
 
 # Verify restoration
-python3 scripts/manage_videos.py report
+uv run seeker videos manage report
 ```
 
 ## 📊 **Example Rebuild Output**

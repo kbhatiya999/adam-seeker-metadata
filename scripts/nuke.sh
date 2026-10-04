@@ -38,7 +38,7 @@ if [ "$docker_ok" = 1 ]; then
 fi
 
 echo "This will remove:"
-echo "  - .venv, .act/, .vars, scripts/__pycache__"
+echo "  - .venv, .act/, .vars, dist/, scripts/__pycache__"
 if [ "$docker_ok" = 1 ]; then
   echo "  - Docker containers ($LABEL): ${containers:-none}"
   echo "  - Docker volumes: $(echo $volumes | tr '\n' ' ')"; [ -z "$volumes" ] && echo "    (none)"
@@ -72,7 +72,7 @@ for name, versions in json.load(sys.stdin).items():
 fi
 
 echo "Nuking..."
-run rm -rf .venv .act .vars scripts/__pycache__
+run rm -rf .venv .act .vars dist scripts/__pycache__
 if [ "$docker_ok" = 1 ]; then
   [ -n "$containers" ] && run docker rm -f $containers
   [ -n "$volumes" ] && run docker volume rm -f $volumes
