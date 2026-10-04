@@ -27,3 +27,7 @@ if_missing = "ignore"
 [secrets.WEBSHARE_PROXY_PASSWORD]
 description = "Webshare proxy password for youtube-transcript-api (optional)"
 if_missing = "ignore"
+
+[secrets.MASTER_LIST_METHOD]
+description = "youtube_api or ytdlp for discovering videos (unset = API if a key is present, else yt-dlp)"
+if_missing = "ignore"

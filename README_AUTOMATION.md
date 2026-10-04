@@ -122,6 +122,25 @@ mise run act:videos:update                    # 2. run the workflow locally in D
 mise run gh:videos:update                     # 3. trigger the REAL workflow on GitHub and watch it
 ```
 
+### Switching methods (local / act / GitHub)
+
+Two settings choose how things are fetched. Each place a job runs keeps its own copy:
+
+| Setting | Values | Meaning |
+|---|---|---|
+| `master-list` (`MASTER_LIST_METHOD`) | `youtube_api`, `ytdlp` | how new videos are discovered |
+| `transcript` (`TRANSCRIPT_METHOD`) | `ytdlp`, `youtube_transcript_api` | how transcripts are downloaded |
+
+```bash
+mise run local:method:set -- master-list ytdlp     # writes fnox.local.toml (used by local:* tasks)
+mise run act:method:set   -- master-list youtube_api   # writes .vars (used by act:* tasks)
+mise run gh:method:set    -- master-list youtube_api   # sets a repository variable (used by the real workflows)
+mise run local:method:show                         # also act:method:show / gh:method:show
+mise run gh:method:set -- master-list unset        # remove a setting
+```
+
+An explicit method has no fallback: if it fails the run exits non-zero (`youtube_api` without a key also fails). With `master-list` unset the old behaviour applies: use the API if a key is present, otherwise yt-dlp. No workflow uses the transcript method yet.
+
 ### Transcripts
 
 ```bash

@@ -32,6 +32,7 @@ jobs:
     - name: Run video update script
       env:
         YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        MASTER_LIST_METHOD: ${{ vars.MASTER_LIST_METHOD }}  # empty = implicit (API if key, else yt-dlp)
       run: |
         mise run local:videos:update
     

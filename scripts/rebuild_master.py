@@ -48,8 +48,31 @@ def iter_video_entries(info):
             yield entry
 
 
+METHODS = ('youtube_api', 'ytdlp')
+
+
+def resolve_method(api_key):
+    """Decide how videos are discovered.
+
+    MASTER_LIST_METHOD=youtube_api|ytdlp is explicit: that method is used, there is NO fallback,
+    and any failure ends the run with a non-zero exit code. If it is unset, the old implicit
+    behaviour applies (API when a key is present, otherwise yt-dlp) and failures are only logged.
+    Returns (method, explicit).
+    """
+    method = (os.getenv('MASTER_LIST_METHOD') or '').strip() or None
+    if method is None:
+        return ('youtube_api' if api_key else 'ytdlp'), False
+    if method not in METHODS:
+        sys.exit(f"MASTER_LIST_METHOD must be one of {', '.join(METHODS)} (got {method!r})")
+    if method == 'youtube_api' and not api_key:
+        sys.exit("MASTER_LIST_METHOD=youtube_api but YOUTUBE_API_KEY is not set (no fallback). "
+                 "Set the key (mise run local:apikey:setup) or choose ytdlp.")
+    return method, True
+
+
 class MasterListRebuilder:
-    def __init__(self, master_file: str, channel_url: str, api_key: Optional[str] = None):
+    def __init__(self, master_file: str, channel_url: str, api_key: Optional[str] = None, strict: bool = False):
+        self.strict = strict  # explicit method: raise on failure instead of logging and continuing
         self.master_file = master_file
         self.channel_url = channel_url
         self.api_key = api_key
@@ -110,6 +133,8 @@ class MasterListRebuilder:
                         
             except Exception as e:
                 logger.error(f"❌ Error getting channel ID from API: {e}")
+                if self.strict:
+                    raise
                 return None
         else:
             logger.info("🔄 No API key provided, falling back to yt-dlp for channel ID")
@@ -122,6 +147,8 @@ class MasterListRebuilder:
                     return channel_id
             except Exception as e:
                 logger.error(f"❌ Error extracting channel ID with yt-dlp: {e}")
+                if self.strict:
+                    raise
                 return None
     
     def fetch_all_videos_youtube_api(self, channel_id: str) -> List[Dict]:
@@ -203,6 +230,8 @@ class MasterListRebuilder:
             
         except Exception as e:
             logger.error(f"❌ Error fetching videos from YouTube API: {e}")
+            if self.strict:
+                raise
             return []
     
     def fetch_all_videos_ytdlp(self) -> List[Dict]:
@@ -239,6 +268,8 @@ class MasterListRebuilder:
                 
         except Exception as e:
             logger.error(f"❌ Error fetching videos with yt-dlp: {e}")
+            if self.strict:
+                raise
             return []
     
     def preserve_manual_data(self, new_videos: List[Dict], old_videos: List[Dict]) -> List[Dict]:
@@ -299,6 +330,8 @@ class MasterListRebuilder:
         channel_id = self.get_channel_id_from_url(self.channel_url)
         if not channel_id:
             logger.error("❌ Could not extract channel ID")
+            if self.strict:
+                raise RuntimeError("Could not extract channel ID")
             return {"success": False, "error": "Could not extract channel ID"}
         
         # Fetch ALL videos
@@ -311,6 +344,8 @@ class MasterListRebuilder:
         
         if not all_videos:
             logger.error("❌ No videos fetched")
+            if self.strict:
+                raise RuntimeError("The chosen method returned no videos (no fallback)")
             return {"success": False, "error": "No videos fetched"}
         
         # Preserve manual data if requested
@@ -399,17 +434,29 @@ def main():
             return
     
     # Log configuration
+    method, explicit = resolve_method(API_KEY)
+    if explicit:
+        logger.info(f"⚙️  MASTER_LIST_METHOD={method} (explicit, no fallback)")
+    else:
+        logger.info(f"⚙️  MASTER_LIST_METHOD not set: using {method} "
+                    f"({'API key present' if API_KEY else 'no API key, yt-dlp fallback'})")
     if API_KEY:
         logger.info("🔑 YouTube API key provided")
-    else:
-        logger.info("⚠️  No YouTube API key provided - will use yt-dlp fallback")
+    if method == 'ytdlp':
+        API_KEY = None  # explicit ytdlp must not use the API even if a key is present
     
     # Create backup
-    rebuilder = MasterListRebuilder(args.master_file, args.channel_url, API_KEY)
+    rebuilder = MasterListRebuilder(args.master_file, args.channel_url, API_KEY, strict=explicit)
     backup_file = rebuilder.create_backup()
     
     # Rebuild
-    result = rebuilder.rebuild_master_list(preserve_manual=not args.no_preserve)
+    try:
+        result = rebuilder.rebuild_master_list(preserve_manual=not args.no_preserve)
+    except Exception as e:
+        if not explicit:
+            raise
+        logger.error(f"❌ Rebuild failed with method {method}: {e}")
+        sys.exit(1)
     
     if result['success']:
         logger.info(f"🎉 Rebuild completed successfully!")
