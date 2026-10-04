@@ -157,9 +157,18 @@ mise run local:transcripts:manage -- list-missing
 mise run local:transcripts:manage -- --method youtube_transcript_api download-missing --limit 5
 mise run local:transcripts:manage -- --method ytdlp download VIDEO_ID
 mise run local:transcripts:manage -- --method ytdlp check VIDEO_ID
+mise run local:transcripts:compare -- VIDEO_ID   # both methods side by side, then a diff of the final files (files in data/transcripts/compare/<id>/)
 ```
 
-You must choose the method (`--method` or `TRANSCRIPT_METHOD`): `ytdlp` or `youtube_transcript_api`. There is no default and no fallback: if the chosen method fails (for example YouTube answers HTTP 429), it says so and moves on. Transcripts are saved to `data/transcripts/<id>.vtt` (git-ignored, they are large) and linked in the master list. YouTube often blocks cloud IPs, so for CI you may need a proxy (`PROXY_URL` or `WEBSHARE_PROXY_USERNAME`/`WEBSHARE_PROXY_PASSWORD`) or cookies (`YTDLP_COOKIES_FILE`).
+You must choose the method (`--method` or `TRANSCRIPT_METHOD`): `ytdlp` or `youtube_transcript_api`. There is no default and no fallback: if the chosen method fails (for example YouTube answers HTTP 429), it says so and moves on. Two separate options control the format:
+- `--format` is what is **downloaded** from YouTube by either method (`ttml` default, `srv1`, `srt`, `vtt`). The library method fetches it through its own session.
+- `--final` is the **final files** you end up with, comma separated from `srt,vtt,txt` (default `srt,txt`). A post-processor converts the downloaded file into these and deletes the download unless you add `--keep-source`.
+
+```bash
+mise run local:transcripts:manage -- --method ytdlp --format ttml --final srt,txt download VIDEO_ID
+```
+
+Files go to `data/transcripts/<id>.srt` / `.txt` / `.vtt` (git-ignored, they are large) and are linked in the master list (`transcript_file`, `transcript_text_file`). `vtt` as a download is much bigger because YouTube's WebVTT repeats rolling caption lines; `ttml`, `srv1` and `srt` are about 4x smaller with the same text.
 
 ### Getting a YouTube API key
 

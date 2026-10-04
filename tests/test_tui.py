@@ -22,6 +22,8 @@ def test_build_commands():
         ["mise", "run", "act:method:set", "--", "transcript", "ytdlp"]
     assert action("transcripts").build({"cmd": "download-missing", "method": "ytdlp", "limit": "3"}) == \
         ["mise", "run", "local:transcripts:manage", "--", "--method", "ytdlp", "download-missing", "--limit", "3"]
+    assert action("transcripts").build({"cmd": "compare", "video_id": "abc", "format": "ttml", "final": "srt,txt"}) == \
+        ["mise", "run", "local:transcripts:manage", "--", "--format", "ttml", "--final", "srt,txt", "compare", "abc"]
     assert action("nuke").build({"dry": True, "all": True, "yes": False}) == \
         ["mise", "run", "nuke", "--", "--dry-run", "--all"]
     assert action("nuke").danger({"dry": False, "yes": True}) and not action("nuke").danger({"dry": True, "yes": True})
@@ -131,7 +133,7 @@ def test_missing_required_input_blocks_run():
             await pilot.pause()
 
     run(go())
-    assert calls == [["mise", "run", "local:transcripts:manage", "--", "--method", "youtube_transcript_api", "download", "abc123"]]
+    assert calls == [["mise", "run", "local:transcripts:manage", "--", "--method", "youtube_transcript_api", "--format", "ttml", "--final", "srt,txt", "download", "abc123"]]
 
 
 def test_nuke_dry_run_default_no_confirmation_but_real_yes_confirms():

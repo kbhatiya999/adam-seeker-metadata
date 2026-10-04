@@ -81,11 +81,19 @@ def _manage_build(v: Values) -> List[str]:
 
 def _transcripts_build(v: Values) -> List[str]:
     c = v["cmd"]
+    fmt = []
+    if c in ("download-missing", "download", "compare"):
+        if v.get("format"):
+            fmt += ["--format", v["format"]]
+        if v.get("final"):
+            fmt += ["--final", v["final"]]
     if c in ("stats", "list-missing"):
         return mise("local:transcripts:manage", c)
+    if c == "compare":
+        return mise("local:transcripts:manage", *fmt, "compare", v["video_id"])
     if c == "download-missing":
-        return mise("local:transcripts:manage", "--method", v["method"], c, "--limit", v["limit"])
-    return mise("local:transcripts:manage", "--method", v["method"], c, v["video_id"])
+        return mise("local:transcripts:manage", "--method", v["method"], *fmt, c, "--limit", v["limit"])
+    return mise("local:transcripts:manage", "--method", v["method"], *fmt, c, v["video_id"])
 
 
 def _nuke_build(v: Values) -> List[str]:
@@ -125,11 +133,19 @@ ACTIONS: List[Action] = [
            "Download or inspect transcripts. The method is explicit, with no fallback.",
            _transcripts_build,
            [Field("cmd", "What", "select",
-                  [(c, c) for c in ("stats", "list-missing", "download-missing", "download", "check")], "stats"),
+                  [(c, c) for c in ("stats", "list-missing", "download-missing", "download", "check", "compare")],
+                  "stats"),
             Field("method", "Method", "select", TRANSCRIPT_METHODS, "youtube_transcript_api",
                   lambda v: v["cmd"] in ("download-missing", "download", "check")),
+            Field("format", "Format to DOWNLOAD (both methods; ttml/srv1/srt are small, vtt is large)", "select",
+                  [("ttml", "ttml"), ("srv1", "srv1"), ("srt", "srt"), ("vtt", "vtt")], "ttml",
+                  lambda v: v["cmd"] in ("download-missing", "download", "compare")),
+            Field("final", "FINAL files (the post-processor converts into these)", "select",
+                  [("srt + txt", "srt,txt"), ("txt only", "txt"), ("srt only", "srt"), ("vtt + txt", "vtt,txt"),
+                   ("srt + vtt + txt", "srt,vtt,txt")], "srt,txt",
+                  lambda v: v["cmd"] in ("download-missing", "download", "compare")),
             Field("limit", "How many videos", "input", default="5", visible=lambda v: v["cmd"] == "download-missing"),
-            Field("video_id", "Video ID", "input", visible=lambda v: v["cmd"] in ("download", "check"))]),
+            Field("video_id", "Video ID", "input", visible=lambda v: v["cmd"] in ("download", "check", "compare"))]),
     Action("method-set", "Methods", "Change a method",
            "Set master-list or transcript method for local, act or the real GitHub workflows.",
            lambda v: mise(f"{v['where']}:method:set", v["setting"], v["value"]),
