@@ -4327,3 +4327,15 @@
 2026-10-03 19:16:11,723 - INFO - ✅ Successfully added 1 new videos
 2026-10-03 19:16:11,723 - INFO - 📊 Total videos in master list: 204
 2026-10-03 19:16:11,723 - INFO - 🆕 New: rang rang Rangila ree  - controversial legacy (2026-10-03)
+2026-10-04 03:41:39,566 - INFO - 🔑 YouTube API key provided
+2026-10-04 03:41:39,566 - INFO - 🚀 Starting video list update...
+2026-10-04 03:41:39,568 - INFO - 📊 Current master list has 204 existing videos
+2026-10-04 03:41:39,568 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-10-04 03:41:39,903 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-10-04 03:41:39,904 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-10-04 03:41:39,904 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-10-04 03:41:40,002 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-10-04 03:41:40,381 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-10-04 03:41:40,382 - INFO - 🔍 Found 0 new videos (filtered from 50 total)
+2026-10-04 03:41:40,384 - INFO - Master list updated successfully
+2026-10-04 03:41:40,384 - INFO - ℹ️ No new videos found
