@@ -11,7 +11,7 @@ if the chosen method fails, the failure is reported and nothing else is tried.
 Two separate choices:
   --format  what yt-dlp DOWNLOADS from YouTube: ttml (default), srv1, srt or vtt. yt-dlp's `vtt` is
             YouTube's rolling-caption WebVTT (4x bigger, repeated lines), so it is not the default.
-            Only used by the ytdlp method; youtube_transcript_api always starts from its own SRT.
+            Both methods download this same format (the library fetches it through its own session).
   --final   the FINAL files you end up with, comma separated: srt, vtt, txt (default srt,txt).
             A post-processor converts the downloaded file into these (the source is deleted unless
             --keep-source). For yt-dlp this is a real yt-dlp post-processor (TextPostProcessor).
@@ -27,6 +27,7 @@ Optional environment (declared in fnox.toml):
 
 import argparse
 import contextlib
+import difflib
 import glob
 import json
 import logging
@@ -250,20 +251,32 @@ def _transcript_api(proxy: Optional[str], ws_user: Optional[str], ws_pass: Optio
 
 def download_transcript_api(video_id: str, proxy: Optional[str], ws_user: Optional[str],
                             ws_pass: Optional[str]) -> Optional[str]:
-    from youtube_transcript_api.formatters import SRTFormatter
+    """Download with youtube-transcript-api, in the SAME source format as yt-dlp (default ttml).
+
+    The library normally returns parsed snippets only. Each Transcript object knows its timedtext
+    URL and the configured (proxy-aware) HTTP session, so we request that URL with &fmt=<format>
+    (YouTube serves ttml, srv1, srt and vtt) and keep the raw file, like yt-dlp does.
+    """
     api = _transcript_api(proxy, ws_user, ws_pass)
     try:
         transcripts = list(api.list(video_id))
         if not transcripts:
             return None
         chosen = next((t for t in transcripts if t.language_code in LANGS), transcripts[0])
-        fetched = chosen.fetch()
+        if not (hasattr(chosen, '_url') and hasattr(chosen, '_http_client')):
+            raise TranscriptError('youtube-transcript-api changed its internals; update scripts/transcripts.py')
+        if '&exp=xpe' in chosen._url:
+            raise TranscriptError('YouTube requires a PO token for this video (not supported)')
+        response = chosen._http_client.get(f'{chosen._url}&fmt={SOURCE_FORMAT}')
+        response.raise_for_status()
+    except TranscriptError:
+        raise
     except Exception as e:
         raise TranscriptError(f'youtube-transcript-api failed: {e}') from e
     os.makedirs(TRANSCRIPT_DIR, exist_ok=True)
-    source = transcript_path(video_id, 'source.srt')  # the library's own SRT is the source
-    with open(source, 'w', encoding='utf-8') as f:
-        f.write(SRTFormatter().format_transcript(fetched))
+    source = transcript_path(video_id, f'source.{SOURCE_FORMAT}')
+    with open(source, 'wb') as f:
+        f.write(response.content)
     produce_finals(source, os.path.join(TRANSCRIPT_DIR, video_id), FINALS, KEEP_SOURCE)
     return primary_path(video_id)
 
@@ -348,6 +361,22 @@ def compare(video_id: str, env: Dict[str, Optional[str]]) -> int:
         print(f'  {method:<24} {status:<7} {a}  {b}')
         for ext, p in results.get(method, ()):
             print(f'  {"":<24}         {ext}: {p}')
+    if len(results) == len(METHODS):
+        print('\n  Diff of the final files (ytdlp vs youtube_transcript_api):')
+        first, second = METHODS
+        for ext, path_a in results[first]:
+            path_b = dict(results[second]).get(ext)
+            with open(path_a, encoding='utf-8') as fa, open(path_b, encoding='utf-8') as fb:
+                lines_a, lines_b = fa.read().splitlines(), fb.read().splitlines()
+            if lines_a == lines_b:
+                print(f'    {ext}: identical ({len(lines_a)} lines, byte for byte: '
+                      f'{open(path_a, "rb").read() == open(path_b, "rb").read()})')
+                continue
+            diff = [d for d in difflib.unified_diff(lines_a, lines_b, first, second, lineterm='', n=0)
+                    if not d.startswith(('---', '+++', '@@'))]
+            print(f'    {ext}: DIFFERENT, {len(diff)} changed lines ({len(lines_a)} vs {len(lines_b)} lines)')
+            for d in diff[:6]:
+                print('      ' + d[:110])
     return 0 if len(results) == len(METHODS) else 1
 
 
@@ -373,7 +402,7 @@ def main() -> int:
     p.add_argument('--master-file', default='data/videos_master.json')
     p.add_argument('--method', choices=METHODS, help='transcript method (or set TRANSCRIPT_METHOD)')
     p.add_argument('--format', choices=SOURCE_FORMATS,
-                   help='format yt-dlp DOWNLOADS (or TRANSCRIPT_FORMAT; default ttml; ytdlp method only)')
+                   help='format DOWNLOADED from YouTube by either method (or TRANSCRIPT_FORMAT; default ttml)')
     p.add_argument('--final', help='FINAL formats, comma separated from srt,vtt,txt (or TRANSCRIPT_FINAL; default srt,txt)')
     p.add_argument('--keep-source', action='store_true', help='also keep the downloaded file')
     sub = p.add_subparsers(dest='cmd', required=True)
@@ -418,7 +447,7 @@ def main() -> int:
 
     method, env = resolve_method(args.method), read_env()
     logger.info('Method: %s (no fallback); download format: %s; final: %s',
-                method, SOURCE_FORMAT if method == 'ytdlp' else 'srt (library)', ','.join(FINALS))
+                method, SOURCE_FORMAT, ','.join(FINALS))
 
     if args.cmd == 'check':
         print('available' if check_available(args.video_id, method, env) else 'not available')

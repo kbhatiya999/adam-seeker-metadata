@@ -157,11 +157,11 @@ mise run local:transcripts:manage -- list-missing
 mise run local:transcripts:manage -- --method youtube_transcript_api download-missing --limit 5
 mise run local:transcripts:manage -- --method ytdlp download VIDEO_ID
 mise run local:transcripts:manage -- --method ytdlp check VIDEO_ID
-mise run local:transcripts:compare -- VIDEO_ID   # both methods side by side (files in data/transcripts/compare/<id>/)
+mise run local:transcripts:compare -- VIDEO_ID   # both methods side by side, then a diff of the final files (files in data/transcripts/compare/<id>/)
 ```
 
 You must choose the method (`--method` or `TRANSCRIPT_METHOD`): `ytdlp` or `youtube_transcript_api`. There is no default and no fallback: if the chosen method fails (for example YouTube answers HTTP 429), it says so and moves on. Two separate options control the format:
-- `--format` is what yt-dlp **downloads** (`ttml` default, `srv1`, `srt`, `vtt`; yt-dlp method only).
+- `--format` is what is **downloaded** from YouTube by either method (`ttml` default, `srv1`, `srt`, `vtt`). The library method fetches it through its own session.
 - `--final` is the **final files** you end up with, comma separated from `srt,vtt,txt` (default `srt,txt`). A post-processor converts the downloaded file into these and deletes the download unless you add `--keep-source`.
 
 ```bash

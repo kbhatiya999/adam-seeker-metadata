@@ -137,7 +137,7 @@ ACTIONS: List[Action] = [
                   "stats"),
             Field("method", "Method", "select", TRANSCRIPT_METHODS, "youtube_transcript_api",
                   lambda v: v["cmd"] in ("download-missing", "download", "check")),
-            Field("format", "Format to DOWNLOAD (yt-dlp only; ttml/srv1/srt are small, vtt is large)", "select",
+            Field("format", "Format to DOWNLOAD (both methods; ttml/srv1/srt are small, vtt is large)", "select",
                   [("ttml", "ttml"), ("srv1", "srv1"), ("srt", "srt"), ("vtt", "vtt")], "ttml",
                   lambda v: v["cmd"] in ("download-missing", "download", "compare")),
             Field("final", "FINAL files (the post-processor converts into these)", "select",
