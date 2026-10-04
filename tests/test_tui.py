@@ -49,7 +49,7 @@ def test_run_local_update_without_confirmation():
             await pilot.pause()
             assert isinstance(app.screen, tui.FormScreen)
             assert "$ mise run local:videos:update" in str(app.screen.query_one("#preview", Static).render())
-            await pilot.click("#run")
+            app.screen.query_one("#run", Button).press()
             await pilot.pause()
 
     run(go())
@@ -67,13 +67,13 @@ def test_gh_requires_confirmation():
             app.screen.query_one("#f-where", Select).value = "gh"
             await pilot.pause()
             assert "REAL workflow" in str(app.screen.query_one("#warning", Static).render())
-            await pilot.click("#run")
+            app.screen.query_one("#run", Button).press()
             await pilot.pause()
             assert isinstance(app.screen, tui.ConfirmScreen)
             await pilot.press("n")  # cancel: nothing runs
             await pilot.pause()
             assert calls == []
-            await pilot.click("#run")
+            app.screen.query_one("#run", Button).press()
             await pilot.pause()
             await pilot.press("y")
             await pilot.pause()
@@ -101,7 +101,7 @@ def test_method_values_follow_setting_and_required_input():
             form.query_one("#f-value", Select).value = "youtube_transcript_api"
             await pilot.pause()
             assert "local:method:set -- transcript youtube_transcript_api" in str(form.query_one("#preview", Static).render())
-            await pilot.click("#run")
+            app.screen.query_one("#run", Button).press()
             await pilot.pause()
 
     run(go())
@@ -121,13 +121,13 @@ def test_missing_required_input_blocks_run():
             await pilot.pause()
             app.screen.query_one("#f-cmd", Select).value = "download"
             await pilot.pause()
-            await pilot.click("#run")  # video id empty
+            app.screen.query_one("#run", Button).press()  # video id empty
             await pilot.pause()
             assert isinstance(app.screen, tui.FormScreen)
             assert "Please fill in" in str(app.screen.query_one("#warning", Static).render())
             app.screen.query_one("#f-video_id", Input).value = "abc123"
             await pilot.pause()
-            await pilot.click("#run")
+            app.screen.query_one("#run", Button).press()
             await pilot.pause()
 
     run(go())
@@ -146,7 +146,7 @@ def test_nuke_dry_run_default_no_confirmation_but_real_yes_confirms():
             await pilot.press("enter")
             await pilot.pause()
             assert "--dry-run" in str(app.screen.query_one("#preview", Static).render())
-            await pilot.click("#run")
+            app.screen.query_one("#run", Button).press()
             await pilot.pause()
             assert calls == [["mise", "run", "nuke", "--", "--dry-run"]]
             await pilot.press("enter")  # reopen form for the same highlighted action
@@ -154,7 +154,7 @@ def test_nuke_dry_run_default_no_confirmation_but_real_yes_confirms():
             app.screen.query_one("#f-dry", Checkbox).value = False
             app.screen.query_one("#f-yes", Checkbox).value = True
             await pilot.pause()
-            await pilot.click("#run")
+            app.screen.query_one("#run", Button).press()
             await pilot.pause()
             assert isinstance(app.screen, tui.ConfirmScreen)
             await pilot.press("n")
