@@ -16,6 +16,7 @@ Metadata repo for the YouTube channel https://www.youtube.com/@AdamSeekerOfficia
 ## Conventions
 - Keep `videos` sorted by `upload_date`, newest first. Both save paths sort; if you add a new write path, sort there too.
 - New videos start with `status: "uncategorized"`, `auto_detected: true`, `needs_review: true`.
+- The update workflow commits and notifies ONLY when the run added videos (it counts added `"video_id"` lines in the `data/videos_master.json` diff); `last_updated` bumps and log appends alone must not trigger either. Logs of quiet runs are only in the uploaded artifact.
 - The update workflow keeps ONE open issue titled "📺 New Videos Available for Review" (labels `automation`, `videos`, `review-needed`) and comments on it; closing it makes the next run open a new one. Don't reintroduce one issue per run.
 - Never commit a real API key; `config.env` holds placeholders only. The key comes from the `YOUTUBE_API_KEY` secret.
 - `data/videos_master.json` is written with `indent=2, ensure_ascii=False`; keep that format to avoid noisy diffs.
