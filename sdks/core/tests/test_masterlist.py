@@ -99,3 +99,15 @@ def test_timestamped_backup(tmp_path):
     path.write_text(json.dumps({"videos": [1]}))
     backup = master.timestamped_backup()
     assert backup.startswith(str(path) + ".backup_") and json.loads(open(backup).read()) == {"videos": [1]}
+
+
+def test_merge_keeps_old_date_and_description_when_the_fresh_ones_are_empty():
+    old = [vid("a", "2026-01-01", description="old description")]
+    flat = vid("a", "", description="")                     # yt-dlp flat listing: no date, no description
+    full = vid("b", "2026-02-02", description="fresh")      # API: has them
+    api_for_known = vid("a", "2026-03-03", description="new description")
+    merged, _ = merge_manual([flat, full], old)
+    assert (merged[0]["upload_date"], merged[0]["description"]) == ("2026-01-01", "old description")
+    assert (merged[1]["upload_date"], merged[1]["description"]) == ("2026-02-02", "fresh")
+    merged, _ = merge_manual([api_for_known], old)          # a fresh value is never overwritten
+    assert (merged[0]["upload_date"], merged[0]["description"]) == ("2026-03-03", "new description")
