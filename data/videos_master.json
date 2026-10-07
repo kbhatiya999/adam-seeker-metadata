@@ -1,6 +1,17 @@
 {
   "videos": [
     {
+      "video_id": "OCZ0vysB4xY",
+      "title": "Kya Kehta Hai Islam: Zameen flat hai ya gol?",
+      "url": "https://www.youtube.com/watch?v=OCZ0vysB4xY",
+      "upload_date": "2026-10-07",
+      "description": "if you like Adam Seeker's videos and would like to support, join patreon link\nhttps://www.patreon.com/adamseeker\n\nTo contact me, please join my discord Server: \nhttps://discord.gg/WmDZHqJvKB\n\ntiktok account\nhttps://www.tiktok.com/@adam.seeker.official\n#zameen\n#earth\n#islam\n#flatearth",
+      "status": "uncategorized",
+      "auto_detected": true,
+      "needs_review": true,
+      "last_checked": "2026-10-07"
+    },
+    {
       "video_id": "p8sbX52xSdY",
       "title": "rang rang Rangila ree  - controversial legacy",
       "url": "https://www.youtube.com/watch?v=p8sbX52xSdY",
@@ -2135,8 +2146,8 @@
       "last_checked": "2026-10-04"
     }
   ],
-  "last_updated": "2026-10-04",
-  "total_videos": 194,
+  "last_updated": "2026-10-07",
+  "total_videos": 195,
   "channel_url": "https://www.youtube.com/@AdamSeekerOfficial",
   "rebuild_date": "2026-10-04",
   "rebuild_reason": "Complete rebuild from scratch"
