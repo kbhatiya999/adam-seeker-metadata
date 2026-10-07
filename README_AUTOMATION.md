@@ -4,9 +4,9 @@ This system automatically maintains your master video list by discovering new vi
 
 ## 🚀 Quick Start
 
-1. **Setup the automation system:**
+1. **Install tools and dependencies:**
    ```bash
-   python scripts/setup_automation.py
+   mise install && mise run install
    ```
 
 2. **Get a YouTube API key:**
@@ -25,9 +25,9 @@ This system automatically maintains your master video list by discovering new vi
    nano config.env
    ```
 
-4. **Test the update script:**
+4. **Test the update:**
    ```bash
-   python scripts/update_master.py
+   uv run seeker videos update
    ```
 
 ## 📁 File Structure
@@ -35,10 +35,9 @@ This system automatically maintains your master video list by discovering new vi
 ```
 ├── data/
 │   └── videos_master.json          # Master video list
-├── scripts/
-│   ├── update_master.py            # Automated video discovery
-│   ├── manage_videos.py            # Manual management tools
-│   └── setup_automation.py         # Initial setup script
+├── sdks/                           # reusable libraries (seeker-sdk-core, -videos, -transcripts)
+├── apps/                           # `seeker` CLI and the menu (seeker-tui)
+├── scripts/                        # ops shell scripts (docker, nuke, build, ...)
 ├── logs/
 │   └── update_master.log           # Update logs
 ├── .github/workflows/
@@ -56,10 +55,10 @@ This system automatically maintains your master video list by discovering new vi
 
 ```bash
 # Run update (uses API key if available, falls back to yt-dlp)
-python scripts/update_master.py
+uv run seeker videos update
 
 # With specific API key
-YOUTUBE_API_KEY="your_key" python scripts/update_master.py
+YOUTUBE_API_KEY="your_key" uv run seeker videos update
 ```
 
 **Features:**
@@ -74,19 +73,19 @@ YOUTUBE_API_KEY="your_key" python scripts/update_master.py
 
 ```bash
 # List uncategorized videos
-python scripts/manage_videos.py list-uncategorized
+uv run seeker videos manage list-uncategorized
 
 # Generate comprehensive report
-python scripts/manage_videos.py report
+uv run seeker videos manage report
 
 # Interactive categorization mode
-python scripts/manage_videos.py interactive
+uv run seeker videos manage interactive
 
 # Categorize specific video
-python scripts/manage_videos.py categorize VIDEO_ID --categories "islam,critique" --relevance 8 --notes "Important debate"
+uv run seeker videos manage categorize VIDEO_ID --categories "islam,critique" --relevance 8 --notes "Important debate"
 
 # Mark video as priority
-python scripts/manage_videos.py priority VIDEO_ID --category "urgent" --relevance 10
+uv run seeker videos manage priority VIDEO_ID --category "urgent" --relevance 10
 ```
 
 **Features:**
@@ -95,19 +94,6 @@ python scripts/manage_videos.py priority VIDEO_ID --category "urgent" --relevanc
 - Category management
 - Comprehensive reporting
 - Priority video handling
-
-### `setup_automation.py`
-**Initial setup and validation**
-
-```bash
-python scripts/setup_automation.py
-```
-
-**Features:**
-- Updates existing master list structure
-- Validates all required files
-- Creates sample configuration
-- Provides setup instructions
 
 ## 🧰 Local Setup and Testing (mise + uv)
 
@@ -326,10 +312,10 @@ cat logs/update_master.log
 ### Generate Reports
 ```bash
 # Comprehensive report
-python scripts/manage_videos.py report
+uv run seeker videos manage report
 
 # List uncategorized videos
-python scripts/manage_videos.py list-uncategorized
+uv run seeker videos manage list-uncategorized
 ```
 
 ### GitHub Actions Logs
@@ -373,7 +359,7 @@ uv add yt-dlp requests python-dateutil
 ### Debug Mode
 ```bash
 # Run with verbose logging
-python scripts/update_master.py 2>&1 | tee debug.log
+uv run seeker videos update 2>&1 | tee debug.log
 ```
 
 ## 🚀 Advanced Features
@@ -381,14 +367,14 @@ python scripts/update_master.py 2>&1 | tee debug.log
 ### Priority Videos
 Mark important videos for immediate attention:
 ```bash
-python scripts/manage_videos.py priority VIDEO_ID --category "urgent" --relevance 10
+uv run seeker videos manage priority VIDEO_ID --category "urgent" --relevance 10
 ```
 
 ### Batch Operations
 Process multiple videos at once:
 ```bash
 # Interactive mode for batch categorization
-python scripts/manage_videos.py interactive
+uv run seeker videos manage interactive
 ```
 
 ### Custom Categories

@@ -1,20 +1,32 @@
 [project]
-name = "adam-seeker-metadata"
+name = "seeker-workspace"
 version = "0.1.0"
-description = "Metadata for the Adam Seeker YouTube channel"
+description = "Adam Seeker metadata workspace: SDKs (reusable libraries), apps (CLI, TUI) and, later, services"
 requires-python = ">=3.11"
 dependencies = [
-    "yt-dlp>=2023.12.30",
-    "requests>=2.31.0",
-    "python-dateutil>=2.8.2",
-    "youtube-transcript-api>=1.2.4",
-    "textual>=8.2.8",
+    "seeker-cli",
+    "seeker-tui",
 ]
 
 [tool.uv]
 package = false
 
+# Everything under these folders is a workspace member. Add a new SDK with `mise run sdk:new -- <name>`.
+[tool.uv.workspace]
+members = ["sdks/*", "apps/*", "services/*"]
+
+[tool.uv.sources]
+seeker-sdk-core = { workspace = true }
+seeker-sdk-videos = { workspace = true }
+seeker-sdk-transcripts = { workspace = true }
+seeker-cli = { workspace = true }
+seeker-tui = { workspace = true }
+
 [dependency-groups]
 dev = [
     "pytest>=9.1.1",
 ]
+
+[tool.pytest.ini_options]
+testpaths = ["sdks", "apps", "services"]
+addopts = "-q"

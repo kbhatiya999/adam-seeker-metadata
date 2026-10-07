@@ -29,7 +29,7 @@ Status: **findings and a plan, not built yet** (except where marked "done").
 - With the API: complete (dates, descriptions, and the new duration/view count).
 - With yt-dlp: flat gives duration/views/live status for all, but dates/descriptions only for the 15 newest (RSS). So a rebuild must **merge**: keep an existing video's `upload_date` and `description`, refresh duration and view count, and log the videos still without a date. A yt-dlp rebuild already empties every `upload_date` today (existing flaw).
 
-## Transcripts (`scripts/transcripts.py`, explicit method, no fallback)
+## Transcripts (`sdks/transcripts`, `seeker transcripts`, explicit method, no fallback)
 
 | Where | `youtube_transcript_api` | `ytdlp` |
 |---|---|---|
