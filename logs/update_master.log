@@ -4354,3 +4354,18 @@
 2026-10-07 12:33:56,925 - INFO - ✅ Successfully added 1 new videos
 2026-10-07 12:33:56,925 - INFO - 📊 Total videos in master list: 195
 2026-10-07 12:33:56,925 - INFO - 🆕 New: Kya Kehta Hai Islam: Zameen flat hai ya gol? (2026-10-07)
+2026-10-11 12:01:24,886 - INFO - ⚙️  MASTER_LIST_METHOD not set: using youtube_api (API key present)
+2026-10-11 12:01:24,886 - INFO - 🔑 YouTube API key provided
+2026-10-11 12:01:24,886 - INFO - 🚀 Starting video list update...
+2026-10-11 12:01:24,888 - INFO - 📊 Current master list has 195 existing videos
+2026-10-11 12:01:24,888 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-10-11 12:01:25,111 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-10-11 12:01:25,112 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-10-11 12:01:25,112 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-10-11 12:01:25,234 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-10-11 12:01:25,619 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-10-11 12:01:25,620 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-10-11 12:01:25,624 - INFO - Master list updated successfully
+2026-10-11 12:01:25,624 - INFO - ✅ Successfully added 1 new videos
+2026-10-11 12:01:25,624 - INFO - 📊 Total videos in master list: 196
+2026-10-11 12:01:25,624 - INFO - 🆕 New: Allah ne har cheez ko pani se peda kiya ??? (2026-10-10)
