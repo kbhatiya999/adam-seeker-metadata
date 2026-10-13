@@ -26,16 +26,28 @@ run = "scripts/nuke.sh"
 
 [tasks.menu]
 description = "Interactive terminal UI: pick where to run (local/act/gh), what to run and its options"
-run = "uv run python scripts/tui.py"
+run = "uv run seeker-tui"
 interactive = true
 
 [tasks.test]
-description = "Run the tests (TUI flows with Textual's headless pilot)"
-run = "uv run pytest -q tests"
+description = "Run all tests (SDKs, CLI, and the TUI flows with Textual's headless pilot)"
+run = "uv run pytest"
+
+[tasks."build:sdks"]
+description = "Build every SDK in sdks/ as its own wheel (seeker_sdk_*.whl) into dist/sdks and verify them in clean venvs (flags after --: --sdist, --no-verify)"
+run = "scripts/build_packages.sh sdks"
+
+[tasks."build:apps"]
+description = "Build the apps (seeker-cli, seeker-tui) as wheels into dist/apps and verify them (flags after --: --sdist, --no-verify)"
+run = "scripts/build_packages.sh apps"
+
+[tasks."sdk:new"]
+description = "Scaffold a new SDK: `mise run sdk:new -- rag [--plugin video_sources|transcript_methods]`"
+run = "uv run python scripts/new_sdk.py"
 
 [tasks.setup]
 description = "Install Python dependencies into .venv"
-run = "uv sync"
+run = "uv sync --all-packages"
 
 # ---- local: run the scripts directly -------------------------------------
 
@@ -45,19 +57,19 @@ run = "scripts/api_key.sh"
 
 [tasks."local:videos:update"]
 description = "[local] Fetch new videos and update data/videos_master.json"
-run = "fnox exec -- uv run python scripts/update_master.py"
+run = "fnox exec -- uv run seeker videos update"
 
 [tasks."local:videos:rebuild"]
 description = "[local] Rebuild the master list from scratch"
-run = "fnox exec -- uv run python scripts/rebuild_master.py --force"
+run = "fnox exec -- uv run seeker videos rebuild --force"
 
 [tasks."local:videos:manage"]
 description = "[local] Manage/categorize videos (pass a subcommand, e.g. `mise run local:videos:manage report`)"
-run = "fnox exec -- uv run python scripts/manage_videos.py"
+run = "fnox exec -- uv run seeker videos manage"
 
 [tasks."local:transcripts:manage"]
 description = "[local] Download/manage transcripts (e.g. `mise run local:transcripts:manage -- --method ytdlp download-missing --limit 5`; subcommands: stats, list-missing, download-missing, download, check)"
-run = "fnox exec -- uv run python scripts/transcripts.py"
+run = "fnox exec -- uv run seeker transcripts"
 
 [tasks."local:method:set"]
 description = "[local] Set a method in fnox.local.toml: `mise run local:method:set -- master-list ytdlp|youtube_api|unset` or `-- transcript ytdlp|youtube_transcript_api|unset`"
@@ -69,7 +81,7 @@ run = "scripts/method.sh local show"
 
 [tasks."local:transcripts:compare"]
 description = "[local] Download one video's transcript with BOTH methods side by side: `mise run local:transcripts:compare -- VIDEO_ID` (files under data/transcripts/compare/<id>/)"
-run = "fnox exec -- uv run python scripts/transcripts.py compare"
+run = "fnox exec -- uv run seeker transcripts compare"
 
 # ---- act: run the workflows locally in Docker ----------------------------
 

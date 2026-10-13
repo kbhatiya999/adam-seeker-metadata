@@ -1,0 +1,22 @@
+[project]
+name = "seeker-sdk-transcripts"
+version = "0.1.0"
+description = "Seeker SDK transcripts: download video transcripts with plugin methods, convert formats, compare methods"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "seeker-sdk-core>=0.1.0",
+    "yt-dlp>=2023.12.30",
+    "youtube-transcript-api>=1.2.4",
+]
+
+[project.entry-points."seeker.transcript_methods"]
+ytdlp = "seeker_sdk_transcripts.methods.ytdlp:YtDlpMethod"
+youtube_transcript_api = "seeker_sdk_transcripts.methods.library:TranscriptApiMethod"
+
+[tool.uv.sources]
+seeker-sdk-core = { workspace = true }
+
+[build-system]
+requires = ["uv_build>=0.11,<0.12"]
+build-backend = "uv_build"

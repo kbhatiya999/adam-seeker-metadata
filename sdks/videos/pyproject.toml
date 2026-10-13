@@ -1,0 +1,22 @@
+[project]
+name = "seeker-sdk-videos"
+version = "0.1.0"
+description = "Seeker SDK videos: discover channel videos (plugin sources) and keep the master list up to date"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "seeker-sdk-core>=0.1.0",
+    "requests>=2.31.0",
+    "yt-dlp>=2023.12.30",
+]
+
+[project.entry-points."seeker.video_sources"]
+youtube_api = "seeker_sdk_videos.sources.youtube_api:YouTubeApiSource"
+ytdlp = "seeker_sdk_videos.sources.ytdlp:YtDlpSource"
+
+[tool.uv.sources]
+seeker-sdk-core = { workspace = true }
+
+[build-system]
+requires = ["uv_build>=0.11,<0.12"]
+build-backend = "uv_build"

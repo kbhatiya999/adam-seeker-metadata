@@ -7,3 +7,4 @@ fnox.local.toml
 .act/
 data/transcripts/
 .vars
+dist/

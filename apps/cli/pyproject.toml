@@ -1,0 +1,23 @@
+[project]
+name = "seeker-cli"
+version = "0.1.0"
+description = "The `seeker` command: update/rebuild/manage the video list and download transcripts"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "seeker-sdk-core>=0.1.0",
+    "seeker-sdk-videos>=0.1.0",
+    "seeker-sdk-transcripts>=0.1.0",
+]
+
+[project.scripts]
+seeker = "seeker_cli.main:main"
+
+[tool.uv.sources]
+seeker-sdk-core = { workspace = true }
+seeker-sdk-videos = { workspace = true }
+seeker-sdk-transcripts = { workspace = true }
+
+[build-system]
+requires = ["uv_build>=0.11,<0.12"]
+build-backend = "uv_build"

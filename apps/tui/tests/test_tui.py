@@ -1,11 +1,7 @@
 import asyncio
 import contextlib
-import os
-import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "scripts"))
-
-import tui  # noqa: E402
+from seeker_tui import app as tui  # noqa: E402
 from textual.widgets import Button, Checkbox, Input, Select, Static  # noqa: E402
 
 

@@ -2,9 +2,7 @@ import os
 import sys
 import textwrap
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "scripts"))
-
-from transcripts import parse_cues, pick_language, produce_finals, render  # noqa: E402
+from seeker_sdk_transcripts import parse_cues, pick_language, produce_finals, render  # noqa: E402
 
 
 def test_prefers_manual_english_then_any_manual():
