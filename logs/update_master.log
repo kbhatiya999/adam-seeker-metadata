@@ -4369,3 +4369,18 @@
 2026-10-11 12:01:25,624 - INFO - ✅ Successfully added 1 new videos
 2026-10-11 12:01:25,624 - INFO - 📊 Total videos in master list: 196
 2026-10-11 12:01:25,624 - INFO - 🆕 New: Allah ne har cheez ko pani se peda kiya ??? (2026-10-10)
+2026-10-14 11:04:57,022 - INFO - ⚙️  MASTER_LIST_METHOD not set: using youtube_api (API key present)
+2026-10-14 11:04:57,022 - INFO - 🔑 YouTube API key provided
+2026-10-14 11:04:57,025 - INFO - 🚀 Starting video list update...
+2026-10-14 11:04:57,027 - INFO - 📊 Current master list has 196 existing videos
+2026-10-14 11:04:57,027 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-10-14 11:04:57,195 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-10-14 11:04:57,196 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-10-14 11:04:57,196 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-10-14 11:04:57,330 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-10-14 11:04:57,762 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-10-14 11:04:57,762 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-10-14 11:04:57,765 - INFO - Master list updated successfully
+2026-10-14 11:04:57,765 - INFO - ✅ Successfully added 1 new videos
+2026-10-14 11:04:57,765 - INFO - 📊 Total videos in master list: 197
+2026-10-14 11:04:57,765 - INFO - 🆕 New: kiya Muhammad ke Walidain jahanum min hen? (2026-10-14)
