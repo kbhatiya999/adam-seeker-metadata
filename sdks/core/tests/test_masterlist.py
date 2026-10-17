@@ -2,7 +2,8 @@ import json
 
 import pytest
 
-from seeker_sdk_core import MasterList, SeekerError, merge_manual, new_video, sort_newest_first
+from seeker_sdk_core import (MasterList, SeekerError, merge_manual, new_video, retry_delay_days, sort_newest_first,
+                             transcript_waiting)
 from seeker_sdk_core import masterlist
 
 
@@ -111,3 +112,46 @@ def test_merge_keeps_old_date_and_description_when_the_fresh_ones_are_empty():
     assert (merged[1]["upload_date"], merged[1]["description"]) == ("2026-02-02", "fresh")
     merged, _ = merge_manual([api_for_known], old)          # a fresh value is never overwritten
     assert (merged[0]["upload_date"], merged[0]["description"]) == ("2026-03-03", "new description")
+
+
+def test_the_wait_for_a_missing_transcript_doubles_up_to_a_cap():
+    assert [retry_delay_days(n) for n in range(1, 10)] == [1, 2, 4, 8, 16, 32, 64, 64, 64]
+    assert retry_delay_days(0) == 1 and retry_delay_days(10_000) == 64
+
+
+def test_unavailable_transcripts_wait_until_their_retry_date(tmp_path, monkeypatch):
+    master = MasterList(str(tmp_path / "m.json"), {"videos": [vid("a", "2026-01-01"), vid("b", "2026-01-01")]})
+    assert master.mark_transcript_unavailable("a") == "2026-01-03"
+    a = master.find("a")
+    assert (a["transcript_status"], a["transcript_attempts"], a["transcript_checked"]) == ("unavailable", 1, "2026-01-02")
+    assert a["transcript_retry_after"] == "2026-01-03"  # today is 2026-01-02, first wait is 1 day
+    ids = lambda: [v["video_id"] for v in master.videos_needing_transcript()]  # noqa: E731
+    assert ids() == ["b"]                                          # a waits
+    assert [v["video_id"] for v in master.videos_without_transcript()] == ["a", "b"]  # but it is still missing
+    monkeypatch.setattr(masterlist, "today", lambda: "2026-01-03")
+    assert ids() == ["a", "b"]                                     # on the retry date it is tried again
+    assert not transcript_waiting(a) and transcript_waiting(a, on="2026-01-02")
+    assert master.mark_transcript_unavailable("a") == "2026-01-05"  # second wait: 2 days
+    with pytest.raises(SeekerError):
+        master.mark_transcript_unavailable("zzz")
+
+
+def test_linking_a_transcript_forgets_the_unavailable_notes(tmp_path):
+    transcript = tmp_path / "a.srt"
+    transcript.write_text("x")
+    master = MasterList(str(tmp_path / "m.json"), {"videos": [vid("a", "2026-01-01")]})
+    master.mark_transcript_unavailable("a")
+    master.link_transcript("a", str(transcript))
+    a = master.find("a")
+    assert a["transcript_downloaded"] is True
+    assert not any(k in a for k in ("transcript_status", "transcript_attempts", "transcript_checked", "transcript_retry_after"))
+
+
+def test_a_rebuild_keeps_transcript_status_and_download_fields():
+    old = [vid("a", "2026-01-01", transcript_downloaded=True, transcript_download_date="2026-01-02",
+               transcript_status="unavailable", transcript_attempts=3, transcript_checked="2026-01-02",
+               transcript_retry_after="2026-01-06")]
+    merged, _ = merge_manual([vid("a", "2026-01-01")], old)
+    a = merged[0]
+    assert (a["transcript_downloaded"], a["transcript_download_date"]) == (True, "2026-01-02")
+    assert (a["transcript_status"], a["transcript_attempts"], a["transcript_retry_after"]) == ("unavailable", 3, "2026-01-06")

@@ -15,6 +15,19 @@ from ..formats import primary_path, produce_finals, transcript_path
 from .base import TranscriptMethod
 
 
+def _no_captions(error: Exception) -> bool:
+    """The library says the video has no transcript (as opposed to a request that failed)."""
+    from youtube_transcript_api import NoTranscriptFound, TranscriptsDisabled
+    return isinstance(error, (TranscriptsDisabled, NoTranscriptFound))
+
+
+def _short(error: Exception) -> str:
+    """One line for the log: the library's messages are long and end with a GitHub referral."""
+    cause = getattr(error, "cause", "") or str(error)
+    lines = [line.strip() for line in cause.strip().splitlines() if line.strip()]
+    return f"{type(error).__name__}: {lines[0]}" if lines else type(error).__name__
+
+
 class TranscriptApiMethod(TranscriptMethod):
     name = "youtube_transcript_api"
 
@@ -33,7 +46,9 @@ class TranscriptApiMethod(TranscriptMethod):
         try:
             return any(True for _ in self._api().list(video_id))
         except Exception as e:
-            raise TranscriptError(f"youtube_transcript_api availability check failed: {e}") from e
+            if _no_captions(e):
+                return False
+            raise TranscriptError(f"youtube_transcript_api availability check failed: {_short(e)}") from e
 
     def download(self, video_id: str, out_dir: str) -> Optional[str]:
         cfg = self.config
@@ -51,7 +66,9 @@ class TranscriptApiMethod(TranscriptMethod):
         except TranscriptError:
             raise
         except Exception as e:
-            raise TranscriptError(f"youtube-transcript-api failed: {e}") from e
+            if _no_captions(e):
+                return None
+            raise TranscriptError(f"youtube-transcript-api failed: {_short(e)}") from e
         os.makedirs(out_dir, exist_ok=True)
         source = transcript_path(out_dir, video_id, f"source.{cfg.source_format}")
         with open(source, "wb") as f:

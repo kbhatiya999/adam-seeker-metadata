@@ -4,12 +4,17 @@ import logging
 import os
 import sys
 
-from seeker_sdk_core import DEFAULT_MASTER_FILE, ConfigError, MasterList, SeekerError, TranscriptError, env
+from seeker_sdk_core import (DEFAULT_MASTER_FILE, ConfigError, MasterList, SeekerError, TranscriptError, env,
+                             transcript_waiting)
+from seeker_sdk_core.logs import setup_logging
 from seeker_sdk_transcripts import (FINAL_FORMATS, SOURCE_FORMATS, Network, TranscriptConfig, compare, diff_outcomes,
                                     download_many, get_method, method_names, parse_finals)
 from seeker_sdk_transcripts.service import DEFAULT_OUT_DIR
 
 logger = logging.getLogger("seeker.transcripts")
+
+LOG_FILE = "logs/transcripts.log"
+PRINT_ONLY = ("stats", "list-missing")  # these do not log, so they leave no log file behind
 
 
 def add_parser(sub) -> None:
@@ -26,7 +31,11 @@ def add_parser(sub) -> None:
     lm = tsub.add_parser("list-missing", help="list videos without a transcript")
     lm.add_argument("--limit", type=int, default=20)
     dm = tsub.add_parser("download-missing", help="download transcripts for videos that lack one")
-    dm.add_argument("--limit", type=int, default=10, help="max videos this run (default 10)")
+    dm.add_argument("--limit", type=int, default=10,
+                    help="stop after this many transcripts are downloaded (default 10); videos without a transcript "
+                         "are skipped and do not count")
+    dm.add_argument("--max-attempts", type=int, default=50,
+                    help="never try more than this many videos in one run (default 50)")
     d1 = tsub.add_parser("download", help="download the transcript for one video")
     d1.add_argument("video_id")
     c1 = tsub.add_parser("check", help="check whether a transcript is available for one video")
@@ -60,7 +69,7 @@ def _method_name(args) -> str:
 
 
 def run(args) -> int:
-    logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+    setup_logging(None if args.tcmd in PRINT_ONLY else LOG_FILE)
     try:
         master = MasterList.load_strict(args.master_file)
     except SeekerError as e:
@@ -68,12 +77,15 @@ def run(args) -> int:
 
     if args.tcmd == "stats":
         total = len(master.videos)
-        missing = len(master.videos_without_transcript())
-        print(f"Videos: {total}  with transcript: {total - missing}  missing: {missing}")
+        missing = master.videos_without_transcript()
+        waiting = sum(1 for v in missing if transcript_waiting(v))
+        note = f"  ({waiting} of them had no transcript at the last look and wait for a retry)" if waiting else ""
+        print(f"Videos: {total}  with transcript: {total - len(missing)}  missing: {len(missing)}{note}")
         return 0
     if args.tcmd == "list-missing":
         for v in master.videos_without_transcript()[:args.limit]:
-            print(f"{v['video_id']}  {v.get('upload_date', '')}  {v.get('title', '')[:70]}")
+            wait = f"  [no transcript, look again after {v['transcript_retry_after']}]" if transcript_waiting(v) else ""
+            print(f"{v['video_id']}  {v.get('upload_date', '')}  {v.get('title', '')[:70]}{wait}")
         return 0
 
     config = _config(args)
@@ -92,11 +104,20 @@ def run(args) -> int:
             sys.exit(str(e))
         return 0
 
-    ids = [args.video_id] if args.tcmd == "download" else \
-        [v["video_id"] for v in master.videos_without_transcript()[:args.limit]]
-    result = download_many(method, master, ids)
-    print(f"Done: {result.ok} downloaded, {result.failed} failed/unavailable")
-    return 0 if result.failed == 0 else 1
+    if args.tcmd == "download":  # you asked for this one video: it counts as a failure if you do not get it
+        result = download_many(method, master, [args.video_id])
+        print(_summary(result))
+        return 0 if result.ok == 1 else 1
+    result = download_many(method, master, [v["video_id"] for v in master.videos_needing_transcript()],
+                           limit=args.limit, max_attempts=args.max_attempts)
+    print(_summary(result))
+    return 0 if result.failed == 0 else 1  # videos without a transcript are normal, only real errors fail the run
+
+
+def _summary(result) -> str:
+    text = (f"Done: {result.ok} downloaded, {result.unavailable} without a transcript (looked up again later), "
+            f"{result.failed} errors")
+    return text + (f". Stopped early: {result.stopped}" if result.stopped else "")
 
 
 def _compare(video_id: str, config: TranscriptConfig) -> int:

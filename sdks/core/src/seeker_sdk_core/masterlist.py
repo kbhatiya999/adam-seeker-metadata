@@ -7,7 +7,7 @@ data in git does not change when the code around it does.
 import json
 import logging
 import os
-from datetime import datetime
+from datetime import date, datetime, timedelta
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 from .errors import SeekerError
@@ -16,8 +16,14 @@ logger = logging.getLogger(__name__)
 
 Video = Dict[str, Any]
 
-# Fields copied back from the old list when a video is rebuilt (manual work, transcript links).
-PRESERVED_FIELDS = ("relevance_score", "notes", "key_topics", "transcript_file", "transcript_text_file")
+# What we remember when a video has no transcript (yet), so it is not retried on every run.
+TRANSCRIPT_STATUS_FIELDS = ("transcript_status", "transcript_attempts", "transcript_checked", "transcript_retry_after")
+# Fields copied back from the old list when a video is rebuilt (manual work, transcript links, transcript status).
+PRESERVED_FIELDS = ("relevance_score", "notes", "key_topics", "transcript_file", "transcript_text_file",
+                    "transcript_downloaded", "transcript_download_date") + TRANSCRIPT_STATUS_FIELDS
+# The wait before looking for a missing transcript again doubles every time: 1, 2, 4, 8 ... days, at most 64.
+RETRY_BASE_DAYS = 1
+RETRY_MAX_DAYS = 64
 # Fields a source may not provide (yt-dlp's flat listing has no date or description): the old value
 # is kept when the fresh one is empty, so a rebuild never blanks them.
 FILL_IF_EMPTY = ("upload_date", "description")
@@ -26,6 +32,20 @@ FILL_IF_EMPTY = ("upload_date", "description")
 def today() -> str:
     """Today as YYYY-MM-DD (one place to patch in tests)."""
     return datetime.now().isoformat()[:10]
+
+
+def retry_delay_days(attempts: int) -> int:
+    """Days to wait after the Nth failed look for a transcript: 1, 2, 4, 8, ... capped at RETRY_MAX_DAYS."""
+    return min(RETRY_BASE_DAYS * 2 ** max(attempts - 1, 0), RETRY_MAX_DAYS)
+
+
+def _add_days(day: str, days: int) -> str:
+    return (date.fromisoformat(day) + timedelta(days=days)).isoformat()
+
+
+def transcript_waiting(video: Video, on: Optional[str] = None) -> bool:
+    """True if the video had no transcript at the last look and its retry date has not come yet."""
+    return video.get("transcript_status") == "unavailable" and video.get("transcript_retry_after", "") > (on or today())
 
 
 def new_video(video_id: str, title: str, upload_date: str, description: str, *,
@@ -154,9 +174,29 @@ class MasterList:
             video["transcript_text_file"] = text_path
         video["transcript_downloaded"] = True
         video["transcript_download_date"] = today()
+        for key in TRANSCRIPT_STATUS_FIELDS:  # found it: forget the "no transcript" notes
+            video.pop(key, None)
+
+    def mark_transcript_unavailable(self, video_id: str) -> str:
+        """Remember that the video has no transcript (yet) and return the date to look again.
+        The wait doubles with every failed look (retry_delay_days)."""
+        video = self.find(video_id)
+        if video is None:
+            raise SeekerError(f"Video {video_id} not in master list")
+        attempts = int(video.get("transcript_attempts") or 0) + 1
+        video["transcript_status"] = "unavailable"
+        video["transcript_attempts"] = attempts
+        video["transcript_checked"] = today()
+        video["transcript_retry_after"] = _add_days(today(), retry_delay_days(attempts))
+        return video["transcript_retry_after"]
 
     def videos_without_transcript(self) -> List[Video]:
+        """Every video that has no transcript file, including those waiting for a retry."""
         return [v for v in self.videos if not (v.get("transcript_file") and os.path.exists(v["transcript_file"]))]
+
+    def videos_needing_transcript(self) -> List[Video]:
+        """Videos without a transcript that are worth trying now (not waiting for their retry date)."""
+        return [v for v in self.videos_without_transcript() if not transcript_waiting(v)]
 
     # ------------------------------------------------------------------ saving
     def _dump(self, path: str) -> None:

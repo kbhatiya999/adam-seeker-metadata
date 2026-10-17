@@ -28,8 +28,11 @@ def get_method(name: str, config: Optional[TranscriptConfig] = None) -> Transcri
 
 @dataclass
 class BatchResult:
-    ok: int = 0
-    failed: int = 0
+    ok: int = 0           # transcripts downloaded
+    unavailable: int = 0  # the video has no transcript (yet): remembered in the master list, retried later
+    failed: int = 0       # a real error (blocked, network, ...): nothing remembered, tried again next run
+    attempted: int = 0
+    stopped: str = ""     # why the run ended early, if it did
 
 
 def link(master: MasterList, video_id: str, path: str) -> None:
@@ -39,20 +42,46 @@ def link(master: MasterList, video_id: str, path: str) -> None:
 
 
 def download_many(method: TranscriptMethod, master: MasterList, video_ids: Iterable[str],
-                  out_dir: str = DEFAULT_OUT_DIR) -> BatchResult:
-    """Download each video; failures are logged and counted, never swallowed silently or retried
-    with another method. The master list is saved after every success."""
+                  out_dir: str = DEFAULT_OUT_DIR, limit: Optional[int] = None,
+                  max_attempts: Optional[int] = None, max_errors: int = 3) -> BatchResult:
+    """Download the videos one at a time, never retrying with another method.
+
+    - `limit` is the number of transcripts to download (not of videos tried): videos without a transcript
+      are skipped over, so a few of them at the top of the list cannot use up the whole run.
+    - A video with no transcript is remembered in the master list with a retry date that moves further
+      away every time (exponential), so it is not tried again on every run.
+    - A real error is logged and counted, nothing is remembered. After `max_errors` errors in a row the run
+      stops, because that usually means YouTube is blocking us.
+    - `max_attempts` bounds the number of videos tried in one run.
+    The master list is saved after every change."""
     result = BatchResult()
+    errors_in_row = 0
     for video_id in video_ids:
+        if limit is not None and result.ok >= limit:
+            break
+        if max_attempts is not None and result.attempted >= max_attempts:
+            result.stopped = f"tried {max_attempts} videos (the limit for one run)"
+            break
+        if errors_in_row >= max_errors:
+            result.stopped = f"{max_errors} errors in a row (YouTube is probably blocking requests)"
+            break
+        result.attempted += 1
         try:
             path = method.download(video_id, out_dir)
         except TranscriptError as e:
             logger.error("%s: %s", video_id, e)
             result.failed += 1
+            errors_in_row += 1
             continue
+        errors_in_row = 0
         if not path:
-            logger.warning("%s: no transcript available", video_id)
-            result.failed += 1
+            result.unavailable += 1
+            if master.find(video_id):
+                retry = master.mark_transcript_unavailable(video_id)
+                master.write(sort=False)
+                logger.warning("%s: no transcript available, will look again after %s", video_id, retry)
+            else:
+                logger.warning("%s: no transcript available", video_id)
             continue
         try:
             link(master, video_id, path)

@@ -73,7 +73,7 @@ class YtDlpMethod(TranscriptMethod):
         try:
             with yt_dlp.YoutubeDL(self._base_opts()) as ydl:
                 info = ydl.extract_info(f"https://www.youtube.com/watch?v={video_id}", download=False)
-            return bool(info.get("subtitles") or info.get("automatic_captions"))
+            return pick_language(info) is not None  # same rule as download(): live_chat alone is not captions
         except TranscriptError:
             raise
         except Exception as e:
