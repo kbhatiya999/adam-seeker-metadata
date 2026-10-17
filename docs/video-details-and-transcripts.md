@@ -19,15 +19,15 @@ Status: **findings and a plan, not built yet** (except where marked "done").
 "Flat" = `extract_flat`: yt-dlp reads only the list page and does not open each video. Cloud IPs are blocked on the per-video request but not on list pages. Done: the channel-ID lookup uses flat (PR #348), which fixed `MASTER_LIST_METHOD=ytdlp` on GitHub and cut the local run from ~4 min to 2 s.
 
 ## Plan (not built)
-1. yt-dlp path: list the uploads playlist (duration, views, live status); fill upload date and description from RSS.
+1. yt-dlp path: list the uploads playlist (duration, views, live status) — **done (PR #352)**; fill upload date and description of new videos from RSS — not built.
 2. API path: also save duration and view count (`videos.list`, 1 unit per 50 videos).
 3. `local:videos:backfill`: add `duration` / live flag to existing videos from the flat listing.
 4. Warn in the log how many videos still lack an upload date (the RSS 15-video window can be outrun if the daily run is down for ~7 weeks); use the API as backstop when a key is present, or backfill from a home IP.
 
 ## Rebuild
-- Today: the whole list is replaced from a fresh fetch; only `categories`, `relevance_score`, `notes`, `key_topics` and `transcript_file` are copied back. Private/removed videos are dropped (a rebuild dropped 10 private videos on 2026-10-04; left out on purpose).
+- Today: the whole list is replaced from a fresh fetch; `categories`, `relevance_score`, `notes`, `key_topics`, `transcript_file` and `transcript_text_file` are copied back, and an existing video's `upload_date` and `description` are kept when the fresh value is empty (PR #352; see `docs/primer/04-the-master-list.md`). Private/removed videos are dropped (a rebuild dropped 10 private videos on 2026-10-04; left out on purpose).
 - With the API: complete (dates, descriptions, and the new duration/view count).
-- With yt-dlp: flat gives duration/views/live status for all, but dates/descriptions only for the 15 newest (RSS). So a rebuild must **merge**: keep an existing video's `upload_date` and `description`, refresh duration and view count, and log the videos still without a date. A yt-dlp rebuild already empties every `upload_date` today (existing flaw).
+- With yt-dlp: flat gives duration/views/live status for all, but dates/descriptions only for the 15 newest (RSS). So a rebuild must **merge**: keep an existing video's `upload_date` and `description` (done, PR #352), refresh duration and view count (not built), and log the videos still without a date (not built). Videos never seen before still get an empty `upload_date` until the RSS fill exists.
 
 ## Transcripts (`sdks/transcripts`, `seeker transcripts`, explicit method, no fallback)
 

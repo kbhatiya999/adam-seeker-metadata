@@ -18,6 +18,7 @@ Metadata repo for the YouTube channel https://www.youtube.com/@AdamSeekerOfficia
 - `.github/workflows/rebuild-videos.yml` — manual rebuild (workflow_dispatch only). Both workflows share a concurrency group so they never push at the same time. Do not add `push:` triggers: a push that touched a script once started a real rebuild on main.
 - `logs/` — script logs, committed by the workflow.
 - Findings and plans on video details (flat/RSS/API sources, the 15-video RSS window, rebuild merge) and transcripts per environment: `docs/video-details-and-transcripts.md`.
+- Primers for people (and agents) new to the SDKs, in `docs/primer/` (how an installed package describes itself with `METADATA` and `entry_points.txt`, plugins and entry points, the master list, YouTube sources, transcripts and caption formats; each ends with the mistakes already made and a runnable example). `scripts/tests/test_primer_docs.py` fails if a primer names a file that no longer exists, so update the primer when you move code. More primers are planned (workspace and packaging, SDK rules and errors, testing SDKs).
 - Docs: `README.md` (yt-dlp transcripts), `README_AUTOMATION.md`, `README_REBUILD.md`.
 
 ## Conventions
