@@ -1,0 +1,19 @@
+[project]
+name = "seeker-sdk-llm"
+version = "0.1.0"
+description = "Seeker SDK llm: language-model tools, providers (file queue now, Gemini later), cache and budget"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "seeker-sdk-core>=0.1.0",
+]
+
+[project.entry-points."seeker.llm_providers"]
+queue = "seeker_sdk_llm.providers:QueueProvider"
+
+[tool.uv.sources]
+seeker-sdk-core = { workspace = true }
+
+[build-system]
+requires = ["uv_build>=0.11,<0.12"]
+build-backend = "uv_build"

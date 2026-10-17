@@ -18,6 +18,10 @@ from .errors import PluginError
 
 VIDEO_SOURCES = "seeker.video_sources"
 TRANSCRIPT_METHODS = "seeker.transcript_methods"
+LLM_PROVIDERS = "seeker.llm_providers"                    # who runs a language-model tool (queue, later gemini)
+PROCESSING_STRATEGIES = "seeker.processing_strategies"    # transcripts -> passages (chunks, english-notes)
+CHAT_STRATEGIES = "seeker.chat_strategies"                # question + passages -> answer (keyword, multilingual)
+GROUPS = (VIDEO_SOURCES, TRANSCRIPT_METHODS, LLM_PROVIDERS, PROCESSING_STRATEGIES, CHAT_STRATEGIES)
 
 logger = logging.getLogger(__name__)
 _registered: Dict[str, Dict[str, Any]] = defaultdict(dict)

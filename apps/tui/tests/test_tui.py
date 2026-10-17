@@ -22,6 +22,13 @@ def test_build_commands():
         ["mise", "run", "local:transcripts:manage", "--", "--format", "ttml", "--final", "srt,txt", "compare", "abc"]
     assert action("method-show").build({"where": "all"}) == ["mise", "run", "all:method:show"]
     assert action("dashboard").build({"what": "local:tilt:up"}) == ["mise", "run", "local:tilt:up"]
+    assert action("process").build({"strategy": "english-notes", "videos": " a,b ", "max_requests": ""}) == \
+        ["mise", "run", "local:knowledge:manage", "--", "process", "--strategy", "english-notes", "--videos", "a,b"]
+    assert action("evaluate").build({"processing": "chunks", "chat": "multilingual", "videos": "", "judge": False}) == \
+        ["mise", "run", "local:eval:manage", "--", "run", "--processing", "chunks", "--chat", "multilingual", "--no-judge"]
+    assert action("ask").build({"question": "q?", "processing": "chunks", "chat": "keyword"}) == \
+        ["mise", "run", "local:chat:ask", "--", "q?", "--processing", "chunks", "--chat", "keyword"]
+    assert ("english-notes", "english-notes") in tui.plugin_choices(tui.plugins.PROCESSING_STRATEGIES)
     assert action("dashboard").build({"what": "local:workspace:graph"}) == ["mise", "run", "local:workspace:graph"]
     assert action("nuke").build({"dry": True, "all": True, "yes": False}) == \
         ["mise", "run", "nuke", "--", "--dry-run", "--all"]

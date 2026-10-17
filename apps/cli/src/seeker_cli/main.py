@@ -6,11 +6,11 @@ from typing import List, Optional
 
 from seeker_sdk_core import plugins
 
-from . import transcripts, videos
+from . import ai, transcripts, videos
 
 
 def _plugins(args) -> int:
-    for group in (plugins.VIDEO_SOURCES, plugins.TRANSCRIPT_METHODS):
+    for group in plugins.GROUPS:
         print(group)
         for name, origin in plugins.describe(group).items():
             print(f"  {name:<24} {origin}")
@@ -22,7 +22,8 @@ def build_parser() -> argparse.ArgumentParser:
     sub = parser.add_subparsers(dest="area", required=True)
     videos.add_parser(sub)
     transcripts.add_parser(sub)
-    pl = sub.add_parser("plugins", help="list the installed plugins (video sources, transcript methods)")
+    ai.add_parsers(sub)
+    pl = sub.add_parser("plugins", help="list the installed plugins (sources, methods, model providers, strategies)")
     pl.set_defaults(func=_plugins)
     return parser
 

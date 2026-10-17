@@ -9,3 +9,7 @@ data/transcripts/
 .vars
 dist/
 logs/transcripts.log
+# derived by the knowledge/chat/eval SDKs (model answers cost quota: keep, but do not commit)
+data/llm/
+data/knowledge/
+data/eval/

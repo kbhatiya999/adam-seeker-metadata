@@ -8,6 +8,10 @@ dependencies = [
     "seeker-sdk-core>=0.1.0",
     "seeker-sdk-videos>=0.1.0",
     "seeker-sdk-transcripts>=0.1.0",
+    "seeker-sdk-llm>=0.1.0",
+    "seeker-sdk-knowledge>=0.1.0",
+    "seeker-sdk-chat>=0.1.0",
+    "seeker-sdk-eval>=0.1.0",
 ]
 
 [project.scripts]
@@ -17,6 +21,10 @@ seeker = "seeker_cli.main:main"
 seeker-sdk-core = { workspace = true }
 seeker-sdk-videos = { workspace = true }
 seeker-sdk-transcripts = { workspace = true }
+seeker-sdk-llm = { workspace = true }
+seeker-sdk-knowledge = { workspace = true }
+seeker-sdk-chat = { workspace = true }
+seeker-sdk-eval = { workspace = true }
 
 [build-system]
 requires = ["uv_build>=0.11,<0.12"]

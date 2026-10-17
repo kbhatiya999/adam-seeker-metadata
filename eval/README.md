@@ -34,16 +34,21 @@ They are not statements of fact about Islam, and an answer is scored on matching
 | `must_mention` | items a good answer contains. Each item is a list of alternatives separated by `\|`, case-insensitive (`"5686"`, `"sword\|talwar"`) |
 | `checked_against`, `checked_terms` | (unanswerable) the videos searched and the words searched for |
 
-## How it will be scored (seeker-sdk-eval, not built yet)
+## How it is scored (`seeker-sdk-eval`, `seeker eval run`)
 - **Retrieval:** is the expected video, within 3 minutes of `near`, among the passages the strategy retrieved?
 - **Keywords:** the share of `must_mention` items in the answer. This is cheap and needs no model call.
-- **Judge:** Gemini compares the answer with the reference: correct, partly correct, wrong or unsupported.
+- **Judge:** a model (tool `judge@v1`) compares the answer with the reference: correct, partial, wrong or declined.
+  `--no-judge` skips it.
 - **Not found:** unanswerable questions must be declined. They only count when the evaluation is limited to
   `checked_against` (or a subset), because a video added later might discuss the topic.
 - **Cost:** requests and tokens used.
 
-Evaluations can be limited to videos, for example `seeker eval run --videos OCZ0vysB4xY,c8xpAqtScUQ`.
-Processing honours the same filter, so quota is only spent on the videos being evaluated.
+Evaluations can be limited to videos, for example
+`seeker eval run --processing english-notes --chat keyword --videos OCZ0vysB4xY,c8xpAqtScUQ`.
+Processing takes the same filter (`seeker knowledge process --videos ...`), so quota is only spent on the videos being
+evaluated. `seeker eval compare` shows the latest run of every pair.
+
+Results so far, with what they show and their caveats: `RESULTS.md`.
 
 ## How these were written (2026-10-18)
 Each video's transcript (`data/transcripts/<id>.srt`, yt-dlp automatic captions) was read in timed windows and
