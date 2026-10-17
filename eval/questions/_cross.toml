@@ -1,0 +1,76 @@
+# Questions whose answer is spread over several videos. Each `expect` entry is one place the answer is.
+written = "2026-10-18"
+
+[[question]]
+id = "cross-01"
+question = "Which Sahih Bukhari hadith numbers are cited across these streams, and for what?"
+lang = "en"
+type = "cross"
+tags = ["prophet", "women"]
+expect = [
+    { video = "OCZ0vysB4xY", near = "02:27:25" },
+    { video = "lu_6z23VheE", near = "03:31:56" },
+    { video = "mSrxZtByoa4", near = "01:01:55" },
+    { video = "mMfN_XkmC4s", near = "02:11:42" },
+]
+answer = "304 (shown as a degrading statement), 5686 (drinking urine), 3860 (not cleaning with bones) and 5891 (circumcision as fitrah)."
+must_mention = ["304", "5686", "3860", "5891"]
+
+[[question]]
+id = "cross-02"
+question = "In which videos is Ibn Kathir's tafsir used as evidence, and for which claims?"
+lang = "en"
+type = "cross"
+tags = ["tafsir"]
+expect = [
+    { video = "OCZ0vysB4xY", near = "03:17:40" },
+    { video = "2Vtn-67B238", near = "00:45:30" },
+    { video = "lu_6z23VheE", near = "02:14:33" },
+    { video = "lu_6z23VheE", near = "03:57:51" },
+]
+answer = "Flat earth: 'Nun' in 68:1 is a giant fish. Solomon: a jinn dishonoured Solomon's wives (with Tabari). Allah and Muhammad: the tafsir of 4:64, and 9:5 called the verse of the sword."
+must_mention = ["68|fish|whale", "solomon|suleman|wives", "4:64", "sword"]
+
+[[question]]
+id = "cross-03"
+question = "What arguments about the status of women come up across the streams?"
+lang = "en"
+type = "cross"
+tags = ["women"]
+expect = [
+    { video = "HyF6HAlId7g", near = "00:18:44" },
+    { video = "HyF6HAlId7g", near = "00:21:21" },
+    { video = "HyF6HAlId7g", near = "00:17:00" },
+    { video = "OCZ0vysB4xY", near = "02:27:25" },
+    { video = "lu_6z23VheE", near = "02:27:46" },
+    { video = "mMfN_XkmC4s", near = "02:11:42" },
+]
+answer = "2:228 (men a degree above women); the Bukhari hadith on women not praying or fasting during menses; why a woman cannot be a prophet; Bukhari 304 shown as degrading; a woman caller on dupatta and how she must behave in public; female circumcision."
+must_mention = ["2:228|228", "mens|period", "prophet|nabi", "dupatta", "circumcision"]
+
+[[question]]
+id = "cross-04"
+question = "Jinnat ka zikr kin videos mein aata hai aur kis silsile mein?"
+lang = "roman-ur"
+type = "cross"
+tags = ["jinn"]
+expect = [
+    { video = "c8xpAqtScUQ", near = "00:15:16" },
+    { video = "2Vtn-67B238", near = "01:19:11" },
+    { video = "2Vtn-67B238", near = "00:45:30" },
+]
+answer = "In 'Islam main Jjinn': the jinn joining a couple when no dua is said. In the Solomon video: jinn working for Solomon for a year after his death, and a jinn dishonouring his wives (Tabari, Ibn Kathir)."
+must_mention = ["dua|biwi|wife", "suleman|solomon", "year|saal|wives|biwiyon"]
+
+[[question]]
+id = "cross-05"
+question = "Which streams argue about how reliable the hadith collections such as Bukhari and Muslim are?"
+lang = "en"
+type = "cross"
+tags = ["hadith-reliability"]
+expect = [
+    { video = "HyF6HAlId7g", near = "01:05:22" },
+    { video = "mSrxZtByoa4", near = "01:19:30" },
+]
+answer = "'kya muhammad ek sacche insaan the?' (if Bukhari changed words then Bukhari and Muslim are frauds and all hadith go) and 'Comedy Night' (how many books, Bukhari, Muslim and Abu Dawood, would have to be declared wrong)."
+must_mention = ["bukhari", "muslim"]

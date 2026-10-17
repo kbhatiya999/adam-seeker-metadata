@@ -1,0 +1,44 @@
+video = "c8xpAqtScUQ"
+title = "Islam main Jjinn"
+transcript = "ytdlp automatic captions (hi-orig): Devanagari, English words written phonetically"
+written = "2026-10-18"
+
+[[question]]
+id = "c8xpAqtScUQ-01"
+question = "What is said to happen if a man is intimate with his wife without saying Allah's name or the special dua?"
+lang = "en"
+type = "fact"
+tags = ["jinn", "sexuality"]
+near = "00:15:16"
+answer = "If he does not say Allah's name or the special dua, a jinn joins in and takes part with him."
+must_mention = ["jinn|jin", "dua|name|bismillah"]
+
+[[question]]
+id = "c8xpAqtScUQ-02"
+question = "Which Sahih Muslim hadith number is cited about azl (coitus interruptus)?"
+lang = "en"
+type = "reference"
+tags = ["sexuality"]
+near = "01:50:28"
+answer = "Sahih Muslim 1438, about being asked about azl. A follow-up concerns what was done with a slave woman."
+must_mention = ["1438", "azl|coitus"]
+
+[[question]]
+id = "c8xpAqtScUQ-03"
+question = "Using the belief that a jinn or Satan joins in when no dua is said, what argument is made about the Prophet's own conception, and which verse is cited?"
+lang = "en"
+type = "argument"
+tags = ["jinn", "prophet", "sexuality"]
+near = "02:30:05"
+answer = "The speaker argues that the Prophet's father and mother did not say Bismillah or the dua when he was conceived, so by this belief Satan had a share. He says that explains the Prophet's wrong deeds and cites Surah Al-Isra 17:64 (Satan sharing in wealth and children). The same idea is raised earlier, around 01:11:15."
+must_mention = ["17:64|64|isra", "parent|father|mother|walid|walida|abdullah", "dua|bismillah"]
+
+[[question]]
+id = "c8xpAqtScUQ-04"
+question = "Agar miyan biwi ke milap ke waqt dua na padhi jaye to jinn ke baare mein kya kaha gaya?"
+lang = "roman-ur"
+type = "fact"
+tags = ["jinn", "sexuality"]
+near = "00:15:16"
+answer = "If the dua is not said, the jinn joins in. Same fact as c8xpAqtScUQ-01, asked in Roman Urdu to test retrieval across scripts."
+must_mention = ["jinn|jin", "dua"]

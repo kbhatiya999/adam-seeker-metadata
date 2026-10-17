@@ -1,0 +1,84 @@
+video = "OCZ0vysB4xY"
+title = "Kya Kehta Hai Islam: Zameen flat hai ya gol?"
+transcript = "ytdlp automatic captions (hi-orig): Devanagari, English words written phonetically"
+written = "2026-10-18"
+
+[[question]]
+id = "OCZ0vysB4xY-01"
+question = "Which Quran verse is used to say that Allah raised the heavens without pillars you can see, and what is questioned about it?"
+lang = "en"
+type = "reference"
+tags = ["science-claims"]
+near = "00:24:35"
+answer = "Surah Ar-Ra'd 13:2 (Allah erected the heavens without pillars that you can see). The stream questions what these invisible pillars would be."
+must_mention = ["13:2|ra'd|raad|rad", "pillar"]
+
+[[question]]
+id = "OCZ0vysB4xY-02"
+question = "According to Ibn Kathir, as read out in the stream, what is 'Nun' in chapter 68 verse 1?"
+lang = "en"
+type = "reference"
+tags = ["science-claims", "tafsir"]
+near = "03:17:40"
+answer = "Ibn Kathir's tafsir of 68:1 says Nun is a huge fish (whale) on the water surrounding the world. The stream jokes that real satellites would have photographed the fish."
+must_mention = ["68", "fish|whale", "ibn kathir|ibn-e-kathir|ibne kasir"]
+
+[[question]]
+id = "OCZ0vysB4xY-03"
+question = "Which verse is quoted as 'do you not see how the earth has been spread out' in the flat-earth argument?"
+lang = "en"
+type = "reference"
+tags = ["science-claims"]
+near = "03:34:45"
+answer = "Surah Al-Ghashiyah 88:20: Allah spread out the earth like a bed (bichauna)."
+must_mention = ["88:20|ghashiya|ghashiyah", "spread|bed|carpet"]
+
+[[question]]
+id = "OCZ0vysB4xY-04"
+question = "Chapter 71 of the Quran is brought up in the flat-earth debate. What does the verse say about the earth?"
+lang = "en"
+type = "reference"
+tags = ["science-claims"]
+near = "04:22:26"
+answer = "Surah Nuh 71:19: Allah made the earth like a carpet or bed (spread out). The speaker first says Al-Ma'idah verse 19, then corrects it to chapter 71."
+must_mention = ["71", "carpet|bed|bichauna|spread"]
+
+[[question]]
+id = "OCZ0vysB4xY-05"
+question = "Which Sahih Bukhari hadith number is put on screen as an example of a degrading statement made by the Prophet?"
+lang = "en"
+type = "reference"
+tags = ["women", "prophet"]
+near = "02:27:25"
+answer = "Sahih Bukhari 304, presented as a degrading statement by the Prophet."
+must_mention = ["304", "bukhari"]
+
+[[question]]
+id = "OCZ0vysB4xY-06"
+question = "Zameen ke nau surakh wali hadees ka zikr kis ne kiya aur kya kaha?"
+lang = "roman-ur"
+type = "fact"
+tags = ["science-claims"]
+near = "00:22:05"
+answer = "A viewer's super chat mentions a hadith claiming the earth has nine holes, saying it is proven and to Google it."
+must_mention = ["nine|9|nau", "hole|surakh"]
+
+[[question]]
+id = "OCZ0vysB4xY-07"
+question = "What standard does the stream set for what the Quran says about the earth, and for whom is the argument meant?"
+lang = "en"
+type = "argument"
+tags = ["science-claims"]
+near = "05:46:10"
+answer = "The Quran's job may not be to teach science, but if it talks about the earth and its creation it should fit the facts. Nothing in the Quran says the earth stands in a void and floats. The argument is meant especially for Pakistani Christians."
+must_mention = ["science", "fit|float", "christian"]
+
+[[question]]
+id = "OCZ0vysB4xY-08"
+question = "How is the 'barrier between two seas' explained in the stream?"
+lang = "en"
+type = "argument"
+tags = ["science-claims"]
+near = "01:26:54"
+answer = "The two waters are mixing all the time. The visible boundary stays only because new water keeps coming in, so it does not disappear instantly; it is not a miraculous barrier."
+must_mention = ["mix", "boundary|barrier"]

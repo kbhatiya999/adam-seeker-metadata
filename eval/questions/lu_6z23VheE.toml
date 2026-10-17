@@ -1,0 +1,64 @@
+video = "lu_6z23VheE"
+title = "Allah and Muhammad"
+transcript = "ytdlp automatic captions (hi-orig): Devanagari, English words written phonetically"
+written = "2026-10-18"
+
+[[question]]
+id = "lu_6z23VheE-01"
+question = "Which Sahih Bukhari hadith number is cited for the instruction to drink urine?"
+lang = "en"
+type = "reference"
+tags = ["prophet", "science-claims"]
+near = "03:31:56"
+answer = "Sahih Bukhari 5686 (the hadith telling people to go and drink urine)."
+must_mention = ["5686", "urine|mutr|peshab"]
+
+[[question]]
+id = "lu_6z23VheE-02"
+question = "What do the classical tafsirs call Surah At-Tawbah 9:5, according to the stream?"
+lang = "en"
+type = "reference"
+tags = ["violence", "tafsir"]
+near = "03:57:51"
+answer = "The verse of the sword: the stream points to the tafsirs of Al-Qurtubi and Ibn Kathir, and Ibn Kathir calls 9:5 the sword verse."
+must_mention = ["sword|talwar", "9:5|tawbah|tauba"]
+
+[[question]]
+id = "lu_6z23VheE-03"
+question = "What contradiction about dua (prayer) between Allah and the Prophet is raised?"
+lang = "en"
+type = "argument"
+tags = ["theology", "prophet"]
+near = "00:17:43"
+answer = "The Quran says dua may only be made to the Lord, yet Allah makes dua (sends blessings) for the Prophet, and that dua reaches a dead person."
+must_mention = ["dua|prayer|blessing", "dead"]
+
+[[question]]
+id = "lu_6z23VheE-04"
+question = "Whose tafsir of chapter 4 verse 64 is shown in the stream?"
+lang = "en"
+type = "reference"
+tags = ["tafsir"]
+near = "02:14:33"
+answer = "Ibn Kathir's tafsir of Surah An-Nisa 4:64 (it tells the story of a man); the stream adds that the full text is only in the Arabic."
+must_mention = ["4:64|64", "ibn kathir|ibn-e-kathir|ibne kasir"]
+
+[[question]]
+id = "lu_6z23VheE-05"
+question = "Which Bukhari hadith about the Prophet's death is shown, and who narrates it?"
+lang = "en"
+type = "reference"
+tags = ["prophet"]
+near = "00:54:40"
+answer = "A Bukhari hadith narrated by Aisha, the Prophet's youngest wife: the Prophet died while resting against her chest."
+must_mention = ["aisha|ayesha", "bukhari"]
+
+[[question]]
+id = "lu_6z23VheE-06"
+question = "Ek khatoon caller ne bataya ke bahar nikalte waqt usay kya kya khayal rakhna padta hai?"
+lang = "roman-ur"
+type = "fact"
+tags = ["women", "ex-muslim-life"]
+near = "02:27:46"
+answer = "As a woman she has to set her dupatta before going out, and still be careful about how she talks and how she walks."
+must_mention = ["dupatta", "careful|khayal|talk|walk"]

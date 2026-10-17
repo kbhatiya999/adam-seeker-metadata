@@ -1,0 +1,54 @@
+video = "mMfN_XkmC4s"
+title = "Kia Quran Allah ka kalam hai?"
+transcript = "ytdlp automatic captions (hi-orig): Devanagari, English words written phonetically"
+written = "2026-10-18"
+
+[[question]]
+id = "mMfN_XkmC4s-01"
+question = "According to the Bukhari hadith shown, in what state will people meet Allah on the Day of Judgement?"
+lang = "en"
+type = "reference"
+tags = ["theology"]
+near = "01:43:00"
+answer = "Barefoot, naked, walking on foot and uncircumcised."
+must_mention = ["barefoot", "naked", "uncircumcised"]
+
+[[question]]
+id = "mMfN_XkmC4s-02"
+question = "Which hadith numbers are cited in the discussion of circumcision, including female circumcision?"
+lang = "en"
+type = "reference"
+tags = ["women", "sexuality"]
+near = "02:11:42"
+answer = "Sahih Muslim 349 and Sahih Bukhari 5891. Bukhari 5891 lists circumcision as one of the five acts of fitrah; it is mainly applied to men, and female circumcision is discussed next."
+must_mention = ["349", "5891"]
+
+[[question]]
+id = "mMfN_XkmC4s-03"
+question = "Which verses of Surah Al-Anbiya are read, and what argument is drawn from verse 99?"
+lang = "en"
+type = "argument"
+tags = ["theology"]
+near = "01:39:11"
+answer = "Surah Al-Anbiya 21:98 and 21:99. Verse 99 says that if those (worshipped besides Allah) were gods they would not enter hell."
+must_mention = ["anbiya|21", "99", "hell|jahannam"]
+
+[[question]]
+id = "mMfN_XkmC4s-04"
+question = "What is said at the start of the stream about why the Quran exists?"
+lang = "en"
+type = "argument"
+tags = ["quran-history", "prophet"]
+near = "00:15:01"
+answer = "That the Quran exists to protect Muhammad: to save and justify his actions."
+must_mention = ["muhammad", "save|protect|justify|bachane"]
+
+[[question]]
+id = "mMfN_XkmC4s-05"
+question = "Hitler ke propaganda minister ki kaunsi baat quote ki gayi aur kis silsile mein?"
+lang = "roman-ur"
+type = "argument"
+tags = ["quran-history"]
+near = "03:00:22"
+answer = "His saying that if you tell a lie often enough people believe it. It is used against the claim that the Quran is a heavenly book when no evidence is given."
+must_mention = ["lie|jhooth|jhoot", "evidence|saboot|heavenly|asmani"]
