@@ -64,6 +64,44 @@ dependencies, that each SDK installs and imports on its own, and that plugins ar
 `mise run build:apps` does the same for `seeker-cli` and `seeker-tui` (`dist/apps`).
 All packages share version 0.1.0 for now; bump it in the package's `pyproject.toml`.
 
+## Seeing it: the Tilt dashboard
+`mise run local:tilt:up` opens a Tilt dashboard (http://localhost:10350) that shows the workspace live.
+The `Tiltfile` asks `scripts/workspace_graph.py` for the packages, so it follows the pyprojects:
+
+```mermaid
+graph LR
+  subgraph sdks
+    sdk_core["seeker-sdk-core"]
+    sdk_transcripts["seeker-sdk-transcripts"]
+    sdk_videos["seeker-sdk-videos"]
+  end
+  subgraph apps
+    app_cli["seeker-cli"]
+    app_tui["seeker-tui"]
+  end
+  sdk_transcripts --> sdk_core
+  sdk_videos --> sdk_core
+  app_cli --> sdk_core
+  app_cli --> sdk_transcripts
+  app_cli --> sdk_videos
+```
+(Regenerate with `mise run local:workspace:graph -- --mermaid`.)
+
+- One resource per package, grouped by `sdks` / `apps` / `services`. It runs the package's tests, waits
+  for the packages it depends on (`resource_deps`), and re-runs when its own code or the code of any
+  package it depends on changes. Touch `sdks/core` and core, videos, transcripts and cli all re-run;
+  `seeker-tui` does not, because it does not depend on core.
+- `registry`: the text graph and the plugins found through entry points (`seeker plugins`).
+- `data`: `videos-report`, `transcripts-stats` and `transcripts-missing` (which videos still lack a transcript, and which
+  wait for a retry), refreshed when `data/videos_master.json` changes.
+- `methods`: which method local, act and gh use (`mise run all:method:show`). It refreshes by itself when `fnox.local.toml`
+  or `.vars` changes and has a "Set a method (local or act)" button. Changing the gh variable is not a button.
+- Manual buttons (press the trigger arrow): `videos-update`, `videos-rebuild`, `transcripts-download` (5 transcripts, or
+  `tilt up -- --limit N`), `transcripts-compare` (newest video, or `tilt up -- --video ID`), `build-wheels` (blocked until all tests are green),
+  `act-videos-update`, `docker-diagnose`, `gh-runs`. Nothing in the dashboard publishes to GitHub.
+- `mise run local:tilt:ci` runs the automatic resources once without the UI (exit code 0 = all green).
+A new SDK from `mise run sdk:new` shows up in the dashboard by itself.
+
 ## Where future work fits (not planned yet)
 - **Daily update through an API / service**: `services/daily-update` (a deployable job or HTTP API) that
   calls `seeker-sdk-videos` and `seeker-sdk-core`; the GitHub workflow can then call it instead of

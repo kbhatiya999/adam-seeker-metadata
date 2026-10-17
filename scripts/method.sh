@@ -3,6 +3,7 @@
 #
 #   method.sh <local|act|gh> set  <master-list|transcript> <value|unset>
 #   method.sh <local|act|gh> show [master-list|transcript]
+#   method.sh all show [master-list|transcript]     (local, act and gh one after the other)
 #
 # Settings:
 #   master-list -> MASTER_LIST_METHOD   youtube_api | ytdlp      (how new videos are discovered)
@@ -16,20 +17,21 @@
 set -u
 
 target="${1:-}"; action="${2:-}"; setting="${3:-}"; value="${4:-}"
-usage() { sed -n '2,16p' "$0" | sed 's/^# \{0,1\}//'; exit 2; }
+usage() { sed -n '2,17p' "$0" | sed 's/^# \{0,1\}//'; exit 2; }
 [ -n "$target" ] && [ -n "$action" ] || usage
 
 name_of() { case "$1" in master-list) echo MASTER_LIST_METHOD ;; transcript) echo TRANSCRIPT_METHOD ;; *) return 1 ;; esac; }
 allowed_of() { case "$1" in master-list) echo "youtube_api ytdlp" ;; transcript) echo "ytdlp youtube_transcript_api" ;; esac; }
 show_cmd() { printf '  \033[2m$ %s\033[0m\n' "$*" >&2; }
 
-LOCAL_FILE="fnox.local.toml"; ACT_FILE=".vars"
+LOCAL_FILE="fnox.local.toml"; ACT_FILE=".vars"; UNREADABLE="(cannot read: is gh installed and signed in?)"
 
 read_value() { # target NAME -> value or empty
   case "$1" in
     local) [ -f "$LOCAL_FILE" ] && sed -n "s/^$2 *= *{ *default *= *\"\(.*\)\" *}.*/\1/p" "$LOCAL_FILE" | head -1 ;;
     act)   [ -f "$ACT_FILE" ] && sed -n "s/^$2=//p" "$ACT_FILE" | head -1 ;;
-    gh)    gh variable list --json name,value -q ".[] | select(.name==\"$2\") | .value" 2>/dev/null ;;
+    gh)    gh variable list --json name,value -q ".[] | select(.name==\"$2\") | .value" 2>/dev/null \
+             || echo "$UNREADABLE" ;;  # gh missing, not signed in or no access: do not claim it is unset
   esac
 }
 
@@ -64,6 +66,12 @@ PY
       ;;
   esac
 }
+
+if [ "$target" = all ]; then  # read-only overview; changing a method is per place, so `set` needs a target
+  [ "$action" = show ] || { echo "'all' only supports show: choose local, act or gh to set a method"; exit 2; }
+  for t in local act gh; do "$0" "$t" show ${setting:+"$setting"}; done
+  exit 0
+fi
 
 case "$target" in local|act|gh) ;; *) usage ;; esac
 

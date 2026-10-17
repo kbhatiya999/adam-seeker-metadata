@@ -116,6 +116,16 @@ mise run menu
 
 A terminal UI: pick an action (update/rebuild videos, transcripts, change a method, API key, Docker, nuke...), choose where to run it (local / act / real GitHub) and its options, review the exact command, then run it. Anything that publishes to GitHub, rebuilds the list, or deletes asks for confirmation first. Keys: arrows + Enter to choose, Esc to go back, `q` to quit.
 
+### Dashboard (Tilt)
+
+```bash
+mise run local:tilt:up        # http://localhost:10350, Ctrl-C to stop
+mise run local:tilt:ci        # same resources once, no UI, exit code 0 = all green
+mise run local:workspace:graph
+```
+
+A live picture of the workspace: one resource per SDK/app (its tests, in dependency order, re-run when it or anything it depends on changes), the plugin registry, reports on the master list and its transcripts, which method local/act/gh use (with a button to change local or act), and manual buttons for update, rebuild, transcripts download and compare, wheel build, act and docker diagnose. Nothing here publishes to GitHub. Details in `docs/architecture.md`.
+
 ### Switching methods (local / act / GitHub)
 
 Two settings choose how things are fetched. Each place a job runs keeps its own copy:
@@ -129,7 +139,8 @@ Two settings choose how things are fetched. Each place a job runs keeps its own 
 mise run local:method:set -- master-list ytdlp     # writes fnox.local.toml (used by local:* tasks)
 mise run act:method:set   -- master-list youtube_api   # writes .vars (used by act:* tasks)
 mise run gh:method:set    -- master-list youtube_api   # sets a repository variable (used by the real workflows)
-mise run local:method:show                         # also act:method:show / gh:method:show
+mise run all:method:show                           # local, act and gh together
+mise run local:method:show                         # or one place: act:method:show / gh:method:show
 mise run gh:method:set -- master-list unset        # remove a setting
 ```
 

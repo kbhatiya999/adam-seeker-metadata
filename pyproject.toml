@@ -28,5 +28,5 @@ dev = [
 ]
 
 [tool.pytest.ini_options]
-testpaths = ["sdks", "apps", "services"]
+testpaths = ["sdks", "apps", "services", "scripts"]
 addopts = "-q"
