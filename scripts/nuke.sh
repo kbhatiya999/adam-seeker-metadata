@@ -49,7 +49,7 @@ fi
 if [ "$ALL" = 1 ]; then
   echo "  - uv cache (global, shared by all uv projects)"
   echo "  - Docker volume act-toolcache (shared by all act projects)"
-  echo "  - mise installs of this project's exact tool versions (python, uv, act, fnox, gh)"
+  echo "  - mise installs of this project's exact tool versions (everything in the [tools] of mise.toml)"
   echo "  - fnox.local.toml (local secrets)"
 fi
 

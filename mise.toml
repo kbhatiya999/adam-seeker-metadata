@@ -10,6 +10,7 @@ act = "latest"
 fnox = "latest"
 gh = "latest"
 gcloud = "latest"
+tilt = "latest"
 
 [env]
 # gcloud's installer needs Python 3.10+; use mise's Python instead of the macOS system one
@@ -40,6 +41,19 @@ run = "scripts/build_packages.sh sdks"
 [tasks."build:apps"]
 description = "Build the apps (seeker-cli, seeker-tui) as wheels into dist/apps and verify them (flags after --: --sdist, --no-verify)"
 run = "scripts/build_packages.sh apps"
+
+[tasks."local:workspace:graph"]
+description = "[local] Print the workspace graph: SDKs, apps and services, who depends on whom, which plugins each provides (flags after --: --json, --mermaid)"
+run = "uv run --no-project python scripts/workspace_graph.py"
+
+[tasks."local:tilt:up"]
+description = "[local] Start the Tilt dashboard (default http://localhost:10350, TILT_PORT to change): tests per package in dependency order, plugin registry, data reports, buttons for update/act/build"
+run = "tilt up"
+interactive = true
+
+[tasks."local:tilt:ci"]
+description = "[local] Run the Tiltfile once without the UI: every automatic resource, exit code 0 only if all succeed (checks the Tiltfile itself)"
+run = "tilt ci --port 0 --timeout 10m"
 
 [tasks."sdk:new"]
 description = "Scaffold a new SDK: `mise run sdk:new -- rag [--plugin video_sources|transcript_methods]`"
@@ -74,6 +88,10 @@ run = "fnox exec -- uv run seeker transcripts"
 [tasks."local:method:set"]
 description = "[local] Set a method in fnox.local.toml: `mise run local:method:set -- master-list ytdlp|youtube_api|unset` or `-- transcript ytdlp|youtube_transcript_api|unset`"
 run = "scripts/method.sh local set"
+
+[tasks."all:method:show"]
+description = "[all] Show the methods set in every place at once: local (fnox.local.toml), act (.vars) and gh (repository variables)"
+run = "scripts/method.sh all show"
 
 [tasks."local:method:show"]
 description = "[local] Show the methods set in fnox.local.toml"

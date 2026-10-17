@@ -20,6 +20,9 @@ def test_build_commands():
         ["mise", "run", "local:transcripts:manage", "--", "--method", "ytdlp", "download-missing", "--limit", "3"]
     assert action("transcripts").build({"cmd": "compare", "video_id": "abc", "format": "ttml", "final": "srt,txt"}) == \
         ["mise", "run", "local:transcripts:manage", "--", "--format", "ttml", "--final", "srt,txt", "compare", "abc"]
+    assert action("method-show").build({"where": "all"}) == ["mise", "run", "all:method:show"]
+    assert action("dashboard").build({"what": "local:tilt:up"}) == ["mise", "run", "local:tilt:up"]
+    assert action("dashboard").build({"what": "local:workspace:graph"}) == ["mise", "run", "local:workspace:graph"]
     assert action("nuke").build({"dry": True, "all": True, "yes": False}) == \
         ["mise", "run", "nuke", "--", "--dry-run", "--all"]
     assert action("nuke").danger({"dry": False, "yes": True}) and not action("nuke").danger({"dry": True, "yes": True})
