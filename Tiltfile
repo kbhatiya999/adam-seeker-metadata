@@ -12,6 +12,7 @@
 #   scripts    tests of the repo's own tooling scripts (scripts/tests)
 #   registry   the dependency graph and the plugins found through entry points
 #   data       reports on data/videos_master.json; refreshed whenever the file changes
+#   knowledge  the model tool queue, what each processing strategy has done, the evaluation comparison
 #   methods    which method (youtube_api / ytdlp / youtube_transcript_api) local, act and gh use, with a button
 #              to change local or act; the list refreshes by itself when fnox.local.toml or .vars changes
 #   run        buttons (manual: press the "trigger" arrow) for the local update/rebuild/transcripts tasks
@@ -119,6 +120,30 @@ local_resource(
     deps=[MASTER],
     resource_deps=['setup'],
     labels=['data'],
+)
+
+# ---- knowledge (read-only views; they refresh while workers answer the queue) ------------------------
+
+local_resource(
+    'llm-queue',
+    cmd='%s llm status' % SEEKER,   # requests waiting for a model (subagents now, Gemini later), cache per tool
+    deps=['data/llm/queue'],
+    resource_deps=['setup'],
+    labels=['knowledge'],
+)
+local_resource(
+    'knowledge-status',
+    cmd='%s knowledge status' % SEEKER,
+    deps=['data/knowledge'],
+    resource_deps=['setup'],
+    labels=['knowledge'],
+)
+local_resource(
+    'eval-compare',
+    cmd='%s eval compare' % SEEKER,   # the latest evaluation of every (processing, chat) pair
+    deps=['data/eval/latest'],
+    resource_deps=['setup'],
+    labels=['knowledge'],
 )
 
 # ---- methods (read-only list; refreshed when a method is changed) -------------------------------------

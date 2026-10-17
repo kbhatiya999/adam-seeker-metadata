@@ -1,0 +1,24 @@
+[project]
+name = "seeker-sdk-chat"
+version = "0.1.0"
+description = "Seeker SDK chat: chat strategies (find passages, a model answers with citations)"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "seeker-sdk-core>=0.1.0",
+    "seeker-sdk-llm>=0.1.0",
+    "seeker-sdk-knowledge>=0.1.0",
+]
+
+[project.entry-points."seeker.chat_strategies"]
+keyword = "seeker_sdk_chat.strategies:KeywordStrategy"
+multilingual = "seeker_sdk_chat.strategies:MultilingualStrategy"
+
+[tool.uv.sources]
+seeker-sdk-core = { workspace = true }
+seeker-sdk-llm = { workspace = true }
+seeker-sdk-knowledge = { workspace = true }
+
+[build-system]
+requires = ["uv_build>=0.11,<0.12"]
+build-backend = "uv_build"

@@ -21,6 +21,8 @@ from textual.screen import ModalScreen, Screen
 from textual.widgets import Button, Checkbox, Footer, Header, Input, Label, OptionList, Select, Static
 from textual.widgets.option_list import Option
 
+from seeker_sdk_core import plugins
+
 Values = Dict[str, Any]
 Choices = Union[Sequence[Tuple[str, str]], Callable[[Values], Sequence[Tuple[str, str]]]]
 
@@ -30,7 +32,12 @@ WHERE = [
     ("gh - trigger the REAL GitHub workflow", "gh"),
 ]
 WHERE_NO_GH = WHERE[:2]
-TRANSCRIPT_METHODS = [("ytdlp", "ytdlp"), ("youtube_transcript_api", "youtube_transcript_api")]
+def plugin_choices(group: str) -> List[Tuple[str, str]]:
+    """Installed plugin names, so a new plugin shows up here without editing the menu."""
+    return [(n, n) for n in plugins.names(group)]
+
+
+TRANSCRIPT_METHODS = plugin_choices(plugins.TRANSCRIPT_METHODS)
 SETTINGS = [("master-list - how new videos are found", "master-list"),
             ("transcript - how transcripts are fetched", "transcript")]
 
@@ -47,6 +54,7 @@ class Field:
     choices: Choices = ()
     default: Any = ""
     visible: Callable[[Values], bool] = lambda v: True
+    optional: bool = False  # an input that may stay empty
 
 
 @dataclass
@@ -66,7 +74,7 @@ GH_WARN = "This triggers the REAL workflow on GitHub: it commits to the repo and
 def method_choices(v: Values):
     if v.get("setting") == "transcript":
         return TRANSCRIPT_METHODS + [("unset (remove the setting)", "unset")]
-    return [("youtube_api", "youtube_api"), ("ytdlp", "ytdlp"), ("unset (remove the setting)", "unset")]
+    return plugin_choices(plugins.VIDEO_SOURCES) + [("unset (remove the setting)", "unset")]
 
 
 def _manage_build(v: Values) -> List[str]:
@@ -94,6 +102,30 @@ def _transcripts_build(v: Values) -> List[str]:
     if c == "download-missing":
         return mise("local:transcripts:manage", "--method", v["method"], *fmt, c, "--limit", v["limit"])
     return mise("local:transcripts:manage", "--method", v["method"], *fmt, c, v["video_id"])
+
+
+def _opt(flag: str, value: Any) -> List[str]:
+    value = str(value or "").strip()
+    return [flag, value] if value else []
+
+
+def _process_build(v: Values) -> List[str]:
+    return mise("local:knowledge:manage", "process", "--strategy", v["strategy"], *_opt("--videos", v.get("videos")),
+                *_opt("--max-requests", v.get("max_requests")))
+
+
+def _eval_build(v: Values) -> List[str]:
+    return mise("local:eval:manage", "run", "--processing", v["processing"], "--chat", v["chat"],
+                *_opt("--videos", v.get("videos")), *([] if v.get("judge", True) else ["--no-judge"]))
+
+
+def _ask_build(v: Values) -> List[str]:
+    return mise("local:chat:ask", v["question"], "--processing", v["processing"], "--chat", v["chat"],
+                *_opt("--videos", v.get("videos")))
+
+
+WAITING_NOTE = ("Exit code 75 means it is waiting for model answers: answer the requests in data/llm/queue/pending "
+                "(or let the provider do it) and run it again.")
 
 
 def _nuke_build(v: Values) -> List[str]:
@@ -179,6 +211,31 @@ ACTIONS: List[Action] = [
                    ("ci - run every automatic resource once, headless", "local:tilt:ci"),
                    ("graph - print the workspace graph (SDKs, apps, plugins)", "local:workspace:graph")],
                   "local:tilt:up")]),
+    Action("process", "Knowledge", "Process transcripts",
+           "Run a processing strategy: chunks (no model) or english-notes (a model writes English notes). " + WAITING_NOTE,
+           _process_build,
+           [Field("strategy", "Strategy", "select", lambda v: plugin_choices(plugins.PROCESSING_STRATEGIES), "chunks"),
+            Field("videos", "Videos, comma separated (empty: every video with a transcript)", "input", optional=True),
+            Field("max_requests", "At most this many new model requests (empty: no limit)", "input", optional=True)]),
+    Action("evaluate", "Knowledge", "Evaluate a strategy pair",
+           "Answer and score eval/questions with a processing strategy and a chat strategy. " + WAITING_NOTE,
+           _eval_build,
+           [Field("processing", "Processing strategy", "select",
+                  lambda v: plugin_choices(plugins.PROCESSING_STRATEGIES), "english-notes"),
+            Field("chat", "Chat strategy", "select", lambda v: plugin_choices(plugins.CHAT_STRATEGIES), "keyword"),
+            Field("videos", "Only questions about these videos (comma separated, empty: all)", "input", optional=True),
+            Field("judge", "Use the model judge (otherwise keyword and retrieval scores only)", "check", default=True)]),
+    Action("compare", "Knowledge", "Compare evaluations", "Table of the latest evaluation of every strategy pair.",
+           lambda v: mise("local:eval:manage", "compare")),
+    Action("ask", "Knowledge", "Ask a question", "Answer a question from processed videos, with sources. " + WAITING_NOTE,
+           _ask_build,
+           [Field("question", "Question", "input"),
+            Field("processing", "Processing strategy", "select",
+                  lambda v: plugin_choices(plugins.PROCESSING_STRATEGIES), "english-notes"),
+            Field("chat", "Chat strategy", "select", lambda v: plugin_choices(plugins.CHAT_STRATEGIES), "keyword"),
+            Field("videos", "Only these videos (comma separated, empty: all processed)", "input", optional=True)]),
+    Action("llm-status", "Knowledge", "Model queue status", "Requests waiting for a model, rejected answers, cache.",
+           lambda v: mise("local:llm:manage", "status")),
     Action("nuke", "Danger", "Nuke", "Remove what this project created (.venv, .act, Docker leftovers; --all for more).",
            _nuke_build,
            [Field("dry", "--dry-run (only show what would be removed)", "check", default=True),
@@ -327,7 +384,7 @@ class FormScreen(ModalScreen[Optional[List[str]]]):
 
     def _visible_missing(self) -> Optional[str]:
         for f in self.action.fields:
-            if f.kind == "input" and f.visible(self.values) and not str(self.values.get(f.key, "")).strip():
+            if f.kind == "input" and not f.optional and f.visible(self.values) and not str(self.values.get(f.key, "")).strip():
                 return f.label
         return None
 

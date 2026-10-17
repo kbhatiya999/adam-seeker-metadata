@@ -9,6 +9,10 @@ sdks/
   core/        seeker-sdk-core         MasterList store, errors, settings, plugin registry (no dependencies)
   videos/      seeker-sdk-videos       video sources (plugins), method resolution, update/rebuild, catalog
   transcripts/ seeker-sdk-transcripts  transcript methods (plugins), formats + conversion, compare
+  llm/         seeker-sdk-llm          language-model tools, providers (file queue now, Gemini later), cache, budget
+  knowledge/   seeker-sdk-knowledge    processing strategies: transcripts -> passages (text files under data/knowledge)
+  chat/        seeker-sdk-chat         chat strategies: find passages (multi-script BM25), a model answers with citations
+  eval/        seeker-sdk-eval         eval/questions against (processing, chat) pairs: scores, judge, comparison
 apps/
   cli/         seeker-cli              the `seeker` command (argparse, logging, prompts, exit codes)
   tui/         seeker-tui              the Textual menu (builds and runs `mise run ...` commands)
@@ -34,6 +38,9 @@ Plugins are discovered through Python **entry points**; no registry file, no edi
 |---|---|---|---|
 | `seeker.video_sources` | `seeker_sdk_videos.VideoSource` | `youtube_api`, `ytdlp` | `MASTER_LIST_METHOD` |
 | `seeker.transcript_methods` | `seeker_sdk_transcripts.TranscriptMethod` | `ytdlp`, `youtube_transcript_api` | `--method` / `TRANSCRIPT_METHOD` |
+| `seeker.llm_providers` | `seeker_sdk_llm.Provider` | `queue` (Gemini later) | `--provider` / `SEEKER_LLM_PROVIDER` |
+| `seeker.processing_strategies` | `seeker_sdk_knowledge.ProcessingStrategy` | `chunks`, `english-notes` | `seeker knowledge process --strategy` |
+| `seeker.chat_strategies` | `seeker_sdk_chat.ChatStrategy` | `keyword`, `multilingual` | `seeker ask/eval --chat` |
 
 `seeker plugins` lists what is installed. A plugin in another package declares itself in its own
 `pyproject.toml`:
@@ -46,6 +53,35 @@ my_source = "my_package.sources:MySource"
 Explicit means explicit: a chosen method is the only one used, a failure is an error, and there is no
 fallback to another plugin. In-process registration (`seeker_sdk_core.plugins.register`) exists for
 tests and notebooks.
+
+## Language-model tools, strategies and evaluation
+Everything that needs a language model is a **tool** (`seeker_sdk_llm.Tool`): instructions kept as a versioned
+prompt file next to the code (`prompts/<name>_<version>.md`), a JSON input, and the JSON shape the answer must
+have. A **provider** runs tools; the code that uses a tool never knows which one:
+
+| Tool | Used by | Input -> output |
+|---|---|---|
+| `english_notes@v1` | processing `english-notes` | a 15-minute transcript window -> attributed English notes with times, refs, topics |
+| `expand_query@v1` | chat `multilingual` | a question -> keyword queries in English, Roman Urdu, Devanagari, Bengali |
+| `answer@v1` | every chat strategy | question + passages -> answer, cited passage ids, not_found |
+| `judge@v1` | evaluation | question + reference + answer -> correct, partial, wrong or declined |
+
+- **`queue` provider (now):** each request becomes `data/llm/queue/pending/<id>.json` (instructions, input,
+  schema and where to answer). A worker writes `data/llm/queue/done/<id>.json`. During development the workers are
+  disposable fast subagents (Claude Haiku) standing in for Gemini Flash; a person or a script can answer too.
+  The next run checks the answer against the schema (a bad one goes to `rejected/` and the request stays),
+  caches it and continues. Commands that are waiting exit with code 75; running them again continues.
+- **Cache:** `data/llm/cache/<tool>@<version>/<id>.json`. A request id is a hash of tool, instructions and input,
+  so an answer is never paid for twice and an edited prompt never reuses old answers.
+- **Budget:** `--max-requests` caps new requests per run (for a provider with a daily quota).
+- **Gemini (later):** one more provider in `seeker.llm_providers` that sends the same instructions, input and
+  schema; nothing else changes.
+
+Processing strategies write `data/knowledge/<strategy>@<version>/` (passages per video as JSONL, readable
+notes, a manifest). Chat strategies search those passages. `seeker eval run --processing X --chat Y --videos ...`
+answers `eval/questions` with that pair and scores it: retrieval (right video and time among the passages),
+keywords (`must_mention`), the judge's verdict and "not found" on unanswerable questions. `seeker eval compare`
+puts the latest run of every pair side by side. A new strategy or a new prompt version is just another row.
 
 ## Adding an SDK
 ```bash
@@ -72,18 +108,38 @@ The `Tiltfile` asks `scripts/workspace_graph.py` for the packages, so it follows
 graph LR
   subgraph sdks
     sdk_core["seeker-sdk-core"]
+    sdk_llm["seeker-sdk-llm"]
     sdk_transcripts["seeker-sdk-transcripts"]
+    sdk_knowledge["seeker-sdk-knowledge"]
+    sdk_chat["seeker-sdk-chat"]
+    sdk_eval["seeker-sdk-eval"]
     sdk_videos["seeker-sdk-videos"]
   end
   subgraph apps
     app_cli["seeker-cli"]
     app_tui["seeker-tui"]
   end
+  sdk_llm --> sdk_core
   sdk_transcripts --> sdk_core
+  sdk_knowledge --> sdk_core
+  sdk_knowledge --> sdk_llm
+  sdk_knowledge --> sdk_transcripts
+  sdk_chat --> sdk_core
+  sdk_chat --> sdk_knowledge
+  sdk_chat --> sdk_llm
+  sdk_eval --> sdk_chat
+  sdk_eval --> sdk_core
+  sdk_eval --> sdk_knowledge
+  sdk_eval --> sdk_llm
   sdk_videos --> sdk_core
+  app_cli --> sdk_chat
   app_cli --> sdk_core
+  app_cli --> sdk_eval
+  app_cli --> sdk_knowledge
+  app_cli --> sdk_llm
   app_cli --> sdk_transcripts
   app_cli --> sdk_videos
+  app_tui --> sdk_core
 ```
 (Regenerate with `mise run local:workspace:graph -- --mermaid`.)
 

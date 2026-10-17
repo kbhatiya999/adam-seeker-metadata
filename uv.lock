@@ -1,11 +1,15 @@
 version = 1
-revision = 3
+revision = 5
 requires-python = ">=3.11"
 
 [manifest]
 members = [
     "seeker-cli",
+    "seeker-sdk-chat",
     "seeker-sdk-core",
+    "seeker-sdk-eval",
+    "seeker-sdk-knowledge",
+    "seeker-sdk-llm",
     "seeker-sdk-transcripts",
     "seeker-sdk-videos",
     "seeker-tui",
@@ -336,22 +340,94 @@ name = "seeker-cli"
 version = "0.1.0"
 source = { editable = "apps/cli" }
 dependencies = [
+    { name = "seeker-sdk-chat" },
     { name = "seeker-sdk-core" },
+    { name = "seeker-sdk-eval" },
+    { name = "seeker-sdk-knowledge" },
+    { name = "seeker-sdk-llm" },
     { name = "seeker-sdk-transcripts" },
     { name = "seeker-sdk-videos" },
 ]
 
 [package.metadata]
 requires-dist = [
+    { name = "seeker-sdk-chat", editable = "sdks/chat" },
     { name = "seeker-sdk-core", editable = "sdks/core" },
+    { name = "seeker-sdk-eval", editable = "sdks/eval" },
+    { name = "seeker-sdk-knowledge", editable = "sdks/knowledge" },
+    { name = "seeker-sdk-llm", editable = "sdks/llm" },
     { name = "seeker-sdk-transcripts", editable = "sdks/transcripts" },
     { name = "seeker-sdk-videos", editable = "sdks/videos" },
+]
+
+[[package]]
+name = "seeker-sdk-chat"
+version = "0.1.0"
+source = { editable = "sdks/chat" }
+dependencies = [
+    { name = "seeker-sdk-core" },
+    { name = "seeker-sdk-knowledge" },
+    { name = "seeker-sdk-llm" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "seeker-sdk-core", editable = "sdks/core" },
+    { name = "seeker-sdk-knowledge", editable = "sdks/knowledge" },
+    { name = "seeker-sdk-llm", editable = "sdks/llm" },
 ]
 
 [[package]]
 name = "seeker-sdk-core"
 version = "0.1.0"
 source = { editable = "sdks/core" }
+
+[[package]]
+name = "seeker-sdk-eval"
+version = "0.1.0"
+source = { editable = "sdks/eval" }
+dependencies = [
+    { name = "seeker-sdk-chat" },
+    { name = "seeker-sdk-core" },
+    { name = "seeker-sdk-knowledge" },
+    { name = "seeker-sdk-llm" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "seeker-sdk-chat", editable = "sdks/chat" },
+    { name = "seeker-sdk-core", editable = "sdks/core" },
+    { name = "seeker-sdk-knowledge", editable = "sdks/knowledge" },
+    { name = "seeker-sdk-llm", editable = "sdks/llm" },
+]
+
+[[package]]
+name = "seeker-sdk-knowledge"
+version = "0.1.0"
+source = { editable = "sdks/knowledge" }
+dependencies = [
+    { name = "seeker-sdk-core" },
+    { name = "seeker-sdk-llm" },
+    { name = "seeker-sdk-transcripts" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "seeker-sdk-core", editable = "sdks/core" },
+    { name = "seeker-sdk-llm", editable = "sdks/llm" },
+    { name = "seeker-sdk-transcripts", editable = "sdks/transcripts" },
+]
+
+[[package]]
+name = "seeker-sdk-llm"
+version = "0.1.0"
+source = { editable = "sdks/llm" }
+dependencies = [
+    { name = "seeker-sdk-core" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "seeker-sdk-core", editable = "sdks/core" }]
 
 [[package]]
 name = "seeker-sdk-transcripts"
@@ -392,11 +468,15 @@ name = "seeker-tui"
 version = "0.1.0"
 source = { editable = "apps/tui" }
 dependencies = [
+    { name = "seeker-sdk-core" },
     { name = "textual" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "textual", specifier = ">=8.2.8" }]
+requires-dist = [
+    { name = "seeker-sdk-core", editable = "sdks/core" },
+    { name = "textual", specifier = ">=8.2.8" },
+]
 
 [[package]]
 name = "seeker-workspace"

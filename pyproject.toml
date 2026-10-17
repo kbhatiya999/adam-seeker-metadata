@@ -16,6 +16,10 @@ package = false
 members = ["sdks/*", "apps/*", "services/*"]
 
 [tool.uv.sources]
+seeker-sdk-eval = { workspace = true }
+seeker-sdk-chat = { workspace = true }
+seeker-sdk-knowledge = { workspace = true }
+seeker-sdk-llm = { workspace = true }
 seeker-sdk-core = { workspace = true }
 seeker-sdk-videos = { workspace = true }
 seeker-sdk-transcripts = { workspace = true }
