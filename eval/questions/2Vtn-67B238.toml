@@ -1,0 +1,74 @@
+video = "2Vtn-67B238"
+title = "Suleman aur uska udta khatola"
+transcript = "ytdlp automatic captions (hi-orig): Devanagari, English words written phonetically"
+written = "2026-10-18"
+
+[[question]]
+id = "2Vtn-67B238-01"
+question = "In the hadith discussed, how many women did Solomon say he would visit in one night, and what did he expect from it?"
+lang = "en"
+type = "reference"
+tags = ["prophet", "sexuality"]
+near = "02:21:24"
+answer = "A hadith narrated by Abu Huraira: Solomon said he would go to 90 women in one night and each would give birth to a horseman who would fight jihad in Allah's cause."
+must_mention = ["90|ninety", "jihad|horseman|horsemen", "abu huraira|abu hurairah"]
+
+[[question]]
+id = "2Vtn-67B238-02"
+question = "How did the jinn fail to notice that Solomon had died?"
+lang = "en"
+type = "fact"
+tags = ["jinn", "prophet"]
+near = "01:19:11"
+answer = "Solomon died standing, propped on his wooden staff. The jinn, who had been given hard labour, kept working for a full year believing he was still alive."
+must_mention = ["staff|stick|cane|lakdi", "year|saal"]
+
+[[question]]
+id = "2Vtn-67B238-03"
+question = "Which classical tafsirs are said to report that a jinn dishonoured Solomon's wives?"
+lang = "en"
+type = "reference"
+tags = ["jinn", "tafsir"]
+near = "00:45:30"
+answer = "Tabari and Ibn Kathir: both are said to write that a jinn violated the honour of Solomon's wives."
+must_mention = ["tabari", "ibn kathir|ibn-e-kathir|ibne kasir"]
+
+[[question]]
+id = "2Vtn-67B238-04"
+question = "Why does the stream say Muslims should accept Ibn Kathir's tafsir as an authority?"
+lang = "en"
+type = "argument"
+tags = ["tafsir"]
+near = "00:40:41"
+answer = "Because Zakir Naik has called Ibn Kathir's tafsir one of the best tafsirs of the Quran."
+must_mention = ["zakir|naik", "best"]
+
+[[question]]
+id = "2Vtn-67B238-05"
+question = "What point is made about the order of the surahs, using Al-Baqarah and Al-Alaq?"
+lang = "en"
+type = "argument"
+tags = ["quran-history"]
+near = "01:31:50"
+answer = "Al-Baqarah came after the Hijra (the first surah after it) yet sits at the start of the Quran, while Al-Alaq, revealed early, is number 96."
+must_mention = ["baqara|baqarah", "96|alaq"]
+
+[[question]]
+id = "2Vtn-67B238-06"
+question = "Which description of Solomon's temple is said to be detailed enough to rebuild it today?"
+lang = "en"
+type = "fact"
+tags = ["prophet"]
+near = "00:16:20"
+answer = "The account read on stream (partitions, the inner sanctuary, a pair of cherubim made of olive wood: the biblical description) is called a complete blueprint that could be recreated in AutoCAD-type software."
+must_mention = ["blueprint|autocad", "olive|cherub|courtyard|sanctuary"]
+
+[[question]]
+id = "2Vtn-67B238-07"
+question = "Which verse is read saying that no one can change Allah's words?"
+lang = "en"
+type = "reference"
+tags = ["quran-history"]
+near = "01:46:09"
+answer = "Surah Al-Kahf 18:27: recite what is sent to you of your Lord's book; none can change His words."
+must_mention = ["18:27|kahf", "27"]

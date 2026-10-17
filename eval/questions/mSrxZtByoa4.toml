@@ -1,0 +1,54 @@
+video = "mSrxZtByoa4"
+title = "Comedy Night with Adam Seeker - shan-e-Muhammad"
+transcript = "ytdlp automatic captions (hi-orig): Devanagari, English words written phonetically"
+written = "2026-10-18"
+
+[[question]]
+id = "mSrxZtByoa4-01"
+question = "Which Bukhari hadith number is cited about why one should not clean oneself with a bone after the toilet?"
+lang = "en"
+type = "reference"
+tags = ["prophet", "jinn"]
+near = "01:01:55"
+answer = "Sahih Bukhari 3860."
+must_mention = ["3860"]
+
+[[question]]
+id = "mSrxZtByoa4-02"
+question = "What happens to Satan when he hears the call to prayer, according to the hadith cited?"
+lang = "en"
+type = "reference"
+tags = ["prophet"]
+near = "00:16:57"
+answer = "He passes wind as soon as he hears the adhan, cited from Sahih al-Bukhari. The captions give the number as 68, probably a mishearing."
+must_mention = ["adhan|azan|azaan|call to prayer", "wind|fart|pad"]
+
+[[question]]
+id = "mSrxZtByoa4-03"
+question = "Why would all eleven wives of the Prophet count as 'manhoos' (ill-omened) under the interpretation discussed?"
+lang = "en"
+type = "argument"
+tags = ["women", "prophet", "tafsir"]
+near = "02:41:56"
+answer = "Under that tafsir or interpretation a wife who bears no child is ill-omened, and the stream says none of his eleven wives bore him a child, so all eleven would be manhoos."
+must_mention = ["11|eleven", "child|bacha|baccha", "manhoos|ill-omened|unlucky"]
+
+[[question]]
+id = "mSrxZtByoa4-04"
+question = "Where is 'actual Islam' said to be, and when does it come out?"
+lang = "en"
+type = "argument"
+tags = ["violence"]
+near = "04:40:17"
+answer = "Actual Islam is buried in the books; when sharia is implemented it comes out of the books, likened to zombies."
+must_mention = ["sharia|shariah|shariat", "book|kitab"]
+
+[[question]]
+id = "mSrxZtByoa4-05"
+question = "Which hadith collections does a participant say would have to be declared wrong?"
+lang = "en"
+type = "argument"
+tags = ["hadith-reliability"]
+near = "01:19:30"
+answer = "Sahih Bukhari, Sahih Muslim and Abu Dawood. The participant asks how many hadith and books would have to be declared wrong."
+must_mention = ["bukhari", "muslim", "dawood|dawud|daud"]

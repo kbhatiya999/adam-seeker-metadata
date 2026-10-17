@@ -74,7 +74,7 @@ for p in packages:
 local_resource(
     'scripts',
     cmd=PYTEST + ' scripts',
-    deps=['scripts'],
+    deps=['scripts', 'eval'],  # eval/questions are validated by scripts/tests
     resource_deps=['setup'],
     labels=['scripts'],
     allow_parallel=True,

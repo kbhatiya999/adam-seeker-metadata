@@ -1,0 +1,44 @@
+video = "-q9YKqT5TS4"
+title = "History and Quran - Adam Seeker Vs Shahzad Confused"
+transcript = "ytdlp automatic captions (bn-orig): Bengali script, not Devanagari. A hard case for retrieval."
+written = "2026-10-18"
+
+[[question]]
+id = "-q9YKqT5TS4-01"
+question = "What challenge is put to the Muslim side about the original Quran from 1400 years ago?"
+lang = "en"
+type = "argument"
+tags = ["quran-history"]
+near = "00:03:57"
+answer = "Whether anyone has the original Quran revealed 1400 years ago. The answer that today's Quran is the same as the original is called just a claim that needs proof."
+must_mention = ["1400", "original|asal"]
+
+[[question]]
+id = "-q9YKqT5TS4-02"
+question = "Across how many generations is it argued that no original written Quran survives?"
+lang = "en"
+type = "argument"
+tags = ["quran-history"]
+near = "00:12:09"
+answer = "Six generations: the companions, the tabi'in, the taba tabi'in and so on; none of their written Qurans survives."
+must_mention = ["six|6|chhe", "generation|nasl"]
+
+[[question]]
+id = "-q9YKqT5TS4-03"
+question = "How does the Muslim side describe the purpose of the Quran later in the debate?"
+lang = "en"
+type = "fact"
+tags = ["quran-history"]
+near = "01:03:59"
+answer = "That the Quran is purely about humanity: it was sent for people, for their guidance (hidayat), and nothing else."
+must_mention = ["humanity|insaniyat|people|mankind", "guidance|hidayat"]
+
+[[question]]
+id = "-q9YKqT5TS4-04"
+question = "Kya 1400 saal purana asal Quran kisi library mein maujood hai, is par kya behas hui?"
+lang = "roman-ur"
+type = "argument"
+tags = ["quran-history"]
+near = "00:10:58"
+answer = "The challenge: is the Quran written down from the Prophet's mouth available in any library today so it can be checked? Saying today's copy is identical to the original is only a claim."
+must_mention = ["library|kutubkhana", "original|asal|claim|dawa"]

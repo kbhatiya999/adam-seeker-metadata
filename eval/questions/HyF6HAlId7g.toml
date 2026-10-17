@@ -1,0 +1,64 @@
+video = "HyF6HAlId7g"
+title = "kya muhammad ek sacche insaan the?"
+transcript = "ytdlp automatic captions (hi-orig): Devanagari, English words written phonetically"
+written = "2026-10-18"
+
+[[question]]
+id = "HyF6HAlId7g-01"
+question = "Which Quran verse is shown for 'men have a degree above women'?"
+lang = "en"
+type = "reference"
+tags = ["women"]
+near = "00:18:44"
+answer = "Surah Al-Baqarah 2:228 (wa lir-rijali alayhinna darajah: men have a degree over them)."
+must_mention = ["2:228|228", "degree|darja|darajah"]
+
+[[question]]
+id = "HyF6HAlId7g-02"
+question = "What Bukhari hadith about women and menstruation is quoted?"
+lang = "en"
+type = "reference"
+tags = ["women"]
+near = "00:21:21"
+answer = "The Bukhari hadith: 'Isn't it true that a woman can neither pray nor fast during her menses?'"
+must_mention = ["pray|namaz|salah", "fast|roza", "mens|period"]
+
+[[question]]
+id = "HyF6HAlId7g-03"
+question = "What fairness argument is raised about women and prophethood?"
+lang = "en"
+type = "argument"
+tags = ["women", "theology"]
+near = "00:17:00"
+answer = "If men and women are weighed on the same scale on Judgement Day and both get equal honour, why can a woman not become a prophet? That is called an injustice."
+must_mention = ["prophet|nabi", "judgement|judgment|qayamat|scale"]
+
+[[question]]
+id = "HyF6HAlId7g-04"
+question = "What follows, according to the stream, if Bukhari is accused of changing the wording of hadith?"
+lang = "en"
+type = "argument"
+tags = ["hadith-reliability"]
+near = "01:05:22"
+answer = "If Bukhari altered the words he lied; then Bukhari and Imam Muslim would both be frauds and all hadith would have to be thrown out."
+must_mention = ["bukhari", "muslim", "hadith|hadees"]
+
+[[question]]
+id = "HyF6HAlId7g-05"
+question = "What is said about diacritics (zer, zabar, pesh) and the earliest Bukhari manuscript?"
+lang = "en"
+type = "argument"
+tags = ["hadith-reliability", "quran-history"]
+near = "01:00:34"
+answer = "It is claimed that Bukhari has no zer/zabar/pesh problem because Arabic was fully developed by his time. In response the earliest Bukhari manuscript is shown, said to be written in the same way."
+must_mention = ["manuscript", "zer|zabar|pesh|diacritic"]
+
+[[question]]
+id = "HyF6HAlId7g-06"
+question = "What do many ex-Muslims living among Muslims do about their identity, according to the end of the stream?"
+lang = "en"
+type = "fact"
+tags = ["ex-muslim-life"]
+near = "04:26:35"
+answer = "Many people, boys and girls, are leaving Islam. Even if they cannot reveal, or they hide, that they are ex-Muslims while living among the same people, at least they get to live their own life."
+must_mention = ["hide|chupa|identity", "ex-muslim|ex muslim"]

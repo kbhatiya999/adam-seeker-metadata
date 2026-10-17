@@ -1,0 +1,37 @@
+# Questions these videos cannot answer. The right answer is to say it was not found, without inventing anything.
+# `checked_against` lists the videos whose transcripts were searched for `checked_terms` (no match in any).
+# A question only counts as unanswerable when an evaluation is limited to these videos (or a subset of them):
+# a video added later might discuss the topic.
+written = "2026-10-18"
+checked_against = ["OCZ0vysB4xY", "2Vtn-67B238", "lu_6z23VheE", "HyF6HAlId7g",
+                   "-q9YKqT5TS4", "mSrxZtByoa4", "mMfN_XkmC4s", "c8xpAqtScUQ"]
+
+[[question]]
+id = "none-01"
+question = "What does Adam Seeker say about cryptocurrency or Bitcoin?"
+lang = "en"
+type = "unanswerable"
+tags = []
+checked_terms = ["क्रिप्टो", "बिटकॉइन", "बिटक", "ক্রিপ্টো"]
+answer = "Not discussed in these videos."
+must_mention = []
+
+[[question]]
+id = "none-02"
+question = "In which stream is the FIFA World Cup discussed?"
+lang = "en"
+type = "unanswerable"
+tags = []
+checked_terms = ["फीफा", "ফিফা", "फुटबॉल वर्ल्ड"]
+answer = "In none of these videos."
+must_mention = []
+
+[[question]]
+id = "none-03"
+question = "Olympics ke baare mein stream mein kya kaha gaya?"
+lang = "roman-ur"
+type = "unanswerable"
+tags = []
+checked_terms = ["ओलंपिक", "ओलम्पिक", "অলিম্পিক"]
+answer = "Nothing; the Olympics are not discussed in these videos."
+must_mention = []
