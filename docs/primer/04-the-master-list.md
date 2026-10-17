@@ -44,7 +44,11 @@ up as noise in every git diff):
   finished.
 - Added later by people or tools: `categories`, `relevance_score`, `notes`, `key_topics`
   (`seeker videos manage ...`), and `transcript_file`, `transcript_text_file`, `transcript_downloaded`,
-  `transcript_download_date` (set by `MasterList.link_transcript`).
+  `transcript_download_date` (set by `MasterList.link_transcript`). When a video has **no transcript**
+  (a finished live stream, say) the transcript download writes `transcript_status: "unavailable"`,
+  `transcript_attempts`, `transcript_checked` and `transcript_retry_after`, so it is not retried every run
+  (see [06-transcripts-and-caption-formats.md](06-transcripts-and-caption-formats.md)). Finding the
+  transcript later removes those four fields.
 
 ## The rules the file follows
 1. **Newest first.** Sorted by `upload_date`, descending. Videos with no date go last.
@@ -71,7 +75,8 @@ For every freshly fetched video that also existed before:
 - If the old record has `categories`, they are copied, and the video becomes `categorized` with
   `needs_review: false`.
 - These fields are copied when set (`PRESERVED_FIELDS`): `relevance_score`, `notes`, `key_topics`,
-  `transcript_file`, `transcript_text_file`.
+  `transcript_file`, `transcript_text_file`, `transcript_downloaded`, `transcript_download_date` and the four
+  transcript status fields.
 
 Everything else comes from the fresh fetch. A video that the source does not return is **gone**.
 
@@ -97,9 +102,9 @@ The Tilt `videos-report` resource shows the report and refreshes when the file c
 ## Mistakes we have made or can easily make
 - **A rebuild dropped 10 private videos (2026-10-04).** A rebuild asks YouTube for what is public today.
   It was triggered by accident, because a workflow had a `push:` trigger. Rebuilds are manual only now.
-- **A rebuild loses `transcript_downloaded` and `transcript_download_date`.** They are not in
-  `PRESERVED_FIELDS`, only the two file paths are. If you add a field that people or tools set by
-  hand, add it to `PRESERVED_FIELDS` and to the test in `sdks/core/tests/test_masterlist.py`.
+- **A field that a rebuild forgets.** A rebuild only keeps what is in `PRESERVED_FIELDS`. It once lost
+  `transcript_downloaded` and `transcript_download_date` for that reason. If you add a field that people or
+  tools set later, add it to `PRESERVED_FIELDS` and to the test in `sdks/core/tests/test_masterlist.py`.
 - **`last_updated` changes on every `add()`.** The workflow must not treat that as news. It counts added
   `"video_id"` lines in the diff instead.
 - **Changing the key order or JSON format.** That rewrites the whole file in git. Keep both.

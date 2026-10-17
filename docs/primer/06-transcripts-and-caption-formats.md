@@ -37,7 +37,8 @@ Both are plugins (`seeker.transcript_methods`) and both download the **same sour
 can be compared fairly.
 
 **`ytdlp`** (`methods/ytdlp.py`)
-1. Ask yt-dlp which captions the video has (`check` stops here).
+1. Ask yt-dlp which captions the video has (`check` stops here, and uses the same rule as step 2: a stream
+   with only a chat replay counts as "no captions").
 2. `pick_language` chooses **one** caption track: a manual track (English if there is one), else the
    automatic original (`xx-orig`), else automatic English, else the first. `live_chat` is a chat replay,
    not captions, so it is ignored.
@@ -59,10 +60,26 @@ Result: both methods produce **byte-identical** `srt`, `vtt` and `txt` (tested o
 
 ## Rules of the SDK
 - **No fallback.** The method you choose is the only one run. If it fails, you get a `TranscriptError`.
-- **`None` means no captions**, which is different from an error. A live stream from the last day or two
-  usually has none yet, and both methods correctly report that.
-- `download_many` (`service.py`) logs and counts failures and carries on. It saves the master list after
-  every success, so an interrupted run loses nothing.
+- **Two different outcomes, never mixed up.**
+  - **No transcript** (`download` returns `None`): a finished live stream often has only a chat replay, or the
+    owner turned captions off. Both methods say this the same way (the library's `TranscriptsDisabled` and
+    `NoTranscriptFound` become `None`). It is a normal result, not an error.
+  - **A real error** (`TranscriptError`): blocked, network failure, rate limit. It is logged in one line.
+- **A missing transcript is remembered, and looked up again later and later.** `download_many`
+  (`service.py`) calls `MasterList.mark_transcript_unavailable`, which writes `transcript_status`,
+  `transcript_attempts`, `transcript_checked` and `transcript_retry_after`. The wait doubles every time:
+  1, 2, 4, 8, 16, 32 and then 64 days at most (`retry_delay_days` in `sdks/core`). Captions can still
+  appear later (YouTube may generate automatic ones days after a stream), which is why it keeps looking.
+  `videos_needing_transcript()` skips videos that are waiting. On the retry date they are tried again.
+  Finding the transcript removes the notes. Real errors are **not** remembered.
+- **`--limit N` means N downloads**, not N videos tried. Videos with no transcript are skipped over, so a few
+  of them at the top of the list can no longer use up a run. `--max-attempts` (default 50) bounds how many
+  videos one run tries, and 3 errors in a row stop the run, because YouTube is probably blocking us.
+- **Exit codes.** `download-missing` exits 1 only for real errors. Asking for one video with
+  `download VIDEO_ID` and not getting it exits 1.
+- `seeker transcripts` writes its log to the console and to `logs/transcripts.log` (git-ignored). `stats` and
+  `list-missing` only print, and they show which videos are waiting for a retry.
+- The master list is saved after every change, so an interrupted run loses nothing.
 - `compare` runs each method into `data/transcripts/compare/<id>/<method>/`, never touches the master
   list, and `diff_outcomes` compares the final files.
 
@@ -100,7 +117,12 @@ mise run local:transcripts:compare -- VIDEO_ID
 ## Mistakes we have made or can easily make
 - **HTTP 429 from YouTube.** We asked yt-dlp for several languages (`en.*`). Machine-translated tracks,
   such as English on a Hindi video, are limited the hardest. The fix was `pick_language`: one track.
-- **Treating `live_chat` as captions.** It is the chat replay of a stream.
+- **Treating `live_chat` as captions.** It is the chat replay of a stream. A finished live stream often has
+  only that, so it has no transcript at all. `check` once said "available" for such videos while `download`
+  said "none"; both now use `pick_language`.
+- **Retrying a video that has no transcript on every run.** The limit once counted attempts from the newest
+  video, so two such videos at the top used up `--limit 2` forever. They are now remembered with a growing wait.
+- **Calling "no transcript" an error.** It made `mise run` print `ERROR task failed` for a normal result.
 - **Downloading `vtt` and calling it small.** YouTube's `vtt` repeats lines. Download `ttml` and render
   `vtt` yourself.
 - **Adding a final format in only one place.** A new one needs `FINAL_FORMATS` in `config.py`, a branch
