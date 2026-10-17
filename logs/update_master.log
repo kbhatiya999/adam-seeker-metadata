@@ -4384,3 +4384,18 @@
 2026-10-14 11:04:57,765 - INFO - ✅ Successfully added 1 new videos
 2026-10-14 11:04:57,765 - INFO - 📊 Total videos in master list: 197
 2026-10-14 11:04:57,765 - INFO - 🆕 New: kiya Muhammad ke Walidain jahanum min hen? (2026-10-14)
+2026-10-17 10:04:46,087 - INFO - ⚙️  MASTER_LIST_METHOD not set: using youtube_api (API key present)
+2026-10-17 10:04:46,087 - INFO - 🔑 YouTube API key provided
+2026-10-17 10:04:46,090 - INFO - 🚀 Starting video list update...
+2026-10-17 10:04:46,092 - INFO - 📊 Current master list has 197 existing videos
+2026-10-17 10:04:46,092 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-10-17 10:04:46,332 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-10-17 10:04:46,333 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-10-17 10:04:46,333 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-10-17 10:04:46,497 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-10-17 10:04:46,898 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-10-17 10:04:46,898 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-10-17 10:04:47,095 - INFO - Master list updated successfully
+2026-10-17 10:04:47,095 - INFO - ✅ Successfully added 1 new videos
+2026-10-17 10:04:47,095 - INFO - 📊 Total videos in master list: 198
+2026-10-17 10:04:47,095 - INFO - 🆕 New: Allah ki muhabbat Israel or Palestine (2026-10-17)
