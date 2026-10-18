@@ -8,6 +8,7 @@ asks for confirmation before anything that publishes (gh) or is heavy (rebuild, 
     mise run menu
 """
 
+import json
 import shlex
 import subprocess
 import sys
@@ -69,6 +70,21 @@ class Action:
 
 
 GH_WARN = "This triggers the REAL workflow on GitHub: it commits to the repo and comments on or creates issues."
+
+
+def profile_choices(kind: str) -> Callable[[Values], List[Tuple[str, str]]]:
+    """fnox profiles of one kind (methods | model) from scripts/fnox_profile.py; `none` keeps the default."""
+    def choices(v: Values) -> List[Tuple[str, str]]:
+        try:
+            out = subprocess.run([sys.executable, "scripts/fnox_profile.py", "list", "--json"], capture_output=True,
+                                 text=True, timeout=20)
+            found = json.loads(out.stdout)["profiles"]
+        except Exception:
+            found = {}
+        names = sorted(n for n, p in found.items() if p.get("kind") == kind and n != "overrides")
+        return [("none", "none")] + [(f"{n} - " + ", ".join(f"{k}={x}" for k, x in found[n]["sets"].items()), n)
+                                     for n in names]
+    return choices
 
 
 def method_choices(v: Values):
@@ -212,6 +228,15 @@ ACTIONS: List[Action] = [
            [Field("where", "Show for", "select",
                   [("all - local, act and gh together", "all"), ("local", "local"), ("act", "act"), ("gh", "gh")],
                   "all")]),
+    Action("profile-use", "Methods", "Switch fnox profile",
+           "Pick the fnox profiles every task uses: one methods profile and one model profile (secrets are inherited; "
+           "your own `overrides` profile is always applied last).",
+           lambda v: mise("local:profile:use", *[x for x in (v.get("methods"), v.get("model")) if x and x != "none"]),
+           [Field("methods", "Methods profile", "select", profile_choices("methods"), "none"),
+            Field("model", "Model profile", "select", profile_choices("model"), "none")]),
+    Action("profile-show", "Methods", "Show fnox profile",
+           "The active profile stack, the effective settings, which secrets are set (never their values).",
+           lambda v: mise("local:profile:show")),
     Action("apikey", "Setup", "Get a YouTube API key",
            "Guided setup with gcloud (you sign in) or the console; validates and saves the key.",
            lambda v: mise("local:apikey:setup")),

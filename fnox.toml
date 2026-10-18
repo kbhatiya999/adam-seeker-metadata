@@ -55,3 +55,29 @@ if_missing = "ignore"
 [secrets.SEEKER_GEMINI_MODEL]
 description = "Gemini model for --provider gemini (default gemini-flash-latest)"
 if_missing = "ignore"
+
+# ---- Profiles: named bundles of SETTINGS, never secret values ---------------------------------------------------
+# The keys stay at the top of fnox.local.toml and every profile inherits them. Stack one methods profile and one
+# model profile, e.g. `ytdlp,gemini-lite`:  mise run local:profile:use -- ytdlp gemini-lite  (or Tilt / the menu).
+# Every mise task runs through scripts/fx.sh, which passes the active stack to fnox. Your own tweaks
+# (`mise run local:method:set ...`) go to the local `overrides` profile in fnox.local.toml, applied last.
+# Precedence (tested with fnox 1.39): the local file beats this one, and a profile beats the top level of the same
+# file. So never put SETTINGS at the top of fnox.local.toml: they would silently beat every profile.
+[profiles.youtube-api.secrets]
+MASTER_LIST_METHOD = { default = "youtube_api" }
+TRANSCRIPT_METHOD = { default = "youtube_transcript_api" }
+
+[profiles.ytdlp.secrets]
+MASTER_LIST_METHOD = { default = "ytdlp" }
+TRANSCRIPT_METHOD = { default = "ytdlp" }
+
+[profiles.subagents.secrets]
+SEEKER_LLM_PROVIDER = { default = "queue" }
+
+[profiles.gemini.secrets]
+SEEKER_LLM_PROVIDER = { default = "gemini" }
+SEEKER_GEMINI_MODEL = { default = "gemini-flash-latest" }
+
+[profiles.gemini-lite.secrets]
+SEEKER_LLM_PROVIDER = { default = "gemini" }
+SEEKER_GEMINI_MODEL = { default = "gemini-flash-lite-latest" }

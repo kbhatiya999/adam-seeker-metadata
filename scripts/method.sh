@@ -9,7 +9,8 @@
 #   master-list -> MASTER_LIST_METHOD   youtube_api | ytdlp      (how new videos are discovered)
 #   transcript  -> TRANSCRIPT_METHOD    ytdlp | youtube_transcript_api   (how transcripts are fetched)
 # Where each target stores it:
-#   local -> fnox.local.toml   (git-ignored; read by `mise run local:*` through fnox)
+#   local -> the `overrides` profile in fnox.local.toml (git-ignored), applied last on top of the active fnox
+#            profile stack (scripts/fnox_profile.py); `show` prints the effective values for local tasks
 #   act   -> .vars             (git-ignored; read by act as ${{ vars.NAME }})
 #   gh    -> repository variable (gh variable set/delete/list; read by the workflows as vars.NAME)
 # "unset" removes the setting. Unset master-list = the old implicit behaviour (API if a key is
@@ -28,7 +29,7 @@ LOCAL_FILE="fnox.local.toml"; ACT_FILE=".vars"; UNREADABLE="(cannot read: is gh 
 
 read_value() { # target NAME -> value or empty
   case "$1" in
-    local) [ -f "$LOCAL_FILE" ] && sed -n "s/^$2 *= *{ *default *= *\"\(.*\)\" *}.*/\1/p" "$LOCAL_FILE" | head -1 ;;
+    local) python3 scripts/fnox_profile.py get "$2" ;;   # effective value under the active profile stack
     act)   [ -f "$ACT_FILE" ] && sed -n "s/^$2=//p" "$ACT_FILE" | head -1 ;;
     gh)    gh variable list --json name,value -q ".[] | select(.name==\"$2\") | .value" 2>/dev/null \
              || echo "$UNREADABLE" ;;  # gh missing, not signed in or no access: do not claim it is unset
@@ -39,17 +40,19 @@ write_value() { # target NAME value|unset
   local t="$1" n="$2" v="$3"
   case "$t" in
     local)
-      show_cmd "edit $LOCAL_FILE: $([ "$v" = unset ] && echo "remove $n" || echo "$n = { default = \"$v\" }") under [secrets]"
+      show_cmd "edit $LOCAL_FILE: $([ "$v" = unset ] && echo "remove $n" || echo "$n = { default = \"$v\" }") under [profiles.overrides.secrets]"
       V="$v" N="$n" python3 - "$LOCAL_FILE" <<'PY'
 import os, re, sys
 path, n, v = sys.argv[1], os.environ["N"], os.environ["V"]
 text = open(path).read() if os.path.exists(path) else ""
+# a setting at the top level would beat every profile, so it only ever lives in the `overrides` profile
 text = re.sub(rf'^{n}\s*=.*\n?', '', text, flags=re.M)
 if v != "unset":
-    if "[secrets]" not in text:
-        text += ("\n" if text and not text.endswith("\n") else "") + "[secrets]\n"
-    text = text.replace("[secrets]\n", f'[secrets]\n{n} = {{ default = "{v}" }}\n', 1)
+    if "[profiles.overrides.secrets]" not in text:
+        text = text.rstrip("\n") + ("\n\n" if text.strip() else "") + "[profiles.overrides.secrets]\n"
+    text = text.replace("[profiles.overrides.secrets]\n", f'[profiles.overrides.secrets]\n{n} = {{ default = "{v}" }}\n', 1)
 open(path, "w").write(text)
+os.chmod(path, 0o600)
 PY
       ;;
     act)

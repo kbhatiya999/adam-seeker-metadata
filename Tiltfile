@@ -13,8 +13,8 @@
 #   registry   the dependency graph and the plugins found through entry points
 #   data       reports on data/videos_master.json; refreshed whenever the file changes
 #   knowledge  the model tool queue, what each processing strategy has done, the evaluation comparison
-#   methods    which method (youtube_api / ytdlp / youtube_transcript_api) local, act and gh use, with a button
-#              to change local or act; the list refreshes by itself when fnox.local.toml or .vars changes
+#   settings   the active fnox profile stack (secrets inherited, settings from profiles) with a button to switch it,
+#              and which method local, act and gh use, with a button to change local or act
 #   run        buttons (manual: press the "trigger" arrow) for the local update/rebuild/transcripts tasks
 #   build      the separate seeker_* wheels
 #   act / gh / docker   the same tasks as `mise run act:...` / `gh:...` / `docker:...`
@@ -155,13 +155,25 @@ local_resource(
     links=[link('http://localhost:8000', 'Chat')],
 )
 
-# ---- methods (read-only list; refreshed when a method is changed) -------------------------------------
+# ---- settings: fnox profiles and methods (read-only views; they refresh when something is switched) ------
+
+PROFILE = 'uv run --no-project python scripts/fnox_profile.py'
+profile_info = decode_json(local(PROFILE + ' list --json', quiet=True))
+watch_file('fnox.toml')
+watch_file('fnox.local.toml')   # only settings are read from it; secret values are never shown
+
+local_resource(
+    'profile',
+    cmd=PROFILE + ' show',          # active stack, effective settings, which secrets are set (never their values)
+    deps=['.fnox-profile', 'fnox.toml', 'fnox.local.toml'],
+    labels=['settings'],
+)
 
 local_resource(
     'methods',
-    cmd='mise run all:method:show',  # local: fnox.local.toml, act: .vars, gh: repository variables (read only)
-    deps=['fnox.local.toml', '.vars'],
-    labels=['methods'],
+    cmd='mise run all:method:show',  # local: effective under the active profiles, act: .vars, gh: repository variables
+    deps=['fnox.local.toml', '.vars', '.fnox-profile'],
+    labels=['settings'],
 )
 
 def button(name, resource, text, argv, inputs=None, confirm=False, icon='settings'):
@@ -177,6 +189,21 @@ def button(name, resource, text, argv, inputs=None, confirm=False, icon='setting
                 for (var, label, choices) in (inputs or [])],
     )
     v1alpha1.cmd(name=name + '-cmd', args=argv, start_on=v1alpha1.start_on_spec(ui_buttons=[name]))
+
+def profile_names(kind):
+    return ['none'] + sorted([n for n, p in profile_info['profiles'].items() if p['kind'] == kind and n != 'overrides'])
+
+# One methods profile and one model profile; `none` leaves that part to the default (and your `overrides`).
+button(
+    'switch-profile', 'profile', 'Switch fnox profile',
+    ['sh', '-c', 'uv run --no-project python scripts/fnox_profile.py use $METHODS $MODEL'],
+    inputs=[
+        ('METHODS', 'Methods profile (how videos and transcripts are fetched)', profile_names('methods')),
+        ('MODEL', 'Model profile (who runs the model tools)', profile_names('model')),
+    ],
+    confirm=True,
+    icon='tune',
+)
 
 # Only local and act: changing the gh variable would change the real daily workflow. The setting and the
 # method are one choice, so a combination the script would refuse (like master-list = youtube_transcript_api)

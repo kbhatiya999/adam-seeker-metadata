@@ -7,7 +7,7 @@
 #   Docker volumes named after our workflows, and the act runner image from .actrc.
 # --all (also shared/global things, may affect other projects):
 #   uv cache, act-toolcache volume, mise installs of the tools in mise.toml,
-#   fnox.local.toml (your local secrets).
+#   fnox.local.toml (your local secrets) and .fnox-profile (the active fnox profiles).
 # Flags: --all  --yes (skip prompt)  --dry-run (only print)
 # Docker itself is never uninstalled.
 set -u
@@ -50,7 +50,7 @@ if [ "$ALL" = 1 ]; then
   echo "  - uv cache (global, shared by all uv projects)"
   echo "  - Docker volume act-toolcache (shared by all act projects)"
   echo "  - mise installs of this project's exact tool versions (everything in the [tools] of mise.toml)"
-  echo "  - fnox.local.toml (local secrets)"
+  echo "  - fnox.local.toml (local secrets) and .fnox-profile (active fnox profiles)"
 fi
 
 if [ "$DRY" = 0 ] && [ "$YES" = 0 ]; then
@@ -81,7 +81,7 @@ fi
 if [ "$ALL" = 1 ]; then
   command -v uv >/dev/null 2>&1 && run uv cache clean
   [ "$docker_ok" = 1 ] && run docker volume rm -f act-toolcache
-  run rm -f fnox.local.toml
+  run rm -f fnox.local.toml .fnox-profile
   # Uninstall last: this script may be running under these tools.
   [ -n "$mise_tools" ] && run mise uninstall $mise_tools
 fi

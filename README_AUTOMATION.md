@@ -135,6 +135,16 @@ mise run local:apikey:gemini    # key for --provider gemini (daily processing), 
 
 The chat asks each user for their own Gemini key in the browser (create one at https://aistudio.google.com/apikey); the key stays in that browser and is never saved on the server. `local:apikey:gemini` is only for the command-line tools (`seeker knowledge process / ask / eval run --provider gemini`). The free tier allows about 20 requests a day per model; pick another model with `SEEKER_GEMINI_MODEL` (or in the chat's settings) when one runs out.
 
+### fnox profiles (secrets once, settings per profile)
+
+```bash
+mise run local:profile:show                    # active profiles, effective settings, which secrets are set
+mise run local:profile:use -- ytdlp gemini-lite  # methods profile + model profile (later ones win)
+mise run local:profile:use                     # back to the default profile
+```
+
+`fnox.local.toml` keeps only your secrets at the top (every profile inherits them); settings live in profiles: `ytdlp` / `youtube-api` for how videos and transcripts are fetched, `subagents` / `gemini` / `gemini-lite` for who runs the model tools. Your own tweaks from `local:method:set` go to the local `overrides` profile, applied last. Every task picks up the switch (terminal, menu, Tilt: the `profile` resource has a "Switch fnox profile" button).
+
 ### Switching methods (local / act / GitHub)
 
 Two settings choose how things are fetched. Each place a job runs keeps its own copy:
@@ -145,7 +155,7 @@ Two settings choose how things are fetched. Each place a job runs keeps its own 
 | `transcript` (`TRANSCRIPT_METHOD`) | `ytdlp`, `youtube_transcript_api` | how transcripts are downloaded |
 
 ```bash
-mise run local:method:set -- master-list ytdlp     # writes fnox.local.toml (used by local:* tasks)
+mise run local:method:set -- master-list ytdlp     # writes your `overrides` profile in fnox.local.toml (local:* tasks)
 mise run act:method:set   -- master-list youtube_api   # writes .vars (used by act:* tasks)
 mise run gh:method:set    -- master-list youtube_api   # sets a repository variable (used by the real workflows)
 mise run all:method:show                           # local, act and gh together
