@@ -63,6 +63,9 @@ run = "uv run python scripts/new_sdk.py"
 description = "Install Python dependencies into .venv"
 run = "uv sync --all-packages"
 
+[tasks."setup:cli"]
+description = "Install only what the seeker CLI needs (the GitHub workflows use this, so they never download the chat app's dependencies)"
+run = "uv sync --package seeker-cli"
 
 # ---- local: run the scripts directly -------------------------------------
 
@@ -113,6 +116,11 @@ run = "fnox exec -- uv run seeker ask"
 [tasks."local:eval:manage"]
 description = "[local] Evaluate strategy pairs on eval/questions: `-- run --processing english-notes --chat keyword --videos ID1,ID2`, `-- compare`, `-- questions --videos ...`"
 run = "fnox exec -- uv run seeker eval"
+
+[tasks."local:chat:up"]
+description = "[local] Start the chat app (Chainlit) at http://localhost:8000 (SEEKER_CHAT_PORT to change): pick a strategy pair, ask, answers cite video and time. Each user gives their own Gemini key in the browser"
+run = "uv run seeker-chat"
+interactive = true
 
 [tasks."local:apikey:gemini"]
 description = "[local] Gemini API key for --provider gemini (the daily processing run): opens Google AI Studio, checks the key, saves it to fnox.local.toml (`-- --check` re-checks the saved one)"

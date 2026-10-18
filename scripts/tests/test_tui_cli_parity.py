@@ -38,6 +38,7 @@ CLI_EXCEPTIONS = {
 TASK_EXCEPTIONS = {
     "menu": "it is this menu",
     "local:transcripts:compare": "the menu runs the same compare through local:transcripts:manage (with --format/--final)",
+    "setup:cli": "for the GitHub workflows (installs only the CLI); people use Sync Python dependencies",
 }
 SAMPLES = {"video_id": "abc123DEF45", "videos": "abc123DEF45,xyz", "question": "Which verse?", "limit": "5",
            "list_limit": "20", "max_attempts": "7", "max_requests": "3", "k": "4", "categories": "a,b",

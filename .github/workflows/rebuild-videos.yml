@@ -24,7 +24,7 @@ jobs:
       uses: jdx/mise-action@v2
     
     - name: Install dependencies
-      run: mise run setup
+      run: mise run setup:cli
     
     - name: Rebuild master video list
       env:

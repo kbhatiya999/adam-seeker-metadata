@@ -126,6 +126,15 @@ mise run local:workspace:graph
 
 A live picture of the workspace: one resource per SDK/app (its tests, in dependency order, re-run when it or anything it depends on changes), the plugin registry, reports on the master list and its transcripts, which method local/act/gh use (with a button to change local or act), and manual buttons for update, rebuild, transcripts download and compare, wheel build, act and docker diagnose. Nothing here publishes to GitHub. Details in `docs/architecture.md`.
 
+### Chat (Chainlit) and the Gemini key
+
+```bash
+mise run local:chat:up          # http://localhost:8000
+mise run local:apikey:gemini    # key for --provider gemini (daily processing), from Google AI Studio
+```
+
+The chat asks each user for their own Gemini key in the browser (create one at https://aistudio.google.com/apikey); the key stays in that browser and is never saved on the server. `local:apikey:gemini` is only for the command-line tools (`seeker knowledge process / ask / eval run --provider gemini`). The free tier allows about 20 requests a day per model; pick another model with `SEEKER_GEMINI_MODEL` (or in the chat's settings) when one runs out.
+
 ### Switching methods (local / act / GitHub)
 
 Two settings choose how things are fetched. Each place a job runs keeps its own copy:
