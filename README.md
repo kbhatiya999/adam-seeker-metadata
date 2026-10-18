@@ -149,6 +149,8 @@ Everything above works without keys. Keys and a proxy make three things better:
 | Webshare proxy | Transcripts where YouTube blocks your address (it blocks GitHub's) | `mise run local:proxy:setup` |
 | YouTube cookies (optional) | Another way past YouTube's "not a bot" check, for yt-dlp only. Use a throwaway Google account | `mise run local:cookies:setup` |
 
+Try the proxy or the cookies in all three places with the same command: `mise run local:transcripts:download -- proxy ytdlp 3`, then `act:` and `gh:` instead of `local:` (details in [README_AUTOMATION.md](README_AUTOMATION.md)).
+
 - Both keys are free. The proxy is a Webshare account.
 - Each helper opens the right page, checks what you paste with one test call, and saves it in `fnox.local.toml`.
 - The proxy is saved as a profile called `proxy`, and the cookies as a profile called `cookies`, so they are used only when you pick them (see [Settings](#settings-fnox-profiles)).

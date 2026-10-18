@@ -1,0 +1,95 @@
+name: Download Transcripts
+
+# Manual only (no push or schedule trigger). Downloads a few transcripts on a GitHub runner so you can see whether
+# YouTube lets them through: GitHub's addresses are blocked, so this can go through your Webshare proxy and/or
+# YouTube cookies (yt-dlp only). Nothing is committed: transcripts are git-ignored, they are uploaded as an artifact.
+# Secrets (repository Settings > Secrets, or `mise run local:proxy:setup -- --github` and
+# `mise run local:cookies:setup -- --github`): PROXY_URL, WEBSHARE_PROXY_USERNAME, WEBSHARE_PROXY_PASSWORD,
+# YTDLP_COOKIES_BASE64 (the cookies file as one base64 line, so GitHub's log masking cannot garble the logs).
+# The same four names are environment variables locally and in act (scripts/transcripts_run.sh): the code reads them as is.
+on:
+  workflow_dispatch:
+    inputs:
+      network:
+        description: How to reach YouTube
+        type: choice
+        options: [direct, proxy, cookies, proxy+cookies]
+        default: proxy
+      method:
+        description: Transcript method
+        type: choice
+        options: [ytdlp, youtube_transcript_api]
+        default: ytdlp
+      limit:
+        description: Stop after this many transcripts
+        type: string
+        default: '3'
+
+concurrency:
+  group: transcripts-download   # it writes nothing to the repository, so it may run beside the video workflows
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    env:
+      MISE_DISABLE_TOOLS: act,gh,gcloud,tilt  # local-only tools; fnox is kept because tasks run via `fnox exec`
+      NETWORK: ${{ inputs.network || 'proxy' }}
+      METHOD: ${{ inputs.method || 'ytdlp' }}
+      LIMIT: ${{ inputs.limit || '3' }}
+      # the chosen network's secrets as plain environment variables; the others stay empty (= not used)
+      PROXY_URL: ${{ contains(inputs.network || 'proxy', 'proxy') && secrets.PROXY_URL || '' }}
+      WEBSHARE_PROXY_USERNAME: ${{ contains(inputs.network || 'proxy', 'proxy') && secrets.WEBSHARE_PROXY_USERNAME || '' }}
+      WEBSHARE_PROXY_PASSWORD: ${{ contains(inputs.network || 'proxy', 'proxy') && secrets.WEBSHARE_PROXY_PASSWORD || '' }}
+      YTDLP_COOKIES_BASE64: ${{ contains(inputs.network || 'proxy', 'cookies') && secrets.YTDLP_COOKIES_BASE64 || '' }}
+
+    steps:
+    - name: Check the secrets for the chosen network
+      run: |
+        case "$NETWORK" in direct|proxy|cookies|proxy+cookies) ;; *) echo "::error::unknown network '$NETWORK'"; exit 1 ;; esac
+        if [[ "$NETWORK" == *proxy* ]]; then
+          [ -n "$PROXY_URL" ] || { echo "::error::Secret PROXY_URL is not set. Run: mise run local:proxy:setup -- --github"; exit 1; }
+          echo "Using the Webshare proxy."
+        fi
+        if [[ "$NETWORK" == *cookies* ]]; then
+          [ -n "$YTDLP_COOKIES_BASE64" ] || { echo "::error::Secret YTDLP_COOKIES_BASE64 is not set. Run: mise run local:cookies:setup -- --github"; exit 1; }
+          echo "Using YouTube cookies (values not shown)."
+        fi
+        [ "$NETWORK" != direct ] || echo "Going direct: expect YouTube to block GitHub's address."
+
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up mise (python, uv)
+      uses: jdx/mise-action@v2
+
+    - name: Install dependencies
+      run: mise run setup:cli
+
+    - name: Download transcripts (${{ env.METHOD }}, up to ${{ env.LIMIT }}, network ${{ env.NETWORK }})
+      run: mise run local:transcripts:manage -- --method "$METHOD" download-missing --limit "$LIMIT"
+
+    - name: Summary
+      if: always()
+      run: |
+        {
+          echo "### Transcripts: $METHOD, network $NETWORK, limit $LIMIT"
+          echo '```'
+          mise run local:transcripts:manage -- stats 2>&1 | tail -3 || true
+          ls -l data/transcripts 2>/dev/null | tail -n +2 | awk '{print $5, $9}' | head -20 || true
+          echo '```'
+        } >> "${GITHUB_STEP_SUMMARY:-/dev/stdout}"
+
+    - name: Upload transcripts and log
+      if: always() && !env.ACT
+      uses: actions/upload-artifact@v4
+      with:
+        name: transcripts-${{ github.run_number }}
+        path: |
+          data/transcripts/
+          logs/transcripts.log
+        if-no-files-found: ignore
+        retention-days: 7

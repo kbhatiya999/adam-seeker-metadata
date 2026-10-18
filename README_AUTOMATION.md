@@ -256,21 +256,43 @@ mise run local:cookies:setup
 ```
 Collects YouTube login cookies for yt-dlp, another way past the "Sign in to confirm you're not a bot" check. Only yt-dlp uses cookies; youtube-transcript-api has no cookie option.
 
-Use a **throwaway Google account**, never your own: yt-dlp's authors warn that accounts used this way can be flagged or banned. Cookies are a saved login, so keep the file private.
+Use a **throwaway Google account**, never your own: yt-dlp's authors warn that accounts used this way can be flagged or banned. Cookies are a saved login, so keep them private.
 1. Sign in to YouTube with that account in its own browser profile (a private window works too).
 2. Run the task. It asks where the cookies are: **a browser on this computer** (it reads them with yt-dlp, and on macOS may ask to allow the browser's Keychain item: choose Allow), or **a `cookies.txt` you exported** with a browser extension such as "Get cookies.txt LOCALLY".
-3. It keeps only the `youtube.com` and `google.com` cookies. Nothing else from your browser is written anywhere.
-4. It checks that you are signed in (cookie names only, never values) and when the login expires.
-5. It saves the file **outside the repository**, as `~/.config/seeker/youtube-cookies.txt` with mode 600, and saves its path as the local `cookies` profile.
+3. It keeps only the `youtube.com` and `google.com` cookies. Nothing else from your browser is kept.
+4. It checks that you are signed in and when the login expires (cookie names only, never values).
+5. It saves them as **one base64 line** in the environment variable `YTDLP_COOKIES_BASE64`, in the local `cookies` profile of `fnox.local.toml` (git-ignored, mode 600). There is no cookie file to look after.
 6. It asks YouTube about one video with the cookies. From your own computer YouTube answers with or without cookies, so the real test is through the proxy: with a saved `proxy` profile it tries 4 times through the proxy with the cookies and tells you how many got through.
+7. It offers to copy the value to the GitHub repository secret of the same name (`-- --github` does it later).
 
 Without questions: `mise run local:cookies:setup -- --browser chrome --profile "Profile 2"` or `-- --file ~/Downloads/cookies.txt`. `-- --check` tests the saved cookies again.
 
-To use them:
+**The same variable everywhere.** The proxy and the cookies are environment variables with the same names in all three places, so nothing is different between them:
+
+| Variable | Local | act | GitHub |
+|---|---|---|---|
+| `PROXY_URL`, `WEBSHARE_PROXY_USERNAME`, `WEBSHARE_PROXY_PASSWORD` | profile `proxy` | passed with `-s` | repository secrets |
+| `YTDLP_COOKIES_BASE64` | profile `cookies` | passed with `-s` | repository secret |
+
+The transcripts code reads `YTDLP_COOKIES_BASE64` itself and writes a private temporary file for yt-dlp (removed at exit). If you already have a `cookies.txt`, `YTDLP_COOKIES_FILE=/path/to/cookies.txt` works too and wins when both are set.
+
+To use them locally:
 - For one run: `FNOX_PROFILE=cookies mise run local:transcripts:manage -- --method ytdlp download-missing --limit 5`.
 - With the proxy, kept on: `mise run local:profile:use -- ytdlp proxy cookies` (off again: `mise run local:profile:use -- ytdlp`).
 
-Cookies expire, and YouTube can end the session sooner, mostly when the login is used from another address. When yt-dlp starts failing again, collect them again. GitHub does not use them yet: a workflow would need the file as a repository secret, written to a temporary file.
+Cookies expire, and YouTube can end the session sooner, mostly when the login is used from another address. When yt-dlp starts failing again, collect them again and run `-- --github` again.
+
+### Download transcripts through a network, in all three places
+
+```bash
+mise run local:transcripts:download -- proxy ytdlp 3
+mise run act:transcripts:download   -- proxy ytdlp 3
+mise run gh:transcripts:download    -- proxy ytdlp 3
+```
+The arguments are the same everywhere: the network (`direct`, `proxy`, `cookies` or `proxy+cookies`), the method (`ytdlp` or `youtube_transcript_api`) and how many transcripts to stop after (3).
+- `local:` runs it on your computer, with the variables from your `proxy` and `cookies` profiles. It writes `data/transcripts/` and updates your master list, like any local download.
+- `act:` runs `.github/workflows/download-transcripts.yml` in Docker, with the same variables. Nothing is uploaded.
+- `gh:` starts that workflow on GitHub and watches it. It needs the repository secrets (`local:proxy:setup -- --github`, `local:cookies:setup -- --github`) and tells you which one is missing. It commits nothing: the transcripts and the log are the run's artifact (**Actions → the run → Artifacts**, kept 7 days), and the run summary shows how many were downloaded. The workflow has to be on the default branch before GitHub can start it.
 
 How the methods use the proxy:
 - yt-dlp reads `PROXY_URL`.

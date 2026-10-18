@@ -1,8 +1,12 @@
 """Transcript method: yt-dlp (downloads the caption file, then a yt-dlp post-processor converts it)."""
 
+import atexit
+import base64
+import binascii
 import glob
 import logging
 import os
+import tempfile
 from typing import Any, Dict, Optional, Tuple
 
 import yt_dlp
@@ -58,13 +62,38 @@ def _make_text_postprocessor(ydl, finals, keep_source):
 class YtDlpMethod(TranscriptMethod):
     name = "ytdlp"
 
+    def _cookies_path(self) -> Optional[str]:
+        """The cookies file yt-dlp should use: the configured file, else the base64 text written once to a private
+        temp file (mode 600, removed at exit; yt-dlp saves refreshed cookies into it, which is fine for a temp copy)."""
+        net = self.config.network
+        if net.cookies_file:
+            if not os.path.exists(net.cookies_file):
+                raise TranscriptError(f"Cookies file not found: {net.cookies_file}")
+            return net.cookies_file
+        if not net.cookies_base64:
+            return None
+        path = getattr(self, "_cookies_tmp", None)
+        if path and os.path.exists(path):
+            return path
+        try:
+            data = base64.b64decode("".join(net.cookies_base64.split()), validate=True)
+        except (binascii.Error, ValueError) as e:
+            raise TranscriptError("YTDLP_COOKIES_BASE64 is not valid base64 (it is the cookies.txt as one base64 line)") from e
+        if not data.strip():
+            raise TranscriptError("YTDLP_COOKIES_BASE64 is empty")
+        fd, path = tempfile.mkstemp(prefix="seeker-cookies-", suffix=".txt")   # mkstemp creates it with mode 600
+        with os.fdopen(fd, "wb") as f:
+            f.write(data)
+        atexit.register(lambda p=path: os.path.exists(p) and os.remove(p))
+        self._cookies_tmp = path
+        return path
+
     def _base_opts(self) -> Dict[str, Any]:
         net = self.config.network
-        if net.cookies_file and not os.path.exists(net.cookies_file):
-            raise TranscriptError(f"Cookies file not found: {net.cookies_file}")
         opts: Dict[str, Any] = {"quiet": True, "no_warnings": True, "skip_download": True}
-        if net.cookies_file:
-            opts["cookiefile"] = net.cookies_file
+        cookies = self._cookies_path()
+        if cookies:
+            opts["cookiefile"] = cookies
         if net.proxy:
             opts["proxy"] = net.proxy
         return opts
