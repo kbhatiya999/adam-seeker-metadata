@@ -81,27 +81,31 @@ def _manage_build(v: Values) -> List[str]:
     c = v["cmd"]
     if c == "categorize":
         return mise("local:videos:manage", "categorize", v["video_id"], "--categories", v["categories"],
-                    "--relevance", v["relevance"])
+                    "--relevance", v["relevance"], *_opt("--notes", v.get("notes")))
     if c == "priority":
-        return mise("local:videos:manage", "priority", v["video_id"], "--category", v["category"])
+        return mise("local:videos:manage", "priority", v["video_id"], "--category", v["category"],
+                    *_opt("--relevance", v.get("priority_relevance")))
     return mise("local:videos:manage", c)
 
 
 def _transcripts_build(v: Values) -> List[str]:
     c = v["cmd"]
-    fmt = []
+    opts: List[str] = []
+    if c in ("download-missing", "download", "check"):
+        opts += _opt("--method", v.get("method"))  # empty: the saved TRANSCRIPT_METHOD
     if c in ("download-missing", "download", "compare"):
-        if v.get("format"):
-            fmt += ["--format", v["format"]]
-        if v.get("final"):
-            fmt += ["--final", v["final"]]
-    if c in ("stats", "list-missing"):
+        opts += _opt("--format", v.get("format")) + _opt("--final", v.get("final"))
+        opts += ["--keep-source"] if v.get("keep_source") else []
+    if c == "stats":
         return mise("local:transcripts:manage", c)
+    if c == "list-missing":
+        return mise("local:transcripts:manage", c, *_opt("--limit", v.get("list_limit")))
     if c == "compare":
-        return mise("local:transcripts:manage", *fmt, "compare", v["video_id"])
+        return mise("local:transcripts:manage", *opts, "compare", v["video_id"])
     if c == "download-missing":
-        return mise("local:transcripts:manage", "--method", v["method"], *fmt, c, "--limit", v["limit"])
-    return mise("local:transcripts:manage", "--method", v["method"], *fmt, c, v["video_id"])
+        return mise("local:transcripts:manage", *opts, c, "--limit", v["limit"],
+                    *_opt("--max-attempts", v.get("max_attempts")))
+    return mise("local:transcripts:manage", *opts, c, v["video_id"])
 
 
 def _opt(flag: str, value: Any) -> List[str]:
@@ -109,19 +113,24 @@ def _opt(flag: str, value: Any) -> List[str]:
     return [flag, value] if value else []
 
 
+def _model_opts(v: Values) -> List[str]:
+    return _opt("--provider", v.get("provider")) + _opt("--max-requests", v.get("max_requests"))
+
+
 def _process_build(v: Values) -> List[str]:
     return mise("local:knowledge:manage", "process", "--strategy", v["strategy"], *_opt("--videos", v.get("videos")),
-                *_opt("--max-requests", v.get("max_requests")))
+                *(["--force"] if v.get("force") else []), *_model_opts(v))
 
 
 def _eval_build(v: Values) -> List[str]:
     return mise("local:eval:manage", "run", "--processing", v["processing"], "--chat", v["chat"],
-                *_opt("--videos", v.get("videos")), *([] if v.get("judge", True) else ["--no-judge"]))
+                *_opt("--videos", v.get("videos")), *([] if v.get("judge", True) else ["--no-judge"]),
+                *_opt("--k", v.get("k")), *_model_opts(v))
 
 
 def _ask_build(v: Values) -> List[str]:
     return mise("local:chat:ask", v["question"], "--processing", v["processing"], "--chat", v["chat"],
-                *_opt("--videos", v.get("videos")))
+                *_opt("--videos", v.get("videos")), *_opt("--k", v.get("k")), *_model_opts(v))
 
 
 WAITING_NOTE = ("Exit code 75 means it is waiting for model answers: answer the requests in data/llm/queue/pending "
@@ -160,14 +169,18 @@ ACTIONS: List[Action] = [
             Field("categories", "Categories (comma separated)", "input", visible=lambda v: v["cmd"] == "categorize"),
             Field("relevance", "Relevance 1-10", "select", [(str(i), str(i)) for i in range(10, 0, -1)], "5",
                   lambda v: v["cmd"] == "categorize"),
-            Field("category", "Category", "input", visible=lambda v: v["cmd"] == "priority")]),
+            Field("notes", "Notes (optional)", "input", visible=lambda v: v["cmd"] == "categorize", optional=True),
+            Field("category", "Category", "input", visible=lambda v: v["cmd"] == "priority"),
+            Field("priority_relevance", "Relevance", "select",
+                  [("default (10)", "")] + [(str(i), str(i)) for i in range(10, 0, -1)], "",
+                  lambda v: v["cmd"] == "priority")]),
     Action("transcripts", "Transcripts", "Transcripts",
            "Download or inspect transcripts. The method is explicit, with no fallback.",
            _transcripts_build,
            [Field("cmd", "What", "select",
                   [(c, c) for c in ("stats", "list-missing", "download-missing", "download", "check", "compare")],
                   "stats"),
-            Field("method", "Method", "select", TRANSCRIPT_METHODS, "youtube_transcript_api",
+            Field("method", "Method", "select", [("my saved setting (TRANSCRIPT_METHOD)", "")] + TRANSCRIPT_METHODS, "",
                   lambda v: v["cmd"] in ("download-missing", "download", "check")),
             Field("format", "Format to DOWNLOAD (both methods; ttml/srv1/srt are small, vtt is large)", "select",
                   [("ttml", "ttml"), ("srv1", "srv1"), ("srt", "srt"), ("vtt", "vtt")], "ttml",
@@ -176,7 +189,14 @@ ACTIONS: List[Action] = [
                   [("srt + txt", "srt,txt"), ("txt only", "txt"), ("srt only", "srt"), ("vtt + txt", "vtt,txt"),
                    ("srt + vtt + txt", "srt,vtt,txt")], "srt,txt",
                   lambda v: v["cmd"] in ("download-missing", "download", "compare")),
-            Field("limit", "How many videos", "input", default="5", visible=lambda v: v["cmd"] == "download-missing"),
+            Field("keep_source", "Also keep the downloaded file (--keep-source)", "check",
+                  visible=lambda v: v["cmd"] in ("download-missing", "download", "compare")),
+            Field("limit", "How many transcripts to download (videos without one are skipped)", "input", default="5",
+                  visible=lambda v: v["cmd"] == "download-missing"),
+            Field("max_attempts", "Try at most this many videos (empty: 50)", "input",
+                  visible=lambda v: v["cmd"] == "download-missing", optional=True),
+            Field("list_limit", "How many to list (empty: 20)", "input", visible=lambda v: v["cmd"] == "list-missing",
+                  optional=True),
             Field("video_id", "Video ID", "input", visible=lambda v: v["cmd"] in ("download", "check", "compare"))]),
     Action("method-set", "Methods", "Change a method",
            "Set master-list or transcript method for local, act or the real GitHub workflows.",
@@ -197,6 +217,9 @@ ACTIONS: List[Action] = [
            lambda v: mise("local:apikey:setup")),
     Action("install", "Setup", "First-time install", "Install tools, sync Python deps, check Docker.",
            lambda v: mise("install")),
+    Action("plugins", "Setup", "List installed plugins",
+           "Video sources, transcript methods, model providers, processing and chat strategies, and where each comes from.",
+           lambda v: mise("local:plugins:list")),
     Action("docker", "Docker", "Docker", "Start, stop, diagnose or clean up Docker for the act tasks.",
            lambda v: mise(f"docker:{v['what']}"),
            [Field("what", "What", "select",
@@ -216,7 +239,15 @@ ACTIONS: List[Action] = [
            _process_build,
            [Field("strategy", "Strategy", "select", lambda v: plugin_choices(plugins.PROCESSING_STRATEGIES), "chunks"),
             Field("videos", "Videos, comma separated (empty: every video with a transcript)", "input", optional=True),
+            Field("force", "Redo videos that are already processed (--force)", "check"),
+            Field("provider", "Model provider", "select",
+                  lambda v: [("default (SEEKER_LLM_PROVIDER, else queue)", "")] + plugin_choices(plugins.LLM_PROVIDERS), ""),
             Field("max_requests", "At most this many new model requests (empty: no limit)", "input", optional=True)]),
+    Action("knowledge-info", "Knowledge", "Strategies and what they processed",
+           "What each processing strategy has processed so far, or the list of processing strategies.",
+           lambda v: mise("local:knowledge:manage", v["what"]),
+           [Field("what", "What", "select", [("status - what each strategy has processed", "status"),
+                                             ("strategies - the processing strategies", "strategies")], "status")]),
     Action("evaluate", "Knowledge", "Evaluate a strategy pair",
            "Answer and score eval/questions with a processing strategy and a chat strategy. " + WAITING_NOTE,
            _eval_build,
@@ -224,18 +255,59 @@ ACTIONS: List[Action] = [
                   lambda v: plugin_choices(plugins.PROCESSING_STRATEGIES), "english-notes"),
             Field("chat", "Chat strategy", "select", lambda v: plugin_choices(plugins.CHAT_STRATEGIES), "keyword"),
             Field("videos", "Only questions about these videos (comma separated, empty: all)", "input", optional=True),
-            Field("judge", "Use the model judge (otherwise keyword and retrieval scores only)", "check", default=True)]),
-    Action("compare", "Knowledge", "Compare evaluations", "Table of the latest evaluation of every strategy pair.",
-           lambda v: mise("local:eval:manage", "compare")),
+            Field("judge", "Use the model judge (otherwise keyword and retrieval scores only)", "check", default=True),
+            Field("k", "Passages given to the model (empty: 6)", "input", optional=True),
+            Field("provider", "Model provider", "select",
+                  lambda v: [("default (SEEKER_LLM_PROVIDER, else queue)", "")] + plugin_choices(plugins.LLM_PROVIDERS), ""),
+            Field("max_requests", "At most this many new model requests (empty: no limit)", "input", optional=True)]),
+    Action("eval-info", "Knowledge", "Evaluation results and questions",
+           "Compare the latest evaluation of every strategy pair, or list the evaluation questions.",
+           lambda v: mise("local:eval:manage", v["what"],
+                          *(_opt("--videos", v.get("videos")) if v["what"] == "questions" else [])),
+           [Field("what", "What", "select", [("compare - latest run of every strategy pair", "compare"),
+                                             ("questions - the evaluation questions", "questions")], "compare"),
+            Field("videos", "Only questions about these videos (comma separated, empty: all)", "input",
+                  visible=lambda v: v["what"] == "questions", optional=True)]),
     Action("ask", "Knowledge", "Ask a question", "Answer a question from processed videos, with sources. " + WAITING_NOTE,
            _ask_build,
            [Field("question", "Question", "input"),
             Field("processing", "Processing strategy", "select",
                   lambda v: plugin_choices(plugins.PROCESSING_STRATEGIES), "english-notes"),
             Field("chat", "Chat strategy", "select", lambda v: plugin_choices(plugins.CHAT_STRATEGIES), "keyword"),
-            Field("videos", "Only these videos (comma separated, empty: all processed)", "input", optional=True)]),
-    Action("llm-status", "Knowledge", "Model queue status", "Requests waiting for a model, rejected answers, cache.",
-           lambda v: mise("local:llm:manage", "status")),
+            Field("videos", "Only these videos (comma separated, empty: all processed)", "input", optional=True),
+            Field("k", "Passages given to the model (empty: 6)", "input", optional=True),
+            Field("provider", "Model provider", "select",
+                  lambda v: [("default (SEEKER_LLM_PROVIDER, else queue)", "")] + plugin_choices(plugins.LLM_PROVIDERS), ""),
+            Field("max_requests", "At most this many new model requests (empty: no limit)", "input", optional=True)]),
+    Action("llm-queue", "Knowledge", "Model queue",
+           "Requests waiting for a model (subagents now, Gemini later), rejected answers and the cache; or the request "
+           "files a worker should answer.",
+           lambda v: mise("local:llm:manage", v["what"],
+                          *(_opt("--tool", v.get("tool")) + _opt("--limit", v.get("limit")) if v["what"] == "pending" else [])),
+           [Field("what", "What", "select", [("status", "status"),
+                                             ("pending - the request files a worker should answer", "pending")], "status"),
+            Field("tool", "Only this tool (english_notes, expand_query, answer, judge; empty: all)", "input",
+                  visible=lambda v: v["what"] == "pending", optional=True),
+            Field("limit", "At most this many (empty: all)", "input", visible=lambda v: v["what"] == "pending",
+                  optional=True)]),
+    Action("tests", "Develop", "Run the tests", "Every package's tests: SDKs, CLI, TUI and the repo scripts.",
+           lambda v: mise("test")),
+    Action("sync", "Develop", "Sync Python dependencies",
+           "uv sync --all-packages: install exactly what the pyprojects and uv.lock say.", lambda v: mise("setup")),
+    Action("build", "Develop", "Build wheel packages", "Build the seeker_* wheels and verify them in clean environments.",
+           lambda v: mise(v["what"]),
+           [Field("what", "What", "select", [("SDKs (dist/sdks)", "build:sdks"), ("apps (dist/apps)", "build:apps")],
+                  "build:sdks")]),
+    Action("sdk-new", "Develop", "Scaffold a new SDK",
+           "Create sdks/<name> (seeker-sdk-<name>) registered in the workspace, optionally with a plugin skeleton.",
+           lambda v: mise("sdk:new", v["name"], *(["--plugin", v["plugin"]] if v.get("plugin") else [])),
+           [Field("name", "Name (lowercase letters, digits, dashes; e.g. rag)", "input"),
+            Field("plugin", "Plugin skeleton", "select", [("none", ""), ("video source", "video_sources"),
+                                                         ("transcript method", "transcript_methods")], "")]),
+    Action("workflows", "Develop", "List workflows and runs",
+           "The workflows act can run locally, or the recent runs on GitHub.", lambda v: mise(v["what"]),
+           [Field("what", "What", "select", [("act - workflows act can run", "act:list"),
+                                             ("gh - recent runs on GitHub", "gh:list")], "act:list")]),
     Action("nuke", "Danger", "Nuke", "Remove what this project created (.venv, .act, Docker leftovers; --all for more).",
            _nuke_build,
            [Field("dry", "--dry-run (only show what would be removed)", "check", default=True),

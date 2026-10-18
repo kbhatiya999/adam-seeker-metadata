@@ -29,6 +29,21 @@ def test_build_commands():
     assert action("ask").build({"question": "q?", "processing": "chunks", "chat": "keyword"}) == \
         ["mise", "run", "local:chat:ask", "--", "q?", "--processing", "chunks", "--chat", "keyword"]
     assert ("english-notes", "english-notes") in tui.plugin_choices(tui.plugins.PROCESSING_STRATEGIES)
+    t = action("transcripts").build
+    assert t({"cmd": "download-missing", "method": "", "limit": "5", "max_attempts": "9", "keep_source": True}) == \
+        ["mise", "run", "local:transcripts:manage", "--", "--keep-source", "download-missing", "--limit", "5", "--max-attempts", "9"]
+    assert t({"cmd": "list-missing", "list_limit": "40"}) == ["mise", "run", "local:transcripts:manage", "--", "list-missing", "--limit", "40"]
+    assert action("manage").build({"cmd": "categorize", "video_id": "v", "categories": "a", "relevance": "7", "notes": "n"}) == \
+        ["mise", "run", "local:videos:manage", "--", "categorize", "v", "--categories", "a", "--relevance", "7", "--notes", "n"]
+    assert action("manage").build({"cmd": "priority", "video_id": "v", "category": "c", "priority_relevance": ""}) == \
+        ["mise", "run", "local:videos:manage", "--", "priority", "v", "--category", "c"]
+    assert action("process").build({"strategy": "chunks", "force": True, "provider": "queue", "max_requests": "2"}) == \
+        ["mise", "run", "local:knowledge:manage", "--", "process", "--strategy", "chunks", "--force", "--provider", "queue", "--max-requests", "2"]
+    assert action("llm-queue").build({"what": "pending", "tool": "judge", "limit": ""}) == \
+        ["mise", "run", "local:llm:manage", "--", "pending", "--tool", "judge"]
+    assert action("eval-info").build({"what": "questions", "videos": "a,b"}) == \
+        ["mise", "run", "local:eval:manage", "--", "questions", "--videos", "a,b"]
+    assert action("sdk-new").build({"name": "rag", "plugin": ""}) == ["mise", "run", "sdk:new", "--", "rag"]
     assert action("dashboard").build({"what": "local:workspace:graph"}) == ["mise", "run", "local:workspace:graph"]
     assert action("nuke").build({"dry": True, "all": True, "yes": False}) == \
         ["mise", "run", "nuke", "--", "--dry-run", "--all"]
@@ -139,7 +154,8 @@ def test_missing_required_input_blocks_run():
             await pilot.pause()
 
     run(go())
-    assert calls == [["mise", "run", "local:transcripts:manage", "--", "--method", "youtube_transcript_api", "--format", "ttml", "--final", "srt,txt", "download", "abc123"]]
+    # the method defaults to the saved TRANSCRIPT_METHOD, so no --method is passed
+    assert calls == [["mise", "run", "local:transcripts:manage", "--", "--format", "ttml", "--final", "srt,txt", "download", "abc123"]]
 
 
 def test_nuke_dry_run_default_no_confirmation_but_real_yes_confirms():
