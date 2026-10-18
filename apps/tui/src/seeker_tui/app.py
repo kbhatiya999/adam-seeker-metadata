@@ -73,7 +73,7 @@ GH_WARN = "This triggers the REAL workflow on GitHub: it commits to the repo and
 
 
 def profile_choices(kind: str) -> Callable[[Values], List[Tuple[str, str]]]:
-    """fnox profiles of one kind (methods | model) from scripts/fnox_profile.py; `none` keeps the default."""
+    """fnox profiles of one kind (methods | model | network) from scripts/fnox_profile.py; `none` keeps the default."""
     def choices(v: Values) -> List[Tuple[str, str]]:
         try:
             out = subprocess.run([sys.executable, "scripts/fnox_profile.py", "list", "--json"], capture_output=True,
@@ -229,11 +229,13 @@ ACTIONS: List[Action] = [
                   [("all - local, act and gh together", "all"), ("local", "local"), ("act", "act"), ("gh", "gh")],
                   "all")]),
     Action("profile-use", "Methods", "Switch fnox profile",
-           "Pick the fnox profiles every task uses: one methods profile and one model profile (secrets are inherited; "
-           "your own `overrides` profile is always applied last).",
-           lambda v: mise("local:profile:use", *[x for x in (v.get("methods"), v.get("model")) if x and x != "none"]),
+           "Pick the fnox profiles every task uses: one methods profile, one model profile and optionally your proxy "
+           "(secrets are inherited; your own `overrides` profile is always applied last).",
+           lambda v: mise("local:profile:use", *[x for x in (v.get("methods"), v.get("model"), v.get("network"))
+                                                 if x and x != "none"]),
            [Field("methods", "Methods profile", "select", profile_choices("methods"), "none"),
-            Field("model", "Model profile", "select", profile_choices("model"), "none")]),
+            Field("model", "Model profile", "select", profile_choices("model"), "none"),
+            Field("network", "Proxy", "select", profile_choices("network"), "none")]),
     Action("profile-show", "Methods", "Show fnox profile",
            "The active profile stack, the effective settings, which secrets are set (never their values).",
            lambda v: mise("local:profile:show")),
@@ -247,6 +249,14 @@ ACTIONS: List[Action] = [
            "fnox.local.toml. The chat app does not use it; each user gives their own key in the browser.",
            lambda v: mise("local:apikey:gemini", *(["--check"] if v.get("what") == "check" else [])),
            [Field("what", "What", "select", [("get and save a key", "get"), ("check the saved key", "check")], "get")]),
+    Action("proxy-setup", "Setup", "Set up the Webshare proxy",
+           "For transcripts where YouTube blocks your address (GitHub's runners are blocked). Asks for the proxy "
+           "username and password, tests YouTube through it, saves it as the local `proxy` profile; can copy it to "
+           "the GitHub secrets.",
+           lambda v: mise("local:proxy:setup", *{"check": ["--check"], "github": ["--github"]}.get(v.get("what"), [])),
+           [Field("what", "What", "select", [("set up (asks for the username and password)", "setup"),
+                                             ("test the saved proxy with YouTube", "check"),
+                                             ("copy the saved proxy to the GitHub secrets", "github")], "setup")]),
     Action("plugins", "Setup", "List installed plugins",
            "Video sources, transcript methods, model providers, processing and chat strategies, and where each comes from.",
            lambda v: mise("local:plugins:list")),

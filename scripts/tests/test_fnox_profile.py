@@ -33,6 +33,8 @@ KEY = { default = "top-secret" }
 MASTER_LIST_METHOD = { default = "youtube_api" }
 [profiles.mine.secrets]
 OTHER_TOKEN = { default = "hidden-value" }
+[profiles.proxy.secrets]
+PROXY_URL = { default = "http://user-rotate:pw@p.webshare.io:80/" }
 ''')
     monkeypatch.setattr(module, "ROOT", tmp_path)
     monkeypatch.setattr(module, "ACTIVE", tmp_path / ".fnox-profile")
@@ -46,6 +48,7 @@ def test_profiles_show_settings_and_never_secret_values(fp):
     assert found["ytdlp"] == {"MASTER_LIST_METHOD": "ytdlp"} and found["gemini"] == {"SEEKER_LLM_PROVIDER": "gemini"}
     assert found["mine"] == {"OTHER_TOKEN": "(secret)"}           # not a setting: the value is masked
     assert (fp.kind(found["ytdlp"]), fp.kind(found["gemini"]), fp.kind(found["mine"])) == ("methods", "model", "other")
+    assert found["proxy"] == {"PROXY_URL": "(secret)"} and fp.kind(found["proxy"]) == "network"
     assert "KEY" in fp.declared() and "OTHER_TOKEN" in fp.declared()
 
 
