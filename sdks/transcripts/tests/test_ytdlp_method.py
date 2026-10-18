@@ -82,3 +82,64 @@ def test_bad_base64_is_a_clear_error(value):
     from seeker_sdk_core import TranscriptError
     with pytest.raises(TranscriptError, match="YTDLP_COOKIES_BASE64"):
         _method(cookies_base64=value)._base_opts()
+
+
+BOT = "ERROR: [youtube] abc: Sign in to confirm you\u2019re not a bot. Use --cookies-from-browser"
+
+
+class Flaky:
+    """A fake YoutubeDL that is blocked `blocked` times, then answers."""
+    blocked = 0
+    calls = 0
+
+    def __init__(self, opts=None):
+        pass
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exc):
+        return False
+
+    def extract_info(self, url, download=False):
+        Flaky.calls += 1
+        if Flaky.calls <= Flaky.blocked:
+            raise RuntimeError(BOT)
+        return MANUAL
+
+
+def _flaky(monkeypatch, blocked, **network):
+    Flaky.blocked, Flaky.calls = blocked, 0
+    monkeypatch.setattr(ytdlp_module.yt_dlp, "YoutubeDL", Flaky)
+    m = _method(**network)
+    m.RETRY_PAUSE = 0
+    return m
+
+
+def test_a_blocked_proxy_address_is_retried(monkeypatch):
+    m = _flaky(monkeypatch, 3, proxy="http://p:80/")
+    assert m.check("abc") is True and Flaky.calls == 4
+
+
+def test_gives_up_after_the_retries(monkeypatch):
+    from seeker_sdk_core import TranscriptError
+    m = _flaky(monkeypatch, 99, proxy="http://p:80/", proxy_retries=2)
+    with pytest.raises(TranscriptError, match="Sign in to confirm"):
+        m.check("abc")
+    assert Flaky.calls == 3
+
+
+def test_no_retry_without_a_proxy_the_address_would_be_the_same(monkeypatch):
+    from seeker_sdk_core import TranscriptError
+    m = _flaky(monkeypatch, 1)
+    with pytest.raises(TranscriptError):
+        m.check("abc")
+    assert Flaky.calls == 1
+
+
+def test_other_errors_are_not_retried(monkeypatch):
+    from seeker_sdk_core import TranscriptError
+    m = _flaky(monkeypatch, 0, proxy="http://p:80/")
+    monkeypatch.setattr(Flaky, "extract_info", lambda self, url, download=False: (_ for _ in ()).throw(RuntimeError("Video unavailable")))
+    with pytest.raises(TranscriptError, match="Video unavailable"):
+        m.check("abc")

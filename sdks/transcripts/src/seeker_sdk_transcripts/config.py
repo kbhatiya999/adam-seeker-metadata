@@ -18,6 +18,7 @@ class Network:
     proxy: Optional[str] = None
     webshare_username: Optional[str] = None
     webshare_password: Optional[str] = None
+    proxy_retries: int = 6                  # yt-dlp: asks again this many times when YouTube blocks one proxy address
 
 
 @dataclass(frozen=True)
