@@ -1,438 +1,510 @@
-# 🎥 Automated Video List Maintenance
+# Automation reference
 
-This system automatically maintains your master video list by discovering new videos from Adam Seeker's YouTube channel and providing tools for manual categorization and management.
+Every task in detail. **New here? Start with [README.md](README.md):** it covers installing, the first commands and setting up GitHub.
 
-## 🚀 Quick Start
+All commands run through mise: `mise run <task>`. The task names follow one pattern, `<where>:<area>:<action>`, for example `local:videos:update`. `mise tasks` lists them all.
 
-1. **Install tools and dependencies:**
-   ```bash
-   mise install && mise run install
-   ```
-
-2. **Get a YouTube API key:**
-   - Go to [Google Cloud Console](https://console.cloud.google.com/)
-   - Create a new project or select existing one
-   - Enable YouTube Data API v3
-   - Create credentials (API Key)
-   - Copy the API key
-
-3. **Configure the system:**
-   ```bash
-   # Set environment variable
-   export YOUTUBE_API_KEY="your_api_key_here"
-   
-   # Or edit config.env file
-   nano config.env
-   ```
-
-4. **Test the update:**
-   ```bash
-   uv run seeker videos update
-   ```
-
-## 📁 File Structure
+## What is where
 
 ```
-├── data/
-│   └── videos_master.json          # Master video list
-├── sdks/                           # reusable libraries (seeker-sdk-core, -videos, -transcripts)
-├── apps/                           # `seeker` CLI and the menu (seeker-tui)
-├── scripts/                        # ops shell scripts (docker, nuke, build, ...)
-├── logs/
-│   └── update_master.log           # Update logs
-├── .github/workflows/
-│   └── update-videos.yml           # GitHub Actions workflow
-├── pyproject.toml / uv.lock        # Python dependencies (uv)
-├── mise.toml                       # Tools and tasks (mise)
-├── fnox.toml                       # Secret declarations (fnox)
-└── config.env                      # Configuration file
+data/videos_master.json        the video list (committed; GitHub updates it daily)
+data/videos_master.json.backup the copy made before every save
+data/transcripts/              downloaded transcripts (git-ignored: large)
+data/knowledge/ data/llm/ data/eval/   processed passages, model answers, evaluation runs (git-ignored)
+logs/                          update_master.log, rebuild_master.log (committed by the workflow), transcripts.log
+sdks/                          the libraries: core, videos, transcripts, llm, gemini, knowledge, chat, eval
+apps/                          the front ends: cli (`seeker`), tui (the menu), chat (Chainlit)
+scripts/                       helper scripts behind the mise tasks (keys, Docker, profiles, nuke, builds)
+eval/questions/                the evaluation questions
+.github/workflows/             update-videos.yml (daily), rebuild-videos.yml (manual)
+mise.toml                      the tools and every task
+fnox.toml                      the names of all secrets and settings, and the profiles (no values)
+fnox.local.toml                YOUR keys and settings (git-ignored; copy fnox.local.toml.example)
+pyproject.toml, uv.lock        the Python workspace and its exact dependency versions
+Tiltfile                       the dashboard
 ```
 
-## 🔧 Scripts Overview
+## Where a task runs: `local:`, `act:`, `gh:`
 
-### `update_master.py`
-**Automated video discovery and list updates**
+| Scope | Runs | Publishes? |
+|---|---|---|
+| `local:` | the code directly on your computer | no, but it edits `data/` and `logs/` in your folder |
+| `act:` | the GitHub workflow in Docker, using `act` | no: commit, push, issue and artifact steps are skipped when `ACT` is set |
+| `gh:` | the real workflow on GitHub (`gh workflow run`, then it watches the run) | **yes**: commits to the branch and opens or comments on issues |
+
+The workflows call the `local:` tasks, so all three run the same commands. Test in this order: `local:` first, then `act:`, then `gh:`.
+
+`gh:` tasks use your current branch, or `REF=<branch>`. The branch must be pushed. The workflow file must also exist on the default branch, or GitHub cannot start it.
+
+Some tasks have no scope:
+- `install`, `setup`, `test`, `menu`, `nuke`
+- `build:sdks`, `build:apps`, `sdk:new`
+
+## Videos
 
 ```bash
-# Run update (uses API key if available, falls back to yt-dlp)
-uv run seeker videos update
-
-# With specific API key
-YOUTUBE_API_KEY="your_key" uv run seeker videos update
+mise run local:videos:update
 ```
-
-**Features:**
-- Fetches new videos from YouTube channel
-- Compares with existing videos to avoid duplicates
-- Adds new videos with status "uncategorized"
-- Creates automatic backups
-- Comprehensive logging
-
-### `manage_videos.py`
-**Manual video management and categorization**
+Adds new videos to the list:
+- New videos get `status: "uncategorized"` and `needs_review: true`.
+- The list stays sorted newest first.
+- A `.backup` copy is made before every save.
 
 ```bash
-# List uncategorized videos
-uv run seeker videos manage list-uncategorized
-
-# Generate comprehensive report
-uv run seeker videos manage report
-
-# Interactive categorization mode
-uv run seeker videos manage interactive
-
-# Categorize specific video
-uv run seeker videos manage categorize VIDEO_ID --categories "islam,critique" --relevance 8 --notes "Important debate"
-
-# Mark video as priority
-uv run seeker videos manage priority VIDEO_ID --category "urgent" --relevance 10
+mise run local:videos:rebuild
 ```
+Fetches the whole list again and keeps your manual work. See [README_REBUILD.md](README_REBUILD.md).
 
-**Features:**
-- Interactive video categorization
-- Relevance scoring (1-10)
-- Category management
-- Comprehensive reporting
-- Priority video handling
-
-## 🧰 Local Setup and Testing (mise + uv)
+`local:videos:manage` takes a subcommand: `report`, `list-uncategorized`, `interactive`, `categorize` or `priority`.
 
 ```bash
-mise install                                  # Python, uv, act, fnox, gh
-cp fnox.local.toml.example fnox.local.toml    # set YOUTUBE_API_KEY (git-ignored)
-mise run install                              # uv sync + checks Docker, offers to install it if missing
-
-mise run local:videos:update                  # 1. run the script directly
-mise run local:videos:manage report           #    run the management script
-mise run act:videos:update                    # 2. run the workflow locally in Docker (needs Docker)
-mise run gh:videos:update                     # 3. trigger the REAL workflow on GitHub and watch it
+mise run local:videos:manage report
 ```
-
-### Interactive menu
+Shows counts, categories and the newest videos.
 
 ```bash
-mise run menu
+mise run local:videos:manage list-uncategorized
 ```
-
-A terminal UI: pick an action (update/rebuild videos, transcripts, change a method, API key, Docker, the knowledge and evaluation tools, tests and builds, nuke...), choose where to run it (local / act / real GitHub) and its options, review the exact command, then run it. Anything that publishes to GitHub, rebuilds the list, or deletes asks for confirmation first. Keys: arrows + Enter to choose, Esc to go back, `q` to quit.
-
-### Dashboard (Tilt)
+Lists the videos you have not categorized yet.
 
 ```bash
-mise run local:tilt:up        # http://localhost:10350, Ctrl-C to stop
-mise run local:tilt:ci        # same resources once, no UI, exit code 0 = all green
-mise run local:workspace:graph
+mise run local:videos:manage interactive
 ```
-
-A live picture of the workspace: one resource per SDK/app (its tests, in dependency order, re-run when it or anything it depends on changes), the plugin registry, reports on the master list and its transcripts, which method local/act/gh use (with a button to change local or act), and manual buttons for update, rebuild, transcripts download and compare, wheel build, act and docker diagnose. Nothing here publishes to GitHub. Details in `docs/architecture.md`.
-
-### Chat (Chainlit) and the Gemini key
+Goes through the new videos one by one.
 
 ```bash
-mise run local:chat:up          # http://localhost:8000
-mise run local:apikey:gemini    # key for --provider gemini (daily processing), from Google AI Studio
+mise run local:videos:manage categorize VIDEO_ID --categories "islam,critique" --relevance 8 --notes "Important debate"
 ```
-
-The chat asks each user for their own Gemini key in the browser (create one at https://aistudio.google.com/apikey); the key stays in that browser and is never saved on the server. `local:apikey:gemini` is only for the command-line tools (`seeker knowledge process / ask / eval run --provider gemini`). The free tier allows about 20 requests a day per model; pick another model with `SEEKER_GEMINI_MODEL` (or in the chat's settings) when one runs out.
-
-### fnox profiles (secrets once, settings per profile)
+Categorizes one video. Relevance is a score from 1 to 10.
 
 ```bash
-mise run local:profile:show                    # active profiles, effective settings, which secrets are set
-mise run local:profile:use -- ytdlp gemini-lite  # methods profile + model profile (later ones win)
-mise run local:profile:use                     # back to the default profile
+mise run local:videos:manage priority VIDEO_ID --category urgent --relevance 10
+```
+Marks a video as important.
+
+### One video in the list
+
+```json
+{
+  "video_id": "abc123",
+  "title": "Video title",
+  "url": "https://www.youtube.com/watch?v=abc123",
+  "upload_date": "2026-10-17",
+  "description": "...",
+  "status": "uncategorized",
+  "auto_detected": true,
+  "needs_review": true,
+  "last_checked": "2026-10-18",
+  "categories": ["critique-of-islam"],
+  "relevance_score": 9,
+  "notes": "Why this video matters",
+  "key_topics": ["topic1"],
+  "transcript_file": "data/transcripts/abc123.srt",
+  "transcript_text_file": "data/transcripts/abc123.txt",
+  "transcript_status": "unavailable",
+  "transcript_attempts": 2,
+  "transcript_retry_after": "2026-10-20"
+}
 ```
 
-`fnox.local.toml` keeps only your secrets at the top (every profile inherits them); settings live in profiles: `ytdlp` / `youtube-api` for how videos and transcripts are fetched, `subagents` / `gemini` / `gemini-lite` for who runs the model tools. Your own tweaks from `local:method:set` go to the local `overrides` profile, applied last. Every task picks up the switch (terminal, menu, Tilt: the `profile` resource has a "Switch fnox profile" button).
+Field groups:
+- `categories`, `relevance_score`, `notes` and `key_topics` exist only after you add them.
+- The `transcript_*` fields are written by the transcript tools.
+- `transcript_status` and the fields after it appear only while a video has no transcript yet.
 
-### Switching methods (local / act / GitHub)
+The top of the file has `last_updated`, `total_videos` and `channel_url`. The file is written with 2-space indents and real (not escaped) Unicode, which keeps diffs small.
 
-Two settings choose how things are fetched. Each place a job runs keeps its own copy:
+## Methods: how videos and transcripts are fetched
 
 | Setting | Values | Meaning |
 |---|---|---|
-| `master-list` (`MASTER_LIST_METHOD`) | `youtube_api`, `ytdlp` | how new videos are discovered |
+| `master-list` (`MASTER_LIST_METHOD`) | `youtube_api`, `ytdlp` | how new videos are found |
 | `transcript` (`TRANSCRIPT_METHOD`) | `ytdlp`, `youtube_transcript_api` | how transcripts are downloaded |
 
+- **An explicit method has no fallback.** If it fails, the run fails, and `youtube_api` without a key fails too.
+- **With `master-list` unset, the old behaviour applies.** The tools use the API if a key is present, and yt-dlp otherwise.
+- **Each place keeps its own copy of the setting:**
+
 ```bash
-mise run local:method:set -- master-list ytdlp     # writes your `overrides` profile in fnox.local.toml (local:* tasks)
-mise run act:method:set   -- master-list youtube_api   # writes .vars (used by act:* tasks)
-mise run gh:method:set    -- master-list youtube_api   # sets a repository variable (used by the real workflows)
-mise run all:method:show                           # local, act and gh together
-mise run local:method:show                         # or one place: act:method:show / gh:method:show
-mise run gh:method:set -- master-list unset        # remove a setting
+mise run local:method:set -- master-list ytdlp
+```
+For `local:` tasks. This writes the `overrides` profile in `fnox.local.toml`.
+
+```bash
+mise run act:method:set -- master-list youtube_api
+```
+For `act:` tasks. This writes `.vars`, which is git-ignored.
+
+```bash
+mise run gh:method:set -- master-list youtube_api
+```
+For the real workflows. This sets a repository variable.
+
+```bash
+mise run gh:method:set -- master-list unset
+```
+Removes a setting.
+
+```bash
+mise run all:method:show
+```
+Shows what local, act and GitHub each use. For one place only, use `local:method:show`, `act:method:show` or `gh:method:show`.
+
+The fastest way to switch both methods at once on your computer is a profile:
+
+```bash
+mise run local:profile:use -- ytdlp
 ```
 
-An explicit method has no fallback: if it fails the run exits non-zero (`youtube_api` without a key also fails). With `master-list` unset the old behaviour applies: use the API if a key is present, otherwise yt-dlp. No workflow uses the transcript method yet.
+## fnox profiles
 
-### Transcripts
+[fnox](https://github.com/jdx/fnox) gives every task its keys and settings.
+
+| Where | What goes there |
+|---|---|
+| top of `fnox.local.toml` | your **keys** (`YOUTUBE_API_KEY`, `GEMINI_API_KEY`). Every profile inherits them. |
+| profiles in `fnox.toml` | **settings** only, shared by everyone |
+| the `overrides` profile in `fnox.local.toml` | your own settings, applied last. `local:method:set` writes it. |
+
+The profiles:
+
+| Profile | Kind | Sets |
+|---|---|---|
+| `ytdlp` | methods | both methods to yt-dlp |
+| `youtube-api` | methods | `youtube_api` and `youtube_transcript_api` |
+| `subagents` | model | model questions wait in a queue (`data/llm/queue/`) for a helper to answer |
+| `gemini` | model | Gemini, model `gemini-flash-latest` |
+| `gemini-lite` | model | Gemini, model `gemini-flash-lite-latest` (a separate free quota) |
+
+```bash
+mise run local:profile:show
+```
+Shows the active profiles, the settings that result and whether each key is set. Key values are never shown.
+
+```bash
+mise run local:profile:use -- ytdlp gemini-lite
+```
+Picks one methods profile and one model profile. When two profiles set the same thing, the later one wins.
+
+```bash
+mise run local:profile:use
+```
+Goes back to the default.
+
+You can also switch from the menu (Methods → Switch fnox profile) or with the Tilt `profile` resource's "Switch fnox profile" button.
+
+- The choice is saved in `.fnox-profile`, which is git-ignored.
+- `FNOX_PROFILE=ytdlp mise run ...` overrides it for one command.
+- On GitHub there is no profile, so the default applies and the key comes from the repository secret.
+
+**Never put a setting at the top of `fnox.local.toml`.** A setting there silently beats every profile. Put your own settings in `[profiles.overrides.secrets]` instead (see `fnox.local.toml.example`).
+
+## Keys
+
+```bash
+mise run local:apikey:setup
+```
+Sets up the YouTube Data API v3 key:
+- It can drive `gcloud` after you sign in, or open the Google Cloud pages for you.
+- It checks the key with one call, saves it in `fnox.local.toml` and can also set the `YOUTUBE_API_KEY` GitHub secret.
+- The key is free, and you can only create it from your own Google account.
+
+```bash
+mise run local:apikey:gemini
+```
+Sets up the Gemini key:
+- It opens https://aistudio.google.com/apikey, checks the key with a free call and saves it in `fnox.local.toml`.
+- `mise run local:apikey:gemini -- --check` checks the saved key again.
+
+Neither helper ever prints a key. `fnox.local.toml` is created with permissions that only you can read.
+
+## Transcripts
+
+`local:transcripts:manage` takes a subcommand. `stats` and `list-missing` need no method:
 
 ```bash
 mise run local:transcripts:manage -- stats
+```
+```bash
 mise run local:transcripts:manage -- list-missing
-mise run local:transcripts:manage -- --method youtube_transcript_api download-missing --limit 5
-mise run local:transcripts:manage -- --method ytdlp download VIDEO_ID
-mise run local:transcripts:manage -- --method ytdlp check VIDEO_ID
-mise run local:transcripts:compare -- VIDEO_ID   # both methods side by side, then a diff of the final files (files in data/transcripts/compare/<id>/)
 ```
 
-You must choose the method (`--method` or `TRANSCRIPT_METHOD`): `ytdlp` or `youtube_transcript_api`. There is no default and no fallback: if the chosen method fails (for example YouTube answers HTTP 429), it says so and moves on. Two separate options control the format:
-- `--format` is what is **downloaded** from YouTube by either method (`ttml` default, `srv1`, `srt`, `vtt`). The library method fetches it through its own session.
-- `--final` is the **final files** you end up with, comma separated from `srt,vtt,txt` (default `srt,txt`). A post-processor converts the downloaded file into these and deletes the download unless you add `--keep-source`.
+The rest need a method:
+
+```bash
+mise run local:transcripts:manage -- --method ytdlp download-missing --limit 5
+```
+```bash
+mise run local:transcripts:manage -- --method ytdlp download VIDEO_ID
+```
+```bash
+mise run local:transcripts:manage -- --method ytdlp check VIDEO_ID
+```
+```bash
+mise run local:transcripts:compare -- VIDEO_ID
+```
+`local:transcripts:compare` downloads one video with both methods side by side, into `data/transcripts/compare/<id>/`.
+
+- **The method is required.** Use `--method` or set `TRANSCRIPT_METHOD` (a `ytdlp` / `youtube-api` profile sets it). There is no default and no fallback.
+- **`--limit N` stops after N downloads.**
+  - Videos without captions are skipped and do not count.
+  - `--max-attempts` (default 50) caps how many videos one run tries.
+  - Three errors in a row stop the run, because YouTube is probably blocking you.
+- **"No transcript" is remembered.**
+  - The video gets `transcript_status: unavailable` and is looked up again after 1, 2, 4, 8 ... days, up to 64.
+  - So repeated runs move on to other videos.
+  - It is a normal outcome, not an error.
+- **`--format` is what is downloaded:** `ttml` (default), `srv1`, `srt` or `vtt`.
+  - `vtt` from YouTube is about 4 times bigger, because it repeats rolling caption lines.
+- **`--final` is the files you keep:** a comma list from `srt,vtt,txt`, default `srt,txt`.
+  - `--keep-source` also keeps the downloaded file.
+
+For example:
 
 ```bash
 mise run local:transcripts:manage -- --method ytdlp --format ttml --final srt,txt download VIDEO_ID
 ```
 
-Files go to `data/transcripts/<id>.srt` / `.txt` / `.vtt` (git-ignored, they are large) and are linked in the master list (`transcript_file`, `transcript_text_file`). `vtt` as a download is much bigger because YouTube's WebVTT repeats rolling caption lines; `ttml`, `srv1` and `srt` are about 4x smaller with the same text.
+Files go to `data/transcripts/<id>.srt` and `.txt`. The list links them as `transcript_file` and `transcript_text_file`. Every run also writes `logs/transcripts.log`.
 
-### Getting a YouTube API key
+## Knowledge, chat and evaluation
 
-```bash
-mise run local:apikey:setup   # guided: opens the Google Cloud pages, validates your key, saves it to fnox.local.toml
-```
+These steps turn transcripts into searchable passages, answer questions, and score how well each approach works.
 
-The key is free and has to be created from your own Google account (it can't be fetched automatically). gcloud is installed by `mise install` (via mise, using mise's Python). Without a key the scripts fall back to yt-dlp, which is slower and has no upload dates. The task can also set the `YOUTUBE_API_KEY` GitHub secret so the daily workflow uses the API.
-
-### Docker lifecycle (Colima first, then Docker Desktop)
+**Processing strategies** turn transcripts into passages:
 
 ```bash
-mise run docker:start     # start Colima / Docker Desktop and wait until ready
-mise run docker:stop      # remove this project's containers/volumes, then stop Docker to free resources
-mise run docker:cleanup   # remove only leftover containers/volumes, keep Docker running
-mise run docker:diagnose  # host vs Docker CPU/RAM/disk, what's free, and how to change it permanently
+mise run local:knowledge:manage -- strategies
 ```
-
-`act:` tasks start Docker automatically if it is down, remove any old leftovers before running (never reuse stale state), always clean up afterwards (even on failure or Ctrl-C), and stop Docker only if that run started it. `docker:stop` leaves Docker running if other containers are in use.
-
-### Cleaning up (nuke)
+Lists them:
+- `chunks`: raw captions in 3-minute windows. It needs no model.
+- `english-notes`: a model writes English notes for every 15 minutes.
 
 ```bash
-mise run nuke -- --dry-run   # show what would be removed
-mise run nuke                # .venv, .act/, project Docker containers/volumes/image (asks first)
-mise run nuke -- --all       # also uv cache, act-toolcache volume, this project's mise tools, fnox.local.toml
+mise run local:knowledge:manage -- process --strategy chunks
+```
+```bash
+mise run local:knowledge:manage -- process --strategy english-notes --videos ID1,ID2 --provider gemini --max-requests 20
+```
+```bash
+mise run local:knowledge:manage -- status
 ```
 
-Docker resources created by `act` are labelled `project=adam-seeker-metadata` and the cache dirs live in `.act/` (see `.actrc`), so nuke removes only what this project created. Docker itself is not uninstalled.
+**Chat strategies** answer questions:
+- `keyword`: search with the question's words.
+- `multilingual`: a model first rewrites the question in English, Roman Urdu, Devanagari and Bengali.
 
-Task names are `<where>:<area>:<action>`; the first scope says where it runs:
+```bash
+mise run local:chat:ask -- "Which hadith number is cited about ...?" --processing english-notes --chat multilingual
+```
+```bash
+mise run local:chat:up
+```
+`local:chat:up` is the browser chat at http://localhost:8000. Each person brings their own Gemini key.
 
-| Scope | Runs | Publishes? |
+**Evaluation** scores each (processing, chat) pair on `eval/questions/`. Record results worth keeping in `eval/RESULTS.md`. See [eval/README.md](eval/README.md).
+
+```bash
+mise run local:eval:manage -- questions --videos ID1,ID2
+```
+```bash
+mise run local:eval:manage -- run --processing english-notes --chat keyword --videos ID1,ID2
+```
+```bash
+mise run local:eval:manage -- compare
+```
+
+**Providers** answer the model questions:
+- `gemini`: needs your key. The free tier allows about 20 requests a day per model.
+- `queue`: the `subagents` profile. Questions are written to `data/llm/queue/pending/`, and a helper writes the answers.
+
+Answers are cached per model, so you never pay twice for the same question. When a provider cannot answer yet, the command exits with code **75** and prints "Waiting because: ...". Run it again later and it continues.
+
+```bash
+mise run local:llm:manage -- status
+```
+```bash
+mise run local:llm:manage -- pending
+```
+
+## The menu
+
+```bash
+mise run menu
+```
+
+A terminal menu for every action.
+1. Choose the action and where to run it (local, act or GitHub).
+2. Choose its options. Method, strategy and profile choices come from what is installed.
+3. Check the exact `mise run ...` command, then run it.
+
+Anything that publishes to GitHub, rebuilds the list or deletes asks first. Keys: the arrows and Enter, Esc to go back, `q` to quit.
+
+The menu stays in sync with the `seeker` command: a test fails if a command or option cannot be reached from the menu.
+
+## The dashboard (Tilt)
+
+```bash
+mise run local:tilt:up
+```
+Opens http://localhost:10350. Ctrl-C stops it, and `TILT_PORT` changes the port.
+
+```bash
+mise run local:tilt:ci
+```
+Runs the same checks once with no window. Exit code 0 means all green.
+
+```bash
+mise run local:workspace:graph
+```
+Prints which package depends on which.
+
+A live picture of the project. Nothing is deployed: every resource is a command on your computer.
+- **Packages:** one resource per package. It runs its tests in dependency order and again when its code, or code it depends on, changes.
+- **Data:** reports on the list and the transcripts.
+- **Settings:** the active profile with a "Switch fnox profile" button, and the methods with a "Set a method" button.
+- **Manual resources:** press the trigger arrow on update, rebuild, transcripts download and compare, wheel build, act and Docker diagnose.
+- **The chat:** a `chat` resource.
+
+Nothing on the dashboard publishes to GitHub. Details are in [docs/architecture.md](docs/architecture.md).
+
+## Docker (only for `act:` tasks)
+
+```bash
+mise run docker:start
+```
+Starts Colima (or Docker Desktop) and waits until it is ready.
+
+```bash
+mise run docker:stop
+```
+Removes this project's containers and volumes, then stops Docker. It leaves Docker running if other containers are in use.
+
+```bash
+mise run docker:cleanup
+```
+Removes leftovers only and keeps Docker running.
+
+```bash
+mise run docker:diagnose
+```
+Compares your computer's CPU, memory and disk with what Docker has, and says how to change it.
+
+```bash
+mise run act:list
+```
+Lists the workflows `act` can run.
+
+`act:` tasks start Docker if it is off. They also:
+- remove old leftovers first
+- always clean up afterwards, even after an error or Ctrl-C
+- stop Docker only if they started it
+
+act needs about 2+ CPUs, 4+ GB of memory and 30+ GB of disk.
+
+## Cleaning up (nuke)
+
+```bash
+mise run nuke -- --dry-run
+```
+Shows what would be removed.
+
+```bash
+mise run nuke
+```
+Removes `.venv`, `.act/` and this project's Docker containers, volumes and image. It asks first.
+
+```bash
+mise run nuke -- --all
+```
+Also removes the uv cache, the act tool cache, this project's mise tools, `fnox.local.toml` and `.fnox-profile`.
+
+Everything act creates is labelled `project=adam-seeker-metadata` or lives in `.act/` (see `.actrc`), so nuke removes only what this project made. Docker itself is never uninstalled.
+
+## GitHub Actions
+
+| Workflow | When | What it does |
 |---|---|---|
-| `local:` | the scripts directly on your machine | no (but edits `data/` and `logs/` in your working tree) |
-| `act:` | the GitHub workflow in Docker via `act` | no (commit, push, issue and artifact steps are skipped via `!env.ACT`) |
-| `gh:` | the real workflow on GitHub (`gh workflow run`, then watches it) | **yes**: commits to the ref and opens/comments on issues |
+| Update Video List (`update-videos.yml`) | daily at 06:00 UTC, and by hand | `mise run local:videos:update`. Only when videos were **added**: commits `data/videos_master.json` and `logs/`, and comments on the open "📺 New Videos Available for Review" issue (or opens it). |
+| Rebuild Video List (`rebuild-videos.yml`) | by hand only | `mise run local:videos:rebuild`, commits, opens a summary issue |
 
-`gh:` tasks use the current branch (or `REF=<branch>`). The ref must be pushed, and the workflow must exist on the default branch to be dispatchable. Run `mise tasks` to list everything.
+How the workflows behave:
+- **They share one concurrency group,** so they never push at the same time.
+- **They have no `push:` trigger,** so merging code never starts a run.
+- **They install only the CLI** (`mise run setup:cli`), not the chat app.
+- **They ask for `contents: write` and `issues: write`,** so they work on forks and new repositories without changing settings.
+- **The logs are uploaded with every run** and kept for 30 days.
 
-## 🤖 GitHub Actions Automation
+A run that finds no new videos commits nothing and comments nowhere. The `last_updated` date and log lines change on every run, but they do not count.
 
-The system includes a GitHub Actions workflow that runs automatically:
+**Setting it up on your own copy** (enable Actions and Issues, add the secret, run it once) is in [README.md](README.md#set-it-up-on-your-own-copy-a-fork).
 
-- **Schedule:** Daily at 6 AM UTC
-- **Manual trigger:** Available via GitHub UI
-- **Auto-commit:** Commits new videos to repository
-- **Notifications:** Maintains a single rolling "New Videos Available for Review" GitHub issue, adding a dated comment for each update (a new issue is created only after the previous one is closed)
-- **Ordering:** `data/videos_master.json` is kept sorted by `upload_date`, newest first
-- **Logs:** Uploads detailed logs as artifacts
-
-### Setup GitHub Actions
-
-1. **Add API key secret:**
-   - Go to repository Settings
-   - Navigate to Secrets and Variables > Actions
-   - Click "New repository secret"
-   - Name: `YOUTUBE_API_KEY`
-   - Value: Your YouTube API key
-
-2. **Enable workflow:**
-   - Go to Actions tab
-   - Find "Update Video List" workflow
-   - Click "Enable workflow"
-
-3. **Test manually:**
-   - Go to Actions tab
-   - Select "Update Video List"
-   - Click "Run workflow"
-
-## 📊 Master List Structure
-
-The master list now includes automation fields:
-
-```json
-{
-  "videos": [
-    {
-      "video_id": "abc123",
-      "title": "Video Title",
-      "url": "https://www.youtube.com/watch?v=abc123",
-      "upload_date": "2024-01-01",
-      "duration": "15:30",
-      "description": "Video description",
-      "transcript_file": "transcripts/abc123.txt",
-      "categories": ["critique-of-islam"],
-      "relevance_score": 9,
-      "key_topics": ["topic1", "topic2"],
-      "notes": "Why this video is relevant",
-      
-      // Automation fields
-      "status": "categorized|uncategorized|archived",
-      "auto_detected": true,
-      "needs_review": false,
-      "last_checked": "2024-01-01"
-    }
-  ],
-  "last_updated": "2024-01-01",
-  "total_videos": 1,
-  "channel_url": "https://www.youtube.com/@AdamSeekerOfficial"
-}
-```
-
-## 🔄 Workflow Process
-
-### Daily Automated Process
-1. **Discovery:** Script fetches latest videos from YouTube
-2. **Comparison:** Identifies new videos not in master list
-3. **Addition:** Adds new videos with status "uncategorized"
-4. **Notification:** Comments on the open rolling review issue (or creates it if none is open)
-5. **Commit:** Automatically commits changes to repository
-
-### Weekly Manual Review
-1. **Review:** Check the rolling review issue for new videos, then close it when done
-2. **Categorize:** Use management script to assign categories
-3. **Score:** Set relevance scores (1-10)
-4. **Notes:** Add detailed notes about usefulness
-5. **Update:** Change status from "uncategorized" to "categorized"
-
-## 🛠️ Configuration Options
-
-Edit `config.env` to customize:
+**Watching runs:**
 
 ```bash
-# YouTube API Configuration
-YOUTUBE_API_KEY=your_api_key_here
-
-# File Paths
-MASTER_FILE=data/videos_master.json
-CHANNEL_URL=https://www.youtube.com/@AdamSeekerOfficial
-
-# Update Settings
-MAX_VIDEOS_PER_UPDATE=50
-UPDATE_FREQUENCY=daily
-
-# Notification Settings
-DISCORD_WEBHOOK_URL=your_discord_webhook_here
-EMAIL_NOTIFICATIONS=false
-
-# Categories
-DEFAULT_CATEGORIES=critique-of-islam,theology,apologetics,debate
+mise run gh:list
 ```
+Lists recent runs.
 
-## 📈 Monitoring and Reports
-
-### View Update Logs
 ```bash
-# Check recent updates
+gh run view --log
+```
+Shows the log of a run.
+
+Or open the **Actions** tab on GitHub.
+
+## Reviewing new videos
+
+1. GitHub comments on the review issue when new videos arrive.
+2. Pull the changes:
+   ```bash
+   git pull
+   ```
+3. Categorize the new videos:
+   ```bash
+   mise run local:videos:manage interactive
+   ```
+   Or use `categorize` for one video.
+4. Commit and push `data/videos_master.json`, then close the issue.
+
+When reviewing:
+- Keep the 1-10 scores consistent.
+- Write notes your future self will understand.
+
+## Logs
+
+```bash
 tail -f logs/update_master.log
-
-# View all logs
-cat logs/update_master.log
 ```
 
-### Generate Reports
+Log files:
+- `logs/update_master.log`
+- `logs/rebuild_master.log`
+- `logs/transcripts.log` (git-ignored)
+
+The workflow commits the first two when it commits new videos.
+
+For problems, see the table in [README.md](README.md#when-something-goes-wrong).
+
+## Building and adding SDKs
+
 ```bash
-# Comprehensive report
-uv run seeker videos manage report
-
-# List uncategorized videos
-uv run seeker videos manage list-uncategorized
+mise run build:sdks
 ```
+Builds each SDK as its own wheel into `dist/sdks`, then checks each one installs and works on its own.
 
-### GitHub Actions Logs
-- Go to Actions tab in GitHub
-- Click on latest workflow run
-- View detailed logs and artifacts
-
-## 🔧 Troubleshooting
-
-### Common Issues
-
-**1. API Key Issues**
 ```bash
-# Test API key
-curl "https://www.googleapis.com/youtube/v3/search?part=snippet&q=test&key=YOUR_API_KEY"
+mise run build:apps
 ```
+Does the same for the apps, into `dist/apps`.
 
-**2. yt-dlp Fallback**
-- If API fails, system automatically uses yt-dlp
-- No additional configuration needed
-- May be slower but more reliable
-
-**3. Permission Issues**
 ```bash
-# Make scripts executable
-chmod +x scripts/*.py
-
-# Check file permissions
-ls -la scripts/
+mise run sdk:new -- rag --plugin video_sources
 ```
+Creates a new SDK, `sdks/rag`, with a plugin skeleton.
 
-**4. Missing Dependencies**
-```bash
-# Install requirements
-mise run setup
+How the code fits together is in [docs/architecture.md](docs/architecture.md).
 
-# Or install individually
-uv add yt-dlp requests python-dateutil
-```
-
-### Debug Mode
-```bash
-# Run with verbose logging
-uv run seeker videos update 2>&1 | tee debug.log
-```
-
-## 🚀 Advanced Features
-
-### Priority Videos
-Mark important videos for immediate attention:
-```bash
-uv run seeker videos manage priority VIDEO_ID --category "urgent" --relevance 10
-```
-
-### Batch Operations
-Process multiple videos at once:
-```bash
-# Interactive mode for batch categorization
-uv run seeker videos manage interactive
-```
-
-### Custom Categories
-Add your own categories in the management script or config file.
-
-## 📝 Best Practices
-
-1. **Regular Review:** Check the rolling review issue weekly and close it after review
-2. **Consistent Scoring:** Use 1-10 scale consistently
-3. **Detailed Notes:** Add meaningful notes for future reference
-4. **Backup Strategy:** System creates automatic backups
-5. **API Limits:** YouTube API has daily limits (10,000 requests)
-6. **Version Control:** All changes are tracked in Git
-
-## 🤝 Contributing
-
-To improve the automation system:
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
-## 📄 License
-
-This automation system is part of your video management project. Use and modify as needed for your specific requirements.
-
----
-
-**Need Help?** Check the logs, run the setup script, or review the GitHub Actions workflow for detailed error information.
+Before a pull request:
+- Run `mise run test`.
+- If you changed dependencies, run `uv lock` and commit `uv.lock`.

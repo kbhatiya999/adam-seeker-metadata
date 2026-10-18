@@ -11,6 +11,12 @@ concurrency:
   group: videos-master-data
   cancel-in-progress: false
 
+permissions:
+  # Asked for explicitly, so a fork or a new repository (whose default token is read-only) works without changing
+  # Settings > Actions: write to commit the list and logs, issues to post the review notes.
+  contents: write
+  issues: write
+
 jobs:
   update-videos:
     runs-on: ubuntu-latest
