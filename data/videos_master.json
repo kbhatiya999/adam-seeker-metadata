@@ -31,7 +31,11 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2026-10-11"
+      "last_checked": "2026-10-11",
+      "transcript_status": "unavailable",
+      "transcript_attempts": 1,
+      "transcript_checked": "2026-10-17",
+      "transcript_retry_after": "2026-10-18"
     },
     {
       "video_id": "OCZ0vysB4xY",
@@ -42,7 +46,11 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2026-10-07"
+      "last_checked": "2026-10-07",
+      "transcript_file": "data/transcripts/OCZ0vysB4xY.srt",
+      "transcript_text_file": "data/transcripts/OCZ0vysB4xY.txt",
+      "transcript_downloaded": true,
+      "transcript_download_date": "2026-10-17"
     },
     {
       "video_id": "p8sbX52xSdY",
@@ -53,7 +61,11 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2026-10-04"
+      "last_checked": "2026-10-04",
+      "transcript_status": "unavailable",
+      "transcript_attempts": 1,
+      "transcript_checked": "2026-10-17",
+      "transcript_retry_after": "2026-10-18"
     },
     {
       "video_id": "2Vtn-67B238",
@@ -64,7 +76,11 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2026-10-04"
+      "last_checked": "2026-10-04",
+      "transcript_file": "data/transcripts/2Vtn-67B238.srt",
+      "transcript_text_file": "data/transcripts/2Vtn-67B238.txt",
+      "transcript_downloaded": true,
+      "transcript_download_date": "2026-10-17"
     },
     {
       "video_id": "lu_6z23VheE",
@@ -75,7 +91,11 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2026-10-04"
+      "last_checked": "2026-10-04",
+      "transcript_file": "data/transcripts/lu_6z23VheE.srt",
+      "transcript_text_file": "data/transcripts/lu_6z23VheE.txt",
+      "transcript_downloaded": true,
+      "transcript_download_date": "2026-10-17"
     },
     {
       "video_id": "HyF6HAlId7g",
@@ -86,7 +106,11 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2026-10-04"
+      "last_checked": "2026-10-04",
+      "transcript_file": "data/transcripts/HyF6HAlId7g.srt",
+      "transcript_text_file": "data/transcripts/HyF6HAlId7g.txt",
+      "transcript_downloaded": true,
+      "transcript_download_date": "2026-10-17"
     },
     {
       "video_id": "-q9YKqT5TS4",
@@ -97,7 +121,11 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2026-10-04"
+      "last_checked": "2026-10-04",
+      "transcript_file": "data/transcripts/-q9YKqT5TS4.srt",
+      "transcript_text_file": "data/transcripts/-q9YKqT5TS4.txt",
+      "transcript_downloaded": true,
+      "transcript_download_date": "2026-10-17"
     },
     {
       "video_id": "mSrxZtByoa4",
@@ -108,7 +136,11 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2026-10-04"
+      "last_checked": "2026-10-04",
+      "transcript_file": "data/transcripts/mSrxZtByoa4.srt",
+      "transcript_text_file": "data/transcripts/mSrxZtByoa4.txt",
+      "transcript_downloaded": true,
+      "transcript_download_date": "2026-10-17"
     },
     {
       "video_id": "mMfN_XkmC4s",
@@ -119,7 +151,11 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2026-10-04"
+      "last_checked": "2026-10-04",
+      "transcript_file": "data/transcripts/mMfN_XkmC4s.srt",
+      "transcript_text_file": "data/transcripts/mMfN_XkmC4s.txt",
+      "transcript_downloaded": true,
+      "transcript_download_date": "2026-10-17"
     },
     {
       "video_id": "c8xpAqtScUQ",
@@ -130,7 +166,11 @@
       "status": "uncategorized",
       "auto_detected": true,
       "needs_review": true,
-      "last_checked": "2026-10-04"
+      "last_checked": "2026-10-04",
+      "transcript_file": "data/transcripts/c8xpAqtScUQ.srt",
+      "transcript_text_file": "data/transcripts/c8xpAqtScUQ.txt",
+      "transcript_downloaded": true,
+      "transcript_download_date": "2026-10-17"
     },
     {
       "video_id": "b6QbOIYd06g",
