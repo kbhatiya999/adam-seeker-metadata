@@ -99,8 +99,8 @@ case "${1:-}" in
   --check)
     load_saved
     test_proxy "$user" "$pass" || exit 1
-    # typed by hand with only the username and password: add the PROXY_URL line (yt-dlp reads it)
-    [ -n "$(fnox -P proxy get PROXY_URL 2>/dev/null || true)" ] || save_local "$user" "$pass" "$url"
+    # typed by hand, or the password changed: make the PROXY_URL line match the username and password (yt-dlp reads it)
+    [ "$(fnox -P proxy get PROXY_URL 2>/dev/null || true)" = "$url" ] || save_local "$user" "$pass" "$url"
     test_youtube "$user" "$pass" "$url"; exit $? ;;
   --github)
     load_saved; to_github; exit $? ;;
