@@ -176,6 +176,7 @@ The profiles:
 | `gemini` | model | Gemini, model `gemini-flash-latest` |
 | `gemini-lite` | model | Gemini, model `gemini-flash-lite-latest` (a separate free quota) |
 | `proxy` | network | Only in your `fnox.local.toml`, made by `mise run local:proxy:setup`. Transcript requests go through your Webshare proxy. |
+| `cookies` | network | Only in your `fnox.local.toml`, made by `mise run local:cookies:setup`. yt-dlp signs in with your YouTube cookies. |
 
 ```bash
 mise run local:profile:show
@@ -250,7 +251,28 @@ Two more forms:
 - `mise run local:proxy:setup -- --check` tests the saved proxy again.
 - `mise run local:proxy:setup -- --github` copies it to the repository secrets `WEBSHARE_PROXY_USERNAME`, `WEBSHARE_PROXY_PASSWORD` and `PROXY_URL`.
 
-How the methods use it:
+```bash
+mise run local:cookies:setup
+```
+Collects YouTube login cookies for yt-dlp, another way past the "Sign in to confirm you're not a bot" check. Only yt-dlp uses cookies; youtube-transcript-api has no cookie option.
+
+Use a **throwaway Google account**, never your own: yt-dlp's authors warn that accounts used this way can be flagged or banned. Cookies are a saved login, so keep the file private.
+1. Sign in to YouTube with that account in its own browser profile (a private window works too).
+2. Run the task. It asks where the cookies are: **a browser on this computer** (it reads them with yt-dlp, and on macOS may ask to allow the browser's Keychain item: choose Allow), or **a `cookies.txt` you exported** with a browser extension such as "Get cookies.txt LOCALLY".
+3. It keeps only the `youtube.com` and `google.com` cookies. Nothing else from your browser is written anywhere.
+4. It checks that you are signed in (cookie names only, never values) and when the login expires.
+5. It saves the file **outside the repository**, as `~/.config/seeker/youtube-cookies.txt` with mode 600, and saves its path as the local `cookies` profile.
+6. It asks YouTube about one video with the cookies. From your own computer YouTube answers with or without cookies, so the real test is through the proxy: with a saved `proxy` profile it tries 4 times through the proxy with the cookies and tells you how many got through.
+
+Without questions: `mise run local:cookies:setup -- --browser chrome --profile "Profile 2"` or `-- --file ~/Downloads/cookies.txt`. `-- --check` tests the saved cookies again.
+
+To use them:
+- For one run: `FNOX_PROFILE=cookies mise run local:transcripts:manage -- --method ytdlp download-missing --limit 5`.
+- With the proxy, kept on: `mise run local:profile:use -- ytdlp proxy cookies` (off again: `mise run local:profile:use -- ytdlp`).
+
+Cookies expire, and YouTube can end the session sooner, mostly when the login is used from another address. When yt-dlp starts failing again, collect them again. GitHub does not use them yet: a workflow would need the file as a repository secret, written to a temporary file.
+
+How the methods use the proxy:
 - yt-dlp reads `PROXY_URL`.
 - youtube-transcript-api uses the Webshare username and password, and tries up to 10 new addresses when one is blocked.
 

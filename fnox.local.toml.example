@@ -19,3 +19,8 @@ GEMINI_API_KEY = { default = "your_gemini_api_key_here" }     # mise run local:a
 # WEBSHARE_PROXY_USERNAME = { default = "your_proxy_username" }
 # WEBSHARE_PROXY_PASSWORD = { default = "your_proxy_password" }
 # PROXY_URL = { default = "http://your_proxy_username-rotate:your_proxy_password@p.webshare.io:80/" }
+
+# YouTube login cookies for yt-dlp, used only when you pick the `cookies` profile. `mise run local:cookies:setup` collects them
+# into a file OUTSIDE the repo and writes this. The file is a login: never put it in the repository.
+# [profiles.cookies.secrets]
+# YTDLP_COOKIES_FILE = { default = "/Users/you/.config/seeker/youtube-cookies.txt" }

@@ -257,6 +257,13 @@ ACTIONS: List[Action] = [
            [Field("what", "What", "select", [("set up (asks for the username and password)", "setup"),
                                              ("test the saved proxy with YouTube", "check"),
                                              ("copy the saved proxy to the GitHub secrets", "github")], "setup")]),
+    Action("cookies-setup", "Setup", "Collect YouTube cookies (yt-dlp)",
+           "Another way past YouTube's \"not a bot\" check, for yt-dlp only. Reads the YouTube/Google cookies of a browser "
+           "(or an exported cookies.txt), keeps only those in a file outside the repo, saves the local `cookies` profile. "
+           "Use a throwaway Google account.",
+           lambda v: mise("local:cookies:setup", *(["--check"] if v.get("what") == "check" else [])),
+           [Field("what", "What", "select", [("collect cookies (asks where they are)", "setup"),
+                                             ("test the saved cookies with YouTube", "check")], "setup")]),
     Action("plugins", "Setup", "List installed plugins",
            "Video sources, transcript methods, model providers, processing and chat strategies, and where each comes from.",
            lambda v: mise("local:plugins:list")),

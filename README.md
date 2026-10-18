@@ -147,10 +147,11 @@ Everything above works without keys. Keys and a proxy make three things better:
 | YouTube Data API key | Faster updates, with exact upload dates | `mise run local:apikey:setup` |
 | Gemini API key | Model-based processing from the command line (`english-notes`, `ask`, `eval`) | `mise run local:apikey:gemini` |
 | Webshare proxy | Transcripts where YouTube blocks your address (it blocks GitHub's) | `mise run local:proxy:setup` |
+| YouTube cookies (optional) | Another way past YouTube's "not a bot" check, for yt-dlp only. Use a throwaway Google account | `mise run local:cookies:setup` |
 
 - Both keys are free. The proxy is a Webshare account.
 - Each helper opens the right page, checks what you paste with one test call, and saves it in `fnox.local.toml`.
-- The proxy is saved as a profile called `proxy`, so it is used only when you pick it (see [Settings](#settings-fnox-profiles)).
+- The proxy is saved as a profile called `proxy`, and the cookies as a profile called `cookies`, so they are used only when you pick them (see [Settings](#settings-fnox-profiles)).
 - That file is never committed: git ignores it. Never put a key in any other file.
 - The chat app does not use this saved Gemini key. Everyone types their own key in the browser.
 

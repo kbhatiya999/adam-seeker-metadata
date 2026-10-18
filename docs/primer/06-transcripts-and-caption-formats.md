@@ -91,7 +91,7 @@ Result: both methods produce **byte-identical** `srt`, `vtt` and `txt` (tested o
 
 Getting past that needs a proxy or cookies, which are both fields of `Network` in `config.py`. No
 workflow downloads transcripts yet. Cookies are tied to a Google account (risk of the account being
-flagged, and they expire), so that is a decision for later; see the findings doc.
+flagged, and they expire), so use a throwaway account; `mise run local:cookies:setup` collects them for yt-dlp (see the findings doc).
 
 ## Try it
 Offline, nothing downloaded: turn a small ttml into srt and txt.
