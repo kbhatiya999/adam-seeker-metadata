@@ -3,6 +3,8 @@
 # blocked: "Sign in to confirm you're not a bot"). Uses Webshare's ROTATING endpoint (p.webshare.io:80, username
 # + "-rotate"): every request may leave from a different address, so one blocked address does not stop a run.
 #   proxy_setup.sh            open Webshare, ask for the proxy username and password (hidden), test, save
+#                             (with WEBSHARE_PROXY_USERNAME and WEBSHARE_PROXY_PASSWORD already set in the environment
+#                             it asks nothing and uses them)
 #   proxy_setup.sh --check    test the saved proxy again (the proxy itself, then YouTube with both methods)
 #   proxy_setup.sh --github   copy the saved proxy to the GitHub repository secrets (for a transcripts workflow)
 # Saved in the git-ignored fnox.local.toml as the local profile `proxy` (not at the top level), so your own runs go
@@ -95,22 +97,32 @@ to_github() {
 
 case "${1:-}" in
   --check)
-    load_saved; test_proxy "$user" "$pass" && test_youtube "$user" "$pass" "$url"; exit $? ;;
+    load_saved
+    test_proxy "$user" "$pass" || exit 1
+    # typed by hand with only the username and password: add the PROXY_URL line (yt-dlp reads it)
+    [ -n "$(fnox -P proxy get PROXY_URL 2>/dev/null || true)" ] || save_local "$user" "$pass" "$url"
+    test_youtube "$user" "$pass" "$url"; exit $? ;;
   --github)
     load_saved; to_github; exit $? ;;
   "") ;;
-  *) sed -n '2,10p' "$0" | sed 's/^# \{0,1\}//'; exit 2 ;;
+  *) sed -n '2,12p' "$0" | sed 's/^# \{0,1\}//'; exit 2 ;;
 esac
 
-cat <<EOF
+if [ -n "${WEBSHARE_PROXY_USERNAME:-}" ] && [ -n "${WEBSHARE_PROXY_PASSWORD:-}" ]; then
+  echo "Using WEBSHARE_PROXY_USERNAME and WEBSHARE_PROXY_PASSWORD from the environment (no questions asked)."
+  user="$WEBSHARE_PROXY_USERNAME"; pass="$WEBSHARE_PROXY_PASSWORD"
+else
+  cat <<EOF
 On the Webshare dashboard, open "Proxy List" (it opens now) and set:
   Authentication Method: Username/Password   (IP Authorization cannot work: GitHub's address changes every run)
   Connection Method:     Rotating Proxy Endpoint   (Domain p.webshare.io, Port 80)
-Then copy the Username and the Password shown there.
+Then copy the Username and the Password shown there. (Or set WEBSHARE_PROXY_USERNAME and WEBSHARE_PROXY_PASSWORD
+in the environment and run this again: it then asks nothing.)
 EOF
-if command -v open >/dev/null; then show open "$DASHBOARD"; open "$DASHBOARD" || true; fi
-printf 'Proxy username: '; IFS= read -r user
-printf 'Proxy password (input hidden): '; IFS= read -rs pass; echo
+  if command -v open >/dev/null; then show open "$DASHBOARD"; open "$DASHBOARD" || true; fi
+  printf 'Proxy username: '; IFS= read -r user
+  printf 'Proxy password (input hidden): '; IFS= read -rs pass; echo
+fi
 user="$(printf '%s' "$user" | tr -d '[:space:]')"; user="${user%-rotate}"   # the -rotate suffix is added for you
 pass="$(printf '%s' "$pass" | tr -d '[:space:]')"
 [ -n "$user" ] && [ -n "$pass" ] || { echo "Both the username and the password are needed."; exit 1; }
@@ -124,5 +136,5 @@ echo "     FNOX_PROFILE=proxy mise run local:transcripts:manage -- --method ytdl
 echo "   or switch it on: mise run local:profile:use -- ytdlp proxy   (off again: mise run local:profile:use -- ytdlp)"
 [ "$youtube" = 0 ] || exit "$youtube"
 printf 'Also save it as GitHub repository secrets, for a transcripts workflow? [y/N] '
-read -r answer
+read -r answer || answer=""   # no terminal to ask: skip
 case "$answer" in [yY]*) to_github ;; *) echo "Skipped. Later: mise run local:proxy:setup -- --github" ;; esac

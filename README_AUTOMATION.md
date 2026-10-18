@@ -222,9 +222,25 @@ mise run local:proxy:setup
 ```
 Sets up a Webshare proxy, for transcripts where YouTube blocks your address. It blocks GitHub's runners: "Sign in to confirm you're not a bot", tested 2026-10-18.
 1. It opens the Webshare dashboard. On the Proxy List page, pick **Username/Password** and **Rotating Proxy Endpoint**.
-2. It asks for the proxy username and password, with the password hidden.
+2. It asks for the proxy username and password, with the password hidden. If `WEBSHARE_PROXY_USERNAME` and `WEBSHARE_PROXY_PASSWORD` are already set in your shell, it asks nothing and uses them.
 3. It checks that the proxy accepts them, then asks YouTube about one video through it, with both methods.
 4. It saves them as the local `proxy` profile. Your own runs still go direct unless you pick it.
+
+To give it the login through the environment, without typing at a prompt (the password stays out of the command line and out of your shell history):
+```bash
+export WEBSHARE_PROXY_USERNAME=your-proxy-username
+read -rs WEBSHARE_PROXY_PASSWORD && export WEBSHARE_PROXY_PASSWORD
+mise run local:proxy:setup
+```
+Type or paste the password after the second line (nothing is shown), then press Enter. The variables live only in that terminal window.
+
+To type the login into the file yourself, open `fnox.local.toml` (in the repository folder, never committed) and add this at the end, with your own values (the username without `-rotate`):
+```toml
+[profiles.proxy.secrets]
+WEBSHARE_PROXY_USERNAME = { default = "your_proxy_username" }
+WEBSHARE_PROXY_PASSWORD = { default = "your_proxy_password" }
+```
+Then run `mise run local:proxy:setup -- --check`. It tests the proxy and YouTube, and adds the missing `PROXY_URL` line itself. The same block, commented out, is in `fnox.local.toml.example`.
 
 To use the proxy:
 - For one run: `FNOX_PROFILE=proxy mise run local:transcripts:manage -- --method ytdlp download-missing --limit 5`.
