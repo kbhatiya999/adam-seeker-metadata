@@ -35,7 +35,9 @@ Status: **findings and a plan, not built yet** (except where marked "done").
 |---|---|---|
 | local (home IP) | works (e.g. 0.7 MB for a 1-hour video) | works after the single-language fix (PR #347; ~3 MB, repeats rolling lines) |
 | act (Docker on the same machine) | same IP as local; no act task runs transcripts | same |
-| GitHub Actions | **fails**: YouTube blocks the runner's IP | **fails**: "Sign in to confirm you're not a bot" |
+| GitHub Actions | **fails**: YouTube blocks the runner's IP (`RequestBlocked`) | **fails**: "Sign in to confirm you're not a bot" |
+
+Re-tested 2026-10-18 with the current code and the real path (`mise run setup:cli`, then `mise run local:transcripts:manage -- --method ytdlp download HyF6HAlId7g`, `download-missing --limit 3`, and `local:transcripts:compare`; temporary probe branch, run 39145850669): **still blocked on every video, both methods**, within a second of the first request. The same video downloads fine from a home IP. So the one-track fix did not change this: it is the runner's (datacenter) IP, not how we ask.
 
 - yt-dlp 429 was caused by asking for several/translated tracks, not by missing cookies; it now picks ONE track (manual English, else manual any, else automatic original `xx-orig`, else automatic English; `live_chat` is ignored).
 - A video with no captions yet (e.g. a live stream from the last day or two) correctly fails with both methods.
