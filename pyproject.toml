@@ -16,6 +16,7 @@ package = false
 members = ["sdks/*", "apps/*", "services/*"]
 
 [tool.uv.sources]
+seeker-sdk-gemini = { workspace = true }
 seeker-sdk-eval = { workspace = true }
 seeker-sdk-chat = { workspace = true }
 seeker-sdk-knowledge = { workspace = true }

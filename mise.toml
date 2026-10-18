@@ -63,6 +63,7 @@ run = "uv run python scripts/new_sdk.py"
 description = "Install Python dependencies into .venv"
 run = "uv sync --all-packages"
 
+
 # ---- local: run the scripts directly -------------------------------------
 
 [tasks."local:apikey:setup"]
@@ -112,6 +113,11 @@ run = "fnox exec -- uv run seeker ask"
 [tasks."local:eval:manage"]
 description = "[local] Evaluate strategy pairs on eval/questions: `-- run --processing english-notes --chat keyword --videos ID1,ID2`, `-- compare`, `-- questions --videos ...`"
 run = "fnox exec -- uv run seeker eval"
+
+[tasks."local:apikey:gemini"]
+description = "[local] Gemini API key for --provider gemini (the daily processing run): opens Google AI Studio, checks the key, saves it to fnox.local.toml (`-- --check` re-checks the saved one)"
+run = "scripts/gemini_key.sh"
+interactive = true
 
 [tasks."local:plugins:list"]
 description = "[local] List the installed plugins: video sources, transcript methods, model providers, processing and chat strategies"

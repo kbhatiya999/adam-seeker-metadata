@@ -23,6 +23,12 @@ HOW_TO_ANSWER = (
 class Provider:
     name = ""
 
+    @property
+    def key(self) -> str:
+        """Who answered, for the cache folder and reports: `queue`, `gemini/<model>` ... Answers from different
+        providers or models are kept apart, so comparing them never mixes their answers."""
+        return self.name
+
     def run(self, request: ToolRequest) -> Union[Dict[str, Any], Pending]:
         """The raw output (to be checked against the schema) or Pending."""
         raise NotImplementedError

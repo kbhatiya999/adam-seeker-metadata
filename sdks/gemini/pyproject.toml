@@ -1,0 +1,22 @@
+[project]
+name = "seeker-sdk-gemini"
+version = "0.1.0"
+description = "Seeker SDK gemini: runs the model tools on Google Gemini (provider plugin `gemini`)"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "google-genai>=1.0",
+    "seeker-sdk-core>=0.1.0",
+    "seeker-sdk-llm>=0.1.0",
+]
+
+[project.entry-points."seeker.llm_providers"]
+gemini = "seeker_sdk_gemini.provider:GeminiProvider"
+
+[tool.uv.sources]
+seeker-sdk-core = { workspace = true }
+seeker-sdk-llm = { workspace = true }
+
+[build-system]
+requires = ["uv_build>=0.11,<0.12"]
+build-backend = "uv_build"

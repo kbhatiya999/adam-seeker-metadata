@@ -39,3 +39,19 @@ if_missing = "ignore"
 [secrets.TRANSCRIPT_FINAL]
 description = "Final transcript files, comma separated from srt,vtt,txt (default srt,txt)"
 if_missing = "ignore"
+
+# Gemini key (Google AI Studio) for model tools run with --provider gemini: mise run local:apikey:gemini.
+# The chat app does not use it; each user gives their own key in the browser.
+[secrets.GEMINI_API_KEY]
+description = "Gemini API key from Google AI Studio (aistudio.google.com/apikey)"
+if_missing = "ignore"
+
+# Optional settings for the model tools (set them in fnox.local.toml):
+# which provider runs tools by default (queue | gemini) and which Gemini model (each has its own free daily quota).
+[secrets.SEEKER_LLM_PROVIDER]
+description = "Default provider for seeker knowledge/ask/eval: queue or gemini"
+if_missing = "ignore"
+
+[secrets.SEEKER_GEMINI_MODEL]
+description = "Gemini model for --provider gemini (default gemini-flash-latest)"
+if_missing = "ignore"

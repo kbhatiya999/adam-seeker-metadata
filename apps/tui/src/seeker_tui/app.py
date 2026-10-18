@@ -217,6 +217,11 @@ ACTIONS: List[Action] = [
            lambda v: mise("local:apikey:setup")),
     Action("install", "Setup", "First-time install", "Install tools, sync Python deps, check Docker.",
            lambda v: mise("install")),
+    Action("gemini-key", "Setup", "Get a Gemini API key",
+           "For --provider gemini (the daily processing run): opens Google AI Studio, checks the key, saves it to "
+           "fnox.local.toml. The chat app does not use it; each user gives their own key in the browser.",
+           lambda v: mise("local:apikey:gemini", *(["--check"] if v.get("what") == "check" else [])),
+           [Field("what", "What", "select", [("get and save a key", "get"), ("check the saved key", "check")], "get")]),
     Action("plugins", "Setup", "List installed plugins",
            "Video sources, transcript methods, model providers, processing and chat strategies, and where each comes from.",
            lambda v: mise("local:plugins:list")),

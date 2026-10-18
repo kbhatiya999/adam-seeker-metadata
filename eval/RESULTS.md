@@ -30,3 +30,11 @@ Caveats: a small sample (one question is 8 points); the judge is the same model 
 query-rewriting worker added verse numbers it knew (13:2, 88:20 ...) to the search keywords, which helps
 retrieval; Haiku is a stand-in, so Gemini's numbers will differ. Cost: 16 subagent runs, about 2.5 M subagent
 tokens; 141 tool answers cached, 0 rejected.
+
+## 2026-10-18: Gemini, first run (free tier)
+`english-notes@v1 + keyword@v1` with `--provider gemini` (model `gemini-flash-latest`, answering and judging) on the
+same 15 questions: **9 of 9 judged questions correct** (retrieval 100%, keywords 100%) before the model's free daily
+quota ran out after about 20 requests; the other 6 questions are waiting (`seeker eval run` again tomorrow continues
+from the cache). The notes themselves were written by the Haiku stand-in, so this compares the answering model only.
+Other models (`gemini-flash-lite-latest`, `gemini-2.5-flash`, `gemini-2.5-flash-lite`) still answered the same day:
+quotas are per model. For the daily processing run, choose the model explicitly (`SEEKER_GEMINI_MODEL`).
