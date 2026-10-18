@@ -240,7 +240,7 @@ To type the login into the file yourself, open `fnox.local.toml` (in the reposit
 WEBSHARE_PROXY_USERNAME = { default = "your_proxy_username" }
 WEBSHARE_PROXY_PASSWORD = { default = "your_proxy_password" }
 ```
-Then run `mise run local:proxy:setup -- --check`. It tests the proxy and YouTube, and adds the missing `PROXY_URL` line itself. The same block, commented out, is in `fnox.local.toml.example`.
+Then run `mise run local:proxy:setup -- --check`. It tests the proxy and YouTube, and adds or refreshes the `PROXY_URL` line itself, so it is also what to run after you change the password. The same block, commented out, is in `fnox.local.toml.example`.
 
 To use the proxy:
 - For one run: `FNOX_PROFILE=proxy mise run local:transcripts:manage -- --method ytdlp download-missing --limit 5`.

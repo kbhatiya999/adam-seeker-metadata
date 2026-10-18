@@ -14,7 +14,7 @@ GEMINI_API_KEY = { default = "your_gemini_api_key_here" }     # mise run local:a
 # The one profile that holds secrets: your Webshare proxy, used only when you pick it (`local:profile:use -- ytdlp
 # proxy`). `mise run local:proxy:setup` asks for the username and password, tests YouTube through it and writes this.
 # By hand: type only the two lines below (the username WITHOUT "-rotate"), then run `mise run local:proxy:setup --
-# --check`: it tests them and adds the PROXY_URL line for you.
+# --check`: it tests them and adds (or refreshes) the PROXY_URL line for you.
 # [profiles.proxy.secrets]
 # WEBSHARE_PROXY_USERNAME = { default = "your_proxy_username" }
 # WEBSHARE_PROXY_PASSWORD = { default = "your_proxy_password" }
