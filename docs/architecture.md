@@ -13,6 +13,7 @@ sdks/
   knowledge/   seeker-sdk-knowledge    processing strategies: transcripts -> passages (text files under data/knowledge)
   chat/        seeker-sdk-chat         chat strategies: find passages (multi-script BM25), a model answers with citations
   eval/        seeker-sdk-eval         eval/questions against (processing, chat) pairs: scores, judge, comparison
+  gemini/      seeker-sdk-gemini       provider plugin `gemini`: runs the tools on Google Gemini
 apps/
   cli/         seeker-cli              the `seeker` command (argparse, logging, prompts, exit codes)
   tui/         seeker-tui              the Textual menu (builds and runs `mise run ...` commands)
@@ -40,7 +41,7 @@ Plugins are discovered through Python **entry points**; no registry file, no edi
 |---|---|---|---|
 | `seeker.video_sources` | `seeker_sdk_videos.VideoSource` | `youtube_api`, `ytdlp` | `MASTER_LIST_METHOD` |
 | `seeker.transcript_methods` | `seeker_sdk_transcripts.TranscriptMethod` | `ytdlp`, `youtube_transcript_api` | `--method` / `TRANSCRIPT_METHOD` |
-| `seeker.llm_providers` | `seeker_sdk_llm.Provider` | `queue` (Gemini later) | `--provider` / `SEEKER_LLM_PROVIDER` |
+| `seeker.llm_providers` | `seeker_sdk_llm.Provider` | `queue`, `gemini` (seeker-sdk-gemini) | `--provider` / `SEEKER_LLM_PROVIDER` |
 | `seeker.processing_strategies` | `seeker_sdk_knowledge.ProcessingStrategy` | `chunks`, `english-notes` | `seeker knowledge process --strategy` |
 | `seeker.chat_strategies` | `seeker_sdk_chat.ChatStrategy` | `keyword`, `multilingual` | `seeker ask/eval --chat` |
 
@@ -76,8 +77,9 @@ have. A **provider** runs tools; the code that uses a tool never knows which one
 - **Cache:** `data/llm/cache/<tool>@<version>/<id>.json`. A request id is a hash of tool, instructions and input,
   so an answer is never paid for twice and an edited prompt never reuses old answers.
 - **Budget:** `--max-requests` caps new requests per run (for a provider with a daily quota).
-- **Gemini (later):** one more provider in `seeker.llm_providers` that sends the same instructions, input and
-  schema; nothing else changes.
+- **`gemini` provider:** `seeker-sdk-gemini` sends the same instructions, input and schema to Gemini (structured
+  output). The cache is per provider and model, so Gemini never reuses the subagents' answers and the evaluation
+  can compare them (`eval compare` has a model column).
 
 Processing strategies write `data/knowledge/<strategy>@<version>/` (passages per video as JSONL, readable
 notes, a manifest). Chat strategies search those passages. `seeker eval run --processing X --chat Y --videos ...`
@@ -116,6 +118,7 @@ graph LR
     sdk_chat["seeker-sdk-chat"]
     sdk_eval["seeker-sdk-eval"]
     sdk_videos["seeker-sdk-videos"]
+    sdk_gemini["seeker-sdk-gemini"]
   end
   subgraph apps
     app_cli["seeker-cli"]
@@ -141,6 +144,8 @@ graph LR
   app_cli --> sdk_llm
   app_cli --> sdk_transcripts
   app_cli --> sdk_videos
+  sdk_gemini --> sdk_core
+  sdk_gemini --> sdk_llm
   app_tui --> sdk_core
 ```
 (Regenerate with `mise run local:workspace:graph -- --mermaid`.)

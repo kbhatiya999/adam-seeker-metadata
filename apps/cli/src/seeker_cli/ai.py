@@ -38,7 +38,10 @@ def _model_options(p: argparse.ArgumentParser) -> None:
 
 
 def _requests_line(runner: ToolRunner) -> str:
-    return f"Model requests this run: {runner.sent} sent, {runner.cached} from cache, {runner.answered} answered"
+    line = f"Model requests this run: {runner.sent} sent, {runner.cached} from cache, {runner.answered} answered"
+    if runner.waiting:
+        line += "\nWaiting because: " + "; ".join(f"{reason} ({n})" for reason, n in runner.waiting.most_common())
+    return line
 
 
 def _store(name: str) -> KnowledgeStore:
@@ -57,8 +60,11 @@ def _waiting_hint(provider: str) -> str:
 def _llm_status(args) -> int:
     print("queue:", ", ".join(f"{k} {v}" for k, v in QueueProvider(DEFAULT_QUEUE_DIR).status().items()))
     cache = Path(DEFAULT_CACHE_DIR)
-    tools = sorted(cache.iterdir()) if cache.exists() else []
-    print("cache:", ", ".join(f"{t.name} {len(list(t.glob('*.json')))}" for t in tools) or "empty")
+    counts: dict = {}
+    for f in (cache.rglob("*.json") if cache.exists() else []):   # <provider key>/<tool>@<version>/<id>.json
+        key = str(f.parent.relative_to(cache))
+        counts[key] = counts.get(key, 0) + 1
+    print("cache:", ", ".join(f"{k} {n}" for k, n in sorted(counts.items())) or "empty")
     return 0
 
 

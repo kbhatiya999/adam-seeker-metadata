@@ -51,6 +51,7 @@ def process(strategy: ProcessingStrategy, master: MasterList, store: KnowledgeSt
         if isinstance(result, Waiting):
             report.waiting[vid] = result.requests
             continue
-        store.write(vid, result.passages, result.files, strategy.settings())
+        settings = {**strategy.settings(), **({"provider": runner.provider.key} if runner is not None else {})}
+        store.write(vid, result.passages, result.files, settings)
         report.done.append(vid)
     return report

@@ -47,10 +47,11 @@ class EvalRun:
     rows: List[Row]
     summary: Dict[str, Any] = field(default_factory=dict)
     settings: Dict[str, Any] = field(default_factory=dict)
+    provider: str = ""   # who answered and judged, e.g. queue or gemini/gemini-flash-latest
 
     @property
     def pair(self) -> str:
-        return f"{self.processing}__{self.chat}"
+        return f"{self.processing}__{self.chat}__{self.provider.replace('/', '-')}"
 
 
 def evaluate(questions: Iterable[Question], store: KnowledgeStore, strategy: ChatStrategy, runner: ToolRunner,
@@ -82,7 +83,9 @@ def evaluate(questions: Iterable[Question], store: KnowledgeStore, strategy: Cha
     run = EvalRun(f"{store.strategy}@{store.version}", f"{strategy.name}@{strategy.version}", videos,
                   datetime.now().isoformat(timespec="seconds"), rows,
                   settings={"chat": strategy.settings(), "processing": store.manifest().get("settings", {}),
-                            "judge": judge_tool.key if judge else None})
+                            "judge": judge_tool.key if judge else None,
+                            "served_by": getattr(runner.provider, "served_by", "") or None},
+                  provider=runner.provider.key)
     run.summary = summarize(rows, runner)
     return run
 
@@ -141,15 +144,15 @@ def _pct(value: Optional[float]) -> str:
 
 def comparison_table(runs: List[Dict[str, Any]]) -> str:
     """Markdown table, best score first."""
-    head = ("| processing | chat | questions | score | retrieval | keywords | correct/partial/wrong/declined "
+    head = ("| processing | chat | model | questions | score | retrieval | keywords | correct/partial/wrong/declined "
             "| not found ok | en | roman-ur |")
-    lines = [head, "|" + "---|" * 10]
+    lines = [head, "|" + "---|" * 11]
     for r in sorted(runs, key=lambda r: -(r["summary"].get("score") or 0)):
         s, v = r["summary"], r["summary"].get("verdicts", {})
         lang = s.get("by_lang", {})
         counts = "/".join(str(v.get(k, 0)) for k in ("correct", "partial", "wrong", "declined"))
         waiting = f" ({s['waiting']} waiting)" if s.get("waiting") else ""
-        lines.append(f"| {r['processing']} | {r['chat']} | {s['done']}{waiting} | {_pct(s.get('score'))} "
+        lines.append(f"| {r['processing']} | {r['chat']} | {r.get('provider') or '?'} | {s['done']}{waiting} | {_pct(s.get('score'))} "
                      f"| {_pct(s.get('retrieval'))} | {_pct(s.get('keywords'))} | {counts} "
                      f"| {_pct(s.get('not_found_ok'))} | {_pct(lang.get('en', {}).get('score'))} "
                      f"| {_pct(lang.get('roman-ur', {}).get('score'))} |")

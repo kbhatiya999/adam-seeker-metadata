@@ -96,9 +96,9 @@ def test_ask_and_eval_with_a_model_provider(capsys):
                "--provider", "clifake") == 0
     out = capsys.readouterr().out
     assert "vidA-01" in out and "correct" in out and "Score 100%" in out
-    assert os.path.exists("data/eval/latest/english-notes@v1__keyword@v1.json")
+    assert os.path.exists("data/eval/latest/english-notes@v1__keyword@v1__clifake.json")
     assert run("eval", "compare") == 0
-    assert "| english-notes@v1 | keyword@v1 | 1 | 100% | 100% | 100% | 1/0/0/0 |" in capsys.readouterr().out
+    assert "| english-notes@v1 | keyword@v1 | clifake | 1 | 100% | 100% | 100% | 1/0/0/0 |" in capsys.readouterr().out
 
 
 def test_eval_refuses_videos_the_strategy_has_not_processed(capsys):

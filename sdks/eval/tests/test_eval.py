@@ -119,9 +119,9 @@ def test_waiting_rows_and_saving_and_comparing(tmp_path):
                    ToolRunner(FakeProvider(lambda r: Pending(r.id)), str(tmp_path / "cache")), videos=["vidA"])
     assert run.summary["waiting"] == 3 and run.summary["score"] is None
     latest = save(run, str(tmp_path / "eval"))
-    assert latest.name == "english-notes@v1__keyword@v1.json" and list((tmp_path / "eval" / "runs").glob("*.json"))
+    assert latest.name == "english-notes@v1__keyword@v1__fake.json" and list((tmp_path / "eval" / "runs").glob("*.json"))
     table = comparison_table(latest_runs(str(tmp_path / "eval")))
-    assert "| english-notes@v1 | keyword@v1 | 0 (3 waiting) |" in table
+    assert "| english-notes@v1 | keyword@v1 | fake | 0 (3 waiting) |" in table
 
 
 def test_the_real_question_files_load_and_filter():
