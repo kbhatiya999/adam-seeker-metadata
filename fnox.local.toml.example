@@ -1,3 +1,12 @@
-# Copy to fnox.local.toml (git-ignored). Overrides fnox.toml on this machine.
+# Copy to fnox.local.toml (git-ignored, never commit it). It overrides fnox.toml on this machine.
+#
+# Top level: SECRETS only. Every profile inherits them.
 [secrets]
-YOUTUBE_API_KEY = { default = "your_api_key_here" }
+YOUTUBE_API_KEY = { default = "your_youtube_api_key_here" }   # mise run local:apikey:setup writes it
+GEMINI_API_KEY = { default = "your_gemini_api_key_here" }     # mise run local:apikey:gemini writes it
+
+# Your own SETTINGS go in the `overrides` profile (mise run local:method:set writes it), applied last on top of the
+# profiles you pick with `mise run local:profile:use -- ytdlp gemini-lite`. Never put a setting at the top level:
+# it would silently beat every profile.
+# [profiles.overrides.secrets]
+# TRANSCRIPT_METHOD = { default = "ytdlp" }

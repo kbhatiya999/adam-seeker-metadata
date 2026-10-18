@@ -44,6 +44,9 @@ def test_build_commands():
     assert action("eval-info").build({"what": "questions", "videos": "a,b"}) == \
         ["mise", "run", "local:eval:manage", "--", "questions", "--videos", "a,b"]
     assert action("sdk-new").build({"name": "rag", "plugin": ""}) == ["mise", "run", "sdk:new", "--", "rag"]
+    assert action("profile-use").build({"methods": "ytdlp", "model": "gemini-lite"}) == \
+        ["mise", "run", "local:profile:use", "--", "ytdlp", "gemini-lite"]
+    assert action("profile-use").build({"methods": "none", "model": "none"}) == ["mise", "run", "local:profile:use"]
     assert action("dashboard").build({"what": "local:workspace:graph"}) == ["mise", "run", "local:workspace:graph"]
     assert action("nuke").build({"dry": True, "all": True, "yes": False}) == \
         ["mise", "run", "nuke", "--", "--dry-run", "--all"]

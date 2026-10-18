@@ -75,19 +75,27 @@ run = "scripts/api_key.sh"
 
 [tasks."local:videos:update"]
 description = "[local] Fetch new videos and update data/videos_master.json"
-run = "fnox exec -- uv run seeker videos update"
+run = "scripts/fx.sh uv run seeker videos update"
 
 [tasks."local:videos:rebuild"]
 description = "[local] Rebuild the master list from scratch"
-run = "fnox exec -- uv run seeker videos rebuild --force"
+run = "scripts/fx.sh uv run seeker videos rebuild --force"
 
 [tasks."local:videos:manage"]
 description = "[local] Manage/categorize videos (pass a subcommand, e.g. `mise run local:videos:manage report`)"
-run = "fnox exec -- uv run seeker videos manage"
+run = "scripts/fx.sh uv run seeker videos manage"
 
 [tasks."local:transcripts:manage"]
 description = "[local] Download/manage transcripts (e.g. `mise run local:transcripts:manage -- --method ytdlp download-missing --limit 5`; subcommands: stats, list-missing, download-missing, download, check)"
-run = "fnox exec -- uv run seeker transcripts"
+run = "scripts/fx.sh uv run seeker transcripts"
+
+[tasks."local:profile:show"]
+description = "[local] Show the active fnox profile stack, the effective settings, which secrets are set (never their values) and the profiles you can pick"
+run = "python3 scripts/fnox_profile.py show"
+
+[tasks."local:profile:use"]
+description = "[local] Pick the fnox profiles every task uses (later ones win): `-- ytdlp gemini-lite`; no names = the default profile"
+run = "python3 scripts/fnox_profile.py use"
 
 [tasks."local:method:set"]
 description = "[local] Set a method in fnox.local.toml: `mise run local:method:set -- master-list ytdlp|youtube_api|unset` or `-- transcript ytdlp|youtube_transcript_api|unset`"
@@ -103,19 +111,19 @@ run = "scripts/method.sh local show"
 
 [tasks."local:transcripts:compare"]
 description = "[local] Download one video's transcript with BOTH methods side by side: `mise run local:transcripts:compare -- VIDEO_ID` (files under data/transcripts/compare/<id>/)"
-run = "fnox exec -- uv run seeker transcripts compare"
+run = "scripts/fx.sh uv run seeker transcripts compare"
 
 [tasks."local:knowledge:manage"]
 description = "[local] Processing strategies (transcripts -> passages): `-- strategies`, `-- process --strategy english-notes --videos ID1,ID2`, `-- status`. Exit 75 = waiting for model answers: answer data/llm/queue/pending, run again"
-run = "fnox exec -- uv run seeker knowledge"
+run = "scripts/fx.sh uv run seeker knowledge"
 
 [tasks."local:chat:ask"]
 description = "[local] Ask a question from processed videos: `-- \"question\" --processing english-notes --chat multilingual [--videos ID1,ID2]`"
-run = "fnox exec -- uv run seeker ask"
+run = "scripts/fx.sh uv run seeker ask"
 
 [tasks."local:eval:manage"]
 description = "[local] Evaluate strategy pairs on eval/questions: `-- run --processing english-notes --chat keyword --videos ID1,ID2`, `-- compare`, `-- questions --videos ...`"
-run = "fnox exec -- uv run seeker eval"
+run = "scripts/fx.sh uv run seeker eval"
 
 [tasks."local:chat:up"]
 description = "[local] Start the chat app (Chainlit) at http://localhost:8000 (SEEKER_CHAT_PORT to change): pick a strategy pair, ask, answers cite video and time. Each user gives their own Gemini key in the browser"
@@ -159,11 +167,11 @@ run = "act -l"
 
 [tasks."act:videos:update"]
 description = "[act] Run update-videos.yml locally (starts Docker if needed, cleans up after; no commit/push/issue)"
-run = '''scripts/docker.sh run -- fnox exec -- sh -c 'act workflow_dispatch -W .github/workflows/update-videos.yml ${YOUTUBE_API_KEY:+-s YOUTUBE_API_KEY}' '''
+run = '''scripts/docker.sh run -- scripts/fx.sh sh -c 'act workflow_dispatch -W .github/workflows/update-videos.yml ${YOUTUBE_API_KEY:+-s YOUTUBE_API_KEY}' '''
 
 [tasks."act:videos:rebuild"]
 description = "[act] Run rebuild-videos.yml locally (starts Docker if needed, cleans up after; no commit/push/issue)"
-run = '''scripts/docker.sh run -- fnox exec -- sh -c 'act workflow_dispatch -W .github/workflows/rebuild-videos.yml ${YOUTUBE_API_KEY:+-s YOUTUBE_API_KEY}' '''
+run = '''scripts/docker.sh run -- scripts/fx.sh sh -c 'act workflow_dispatch -W .github/workflows/rebuild-videos.yml ${YOUTUBE_API_KEY:+-s YOUTUBE_API_KEY}' '''
 
 [tasks."act:method:set"]
 description = "[act] Set a method in .vars (what act:videos:* uses): `mise run act:method:set -- master-list ytdlp|youtube_api|unset`"
