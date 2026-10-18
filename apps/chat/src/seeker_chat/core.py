@@ -22,9 +22,10 @@ NAMES = {"english-notes": "English notes", "chunks": "Raw captions", "keyword": 
          "multilingual": "multilingual search"}
 NO_KEY = (f"Add your Gemini API key first: open the **key** settings of this chat and paste it. Create one at "
           f"{KEY_URL} (sign in, then \"Create API key\"). The key stays in this browser and is not saved on the server.")
-NOTHING_PROCESSED = ("No videos are processed yet, so there is nothing to search. Process some first, for example "
-                     "`seeker knowledge process --strategy english-notes --videos <video id>` (or the Tilt and menu "
-                     "buttons), then reload this page.")
+NOTHING_PROCESSED = ("No videos are processed yet, so there is nothing to search. Download some transcripts and "
+                     "process them first: `mise run local:transcripts:manage -- --method ytdlp download-missing "
+                     "--limit 5`, then `mise run local:knowledge:manage -- process --strategy chunks` (no key needed; "
+                     "`--strategy english-notes` gives better answers but uses a model). Then reload this page.")
 
 
 def root() -> Path:

@@ -1,255 +1,107 @@
-# 🔄 Master List Rebuild System
+# Rebuilding the video list
 
-This system provides comprehensive tools to rebuild your master video list from scratch when needed.
+A **rebuild** fetches every video on the channel again and writes a fresh `data/videos_master.json`. It **keeps your manual work**: categories, scores, notes and transcript links.
 
-## 🎯 **Use Cases**
+The daily **update** only adds new videos. Use a rebuild only when the list itself needs repair.
 
-### 1. **Metadata Refresh**
-- Update all video titles, descriptions, and upload dates
-- Fix outdated or incorrect information
-- Ensure consistency with current YouTube data
+| | Update | Rebuild |
+|---|---|---|
+| Fetches | new videos only | every video |
+| Runs | daily, by itself | only when you start it |
+| YouTube API use | low | higher (about one request per 50 videos) |
+| Use it for | daily upkeep | fixing titles, dates or descriptions, recovering a broken file, after a format change |
 
-### 2. **Data Recovery**
-- Fix corrupted master list files
-- Recover from accidental data loss
-- Restore from a clean state
+## How to run it
 
-### 3. **Fresh Start**
-- Start over with clean, organized data
-- Remove accumulated errors or inconsistencies
-- Implement new data structure changes
+Run these in this order. Each step is safer than the next.
 
-## 🛠️ **Available Methods**
-
-### **Method 1: Command Line (Local)**
+**1. On your computer.** No question is asked, and a backup is always made:
 ```bash
-# Basic rebuild (with confirmation)
-uv run seeker videos update --rebuild
-
-# Force rebuild (no confirmation)
-uv run seeker videos update --rebuild --force
-
-# Direct rebuild script
-uv run seeker videos rebuild --force
+mise run local:videos:rebuild
 ```
 
-### **Method 2: GitHub Actions (Remote)**
-1. Go to your repository's **Actions** tab
-2. Find **"Rebuild Video List"** workflow
-3. Click **"Run workflow"**
-4. Select branch and click **"Run workflow"**
-
-## 🔧 **Command Options**
-
-### **Update Script with Rebuild Flag**
+**2. The real workflow, in Docker.** It never commits:
 ```bash
-uv run seeker videos update [OPTIONS]
-
-Options:
-  --rebuild              Completely rebuild the master list from scratch
-  --master-file FILE     Path to master video list file
-  --channel-url URL      YouTube channel URL
-  --force                Skip confirmation prompts
+mise run act:videos:rebuild
 ```
 
-### **Dedicated Rebuild Script**
+**3. On GitHub.** This commits to the branch and opens a summary issue. Either:
+- go to **Actions → Rebuild Video List → Run workflow**, or
+- run:
+  ```bash
+  mise run gh:videos:rebuild
+  ```
+  It uses your current branch, or `REF=main`.
+
+Options go after `--`. For a completely fresh list, without your manual work:
 ```bash
-uv run seeker videos rebuild [OPTIONS]
-
-Options:
-  --master-file FILE     Path to master video list file
-  --channel-url URL      YouTube channel URL
-  --no-preserve          Do not preserve manual categorizations
-  --force                Skip confirmation prompt
+mise run local:videos:rebuild -- --no-preserve
 ```
 
-## 🛡️ **Safety Features**
+The other options are `--master-file FILE` and `--channel-url URL`.
 
-### **Automatic Backup**
-- Creates timestamped backup before rebuild
-- Format: `videos_master.json.backup_YYYYMMDD_HHMMSS`
-- Easy to restore if needed
+## What is kept and what is refreshed
 
-### **Data Preservation**
-- **Preserves manual categorizations** (categories, relevance scores, notes)
-- **Preserves key topics** and transcript file references
-- **Maintains manual status** (categorized vs uncategorized)
+**Kept from the old list:**
+- **Your categories.** The video stays `categorized`, with `needs_review: false`.
+- **Your work on each video:** `relevance_score`, `notes`, `key_topics`.
+- **Transcript links:** `transcript_file`, `transcript_text_file`, `transcript_downloaded`, `transcript_download_date`.
+- **"No transcript yet" notes:** `transcript_status`, `transcript_attempts`, `transcript_checked`, `transcript_retry_after`.
+- **`upload_date` and `description`,** whenever the new source has none. yt-dlp's fast listing has neither, so a rebuild never blanks them.
 
-### **Confirmation Prompts**
-- Clear warnings about data replacement
-- Detailed explanation of what will happen
-- Option to cancel before proceeding
+**Refreshed from YouTube:**
+- `title`, `url`, `upload_date`, `description`
+- `last_checked`, which is set to today
 
-## 📊 **Rebuild Process**
+## Safety
 
-### **Step 1: Backup Creation**
-```
-📦 Created backup: data/videos_master.json.backup_20251022_194812
-```
+- **Backups.** Before anything changes, the old list is copied to `data/videos_master.json.backup_YYYYMMDD_HHMMSS`. Every save also keeps `data/videos_master.json.backup`.
+- **Sorting.** The new list is sorted newest first, as always.
+- **No silent fallback.** The method follows `MASTER_LIST_METHOD`, so if the chosen method fails, the rebuild fails and the old list stays. With the setting unset, it uses the API if a key is present, and yt-dlp otherwise.
 
-### **Step 2: Channel Discovery**
-```
-🔑 Using YouTube Data API to get channel ID
-✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
-```
+### Going back to a backup
 
-### **Step 3: Complete Video Fetch**
-```
-🔑 Fetching ALL videos using YouTube Data API v3
-📄 Fetching page 1...
-📄 No more pages available
-✅ Successfully fetched 41 videos from YouTube Data API
-```
-
-### **Step 4: Data Preservation**
-```
-🔄 Preserving manual categorizations from old videos...
-✅ Preserved manual data for X videos
-```
-
-### **Step 5: Master List Creation**
-```
-✅ Successfully rebuilt master list with 41 videos
-🎉 Rebuild completed successfully!
-```
-
-## 🔍 **What Gets Preserved**
-
-### **✅ Preserved Fields**
-- `categories` - Manual category assignments
-- `relevance_score` - Manual relevance scores (1-10)
-- `notes` - Manual notes and comments
-- `key_topics` - Manual topic assignments
-- `transcript_file` - Transcript file references
-- `status` - Categorized vs uncategorized status
-
-### **🔄 Refreshed Fields**
-- `title` - Video title from YouTube
-- `description` - Video description from YouTube
-- `upload_date` - Upload date from YouTube
-- `url` - Video URL
-- `last_checked` - Current timestamp
-- `auto_detected` - Set to true for all videos
-
-## 📈 **Rebuild vs Update**
-
-| Feature | Update | Rebuild |
-|---------|--------|---------|
-| **Scope** | New videos only | All videos |
-| **Speed** | Fast | Slower |
-| **API Usage** | Low | High |
-| **Data Loss Risk** | None | Low (with preservation) |
-| **Use Case** | Daily maintenance | Recovery/refresh |
-
-## 🚨 **Important Considerations**
-
-### **API Limits**
-- Rebuild uses more API quota than regular updates
-- YouTube API has daily limits (10,000 requests)
-- Rebuild may use 50-100 requests depending on video count
-
-### **Data Loss Prevention**
-- Always creates backup before rebuild
-- Preserves manual categorizations by default
-- Use `--no-preserve` only if you want a completely fresh start
-
-### **Recovery Process**
-If something goes wrong:
-1. Find the backup file: `data/videos_master.json.backup_YYYYMMDD_HHMMSS`
-2. Restore: `cp data/videos_master.json.backup_YYYYMMDD_HHMMSS data/videos_master.json`
-3. Verify data integrity
-
-## 📝 **Logging and Monitoring**
-
-### **Log Files**
-- **Update logs**: `logs/update_master.log`
-- **Rebuild logs**: `logs/rebuild_master.log`
-- **GitHub Actions**: Available in workflow artifacts
-
-### **GitHub Issues**
-- Rebuild workflow creates summary issue
-- Includes statistics and next steps
-- Easy to track rebuild history
-
-## 🎯 **Best Practices**
-
-### **When to Rebuild**
-- ✅ Monthly metadata refresh
-- ✅ After major data structure changes
-- ✅ When master list becomes corrupted
-- ✅ Before implementing new categorization rules
-
-### **When NOT to Rebuild**
-- ❌ For daily maintenance (use regular update)
-- ❌ When only a few videos need fixing
-- ❌ If you have extensive manual customizations
-
-### **Preparation Steps**
-1. **Review current data** - Check what needs preservation
-2. **Test with backup** - Run rebuild on a copy first
-3. **Plan timing** - Avoid during active categorization work
-4. **Notify team** - If working with others
-
-## 🔧 **Troubleshooting**
-
-### **Common Issues**
-
-**1. API Quota Exceeded**
+List the backups:
 ```bash
-# Use yt-dlp fallback
-unset YOUTUBE_API_KEY
-uv run seeker videos rebuild --force
+ls data/videos_master.json.backup_*
 ```
 
-**2. Permission Errors**
+Copy one back (use the date of yours):
 ```bash
-# Fix file permissions
-chmod +x scripts/*.py
+cp data/videos_master.json.backup_20261004_034225 data/videos_master.json
 ```
 
-**3. Backup Not Created**
+Check the result:
 ```bash
-# Check directory permissions
-ls -la data/
+mise run local:videos:manage report
 ```
 
-**4. Data Not Preserved**
-```bash
-# Check if old master list exists
-ls -la data/videos_master.json*
-```
+Each step on GitHub is also a commit, so `git revert` undoes a rebuild there.
 
-### **Recovery Commands**
-```bash
-# List available backups
-ls -la data/videos_master.json.backup_*
-
-# Restore from backup
-cp data/videos_master.json.backup_20251022_194812 data/videos_master.json
-
-# Verify restoration
-uv run seeker videos manage report
-```
-
-## 📊 **Example Rebuild Output**
+## What a rebuild prints
 
 ```
-2025-10-22 19:48:12,377 - INFO - 🔄 Rebuild mode requested - delegating to rebuild script
-2025-10-22 19:48:12,765 - INFO - 🔑 YouTube API key provided: AIzaSyAtD1...
-2025-10-22 19:48:12,769 - INFO - 📦 Created backup: data/videos_master.json.backup_20251022_194812
-2025-10-22 19:48:12,771 - INFO - 🚀 Starting COMPLETE master list rebuild...
-2025-10-22 19:48:12,772 - INFO - 📊 Found 42 existing videos to preserve data from
-2025-10-22 19:48:13,067 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
-2025-10-22 19:48:13,077 - INFO - 🔑 Fetching ALL videos using YouTube Data API v3
-2025-10-22 19:48:13,437 - INFO - ✅ Successfully fetched 41 videos from YouTube Data API
-2025-10-22 19:48:13,442 - INFO - 🔄 Preserving manual categorizations from old videos...
-2025-10-22 19:48:13,442 - INFO - ✅ Preserved manual data for 0 videos
-2025-10-22 19:48:13,448 - INFO - ✅ Successfully rebuilt master list with 41 videos
-2025-10-22 19:48:13,448 - INFO - 🎉 Rebuild completed successfully!
-2025-10-22 19:48:13,448 - INFO - 📊 Total videos: 41
-2025-10-22 19:48:13,448 - INFO - 📦 Backup available: data/videos_master.json.backup_20251022_194812
+INFO - 🔑 YouTube API key provided
+INFO - 📦 Created backup: data/videos_master.json.backup_20261004_034225
+INFO - 🚀 Starting COMPLETE master list rebuild...
+INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+INFO - 🔑 Fetching ALL videos using YouTube Data API v3
+INFO - 📄 Fetching page 1...
+INFO - ✅ Successfully fetched 194 videos from YouTube Data API
+INFO - 🔄 Preserving manual categorizations from old videos...
+INFO - ✅ Successfully rebuilt master list with 194 videos
+INFO - 🎉 Rebuild completed successfully!
 ```
 
----
+The full log is in `logs/rebuild_master.log`. On GitHub, it is in the run's logs and its summary issue.
 
-**Need Help?** Check the logs, review the backup files, or test with a small subset first.
+## When something goes wrong
+
+| Problem | What to do |
+|---|---|
+| YouTube API quota used up | Rebuild with yt-dlp for this one run: `FNOX_PROFILE=ytdlp mise run local:videos:rebuild`. The quota resets daily. |
+| `youtube_api` chosen but no key | Add one with `mise run local:apikey:setup`, or switch to yt-dlp with `mise run local:profile:use -- ytdlp`. |
+| Your categories are gone | Check you did not use `--no-preserve`, then copy a backup back (above). |
+| The workflow fails at "Create rebuild summary issue" | Issues are off. Turn them on: **Settings → General → Features → Issues**. |
+
+More problems and fixes are in [README.md](README.md#when-something-goes-wrong).
