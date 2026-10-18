@@ -13,3 +13,8 @@ logs/transcripts.log
 data/llm/
 data/knowledge/
 data/eval/
+# Chainlit regenerates these (and creates .chainlit/ in any folder it is imported from)
+apps/chat/.chainlit/translations/
+apps/chat/.files/
+/.chainlit/
+/.files/

@@ -17,6 +17,7 @@ sdks/
 apps/
   cli/         seeker-cli              the `seeker` command (argparse, logging, prompts, exit codes)
   tui/         seeker-tui              the Textual menu (builds and runs `mise run ...` commands)
+  chat/        seeker-chat             the Chainlit chat (bring your own Gemini key), over the chat strategies
 services/                              (empty for now) deployables built on the SDKs
 scripts/                               ops shell scripts: docker, nuke, build, api key, ...
 data/  logs/  docs/                    data and documentation (unchanged locations)
@@ -79,7 +80,8 @@ have. A **provider** runs tools; the code that uses a tool never knows which one
 - **Budget:** `--max-requests` caps new requests per run (for a provider with a daily quota).
 - **`gemini` provider:** `seeker-sdk-gemini` sends the same instructions, input and schema to Gemini (structured
   output). The cache is per provider and model, so Gemini never reuses the subagents' answers and the evaluation
-  can compare them (`eval compare` has a model column).
+  can compare them (`eval compare` has a model column). The chat app (`apps/chat`) runs the chat strategies on
+  Gemini with each user's own key.
 
 Processing strategies write `data/knowledge/<strategy>@<version>/` (passages per video as JSONL, readable
 notes, a manifest). Chat strategies search those passages. `seeker eval run --processing X --chat Y --videos ...`
@@ -116,11 +118,12 @@ graph LR
     sdk_transcripts["seeker-sdk-transcripts"]
     sdk_knowledge["seeker-sdk-knowledge"]
     sdk_chat["seeker-sdk-chat"]
+    sdk_gemini["seeker-sdk-gemini"]
     sdk_eval["seeker-sdk-eval"]
     sdk_videos["seeker-sdk-videos"]
-    sdk_gemini["seeker-sdk-gemini"]
   end
   subgraph apps
+    app_chat["seeker-chat"]
     app_cli["seeker-cli"]
     app_tui["seeker-tui"]
   end
@@ -132,6 +135,13 @@ graph LR
   sdk_chat --> sdk_core
   sdk_chat --> sdk_knowledge
   sdk_chat --> sdk_llm
+  sdk_gemini --> sdk_core
+  sdk_gemini --> sdk_llm
+  app_chat --> sdk_chat
+  app_chat --> sdk_core
+  app_chat --> sdk_gemini
+  app_chat --> sdk_knowledge
+  app_chat --> sdk_llm
   sdk_eval --> sdk_chat
   sdk_eval --> sdk_core
   sdk_eval --> sdk_knowledge
@@ -144,8 +154,6 @@ graph LR
   app_cli --> sdk_llm
   app_cli --> sdk_transcripts
   app_cli --> sdk_videos
-  sdk_gemini --> sdk_core
-  sdk_gemini --> sdk_llm
   app_tui --> sdk_core
 ```
 (Regenerate with `mise run local:workspace:graph -- --mermaid`.)

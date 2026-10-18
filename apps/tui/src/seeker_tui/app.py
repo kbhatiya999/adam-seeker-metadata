@@ -284,6 +284,10 @@ ACTIONS: List[Action] = [
             Field("provider", "Model provider", "select",
                   lambda v: [("default (SEEKER_LLM_PROVIDER, else queue)", "")] + plugin_choices(plugins.LLM_PROVIDERS), ""),
             Field("max_requests", "At most this many new model requests (empty: no limit)", "input", optional=True)]),
+    Action("chat", "Knowledge", "Chat (Chainlit)",
+           "Start the chat app at http://localhost:8000: pick a strategy pair, ask, answers cite video and time. Each "
+           "user gives their own Gemini key in the browser. Ctrl-C stops it.",
+           lambda v: mise("local:chat:up")),
     Action("llm-queue", "Knowledge", "Model queue",
            "Requests waiting for a model (subagents now, Gemini later), rejected answers and the cache; or the request "
            "files a worker should answer.",

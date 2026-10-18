@@ -1,0 +1,28 @@
+[project]
+name = "seeker-chat"
+version = "0.1.0"
+description = "Chainlit chat over the processed videos: pick a strategy pair, ask, get answers with video and time sources"
+readme = "README.md"
+requires-python = ">=3.11,<3.14"
+dependencies = [
+    "chainlit>=2.12,<3",
+    "seeker-sdk-core>=0.1.0",
+    "seeker-sdk-llm>=0.1.0",
+    "seeker-sdk-knowledge>=0.1.0",
+    "seeker-sdk-chat>=0.1.0",
+    "seeker-sdk-gemini>=0.1.0",
+]
+
+[project.scripts]
+seeker-chat = "seeker_chat.cli:main"
+
+[tool.uv.sources]
+seeker-sdk-core = { workspace = true }
+seeker-sdk-llm = { workspace = true }
+seeker-sdk-knowledge = { workspace = true }
+seeker-sdk-chat = { workspace = true }
+seeker-sdk-gemini = { workspace = true }
+
+[build-system]
+requires = ["uv_build>=0.11,<0.12"]
+build-backend = "uv_build"

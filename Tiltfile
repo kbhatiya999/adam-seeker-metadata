@@ -146,6 +146,15 @@ local_resource(
     labels=['knowledge'],
 )
 
+local_resource(
+    'chat',
+    serve_cmd='uv run --no-sync seeker-chat --headless',   # Chainlit; each user gives their own Gemini key
+    labels=['knowledge'],
+    auto_init=False,
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    links=[link('http://localhost:8000', 'Chat')],
+)
+
 # ---- methods (read-only list; refreshed when a method is changed) -------------------------------------
 
 local_resource(
