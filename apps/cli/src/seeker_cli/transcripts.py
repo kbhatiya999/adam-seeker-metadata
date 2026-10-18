@@ -49,6 +49,7 @@ def _config(args) -> TranscriptConfig:
     finals = parse_finals(args.final or env("TRANSCRIPT_FINAL") or "srt,txt")
     net = Network(
         cookies_file=env("YTDLP_COOKIES_FILE"),
+        cookies_base64=env("YTDLP_COOKIES_BASE64"),
         proxy=env("PROXY_URL"),
         webshare_username=env("WEBSHARE_PROXY_USERNAME"),
         webshare_password=env("WEBSHARE_PROXY_PASSWORD"),

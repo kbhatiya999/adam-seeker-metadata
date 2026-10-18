@@ -109,6 +109,10 @@ run = "scripts/method.sh all show"
 description = "[local] Show the methods set in fnox.local.toml"
 run = "scripts/method.sh local show"
 
+[tasks."local:transcripts:download"]
+description = "[local] Download a few transcripts through a network, the same way act and gh do: `-- [direct|proxy|cookies|proxy+cookies] [ytdlp|youtube_transcript_api] [LIMIT]` (the proxy and cookies come from the local `proxy` and `cookies` profiles as environment variables)"
+run = "scripts/transcripts_run.sh local"
+
 [tasks."local:transcripts:compare"]
 description = "[local] Download one video's transcript with BOTH methods side by side: `mise run local:transcripts:compare -- VIDEO_ID` (files under data/transcripts/compare/<id>/)"
 run = "scripts/fx.sh uv run seeker transcripts compare"
@@ -183,6 +187,10 @@ run = '''scripts/docker.sh run -- scripts/fx.sh sh -c 'act workflow_dispatch -W 
 description = "[act] Run rebuild-videos.yml locally (starts Docker if needed, cleans up after; no commit/push/issue)"
 run = '''scripts/docker.sh run -- scripts/fx.sh sh -c 'act workflow_dispatch -W .github/workflows/rebuild-videos.yml ${YOUTUBE_API_KEY:+-s YOUTUBE_API_KEY}' '''
 
+[tasks."act:transcripts:download"]
+description = "[act] Run download-transcripts.yml locally in Docker, same arguments as local: `-- [direct|proxy|cookies|proxy+cookies] [ytdlp|youtube_transcript_api] [LIMIT]` (secrets from the local profiles; nothing published)"
+run = "scripts/docker.sh run -- scripts/transcripts_run.sh act"
+
 [tasks."act:method:set"]
 description = "[act] Set a method in .vars (what act:videos:* uses): `mise run act:method:set -- master-list ytdlp|youtube_api|unset`"
 run = "scripts/method.sh act set"
@@ -213,6 +221,10 @@ gh workflow run rebuild-videos.yml --ref "$ref"
 sleep 5
 gh run watch --exit-status "$(gh run list --workflow rebuild-videos.yml --branch "$ref" --limit 1 --json databaseId -q '.[0].databaseId')"
 '''
+
+[tasks."gh:transcripts:download"]
+description = "[gh] Trigger the download-transcripts workflow on GitHub and watch it, same arguments as local: `-- [direct|proxy|cookies|proxy+cookies] [ytdlp|youtube_transcript_api] [LIMIT]` (secrets are the repository secrets; commits nothing, the transcripts come back as the run's artifact)"
+run = "scripts/transcripts_run.sh gh"
 
 [tasks."gh:method:set"]
 description = "[gh] Set a method as a REPOSITORY VARIABLE used by the real workflows: `mise run gh:method:set -- master-list ytdlp|youtube_api|unset`"

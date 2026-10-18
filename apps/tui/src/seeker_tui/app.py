@@ -257,6 +257,19 @@ ACTIONS: List[Action] = [
            [Field("what", "What", "select", [("set up (asks for the username and password)", "setup"),
                                              ("test the saved proxy with YouTube", "check"),
                                              ("copy the saved proxy to the GitHub secrets", "github")], "setup")]),
+    Action("transcripts-network", "Transcripts", "Download transcripts through a network",
+           "The same download in all three places: local, act (the GitHub workflow in Docker) or gh (the real workflow). "
+           "The proxy and the cookies are environment variables with the same names everywhere (local profiles `proxy` and "
+           "`cookies`, or the GitHub secrets). Nothing is committed; the files are the artifact of the run.",
+           lambda v: mise(f"{v['where']}:transcripts:download", v["network"], v["method"], v["limit"]),
+           [Field("where", "Where to run it", "select", WHERE, "local"),
+            Field("network", "Network", "select", [("proxy - through your Webshare proxy", "proxy"),
+                                                  ("cookies - signed in with your YouTube cookies (yt-dlp only)", "cookies"),
+                                                  ("proxy + cookies", "proxy+cookies"),
+                                                  ("direct - no proxy, no cookies", "direct")], "proxy"),
+            Field("method", "Method", "select", TRANSCRIPT_METHODS, "ytdlp"),
+            Field("limit", "Stop after this many transcripts", "input", default="3")],
+           lambda v: "This starts the real workflow on GitHub. It commits nothing." if v["where"] == "gh" else None),
     Action("cookies-setup", "Setup", "Collect YouTube cookies (yt-dlp)",
            "Another way past YouTube's \"not a bot\" check, for yt-dlp only. Reads the YouTube/Google cookies of a browser "
            "(or an exported cookies.txt), keeps only those in a file outside the repo, saves the local `cookies` profile. "

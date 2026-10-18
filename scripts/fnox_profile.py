@@ -30,7 +30,7 @@ SETTINGS = ("MASTER_LIST_METHOD", "TRANSCRIPT_METHOD", "TRANSCRIPT_FORMAT", "TRA
             "SEEKER_LLM_PROVIDER", "SEEKER_GEMINI_MODEL", "SEEKER_GEMINI_RPM")
 # The one kind of profile that holds secrets: the local `proxy` (mise run local:proxy:setup), so the proxy is used
 # only when picked and your own runs go direct.
-NETWORK = ("PROXY_URL", "WEBSHARE_PROXY_USERNAME", "WEBSHARE_PROXY_PASSWORD", "YTDLP_COOKIES_FILE")
+NETWORK = ("PROXY_URL", "WEBSHARE_PROXY_USERNAME", "WEBSHARE_PROXY_PASSWORD", "YTDLP_COOKIES_FILE", "YTDLP_COOKIES_BASE64")
 
 
 def _load(path: Path) -> dict:

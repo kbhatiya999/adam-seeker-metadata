@@ -10,7 +10,7 @@ data/transcripts/
 .vars
 dist/
 logs/transcripts.log
-# YouTube login cookies are a login: never commit (the cookies helper saves them outside the repo)
+# YouTube login cookies are a login: never commit (the cookies helper keeps them as an env value in fnox.local.toml, not as a file)
 cookies*.txt
 *cookies.txt
 # derived by the knowledge/chat/eval SDKs (model answers cost quota: keep, but do not commit)
