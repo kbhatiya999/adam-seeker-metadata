@@ -193,13 +193,15 @@ def button(name, resource, text, argv, inputs=None, confirm=False, icon='setting
 def profile_names(kind):
     return ['none'] + sorted([n for n, p in profile_info['profiles'].items() if p['kind'] == kind and n != 'overrides'])
 
-# One methods profile and one model profile; `none` leaves that part to the default (and your `overrides`).
+# One methods profile, one model profile and optionally your proxy; `none` leaves that part to the default (and
+# your `overrides`). The proxy choice lists `proxy` once `mise run local:proxy:setup` has saved one.
 button(
     'switch-profile', 'profile', 'Switch fnox profile',
-    ['sh', '-c', 'uv run --no-project python scripts/fnox_profile.py use $METHODS $MODEL'],
+    ['sh', '-c', 'uv run --no-project python scripts/fnox_profile.py use $METHODS $MODEL $NETWORK'],
     inputs=[
         ('METHODS', 'Methods profile (how videos and transcripts are fetched)', profile_names('methods')),
         ('MODEL', 'Model profile (who runs the model tools)', profile_names('model')),
+        ('NETWORK', 'Proxy (send transcript requests through your Webshare proxy)', profile_names('network')),
     ],
     confirm=True,
     icon='tune',

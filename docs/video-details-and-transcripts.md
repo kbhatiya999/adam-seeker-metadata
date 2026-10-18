@@ -41,7 +41,7 @@ Re-tested 2026-10-18 with the current code and the real path (`mise run setup:cl
 
 - yt-dlp 429 was caused by asking for several/translated tracks, not by missing cookies; it now picks ONE track (manual English, else manual any, else automatic original `xx-orig`, else automatic English; `live_chat` is ignored).
 - A video with no captions yet (e.g. a live stream from the last day or two) correctly fails with both methods.
-- To make transcripts work on GitHub you need a proxy (`PROXY_URL` / `WEBSHARE_PROXY_USERNAME`+`WEBSHARE_PROXY_PASSWORD`) or cookies. Cookies tied to a Google account risk the account being flagged and expire (rotate while the browser is open; nominally 1-2 years). Planned: `YTDLP_COOKIES_B64` for local/act/gh; no transcripts workflow exists yet.
+- To make transcripts work on GitHub you need a proxy (`PROXY_URL` / `WEBSHARE_PROXY_USERNAME`+`WEBSHARE_PROXY_PASSWORD`; `mise run local:proxy:setup` saves and tests a Webshare rotating proxy, and `-- --github` copies it to the repository secrets) or cookies. Cookies tied to a Google account risk the account being flagged and expire (rotate while the browser is open; nominally 1-2 years). Planned: `YTDLP_COOKIES_B64` for local/act/gh; no transcripts workflow exists yet.
 - Transcript files (`data/transcripts/`) are git-ignored: they are large.
 
 - Compared on a 4.7-hour video (2026-10-05): both methods produced byte-identical plain text (42,703 words); they differ only in the VTT (yt-dlp 2.8 MB with rolling duplicate cues, youtube-transcript-api 0.66 MB). `mise run local:transcripts:compare -- VIDEO_ID` (PR #350) reproduces this.

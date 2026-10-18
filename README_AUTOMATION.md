@@ -175,6 +175,7 @@ The profiles:
 | `subagents` | model | model questions wait in a queue (`data/llm/queue/`) for a helper to answer |
 | `gemini` | model | Gemini, model `gemini-flash-latest` |
 | `gemini-lite` | model | Gemini, model `gemini-flash-lite-latest` (a separate free quota) |
+| `proxy` | network | Only in your `fnox.local.toml`, made by `mise run local:proxy:setup`. Transcript requests go through your Webshare proxy. |
 
 ```bash
 mise run local:profile:show
@@ -216,7 +217,30 @@ Sets up the Gemini key:
 - It opens https://aistudio.google.com/apikey, checks the key with a free call and saves it in `fnox.local.toml`.
 - `mise run local:apikey:gemini -- --check` checks the saved key again.
 
-Neither helper ever prints a key. `fnox.local.toml` is created with permissions that only you can read.
+```bash
+mise run local:proxy:setup
+```
+Sets up a Webshare proxy, for transcripts where YouTube blocks your address. It blocks GitHub's runners: "Sign in to confirm you're not a bot", tested 2026-10-18.
+1. It opens the Webshare dashboard. On the Proxy List page, pick **Username/Password** and **Rotating Proxy Endpoint**.
+2. It asks for the proxy username and password, with the password hidden.
+3. It checks that the proxy accepts them, then asks YouTube about one video through it, with both methods.
+4. It saves them as the local `proxy` profile. Your own runs still go direct unless you pick it.
+
+To use the proxy:
+- For one run: `FNOX_PROFILE=proxy mise run local:transcripts:manage -- --method ytdlp download-missing --limit 5`.
+- To keep it on: `mise run local:profile:use -- ytdlp proxy`.
+
+Two more forms:
+- `mise run local:proxy:setup -- --check` tests the saved proxy again.
+- `mise run local:proxy:setup -- --github` copies it to the repository secrets `WEBSHARE_PROXY_USERNAME`, `WEBSHARE_PROXY_PASSWORD` and `PROXY_URL`.
+
+How the methods use it:
+- yt-dlp reads `PROXY_URL`.
+- youtube-transcript-api uses the Webshare username and password, and tries up to 10 new addresses when one is blocked.
+
+Webshare's free plan and its "Proxy Server" plans are data-centre addresses, which YouTube may block like GitHub's. The transcript library recommends the **Residential** plan, not "Static Residential". The setup's YouTube test tells you which case you are in.
+
+None of these helpers ever prints a key or a password. `fnox.local.toml` is created with permissions that only you can read.
 
 ## Transcripts
 

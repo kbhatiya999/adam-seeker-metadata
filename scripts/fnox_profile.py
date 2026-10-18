@@ -28,6 +28,9 @@ FILES = (ROOT / "fnox.toml", ROOT / "fnox.local.toml")   # later files win, as i
 OVERRIDES = "overrides"
 SETTINGS = ("MASTER_LIST_METHOD", "TRANSCRIPT_METHOD", "TRANSCRIPT_FORMAT", "TRANSCRIPT_FINAL",
             "SEEKER_LLM_PROVIDER", "SEEKER_GEMINI_MODEL", "SEEKER_GEMINI_RPM")
+# The one kind of profile that holds secrets: the local `proxy` (mise run local:proxy:setup), so the proxy is used
+# only when picked and your own runs go direct.
+NETWORK = ("PROXY_URL", "WEBSHARE_PROXY_USERNAME", "WEBSHARE_PROXY_PASSWORD")
 
 
 def _load(path: Path) -> dict:
@@ -61,6 +64,8 @@ def kind(sets: Dict[str, str]) -> str:
         return "model"
     if any(k.endswith("_METHOD") for k in sets):
         return "methods"
+    if any(k in NETWORK for k in sets):
+        return "network"
     return "other"
 
 
@@ -105,7 +110,8 @@ def cmd_show() -> int:
     for key in keys:
         if key not in SETTINGS:
             print(f"  {key:<22} {'set' if effective(key, names) else 'not set'}")
-    print("Profiles (pick one methods and one model profile: mise run local:profile:use -- ytdlp gemini-lite):")
+    print("Profiles (pick one methods and one model profile, plus `proxy` if you set one up with "
+          "mise run local:proxy:setup; e.g. mise run local:profile:use -- ytdlp gemini-lite):")
     for name, sets in sorted(profiles().items()):
         mark = "*" if name in names else " "
         print(f"  {mark} {name:<14} {kind(sets):<8} " + ", ".join(f"{k}={v}" for k, v in sets.items()))

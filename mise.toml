@@ -135,6 +135,11 @@ description = "[local] Gemini API key for --provider gemini (the daily processin
 run = "scripts/gemini_key.sh"
 interactive = true
 
+[tasks."local:proxy:setup"]
+description = "[local] Webshare proxy for transcripts where YouTube blocks you (GitHub runners): asks for the proxy username/password (hidden), tests YouTube through it, saves the local `proxy` profile (`-- --check` re-tests, `-- --github` copies it to the repository secrets)"
+run = "scripts/proxy_setup.sh"
+interactive = true
+
 [tasks."local:plugins:list"]
 description = "[local] List the installed plugins: video sources, transcript methods, model providers, processing and chat strategies"
 run = "uv run seeker plugins"

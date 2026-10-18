@@ -140,15 +140,17 @@ The free Gemini tier allows about 20 requests a day per model. When the quota ru
 
 ## Keys (optional)
 
-Everything above works without keys. Keys make two things better:
+Everything above works without keys. Keys and a proxy make three things better:
 
 | Key | What it gives you | How to get it |
 |---|---|---|
 | YouTube Data API key | Faster updates, with exact upload dates | `mise run local:apikey:setup` |
 | Gemini API key | Model-based processing from the command line (`english-notes`, `ask`, `eval`) | `mise run local:apikey:gemini` |
+| Webshare proxy | Transcripts where YouTube blocks your address (it blocks GitHub's) | `mise run local:proxy:setup` |
 
-- Both keys are free.
-- Each helper opens the right Google page, checks your key with one test call, and saves it in `fnox.local.toml`.
+- Both keys are free. The proxy is a Webshare account.
+- Each helper opens the right page, checks what you paste with one test call, and saves it in `fnox.local.toml`.
+- The proxy is saved as a profile called `proxy`, so it is used only when you pick it (see [Settings](#settings-fnox-profiles)).
 - That file is never committed: git ignores it. Never put a key in any other file.
 - The chat app does not use this saved Gemini key. Everyone types their own key in the browser.
 
@@ -267,7 +269,7 @@ mise run gh:method:set -- master-list ytdlp
 | `uv: command not found` or `seeker: command not found` | Run things through `mise run ...`. To type `uv` yourself, see "activate" in the [mise getting started guide](https://mise.jdx.dev/getting-started.html). |
 | `Warning: Secret 'YOUTUBE_API_KEY' not found` | Harmless. Without a key, yt-dlp is used. |
 | An `act:` task says Docker is missing | Install Colima (`brew install colima docker`) or Docker Desktop. `mise run docker:diagnose` checks Docker's memory and disk. |
-| Transcripts: `HTTP Error 429` or "Sign in to confirm you're not a bot" | YouTube is slowing you down. Wait an hour, use a smaller `--limit`, or try `--method youtube_transcript_api`. A run stops by itself after 3 errors in a row. |
+| Transcripts: `HTTP Error 429` or "Sign in to confirm you're not a bot" | YouTube is slowing you down. Wait an hour, use a smaller `--limit`, or try `--method youtube_transcript_api`. A run stops by itself after 3 errors in a row. On GitHub it is always blocked; there you need a proxy (`mise run local:proxy:setup`). |
 | "no transcript available, will look again after ..." | Normal. The video has no captions yet. It is checked again after 1, 2, 4, 8 ... days. |
 | "Waiting because: ..." (exit code 75) | A model step is waiting. With Gemini, the free daily quota is used up: run again tomorrow, or switch model with `mise run local:profile:use -- gemini-lite`. With the `subagents` profile, the questions wait in `data/llm/queue/pending/`. |
 | The chat says no videos are processed | Do steps 1 and 2 of [Chat with the videos](#chat-with-the-videos). |
