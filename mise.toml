@@ -113,6 +113,10 @@ run = "fnox exec -- uv run seeker ask"
 description = "[local] Evaluate strategy pairs on eval/questions: `-- run --processing english-notes --chat keyword --videos ID1,ID2`, `-- compare`, `-- questions --videos ...`"
 run = "fnox exec -- uv run seeker eval"
 
+[tasks."local:plugins:list"]
+description = "[local] List the installed plugins: video sources, transcript methods, model providers, processing and chat strategies"
+run = "uv run seeker plugins"
+
 [tasks."local:llm:manage"]
 description = "[local] Model tool queue and cache: `-- status`, `-- pending --tool english_notes`"
 run = "uv run seeker llm"

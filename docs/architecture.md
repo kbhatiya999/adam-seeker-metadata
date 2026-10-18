@@ -28,6 +28,8 @@ data/  logs/  docs/                    data and documentation (unchanged locatio
   directory at import time. They raise `seeker_sdk_core` errors; apps decide how to report them.
 - Behaviour that matters is tested in the package that owns it (`sdks/*/tests`, `apps/*/tests`);
   `mise run test` runs everything.
+- Front ends stay in sync: `scripts/tests/test_tui_cli_parity.py` checks that every CLI command and option
+  and every mise task can be reached from the TUI, or is listed as an exception with a reason.
 - The data format and file locations (`data/videos_master.json`, `.backup`, `logs/*.log`) are part of
   the contract; the daily workflow depends on the log lines `🆕 New:` and `Successfully added`.
 
