@@ -7,6 +7,7 @@ import glob
 import logging
 import os
 import tempfile
+import time
 from typing import Any, Dict, Optional, Tuple
 
 import yt_dlp
@@ -17,6 +18,9 @@ from ..formats import primary_path, produce_finals, transcript_path
 from .base import TranscriptMethod
 
 logger = logging.getLogger(__name__)
+
+# what YouTube says when it blocks the address a request came from
+BLOCKED = ("Sign in to confirm", "HTTP Error 429", "Too Many Requests")
 
 
 def pick_language(info: Dict[str, Any]) -> Optional[Tuple[str, bool]]:
@@ -88,6 +92,23 @@ class YtDlpMethod(TranscriptMethod):
         self._cookies_tmp = path
         return path
 
+    RETRY_PAUSE = 1.0   # seconds between two tries
+
+    def _new_address_retry(self, what: str, call):
+        """Run CALL. A rotating proxy gives a different address each time, so when YouTube blocks one ("Sign in to
+        confirm you're not a bot", HTTP 429) asking again usually works: retry up to `proxy_retries` times. Without a
+        proxy the address would be the same blocked one, so there is no retry; other errors are never retried."""
+        net = self.config.network
+        tries = 1 + (max(net.proxy_retries, 0) if net.proxy else 0)
+        for attempt in range(1, tries + 1):
+            try:
+                return call()
+            except Exception as e:
+                if attempt == tries or not any(m in str(e) for m in BLOCKED):
+                    raise
+                logger.info("%s: blocked (try %d of %d), asking again through the proxy", what, attempt, tries)
+                time.sleep(self.RETRY_PAUSE)
+
     def _base_opts(self) -> Dict[str, Any]:
         net = self.config.network
         opts: Dict[str, Any] = {"quiet": True, "no_warnings": True, "skip_download": True}
@@ -100,8 +121,10 @@ class YtDlpMethod(TranscriptMethod):
 
     def check(self, video_id: str) -> bool:
         try:
-            with yt_dlp.YoutubeDL(self._base_opts()) as ydl:
-                info = ydl.extract_info(f"https://www.youtube.com/watch?v={video_id}", download=False)
+            def look():
+                with yt_dlp.YoutubeDL(self._base_opts()) as ydl:
+                    return ydl.extract_info(f"https://www.youtube.com/watch?v={video_id}", download=False)
+            info = self._new_address_retry(video_id, look)
             return pick_language(info) is not None  # same rule as download(): live_chat alone is not captions
         except TranscriptError:
             raise
@@ -114,8 +137,10 @@ class YtDlpMethod(TranscriptMethod):
         url = f"https://www.youtube.com/watch?v={video_id}"
         base = self._base_opts()
         try:
-            with yt_dlp.YoutubeDL(base) as ydl:
-                info = ydl.extract_info(url, download=False)
+            def look():
+                with yt_dlp.YoutubeDL(base) as ydl:
+                    return ydl.extract_info(url, download=False)
+            info = self._new_address_retry(video_id, look)
             choice = pick_language(info)
             if not choice:
                 return None
@@ -123,9 +148,11 @@ class YtDlpMethod(TranscriptMethod):
             logger.info("%s: using %s captions in %s", video_id, "automatic" if is_auto else "manual", lang)
             opts = dict(base, writesubtitles=not is_auto, writeautomaticsub=is_auto, subtitleslangs=[lang],
                         subtitlesformat=cfg.source_format, outtmpl=os.path.join(out_dir, "%(id)s"))
-            with yt_dlp.YoutubeDL(opts) as ydl:
-                ydl.add_post_processor(_make_text_postprocessor(ydl, cfg.finals, cfg.keep_source), when="before_dl")
-                ydl.download([url])
+            def fetch():
+                with yt_dlp.YoutubeDL(opts) as ydl:
+                    ydl.add_post_processor(_make_text_postprocessor(ydl, cfg.finals, cfg.keep_source), when="before_dl")
+                    ydl.download([url])
+            self._new_address_retry(video_id, fetch)
         except Exception as e:
             raise TranscriptError(f"yt-dlp failed: {e}") from e
         # yt-dlp names files <id>.<lang>.<ext>; normalise every file we keep to <id>.<ext>
