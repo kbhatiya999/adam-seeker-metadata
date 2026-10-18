@@ -10,6 +10,9 @@ data/transcripts/
 .vars
 dist/
 logs/transcripts.log
+# YouTube login cookies are a login: never commit (the cookies helper saves them outside the repo)
+cookies*.txt
+*cookies.txt
 # derived by the knowledge/chat/eval SDKs (model answers cost quota: keep, but do not commit)
 data/llm/
 data/knowledge/

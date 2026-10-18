@@ -75,3 +75,7 @@ def test_effective_values_with_the_real_fnox(fp):
     assert fp.effective("MASTER_LIST_METHOD", ["ytdlp", "overrides"]) == "youtube_api"
     assert fp.effective("KEY", ["gemini"]) == "top-secret"
     assert fp.effective("SEEKER_LLM_PROVIDER", []) == ""
+
+
+def test_cookies_profile_is_a_network_profile(fp):
+    assert fp.kind({"YTDLP_COOKIES_FILE": "/somewhere/cookies.txt"}) == "network"

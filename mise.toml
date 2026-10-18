@@ -140,6 +140,11 @@ description = "[local] Webshare proxy for transcripts where YouTube blocks you (
 run = "scripts/proxy_setup.sh"
 interactive = true
 
+[tasks."local:cookies:setup"]
+description = "[local] YouTube login cookies for yt-dlp (another way past the \"not a bot\" check; use a throwaway Google account): reads them from a browser or an exported cookies.txt, keeps only YouTube/Google ones outside the repo, saves the local `cookies` profile (`-- --check` re-tests)"
+run = "uv run --no-sync python scripts/cookies_setup.py"
+interactive = true
+
 [tasks."local:plugins:list"]
 description = "[local] List the installed plugins: video sources, transcript methods, model providers, processing and chat strategies"
 run = "uv run seeker plugins"
