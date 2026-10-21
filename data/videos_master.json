@@ -1,6 +1,17 @@
 {
   "videos": [
     {
+      "video_id": "ZLALWmv9rZE",
+      "title": "Quran Bible se ziyadah logical  hay?",
+      "url": "https://www.youtube.com/watch?v=ZLALWmv9rZE",
+      "upload_date": "2026-10-21",
+      "description": "if you like Adam Seeker's videos and would like to support, join patreon link\nhttps://www.patreon.com/adamseeker\n\nTo contact me, please join my discord Server: \nhttps://discord.gg/WmDZHqJvKB\n\ntiktok account\nhttps://www.tiktok.com/@adam.seeker.official\n#bible\n#quran\n#mary\n#mariam",
+      "status": "uncategorized",
+      "auto_detected": true,
+      "needs_review": true,
+      "last_checked": "2026-10-21"
+    },
+    {
       "video_id": "N5s9yFxOfDo",
       "title": "Allah ki muhabbat Israel or Palestine",
       "url": "https://www.youtube.com/watch?v=N5s9yFxOfDo",
@@ -2219,8 +2230,8 @@
       "last_checked": "2026-10-04"
     }
   ],
-  "last_updated": "2026-10-17",
-  "total_videos": 198,
+  "last_updated": "2026-10-21",
+  "total_videos": 199,
   "channel_url": "https://www.youtube.com/@AdamSeekerOfficial",
   "rebuild_date": "2026-10-04",
   "rebuild_reason": "Complete rebuild from scratch"

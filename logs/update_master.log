@@ -4399,3 +4399,18 @@
 2026-10-17 10:04:47,095 - INFO - ✅ Successfully added 1 new videos
 2026-10-17 10:04:47,095 - INFO - 📊 Total videos in master list: 198
 2026-10-17 10:04:47,095 - INFO - 🆕 New: Allah ki muhabbat Israel or Palestine (2026-10-17)
+2026-10-21 11:04:44,383 - INFO - ⚙️  MASTER_LIST_METHOD not set: using youtube_api (API key present)
+2026-10-21 11:04:44,383 - INFO - 🔑 YouTube API key provided
+2026-10-21 11:04:44,385 - INFO - 🚀 Starting video list update...
+2026-10-21 11:04:44,386 - INFO - 📊 Current master list has 198 existing videos
+2026-10-21 11:04:44,386 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-10-21 11:04:44,630 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-10-21 11:04:44,631 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-10-21 11:04:44,631 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-10-21 11:04:44,799 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-10-21 11:04:45,296 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-10-21 11:04:45,297 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-10-21 11:04:45,299 - INFO - Master list updated successfully
+2026-10-21 11:04:45,299 - INFO - ✅ Successfully added 1 new videos
+2026-10-21 11:04:45,299 - INFO - 📊 Total videos in master list: 199
+2026-10-21 11:04:45,299 - INFO - 🆕 New: Quran Bible se ziyadah logical  hay? (2026-10-21)
