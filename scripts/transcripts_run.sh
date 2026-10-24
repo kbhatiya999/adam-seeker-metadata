@@ -33,7 +33,7 @@ need_local() { # every variable must be saved in its local profile
   done
 }
 unset_args=() # variables of the networks NOT chosen must not leak in from your shell
-for n in PROXY_URL WEBSHARE_PROXY_USERNAME WEBSHARE_PROXY_PASSWORD YTDLP_COOKIES_FILE YTDLP_COOKIES_BASE64; do
+for n in PROXY_URL WEBSHARE_PROXY_USERNAME WEBSHARE_PROXY_PASSWORD YTDLP_COOKIES_BASE64; do
   [[ " ${names[*]:-} " == *" $n "* ]] || unset_args+=(-u "$n")
 done
 

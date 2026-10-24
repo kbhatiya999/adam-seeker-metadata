@@ -78,4 +78,4 @@ def test_effective_values_with_the_real_fnox(fp):
 
 
 def test_cookies_profile_is_a_network_profile(fp):
-    assert fp.kind({"YTDLP_COOKIES_FILE": "/somewhere/cookies.txt"}) == "network"
+    assert fp.kind({"YTDLP_COOKIES_BASE64": "IyBOZXRzY2FwZQ=="}) == "network"
