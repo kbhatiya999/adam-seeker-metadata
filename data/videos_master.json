@@ -1,6 +1,17 @@
 {
   "videos": [
     {
+      "video_id": "i5fCBVHaihA",
+      "title": "Debate Review - Adam Seeker VS Haideri110",
+      "url": "https://www.youtube.com/watch?v=i5fCBVHaihA",
+      "upload_date": "2026-10-24",
+      "description": "if you like Adam Seeker's videos and would like to support, join patreon link\nhttps://www.patreon.com/adamseeker\n\nTo contact me, please join my discord Server: \nhttps://discord.gg/WmDZHqJvKB\n\ntiktok account\nhttps://www.tiktok.com/@adam.seeker.official\n#debate\n#review\n#tiktok",
+      "status": "uncategorized",
+      "auto_detected": true,
+      "needs_review": true,
+      "last_checked": "2026-10-24"
+    },
+    {
       "video_id": "ZLALWmv9rZE",
       "title": "Quran Bible se ziyadah logical  hay?",
       "url": "https://www.youtube.com/watch?v=ZLALWmv9rZE",
@@ -2230,8 +2241,8 @@
       "last_checked": "2026-10-04"
     }
   ],
-  "last_updated": "2026-10-21",
-  "total_videos": 199,
+  "last_updated": "2026-10-24",
+  "total_videos": 200,
   "channel_url": "https://www.youtube.com/@AdamSeekerOfficial",
   "rebuild_date": "2026-10-04",
   "rebuild_reason": "Complete rebuild from scratch"
