@@ -274,7 +274,7 @@ Without questions: `mise run local:cookies:setup -- --browser chrome --profile "
 | `PROXY_URL`, `WEBSHARE_PROXY_USERNAME`, `WEBSHARE_PROXY_PASSWORD` | profile `proxy` | passed with `-s` | repository secrets |
 | `YTDLP_COOKIES_BASE64` | profile `cookies` | passed with `-s` | repository secret |
 
-The transcripts code reads `YTDLP_COOKIES_BASE64` itself and writes a private temporary file for yt-dlp (removed at exit). If you already have a `cookies.txt`, `YTDLP_COOKIES_FILE=/path/to/cookies.txt` works too and wins when both are set.
+The transcripts code reads `YTDLP_COOKIES_BASE64` itself and writes a private temporary file for yt-dlp (removed at exit). It is the only way to give cookies: an exported `cookies.txt` goes in with `mise run local:cookies:setup -- --file cookies.txt`, which also filters and checks it.
 
 To use them locally:
 - For one run: `FNOX_PROFILE=cookies mise run local:transcripts:manage -- --method ytdlp download-missing --limit 5`.

@@ -67,12 +67,6 @@ def test_cookies_from_base64_become_a_private_temp_file():
     os.remove(path)
 
 
-def test_the_cookies_file_wins_over_base64(tmp_path):
-    f = tmp_path / "c.txt"
-    f.write_text(COOKIES)
-    assert _method(cookies_file=str(f), cookies_base64=b64("other"))._base_opts()["cookiefile"] == str(f)
-
-
 def test_no_cookies_means_no_cookiefile_option():
     assert "cookiefile" not in _method()._base_opts()
 

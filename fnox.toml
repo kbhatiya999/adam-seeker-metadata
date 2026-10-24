@@ -12,10 +12,6 @@ if_missing = "warn"
 description = "ytdlp or youtube_transcript_api (no default, no fallback)"
 if_missing = "ignore"
 
-[secrets.YTDLP_COOKIES_FILE]
-description = "Path to a cookies.txt for yt-dlp (optional; wins over YTDLP_COOKIES_BASE64)"
-if_missing = "ignore"
-
 [secrets.YTDLP_COOKIES_BASE64]
 description = "The cookies.txt for yt-dlp as ONE base64 line (made by `mise run local:cookies:setup`; the same name in the local profile, act and the GitHub secret)"
 if_missing = "ignore"

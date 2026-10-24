@@ -67,13 +67,9 @@ class YtDlpMethod(TranscriptMethod):
     name = "ytdlp"
 
     def _cookies_path(self) -> Optional[str]:
-        """The cookies file yt-dlp should use: the configured file, else the base64 text written once to a private
-        temp file (mode 600, removed at exit; yt-dlp saves refreshed cookies into it, which is fine for a temp copy)."""
+        """The cookies file yt-dlp should use: the base64 text written once to a private temp file (mode 600, removed
+        at exit; yt-dlp saves refreshed cookies into it, which is fine for a temp copy). None without cookies."""
         net = self.config.network
-        if net.cookies_file:
-            if not os.path.exists(net.cookies_file):
-                raise TranscriptError(f"Cookies file not found: {net.cookies_file}")
-            return net.cookies_file
         if not net.cookies_base64:
             return None
         path = getattr(self, "_cookies_tmp", None)

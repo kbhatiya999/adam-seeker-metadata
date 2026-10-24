@@ -12,8 +12,7 @@ FINAL_FORMATS = ("srt", "vtt", "txt")
 @dataclass(frozen=True)
 class Network:
     """Optional access helpers for networks YouTube blocks (cloud IPs)."""
-    cookies_file: Optional[str] = None      # a cookies.txt on disk (wins over cookies_base64)
-    cookies_base64: Optional[str] = None    # the same file as one base64 line: the form that works as an env var
+    cookies_base64: Optional[str] = None    # a cookies.txt as one base64 line: the form that works as an env var
                                             # (local fnox profile, act, GitHub secret), written to a private temp file
     proxy: Optional[str] = None
     webshare_username: Optional[str] = None
