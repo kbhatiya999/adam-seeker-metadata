@@ -19,7 +19,7 @@ eval/questions/                the evaluation questions
 .github/workflows/             update-videos.yml (daily), rebuild-videos.yml (manual)
 mise.toml                      the tools and every task
 fnox.toml                      the names of all secrets and settings, and the profiles (no values)
-fnox.local.toml                YOUR keys and settings (git-ignored; copy fnox.local.toml.example)
+fnox.local.toml                YOUR own settings (git-ignored; copy fnox.local.toml.example). Keys live encrypted in fnox.toml
 pyproject.toml, uv.lock        the Python workspace and its exact dependency versions
 Tiltfile                       the dashboard
 ```
@@ -162,8 +162,8 @@ mise run local:profile:use -- ytdlp
 
 | Where | What goes there |
 |---|---|
-| top of `fnox.local.toml` | your **keys** (`YOUTUBE_API_KEY`, `GEMINI_API_KEY`). Every profile inherits them. |
-| profiles in `fnox.toml` | **settings** only, shared by everyone |
+| top of `fnox.toml`, encrypted | the **keys** (`YOUTUBE_API_KEY`, `GEMINI_API_KEY`). Every profile inherits them. See [Encrypted secrets](#encrypted-secrets-age). |
+| profiles in `fnox.toml` | **settings**, shared by everyone, readable; and the encrypted `proxy` and `cookies` profiles |
 | the `overrides` profile in `fnox.local.toml` | your own settings, applied last. `local:method:set` writes it. |
 
 The profiles:
@@ -175,8 +175,8 @@ The profiles:
 | `subagents` | model | model questions wait in a queue (`data/llm/queue/`) for a helper to answer |
 | `gemini` | model | Gemini, model `gemini-flash-latest` |
 | `gemini-lite` | model | Gemini, model `gemini-flash-lite-latest` (a separate free quota) |
-| `proxy` | network | Only in your `fnox.local.toml`, made by `mise run local:proxy:setup`. Transcript requests go through your Webshare proxy. |
-| `cookies` | network | Only in your `fnox.local.toml`, made by `mise run local:cookies:setup`. yt-dlp signs in with your YouTube cookies. |
+| `proxy` | network | Encrypted, made by `mise run local:proxy:setup`. Transcript requests go through your Webshare proxy. |
+| `cookies` | network | Encrypted, made by `mise run local:cookies:setup`. yt-dlp signs in with your YouTube cookies. |
 
 ```bash
 mise run local:profile:show
@@ -197,9 +197,50 @@ You can also switch from the menu (Methods → Switch fnox profile) or with the 
 
 - The choice is saved in `.fnox-profile`, which is git-ignored.
 - `FNOX_PROFILE=ytdlp mise run ...` overrides it for one command.
-- On GitHub there is no profile, so the default applies and the key comes from the repository secret.
+- On GitHub there is no `.fnox-profile`, so the default applies (the transcripts workflow sets `FNOX_PROFILE` from its network choice). The keys are decrypted with the `FNOX_AGE_KEY` secret.
 
 **Never put a setting at the top of `fnox.local.toml`.** A setting there silently beats every profile. Put your own settings in `[profiles.overrides.secrets]` instead (see `fnox.local.toml.example`).
+
+## Encrypted secrets (age)
+
+The keys, the proxy login and the cookies are stored **encrypted** in the committed `fnox.toml`, with [age](https://age-encryption.org) through fnox. Settings stay readable. Two keys can decrypt:
+
+| Key | Where it lives | Used by |
+|---|---|---|
+| `personal` | `~/.config/fnox/age.txt` on your computer. Keep a copy in your password manager. | local runs, and act (it gets the key as `FNOX_AGE_KEY`) |
+| `ci` | only the GitHub secret `FNOX_AGE_KEY` | the GitHub workflows |
+
+So all three places read the **same** values; only the key differs. The code never knows about age: it reads environment variables (`YOUTUBE_API_KEY`, `PROXY_URL` ...), so moving to another store later (for example Bitwarden Secrets Manager) means changing `fnox.toml`, not code.
+
+```bash
+mise run local:secrets:check
+```
+Shows the two recipients, whether your personal key is one of them, and which secrets this computer can decrypt. Values are never shown.
+
+```bash
+mise run local:secrets:init
+```
+Uses your personal key (or makes one) and makes it the `personal` recipient. Run it once.
+
+```bash
+mise run local:secrets:ci-key
+```
+Makes a **new** CI key, sets it as the GitHub secret `FNOX_AGE_KEY`, makes it the `ci` recipient and re-encrypts every secret. The CI private key is kept nowhere else: if it is ever lost or exposed, just run this again, because your personal key can re-encrypt everything.
+
+```bash
+mise run local:secrets:migrate
+```
+One time: moves secret values still in `fnox.local.toml` into `fnox.toml`, encrypted. Settings (such as your `overrides` profile) stay local.
+
+```bash
+mise run local:secrets:publish
+```
+Commits `fnox.toml` and pushes it **straight to main**, so act and GitHub get the new values. It refuses if `fnox.toml` holds a plain value. The key helpers below offer to run it at the end.
+
+Good to know:
+- A missing or wrong key gives **empty** values, not an error. So each workflow starts with an "Unlock secrets" step (`scripts/ci_unlock.sh`) that fails loudly, then masks the decrypted values in the logs (`fnox ci-redact`; GitHub masks only `FNOX_AGE_KEY` by itself).
+- The repository is public, so the ciphertext is public forever in git history. It is safe while the keys are safe. If a key leaks, change the real keys and passwords too, not just the age keys.
+- Without `FNOX_AGE_KEY` (a fork), the workflows warn and run without the encrypted secrets. A plain `YOUTUBE_API_KEY` repository secret still works there.
 
 ## Keys
 
@@ -208,14 +249,14 @@ mise run local:apikey:setup
 ```
 Sets up the YouTube Data API v3 key:
 - It can drive `gcloud` after you sign in, or open the Google Cloud pages for you.
-- It checks the key with one call, saves it in `fnox.local.toml` and can also set the `YOUTUBE_API_KEY` GitHub secret.
+- It checks the key with one call and saves it encrypted in `fnox.toml`, which local, act and GitHub all read.
 - The key is free, and you can only create it from your own Google account.
 
 ```bash
 mise run local:apikey:gemini
 ```
 Sets up the Gemini key:
-- It opens https://aistudio.google.com/apikey, checks the key with a free call and saves it in `fnox.local.toml`.
+- It opens https://aistudio.google.com/apikey, checks the key with a free call and saves it encrypted in `fnox.toml`.
 - `mise run local:apikey:gemini -- --check` checks the saved key again.
 
 ```bash
@@ -225,7 +266,7 @@ Sets up a Webshare proxy, for transcripts where YouTube blocks your address. It 
 1. It opens the Webshare dashboard. On the Proxy List page, pick **Username/Password** and **Rotating Proxy Endpoint**.
 2. It asks for the proxy username and password, with the password hidden. If `WEBSHARE_PROXY_USERNAME` and `WEBSHARE_PROXY_PASSWORD` are already set in your shell, it asks nothing and uses them.
 3. It checks that the proxy accepts them, then asks YouTube about one video through it, with both methods.
-4. It saves them as the local `proxy` profile. Your own runs still go direct unless you pick it.
+4. It saves them encrypted as the `proxy` profile in `fnox.toml`, and offers to publish. Your own runs still go direct unless you pick it.
 
 To give it the login through the environment, without typing at a prompt (the password stays out of the command line and out of your shell history):
 ```bash
@@ -235,21 +276,19 @@ mise run local:proxy:setup
 ```
 Type or paste the password after the second line (nothing is shown), then press Enter. The variables live only in that terminal window.
 
-To type the login into the file yourself, open `fnox.local.toml` (in the repository folder, never committed) and add this at the end, with your own values (the username without `-rotate`):
+To type the login into a file yourself, open `fnox.local.toml` (in the repository folder, never committed) and add this at the end, with your own values (the username without `-rotate`):
 ```toml
 [profiles.proxy.secrets]
 WEBSHARE_PROXY_USERNAME = { default = "your_proxy_username" }
 WEBSHARE_PROXY_PASSWORD = { default = "your_proxy_password" }
 ```
-Then run `mise run local:proxy:setup -- --check`. It tests the proxy and YouTube, and adds or refreshes the `PROXY_URL` line itself, so it is also what to run after you change the password. The same block, commented out, is in `fnox.local.toml.example`.
+Then run `mise run local:secrets:migrate` (it encrypts them into `fnox.toml` and removes them from `fnox.local.toml`), then `mise run local:proxy:setup -- --check`. That tests the proxy and YouTube, and adds or refreshes the encrypted `PROXY_URL`, so it is also what to run after you change the password. The same block, commented out, is in `fnox.local.toml.example`.
 
 To use the proxy:
 - For one run: `FNOX_PROFILE=proxy mise run local:transcripts:manage -- --method ytdlp download-missing --limit 5`.
 - To keep it on: `mise run local:profile:use -- ytdlp proxy`.
 
-Two more forms:
-- `mise run local:proxy:setup -- --check` tests the saved proxy again.
-- `mise run local:proxy:setup -- --github` copies it to the repository secrets `WEBSHARE_PROXY_USERNAME`, `WEBSHARE_PROXY_PASSWORD` and `PROXY_URL`.
+`mise run local:proxy:setup -- --check` tests the saved proxy again.
 
 ```bash
 mise run local:cookies:setup
@@ -261,18 +300,18 @@ Use a **throwaway Google account**, never your own: yt-dlp's authors warn that a
 2. Run the task. It asks where the cookies are: **a browser on this computer** (it reads them with yt-dlp, and on macOS may ask to allow the browser's Keychain item: choose Allow), or **a `cookies.txt` you exported** with a browser extension such as "Get cookies.txt LOCALLY".
 3. It keeps only the `youtube.com` and `google.com` cookies. Nothing else from your browser is kept.
 4. It checks that you are signed in and when the login expires (cookie names only, never values).
-5. It saves them as **one base64 line** in the environment variable `YTDLP_COOKIES_BASE64`, in the local `cookies` profile of `fnox.local.toml` (git-ignored, mode 600). There is no cookie file to look after.
+5. It saves them as **one base64 line** in the environment variable `YTDLP_COOKIES_BASE64`, encrypted, in the `cookies` profile of `fnox.toml`. There is no cookie file to look after.
 6. It asks YouTube about one video with the cookies. From your own computer YouTube answers with or without cookies, so the real test is through the proxy: with a saved `proxy` profile it tries 4 times through the proxy with the cookies and tells you how many got through.
-7. It offers to copy the value to the GitHub repository secret of the same name (`-- --github` does it later).
+7. It offers to publish `fnox.toml` to main, so act and GitHub get the cookies too.
 
 Without questions: `mise run local:cookies:setup -- --browser chrome --profile "Profile 2"` or `-- --file ~/Downloads/cookies.txt`. `-- --check` tests the saved cookies again.
 
-**The same variable everywhere.** The proxy and the cookies are environment variables with the same names in all three places, so nothing is different between them:
+**The same everywhere.** The proxy and the cookies are the same encrypted fnox profiles in all three places; only the key that decrypts them differs:
 
-| Variable | Local | act | GitHub |
-|---|---|---|---|
-| `PROXY_URL`, `WEBSHARE_PROXY_USERNAME`, `WEBSHARE_PROXY_PASSWORD` | profile `proxy` | passed with `-s` | repository secrets |
-| `YTDLP_COOKIES_BASE64` | profile `cookies` | passed with `-s` | repository secret |
+| Profile | Variables | Local | act | GitHub |
+|---|---|---|---|---|
+| `proxy` | `PROXY_URL`, `WEBSHARE_PROXY_USERNAME`, `WEBSHARE_PROXY_PASSWORD` | personal key | personal key, as `FNOX_AGE_KEY` | CI key, the `FNOX_AGE_KEY` secret |
+| `cookies` | `YTDLP_COOKIES_BASE64` | personal key | personal key, as `FNOX_AGE_KEY` | CI key, the `FNOX_AGE_KEY` secret |
 
 The transcripts code reads `YTDLP_COOKIES_BASE64` itself and writes a private temporary file for yt-dlp (removed at exit). It is the only way to give cookies: an exported `cookies.txt` goes in with `mise run local:cookies:setup -- --file cookies.txt`, which also filters and checks it.
 
@@ -280,7 +319,7 @@ To use them locally:
 - For one run: `FNOX_PROFILE=cookies mise run local:transcripts:manage -- --method ytdlp download-missing --limit 5`.
 - With the proxy, kept on: `mise run local:profile:use -- ytdlp proxy cookies` (off again: `mise run local:profile:use -- ytdlp`).
 
-Cookies expire, and YouTube can end the session sooner, mostly when the login is used from another address. When yt-dlp starts failing again, collect them again and run `-- --github` again.
+Cookies expire, and YouTube can end the session sooner, mostly when the login is used from another address. When yt-dlp starts failing again, collect them again and publish.
 
 ### Download transcripts through a network, in all three places
 
@@ -290,9 +329,9 @@ mise run act:transcripts:download   -- proxy ytdlp 3
 mise run gh:transcripts:download    -- proxy ytdlp 3
 ```
 The arguments are the same everywhere: the network (`direct`, `proxy`, `cookies` or `proxy+cookies`), the method (`ytdlp` or `youtube_transcript_api`) and how many transcripts to stop after (3).
-- `local:` runs it on your computer, with the variables from your `proxy` and `cookies` profiles. It writes `data/transcripts/` and updates your master list, like any local download.
-- `act:` runs `.github/workflows/download-transcripts.yml` in Docker, with the same variables. Nothing is uploaded.
-- `gh:` starts that workflow on GitHub and watches it. It needs the repository secrets (`local:proxy:setup -- --github`, `local:cookies:setup -- --github`) and tells you which one is missing. It commits nothing: the transcripts and the log are the run's artifact (**Actions → the run → Artifacts**, kept 7 days), and the run summary shows how many were downloaded. The workflow has to be on the default branch before GitHub can start it.
+- `local:` runs it on your computer, with the `proxy` and `cookies` profiles. It writes `data/transcripts/` and updates your master list, like any local download.
+- `act:` runs `.github/workflows/download-transcripts.yml` in Docker, with your personal key as `FNOX_AGE_KEY`. It uses your working copy of `fnox.toml`. Nothing is uploaded.
+- `gh:` starts that workflow on GitHub and watches it. It needs the `FNOX_AGE_KEY` secret (`mise run local:secrets:ci-key`) and the secrets published to that branch, and warns when your `fnox.toml` differs from the pushed one. It commits nothing: the transcripts and the log are the run's artifact (**Actions → the run → Artifacts**, kept 7 days), and the run summary shows how many were downloaded. The workflow has to be on the default branch before GitHub can start it.
 
 How the methods use the proxy:
 - yt-dlp reads `PROXY_URL`.
@@ -300,7 +339,7 @@ How the methods use the proxy:
 
 Webshare's free plan and its "Proxy Server" plans are data-centre addresses, which YouTube may block like GitHub's. The transcript library recommends the **Residential** plan, not "Static Residential". The setup's YouTube test tells you which case you are in.
 
-None of these helpers ever prints a key or a password. `fnox.local.toml` is created with permissions that only you can read.
+None of these helpers ever prints a key or a password. Values reach fnox through standard input, never a command line.
 
 ## Transcripts
 
@@ -501,7 +540,7 @@ Removes `.venv`, `.act/` and this project's Docker containers, volumes and image
 ```bash
 mise run nuke -- --all
 ```
-Also removes the uv cache, the act tool cache, this project's mise tools, `fnox.local.toml` and `.fnox-profile`.
+Also removes the uv cache, the act tool cache, this project's mise tools, `fnox.local.toml` and `.fnox-profile`. Your age key in `~/.config/fnox/` is never touched.
 
 Everything act creates is labelled `project=adam-seeker-metadata` or lives in `.act/` (see `.actrc`), so nuke removes only what this project made. Docker itself is never uninstalled.
 

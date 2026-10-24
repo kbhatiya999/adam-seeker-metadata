@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
 # Gemini API key (Google AI Studio) for the model tools run with --provider gemini (the daily processing run).
 # The chat app does not use it: it asks each user for their own key in the browser.
-#   gemini_key.sh            open AI Studio, paste the key (hidden), check it, save it to fnox.local.toml
+#   gemini_key.sh            open AI Studio, paste the key (hidden), check it, save it encrypted in fnox.toml
 #   gemini_key.sh --stdin    read the key from standard input instead of prompting
 #   gemini_key.sh --check    check the key that is already saved
 set -euo pipefail
 cd "$(dirname "$0")/.."
 URL="https://aistudio.google.com/apikey"
-LOCAL_FILE="fnox.local.toml"
 show() { printf '  \033[2m$ %s\033[0m\n' "$*" >&2; }
 
 check_key() { # the key goes in a header read from a pipe, never on a command line
@@ -29,19 +28,8 @@ flash = sorted(m for m in models if "flash" in m)
 print("✅ The key works: {} models can generate text; flash models: {}".format(len(models), ", ".join(flash) or "none"))'
 }
 
-save_key() {
-  show "edit $LOCAL_FILE: GEMINI_API_KEY = { default = \"<hidden>\" } under [secrets]  (git-ignored, mode 600)"
-  KEY="$1" python3 - "$LOCAL_FILE" <<'PY'
-import os, re, sys
-path, key = sys.argv[1], os.environ["KEY"]
-text = open(path).read() if os.path.exists(path) else ""
-text = re.sub(r'^GEMINI_API_KEY\s*=.*\n?', '', text, flags=re.M)
-if "[secrets]" not in text:
-    text += ("\n" if text and not text.endswith("\n") else "") + "[secrets]\n"
-text = text.replace("[secrets]\n", '[secrets]\nGEMINI_API_KEY = { default = "%s" }\n' % key, 1)
-open(path, "w").write(text)
-PY
-  chmod 600 "$LOCAL_FILE"
+save_key() { # encrypted into the committed fnox.toml (age, scripts/secrets.py); the key goes through stdin
+  printf '%s' "$1" | python3 scripts/secrets.py set GEMINI_API_KEY
 }
 
 case "${1:-}" in
@@ -62,6 +50,8 @@ esac
 key="$(printf '%s' "$key" | tr -d '[:space:]')"
 [ -n "$key" ] || { echo "No key given."; exit 1; }
 check_key "$key" || exit 1
-save_key "$key"
-echo "✅ Saved. Used by: seeker knowledge process / ask / eval run with --provider gemini (they run through fnox)."
+save_key "$key" || exit 1
+echo "✅ Saved (encrypted in fnox.toml). Used by: seeker knowledge process / ask / eval run with --provider gemini (they run through fnox)."
 echo "   Keep it private: restrict it to the Generative Language API in the Google Cloud console if you can."
+if [ -t 0 ]; then python3 scripts/secrets.py publish || true
+else echo "Publish it for act and GitHub: mise run local:secrets:publish"; fi

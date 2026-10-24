@@ -5,11 +5,11 @@
 #     METHOD   ytdlp | youtube_transcript_api            (default ytdlp)
 #     LIMIT    stop after this many transcripts          (default 3)
 #   local  runs it on this computer, act in Docker (the workflow, nothing published), gh on GitHub (the real workflow).
-# The network settings are ENVIRONMENT VARIABLES with the same names everywhere:
+# The network is the same fnox profiles everywhere, encrypted (age) in the committed fnox.toml:
 #   proxy    PROXY_URL, WEBSHARE_PROXY_USERNAME, WEBSHARE_PROXY_PASSWORD   (mise run local:proxy:setup)
 #   cookies  YTDLP_COOKIES_BASE64 (the cookies.txt as one base64 line)     (mise run local:cookies:setup)
-# local and act take them from the fnox profiles `proxy` and `cookies` (whatever profile stack is active); GitHub takes
-# the repository secrets of the same names (`-- --github` on both setup tasks). Values never appear on a command line.
+# local decrypts with your personal key, act gets that key as FNOX_AGE_KEY, GitHub has the CI key as the secret
+# FNOX_AGE_KEY. Only the key differs between the three; values never appear on a command line.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 where="${1:-}"; network="${2:-proxy}"; method="${3:-ytdlp}"; limit="${4:-3}"
@@ -48,16 +48,16 @@ case "$where" in
     [ ${#names[@]} -eq 0 ] || need_local
     args=(workflow_dispatch -W .github/workflows/download-transcripts.yml
           --input "network=$network" --input "method=$method" --input "limit=$limit")
-    for n in "${names[@]:-}"; do [ -z "$n" ] || args+=(-s "$n"); done   # -s NAME takes the value from the environment
     echo "act: network=$network method=$method limit=$limit"
-    if [ -n "$profile_list" ]; then exec fnox exec -P "$profile_list" -- act "${args[@]}"; fi
-    exec act "${args[@]}" ;;
+    # -s FNOX_AGE_KEY takes the value from the environment: your personal key, set by secrets.py with-key
+    exec python3 scripts/secrets.py with-key sh -c 'exec act "$@" ${FNOX_AGE_KEY:+-s FNOX_AGE_KEY}' act "${args[@]}" ;;
   gh)
-    have="$(gh secret list --json name -q '.[].name')"
-    for n in "${names[@]:-}"; do
-      [ -z "$n" ] || grep -qx "$n" <<<"$have" || { echo "The GitHub secret $n is not set: $(setup_hint "$n") -- --github"; exit 1; }
-    done
+    gh secret list --json name -q '.[].name' | grep -qx FNOX_AGE_KEY ||
+      { echo "The GitHub secret FNOX_AGE_KEY is not set: mise run local:secrets:ci-key"; exit 1; }
     ref="${REF:-$(git branch --show-current)}"
+    git fetch -q origin "$ref" 2>/dev/null || true
+    git diff --quiet "origin/$ref" -- fnox.toml 2>/dev/null ||
+      echo "⚠️  fnox.toml differs from origin/$ref: the run uses the pushed secrets. Publish yours: mise run local:secrets:publish"
     latest() { gh run list --workflow download-transcripts.yml --limit 1 --json databaseId -q '.[0].databaseId // 0'; }
     before="$(latest)"
     gh workflow run download-transcripts.yml --ref "$ref" -f network="$network" -f method="$method" -f limit="$limit"

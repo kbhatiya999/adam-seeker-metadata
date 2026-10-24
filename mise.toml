@@ -8,6 +8,7 @@ python = "3.12"
 uv = "latest"
 act = "latest"
 fnox = "latest"
+age = "latest"    # age-keygen, for the keys of the encrypted secrets (scripts/secrets.py); CI does not need it
 gh = "latest"
 gcloud = "latest"
 tilt = "latest"
@@ -70,7 +71,7 @@ run = "uv sync --package seeker-cli"
 # ---- local: run the scripts directly -------------------------------------
 
 [tasks."local:apikey:setup"]
-description = "[local] Guided YouTube API key setup: opens the console, validates your key, saves it to fnox.local.toml (optionally to the GitHub secret)"
+description = "[local] Guided YouTube API key setup: opens the console, validates your key, saves it encrypted in fnox.toml (then offers to publish it to main)"
 run = "scripts/api_key.sh"
 
 [tasks."local:videos:update"]
@@ -110,7 +111,7 @@ description = "[local] Show the methods set in fnox.local.toml"
 run = "scripts/method.sh local show"
 
 [tasks."local:transcripts:download"]
-description = "[local] Download a few transcripts through a network, the same way act and gh do: `-- [direct|proxy|cookies|proxy+cookies] [ytdlp|youtube_transcript_api] [LIMIT]` (the proxy and cookies come from the local `proxy` and `cookies` profiles as environment variables)"
+description = "[local] Download a few transcripts through a network, the same way act and gh do: `-- [direct|proxy|cookies|proxy+cookies] [ytdlp|youtube_transcript_api] [LIMIT]` (the proxy and cookies come from the encrypted `proxy` and `cookies` profiles in fnox.toml)"
 run = "scripts/transcripts_run.sh local"
 
 [tasks."local:transcripts:compare"]
@@ -135,17 +136,39 @@ run = "uv run seeker-chat"
 interactive = true
 
 [tasks."local:apikey:gemini"]
-description = "[local] Gemini API key for --provider gemini (the daily processing run): opens Google AI Studio, checks the key, saves it to fnox.local.toml (`-- --check` re-checks the saved one)"
+description = "[local] Gemini API key for --provider gemini (the daily processing run): opens Google AI Studio, checks the key, saves it encrypted in fnox.toml (`-- --check` re-checks the saved one)"
 run = "scripts/gemini_key.sh"
 interactive = true
 
+[tasks."local:secrets:check"]
+description = "[local] Encrypted secrets (age, in fnox.toml): the recipients, your personal key, and which secrets this machine can decrypt (never the values)"
+run = "python3 scripts/secrets.py check"
+
+[tasks."local:secrets:init"]
+description = "[local] Use (or make) your personal age key (~/.config/fnox/age.txt) and make it the `personal` recipient in fnox.toml"
+run = "python3 scripts/secrets.py init"
+
+[tasks."local:secrets:ci-key"]
+description = "[local] Make a NEW CI age key: sets the GitHub secret FNOX_AGE_KEY, makes it the `ci` recipient, re-encrypts every secret (then publish)"
+run = "python3 scripts/secrets.py ci-key"
+interactive = true
+
+[tasks."local:secrets:migrate"]
+description = "[local] One time: move the secret values still in fnox.local.toml into fnox.toml, encrypted (settings stay local)"
+run = "python3 scripts/secrets.py migrate"
+
+[tasks."local:secrets:publish"]
+description = "[local] Commit fnox.toml (encrypted values only) and push it straight to main, so act and GitHub get the new secrets (`-- --yes` asks nothing)"
+run = "python3 scripts/secrets.py publish"
+interactive = true
+
 [tasks."local:proxy:setup"]
-description = "[local] Webshare proxy for transcripts where YouTube blocks you (GitHub runners): asks for the proxy username/password (hidden), tests YouTube through it, saves the local `proxy` profile (`-- --check` re-tests, `-- --github` copies it to the repository secrets)"
+description = "[local] Webshare proxy for transcripts where YouTube blocks you (GitHub runners): asks for the proxy username/password (hidden), tests YouTube through it, saves the `proxy` profile encrypted in fnox.toml (`-- --check` re-tests)"
 run = "scripts/proxy_setup.sh"
 interactive = true
 
 [tasks."local:cookies:setup"]
-description = "[local] YouTube login cookies for yt-dlp (another way past the \"not a bot\" check; use a throwaway Google account): reads them from a browser or an exported cookies.txt, keeps only YouTube/Google ones outside the repo, saves the local `cookies` profile (`-- --check` re-tests)"
+description = "[local] YouTube login cookies for yt-dlp (another way past the \"not a bot\" check; use a throwaway Google account): reads them from a browser or an exported cookies.txt, keeps only YouTube/Google ones, saves the `cookies` profile encrypted in fnox.toml (`-- --check` re-tests)"
 run = "uv run --no-sync python scripts/cookies_setup.py"
 interactive = true
 
@@ -181,14 +204,14 @@ run = "act -l"
 
 [tasks."act:videos:update"]
 description = "[act] Run update-videos.yml locally (starts Docker if needed, cleans up after; no commit/push/issue)"
-run = '''scripts/docker.sh run -- scripts/fx.sh sh -c 'act workflow_dispatch -W .github/workflows/update-videos.yml ${YOUTUBE_API_KEY:+-s YOUTUBE_API_KEY}' '''
+run = '''scripts/docker.sh run -- python3 scripts/secrets.py with-key sh -c 'act workflow_dispatch -W .github/workflows/update-videos.yml ${FNOX_AGE_KEY:+-s FNOX_AGE_KEY}' '''
 
 [tasks."act:videos:rebuild"]
 description = "[act] Run rebuild-videos.yml locally (starts Docker if needed, cleans up after; no commit/push/issue)"
-run = '''scripts/docker.sh run -- scripts/fx.sh sh -c 'act workflow_dispatch -W .github/workflows/rebuild-videos.yml ${YOUTUBE_API_KEY:+-s YOUTUBE_API_KEY}' '''
+run = '''scripts/docker.sh run -- python3 scripts/secrets.py with-key sh -c 'act workflow_dispatch -W .github/workflows/rebuild-videos.yml ${FNOX_AGE_KEY:+-s FNOX_AGE_KEY}' '''
 
 [tasks."act:transcripts:download"]
-description = "[act] Run download-transcripts.yml locally in Docker, same arguments as local: `-- [direct|proxy|cookies|proxy+cookies] [ytdlp|youtube_transcript_api] [LIMIT]` (secrets from the local profiles; nothing published)"
+description = "[act] Run download-transcripts.yml locally in Docker, same arguments as local: `-- [direct|proxy|cookies|proxy+cookies] [ytdlp|youtube_transcript_api] [LIMIT]` (act gets your personal age key as FNOX_AGE_KEY; nothing published)"
 run = "scripts/docker.sh run -- scripts/transcripts_run.sh act"
 
 [tasks."act:method:set"]
@@ -223,7 +246,7 @@ gh run watch --exit-status "$(gh run list --workflow rebuild-videos.yml --branch
 '''
 
 [tasks."gh:transcripts:download"]
-description = "[gh] Trigger the download-transcripts workflow on GitHub and watch it, same arguments as local: `-- [direct|proxy|cookies|proxy+cookies] [ytdlp|youtube_transcript_api] [LIMIT]` (secrets are the repository secrets; commits nothing, the transcripts come back as the run's artifact)"
+description = "[gh] Trigger the download-transcripts workflow on GitHub and watch it, same arguments as local: `-- [direct|proxy|cookies|proxy+cookies] [ytdlp|youtube_transcript_api] [LIMIT]` (the runner decrypts fnox.toml with the FNOX_AGE_KEY secret; commits nothing, the transcripts come back as the run's artifact)"
 run = "scripts/transcripts_run.sh gh"
 
 [tasks."gh:method:set"]

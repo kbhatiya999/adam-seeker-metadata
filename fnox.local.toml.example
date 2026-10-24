@@ -1,9 +1,8 @@
 # Copy to fnox.local.toml (git-ignored, never commit it). It overrides fnox.toml on this machine.
 #
-# Top level: SECRETS only. Every profile inherits them.
-[secrets]
-YOUTUBE_API_KEY = { default = "your_youtube_api_key_here" }   # mise run local:apikey:setup writes it
-GEMINI_API_KEY = { default = "your_gemini_api_key_here" }     # mise run local:apikey:gemini writes it
+# Secrets do NOT belong here any more: they are encrypted in fnox.toml (mise run local:apikey:setup, local:apikey:gemini,
+# local:proxy:setup, local:cookies:setup write them there; see README_AUTOMATION.md "Encrypted secrets"). If you still
+# have plain values here, `mise run local:secrets:migrate` moves them into fnox.toml, encrypted.
 
 # Your own SETTINGS go in the `overrides` profile (mise run local:method:set writes it), applied last on top of the
 # profiles you pick with `mise run local:profile:use -- ytdlp gemini-lite`. Never put a setting at the top level:
@@ -11,16 +10,9 @@ GEMINI_API_KEY = { default = "your_gemini_api_key_here" }     # mise run local:a
 # [profiles.overrides.secrets]
 # TRANSCRIPT_METHOD = { default = "ytdlp" }
 
-# The one profile that holds secrets: your Webshare proxy, used only when you pick it (`local:profile:use -- ytdlp
-# proxy`). `mise run local:proxy:setup` asks for the username and password, tests YouTube through it and writes this.
-# By hand: type only the two lines below (the username WITHOUT "-rotate"), then run `mise run local:proxy:setup --
-# --check`: it tests them and adds (or refreshes) the PROXY_URL line for you.
+# The proxy by hand (instead of `mise run local:proxy:setup`): type these two lines (the username WITHOUT "-rotate"),
+# then `mise run local:secrets:migrate` (encrypts them into fnox.toml and removes them here) and
+# `mise run local:proxy:setup -- --check` (tests them and adds the encrypted PROXY_URL).
 # [profiles.proxy.secrets]
 # WEBSHARE_PROXY_USERNAME = { default = "your_proxy_username" }
 # WEBSHARE_PROXY_PASSWORD = { default = "your_proxy_password" }
-# PROXY_URL = { default = "http://your_proxy_username-rotate:your_proxy_password@p.webshare.io:80/" }
-
-# YouTube login cookies for yt-dlp, used only when you pick the `cookies` profile. `mise run local:cookies:setup` collects them
-# and writes this: the cookies.txt as ONE base64 line. It is a login, so never copy it anywhere but a secret store.
-# [profiles.cookies.secrets]
-# YTDLP_COOKIES_BASE64 = { default = "<one long base64 line>" }

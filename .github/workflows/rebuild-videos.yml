@@ -18,7 +18,8 @@ jobs:
   rebuild-videos:
     runs-on: ubuntu-latest
     env:
-      MISE_DISABLE_TOOLS: act,gh,gcloud,tilt  # local-only tools; fnox is kept because tasks run via `fnox exec`
+      MISE_DISABLE_TOOLS: act,gh,gcloud,tilt,age  # local-only tools; fnox is kept because tasks run via `fnox exec`
+      FNOX_AGE_KEY: ${{ secrets.FNOX_AGE_KEY }}  # the `ci` age key: fnox decrypts the secrets in fnox.toml with it
     
     steps:
     - name: Checkout repository
@@ -31,10 +32,13 @@ jobs:
     
     - name: Install dependencies
       run: mise run setup:cli
+
+    - name: Unlock secrets
+      run: scripts/ci_unlock.sh
     
     - name: Rebuild master video list
       env:
-        YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}  # only for a fork without FNOX_AGE_KEY; the encrypted value wins
         MASTER_LIST_METHOD: ${{ vars.MASTER_LIST_METHOD }}  # empty = implicit (API if key, else yt-dlp)
       run: |
         mise run local:videos:rebuild

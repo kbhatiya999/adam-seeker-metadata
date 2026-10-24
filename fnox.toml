@@ -1,7 +1,8 @@
-# Secret declarations for local runs and CI. Never put real values here.
-# Local override: create fnox.local.toml (git-ignored; see fnox.local.toml.example).
-# In GitHub Actions the key comes from the YOUTUBE_API_KEY secret via the
-# environment; fnox passes an already-set env var through.
+# Secrets and settings for local runs, act and CI (fnox). Secret VALUES are stored here only ENCRYPTED (age): write them
+# with the helpers or `mise run local:secrets:...` (scripts/secrets.py), never by hand, never as a plain `default`.
+# Two keys decrypt: your personal one (~/.config/fnox/age.txt, also used by act) and the CI one (GitHub secret
+# FNOX_AGE_KEY). Without a key fnox passes an already-set env var through (a fork's plain YOUTUBE_API_KEY secret).
+# Your own settings: fnox.local.toml (git-ignored; see fnox.local.toml.example).
 
 [secrets.YOUTUBE_API_KEY]
 description = "YouTube Data API v3 key (optional; falls back to yt-dlp when unset)"
@@ -56,8 +57,8 @@ if_missing = "ignore"
 description = "Gemini model for --provider gemini (default gemini-flash-latest)"
 if_missing = "ignore"
 
-# ---- Profiles: named bundles of SETTINGS, never secret values ---------------------------------------------------
-# The keys stay at the top of fnox.local.toml and every profile inherits them. Stack one methods profile and one
+# ---- Profiles: named bundles of SETTINGS (readable), plus the encrypted network profiles `proxy` and `cookies` ------
+# The keys sit encrypted at the top of this file and every profile inherits them. Stack one methods profile and one
 # model profile, e.g. `ytdlp,gemini-lite`:  mise run local:profile:use -- ytdlp gemini-lite  (or Tilt / the menu).
 # Every mise task runs through scripts/fx.sh, which passes the active stack to fnox. Your own tweaks
 # (`mise run local:method:set ...`) go to the local `overrides` profile in fnox.local.toml, applied last.

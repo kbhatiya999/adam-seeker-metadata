@@ -245,22 +245,33 @@ ACTIONS: List[Action] = [
     Action("install", "Setup", "First-time install", "Install tools, sync Python deps, check Docker.",
            lambda v: mise("install")),
     Action("gemini-key", "Setup", "Get a Gemini API key",
-           "For --provider gemini (the daily processing run): opens Google AI Studio, checks the key, saves it to "
-           "fnox.local.toml. The chat app does not use it; each user gives their own key in the browser.",
+           "For --provider gemini (the daily processing run): opens Google AI Studio, checks the key, saves it "
+           "encrypted in fnox.toml. The chat app does not use it; each user gives their own key in the browser.",
            lambda v: mise("local:apikey:gemini", *(["--check"] if v.get("what") == "check" else [])),
            [Field("what", "What", "select", [("get and save a key", "get"), ("check the saved key", "check")], "get")]),
     Action("proxy-setup", "Setup", "Set up the Webshare proxy",
            "For transcripts where YouTube blocks your address (GitHub's runners are blocked). Asks for the proxy "
-           "username and password, tests YouTube through it, saves it as the local `proxy` profile; can copy it to "
-           "the GitHub secrets.",
-           lambda v: mise("local:proxy:setup", *{"check": ["--check"], "github": ["--github"]}.get(v.get("what"), [])),
+           "username and password, tests YouTube through it, saves it encrypted in fnox.toml as the `proxy` profile.",
+           lambda v: mise("local:proxy:setup", *(["--check"] if v.get("what") == "check" else [])),
            [Field("what", "What", "select", [("set up (asks for the username and password)", "setup"),
-                                             ("test the saved proxy with YouTube", "check"),
-                                             ("copy the saved proxy to the GitHub secrets", "github")], "setup")]),
+                                             ("test the saved proxy with YouTube", "check")], "setup")]),
+    Action("secrets", "Setup", "Encrypted secrets (age)",
+           "The keys, proxy and cookies are encrypted in the committed fnox.toml. Two keys can read them: your "
+           "personal one (~/.config/fnox/age.txt, also used by act) and the CI one (the GitHub secret FNOX_AGE_KEY).",
+           lambda v: mise(f"local:secrets:{v['what']}"),
+           [Field("what", "What", "select",
+                  [("check - which secrets this machine can decrypt (never the values)", "check"),
+                   ("init - use or make your personal key, add it as a recipient", "init"),
+                   ("migrate - move secrets still in fnox.local.toml into fnox.toml (one time)", "migrate"),
+                   ("publish - commit fnox.toml and push it to main", "publish"),
+                   ("ci-key - make a new CI key (GitHub secret FNOX_AGE_KEY) and re-encrypt", "ci-key")], "check")],
+           lambda v: {"publish": "This commits fnox.toml and pushes it straight to main.",
+                      "ci-key": "This replaces the GitHub secret FNOX_AGE_KEY and re-encrypts every secret; "
+                                "publish afterwards or the workflows cannot read them."}.get(v["what"])),
     Action("transcripts-network", "Transcripts", "Download transcripts through a network",
            "The same download in all three places: local, act (the GitHub workflow in Docker) or gh (the real workflow). "
-           "The proxy and the cookies are environment variables with the same names everywhere (local profiles `proxy` and "
-           "`cookies`, or the GitHub secrets). Nothing is committed; the files are the artifact of the run.",
+           "The proxy and the cookies are the same encrypted fnox profiles everywhere (`proxy` and "
+           "`cookies` in fnox.toml; only the key differs). Nothing is committed; the files are the artifact of the run.",
            lambda v: mise(f"{v['where']}:transcripts:download", v["network"], v["method"], v["limit"]),
            [Field("where", "Where to run it", "select", WHERE, "local"),
             Field("network", "Network", "select", [("proxy - through your Webshare proxy", "proxy"),
@@ -272,7 +283,7 @@ ACTIONS: List[Action] = [
            lambda v: "This starts the real workflow on GitHub. It commits nothing." if v["where"] == "gh" else None),
     Action("cookies-setup", "Setup", "Collect YouTube cookies (yt-dlp)",
            "Another way past YouTube's \"not a bot\" check, for yt-dlp only. Reads the YouTube/Google cookies of a browser "
-           "(or an exported cookies.txt), keeps only those in a file outside the repo, saves the local `cookies` profile. "
+           "(or an exported cookies.txt), keeps only those and saves them encrypted in fnox.toml as the `cookies` profile. "
            "Use a throwaway Google account.",
            lambda v: mise("local:cookies:setup", *(["--check"] if v.get("what") == "check" else [])),
            [Field("what", "What", "select", [("collect cookies (asks where they are)", "setup"),
