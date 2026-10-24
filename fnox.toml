@@ -4,9 +4,20 @@
 # FNOX_AGE_KEY). Without a key fnox passes an already-set env var through (a fork's plain YOUTUBE_API_KEY secret).
 # Your own settings: fnox.local.toml (git-ignored; see fnox.local.toml.example).
 
+[providers.age]
+type = "age"
+# Two keys can read the secrets below: `personal` (~/.config/fnox/age.txt, also used by act) and `ci`
+# (only in the GitHub secret FNOX_AGE_KEY). Change them with: mise run local:secrets:init / ci-key
+recipients = [
+  "age1snu433upwrts5jaj06utvnxafv2mvsw02rp8hk63tyypqyujxa5sk8rwd0", # personal
+  "age1ucxm2evrdy6jv6xv7scedunlam5y6vtukkk8pqcxcqhznwwnh9tqpt2tct", # ci
+]
+
 [secrets.YOUTUBE_API_KEY]
 description = "YouTube Data API v3 key (optional; falls back to yt-dlp when unset)"
 if_missing = "warn"
+provider = "age"
+value = "YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSAvNDdETmlXTVZZWTlSZFQ2ZndhemFId0hYOXo3WER3c3k5ZmtqOC9xK2tFCjRiQlE3OVUzOU9YK0ZOTnRQa1BTYndGckw1aFVYcS9BV2VOQi9BTEVLd0EKLT4gWDI1NTE5IEtCZGtRZ25xL0I0Qk1tM1F6MHZNSTJmbmlaNGxlQUczQWdNdVNFQmd6UXcKU2xoRlArcGpUdHhUbXhZdVJwcjd3MlplN2YyZTdmbXRiZDFVSWxRRFhRTQotPiBPeFBzLWdyZWFzZQpJaDZFc2VJRFgrYzlFMkdrVHFZQmhsa0VmdnBHYjUrayszZ1pTREQwSVI3WVhoSDZNMXROcDN5TGhJbnJuSktFCjlKZTB3SWxjYUJIclJ0V1RKbnZFdnBLQkpYVVZXNldmb0lnbUFrNUxYWU5tZlRYWmpVbXN1Z1ZKCi0tLSBaZVVWdTVwa1NHMHhyODNDeW4xS21oa2UzZTc3VGpZbmFYUG0zR2ptSzZ3Chrvw4S9FG2JN6YBOhNVV4KY9a2zq+RmVezOBlvh+40647aJ5kyPB2JALrXpV/8Rh4JFPYNjPJJ1vAVkSfHjKoLfuH1iWKE+"
 
 # Optional transcript settings (scripts/transcripts.py); unset is fine.
 [secrets.TRANSCRIPT_METHOD]
@@ -46,6 +57,8 @@ if_missing = "ignore"
 [secrets.GEMINI_API_KEY]
 description = "Gemini API key from Google AI Studio (aistudio.google.com/apikey)"
 if_missing = "ignore"
+provider = "age"
+value = "YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBMejFMMkVGT1MwMW81bEpqbGJsdjZSMUVWK1V2RXBBM3ZRSFpVWDNRWVNvCnJYMzBxcVNRUysxVkNFZUxoZWloMTJOVXg3MjZqamY5dyttTGJKYldtdDgKLT4gWDI1NTE5IEh4NEl5bUN5WnN5cXN3TndLZGVkUHA0MFhBL2srRnU1NUdIMnJscm5aelkKbGhIOENILzk1dUd6NCtva3MxTkhjQ0c1OVNoNFY5YlBheXVram5jVCs4QQotPiBwLWdyZWFzZQpIbUhvRjltUHVSNkJzTjRsbm9uN0dySy9BaVVJZTFSdTdBY3R6dHRzamI4RjlrZitmYXNhNTJFMmxLdW9QMm43CgotLS0galQ0RGFzdXpjZEpzeUQ1d2tZeXdZZTFKNVRvaE11bFhUR0M5QTY1MFVEQQpo8h+n8aOueduP2tv1ckEMsvtCkrgm9EkG5wZZLwidyXcYFf9X7zc+wz0MG8bMV4+fAZTw5LavttbzekiuuirPzASViJBz/A=="
 
 # Optional settings for the model tools (set them in fnox.local.toml):
 # which provider runs tools by default (queue | gemini) and which Gemini model (each has its own free daily quota).
@@ -82,3 +95,10 @@ SEEKER_GEMINI_MODEL = { default = "gemini-flash-latest" }
 [profiles.gemini-lite.secrets]
 SEEKER_LLM_PROVIDER = { default = "gemini" }
 SEEKER_GEMINI_MODEL = { default = "gemini-flash-lite-latest" }
+
+[profiles.proxy]
+
+[profiles.proxy.secrets]
+WEBSHARE_PROXY_USERNAME= { provider = "age", value = "YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSByeWhaUDZNU1lVUVBZNjc3YjBrZmZtWE14RmZGZlk2STY0RERjVXArTEJRCmVuelF6QUJlVFRPeElzekw1VWhvWXd1NjZremlraGhoSFdEc09XaGdLbFEKLT4gWDI1NTE5IFE2Zk1SN2hRWHY4eTFKYTJXK1lZTUZhd1lqc0NxM3lUdXBPV25ib3Z3VUkKZWNnelUxUEtFTEU1TUpPczZnNC9UZFFzRkg0WC9tZUVEc1ZzVmtJaVB2ZwotPiBiWi1ncmVhc2UgcDB9d3h6PEkgWyBFRWAKdlQzcmZUYTlMRFo3b01OOUIyY3RWdmg2OVdXcHRJQ2J4NCtzQjNic1NzTkZBL0RvTFl0OThDS1BuencxaGwyZgprMlN3VEY0Ci0tLSBQa1EvY2N0bHZBdGpiTHFGUTV5OG82VnhWVHJGSHpzYUdoNitQRGtxaTNRClUDb/jbSuQyjMnKqre5aopSojQDDIskCF+Z9AxyFl/62XPZxjSAoDk=" }
+WEBSHARE_PROXY_PASSWORD= { provider = "age", value = "YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBhcUFCekoxMExGNnZJaDM3OFR6aTZta042WXhtbnoxdXhpNEVnR0R2ZVNZCk5vQ09lcnFxUCtJQU5mUmxlQURwa3NDZDB5bkhsSm0rNVdqRkRyRE54TGsKLT4gWDI1NTE5IDgzc1c3bzFaUVl5QnJZSzVzSjM5eDdocFgrak1pb0FYbkM3Wk0zSXdtenMKS2tuTktOWmNqbUhqQm80S0pMMXJqVlgyTVV2Z0RQbEVhM3B1QnBBUmRwRQotPiBlaFlpLWdyZWFzZSArUHwnbiBPWHxpM18ga2R+eDoocjMgNzQlCkU3c2JMRngrRWhZaS8xS2RLbzl1eDJyOEZPbWgycHh4Qy94ZkVFWHM5MlFlVG8rWjlWdXZYNmZ0VTFVUUM5Z2oKSU9LUG9NZzVKVDBzUE1hN2hMRlpEL3VjYUVKNVp0bmxyb2FubktGejFFcTh3R2g0YTJHdUV5ZnFBdwotLS0gamFrMTNLZzVQVW54ZWoxS0lrazRJb0trKy9WVGw5MUlkMFBiR0tlNWJCRQqFXmHpH9N1I+MeFDmHrsyjL8RwKi9SlWJILgpBWnzFpeF3ajp1/eHSvcdwPA==" }
+PROXY_URL= { provider = "age", value = "YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBBUERkckh6U3hJWDF1Smhlb0hRdGpvUjRDVXMvdHFGOUt1WEJMdXZNZVVNCjBRbmlFRzVwRWYxOG1ORWI4Z09QNENCSXpOMlhMMW1Db3dLWDladXA3OVEKLT4gWDI1NTE5IGgrK0h0M05ZNDRERC92ODhOOFl1UE1ZQWFzcHNzTTQ5Ui9mTUVnR0F2eW8KUHpUYkdqQXRXRXZ0VytCLy9ncncrdGhzYjhhc0ovUDJMU0RRWEQ4RXFUYwotPiBfLWdyZWFzZSBIUnQgIUh3P0JICnVFSHo5aDlNdkVnaG1vK25CdFI4dlVTa2ZETkNkZm1kM2hJR1FiVUdRV0l3NmFhc3kxTjFwdTRsdkM5TGk5QTcKZE9FdHlRZTFyeFJxUENnSElKbXk2VXZqdzNvejJYMHVOT1FmcXlHUWtnCi0tLSBUankyMVZNNlVmKzVELzdvQkpTVDEyR2ZnQitRNjFDaWZVOTVFRytXWUNvCj+k/OdU2s9s23APMfe1Y2cCnyBFDgcyRWtlO7mLhViW09QVDKjjq125qcqPQME0C30eBOv4oNAydjw5fD8sgS+I6y7yhNRdlQbpynnE7ExJ9zgc89A=" }
