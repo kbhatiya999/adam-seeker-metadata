@@ -6,13 +6,12 @@
 #                             (with WEBSHARE_PROXY_USERNAME and WEBSHARE_PROXY_PASSWORD already set in the environment
 #                             it asks nothing and uses them)
 #   proxy_setup.sh --check    test the saved proxy again (the proxy itself, then YouTube with both methods)
-#   proxy_setup.sh --github   copy the saved proxy to the GitHub repository secrets (for a transcripts workflow)
-# Saved in the git-ignored fnox.local.toml as the local profile `proxy` (not at the top level), so your own runs go
-# direct unless you pick it: `mise run local:profile:use -- ytdlp proxy` or `FNOX_PROFILE=proxy mise run ...`.
+# Saved ENCRYPTED (age, scripts/secrets.py) in the committed fnox.toml as the profile `proxy`, so local, act and GitHub
+# read the same values, and your own runs go direct unless you pick it: `mise run local:profile:use -- ytdlp proxy`
+# or `FNOX_PROFILE=proxy mise run ...`.
 # The password never appears on a command line, in the output or in the logs.
 set -euo pipefail
 cd "$(dirname "$0")/.."
-LOCAL_FILE="fnox.local.toml"
 DASHBOARD="https://dashboard.webshare.io/"
 VIDEO="HyF6HAlId7g"   # has automatic captions; downloads fine from a home address, blocked from GitHub (2026-10-18)
 NAMES=(WEBSHARE_PROXY_USERNAME WEBSHARE_PROXY_PASSWORD PROXY_URL)
@@ -60,22 +59,15 @@ test_youtube() { # 2. does YouTube answer through it? Same check as `seeker tran
   fi
 }
 
-save_local() {
-  show "edit $LOCAL_FILE: [profiles.proxy.secrets] ${NAMES[*]} = <hidden>  (git-ignored, mode 600)"
-  USER_="$1" PASS_="$2" URL_="$3" python3 - "$LOCAL_FILE" <<'PY'
-import json, os, re, sys
-path = sys.argv[1]
-text = open(path).read() if os.path.exists(path) else ""
-# drop an old [profiles.proxy.secrets] section (up to the next [header] or the end)
-text = re.sub(r'^(?:# Webshare rotating proxy.*\n)?\[profiles\.proxy\.secrets\]\n(?:(?!\[).*\n?)*', '', text,
-              flags=re.M).rstrip("\n")
-values = {"WEBSHARE_PROXY_USERNAME": os.environ["USER_"], "WEBSHARE_PROXY_PASSWORD": os.environ["PASS_"],
-          "PROXY_URL": os.environ["URL_"]}
-section = ["", "# Webshare rotating proxy (mise run local:proxy:setup). Used only when you pick the `proxy` profile.",
-           "[profiles.proxy.secrets]"] + ["%s = { default = %s }" % (k, json.dumps(v)) for k, v in values.items()]
-open(path, "w").write((text + "\n" if text else "") + "\n".join(section) + "\n")
-PY
-  chmod 600 "$LOCAL_FILE"
+save_local() { # encrypt the three values into fnox.toml, profile proxy (values through stdin, never shown)
+  printf '%s' "$1" | python3 scripts/secrets.py set WEBSHARE_PROXY_USERNAME proxy &&
+  printf '%s' "$2" | python3 scripts/secrets.py set WEBSHARE_PROXY_PASSWORD proxy &&
+  printf '%s' "$3" | python3 scripts/secrets.py set PROXY_URL proxy
+}
+
+publish() { # secret changes go straight to main: secrets.py asks before committing
+  if [ -t 0 ]; then python3 scripts/secrets.py publish || true
+  else echo "Publish it for act and GitHub: mise run local:secrets:publish"; fi
 }
 
 load_saved() {
@@ -85,25 +77,13 @@ load_saved() {
   url="$(proxy_url "$user" "$pass")"
 }
 
-to_github() {
-  gh auth status >/dev/null 2>&1 || { echo "Sign in to GitHub first: gh auth login"; return 1; }
-  local repo; repo="$(gh repo view --json nameWithOwner -q .nameWithOwner)"
-  show "gh secret set {WEBSHARE_PROXY_USERNAME,WEBSHARE_PROXY_PASSWORD,PROXY_URL} --repo $repo  (values from stdin)"
-  printf '%s' "$user" | gh secret set WEBSHARE_PROXY_USERNAME --repo "$repo"
-  printf '%s' "$pass" | gh secret set WEBSHARE_PROXY_PASSWORD --repo "$repo"
-  printf '%s' "$url" | gh secret set PROXY_URL --repo "$repo"
-  echo "✅ Saved as repository secrets of $repo (workflows read them as secrets.PROXY_URL ...)."
-}
-
 case "${1:-}" in
   --check)
     load_saved
     test_proxy "$user" "$pass" || exit 1
     # typed by hand, or the password changed: make the PROXY_URL line match the username and password (yt-dlp reads it)
-    [ "$(fnox -P proxy get PROXY_URL 2>/dev/null || true)" = "$url" ] || save_local "$user" "$pass" "$url"
+    if [ "$(fnox -P proxy get PROXY_URL 2>/dev/null || true)" != "$url" ]; then save_local "$user" "$pass" "$url"; publish; fi
     test_youtube "$user" "$pass" "$url"; exit $? ;;
-  --github)
-    load_saved; to_github; exit $? ;;
   "") ;;
   *) sed -n '2,12p' "$0" | sed 's/^# \{0,1\}//'; exit 2 ;;
 esac
@@ -130,11 +110,9 @@ url="$(proxy_url "$user" "$pass")"
 
 test_proxy "$user" "$pass" || exit 1
 youtube=0; test_youtube "$user" "$pass" "$url" || youtube=$?
-save_local "$user" "$pass" "$url"
-echo "✅ Saved as the local profile 'proxy'. Use it for one run:"
+save_local "$user" "$pass" "$url" || exit 1
+echo "✅ Saved (encrypted in fnox.toml) as the profile 'proxy'. Use it for one run:"
 echo "     FNOX_PROFILE=proxy mise run local:transcripts:manage -- --method ytdlp download-missing --limit 5"
 echo "   or switch it on: mise run local:profile:use -- ytdlp proxy   (off again: mise run local:profile:use -- ytdlp)"
-[ "$youtube" = 0 ] || exit "$youtube"
-printf 'Also save it as GitHub repository secrets, for a transcripts workflow? [y/N] '
-read -r answer || answer=""   # no terminal to ask: skip
-case "$answer" in [yY]*) to_github ;; *) echo "Skipped. Later: mise run local:proxy:setup -- --github" ;; esac
+publish
+exit "$youtube"

@@ -1,21 +1,21 @@
 #!/usr/bin/env bash
 # Guided setup for the YouTube Data API v3 key.
 # A key can only be created from your own Google account, so this cannot fetch one for you:
-# it walks you through the console, validates the key you paste, and saves it to the
-# git-ignored fnox.local.toml. The key is never printed or put on a command line.
+# it walks you through the console, validates the key you paste, and saves it
+# encrypted (age) in the committed fnox.toml (scripts/secrets.py). The key is never printed or put on a command line.
 set -u
+cd "$(dirname "$0")/.." || exit 1
 
 KEY_URL="https://console.cloud.google.com/apis/credentials"
 LIB_URL="https://console.cloud.google.com/apis/library/youtube.googleapis.com"
-LOCAL_FILE="fnox.local.toml"
 
 # Print the command before running it (commands that would contain the key are shown redacted)
 show() { printf '  \033[2m$ %s\033[0m\n' "$*" >&2; }
 
-has_key() { grep -q '^YOUTUBE_API_KEY' "$LOCAL_FILE" 2>/dev/null; }
+has_key() { [ -n "$(fnox get YOUTUBE_API_KEY 2>/dev/null)" ]; }
 
 if has_key; then
-  read -r -p "A key is already saved in $LOCAL_FILE. Replace it? [y/N] " a
+  read -r -p "A key is already saved. Replace it? [y/N] " a
   case "$a" in [yY]*) ;; *) echo "Keeping existing key."; exit 0 ;; esac
 fi
 
@@ -105,30 +105,9 @@ if ! printf '%s' "$resp" | grep -q '"items"'; then
 fi
 echo "✅ Key works"
 
-umask 077
-show "python3: set YOUTUBE_API_KEY = { default = \"<hidden>\" } under [secrets] in $LOCAL_FILE (replaces the line if present, keeps other secrets)"
-KEY="$key" python3 - "$LOCAL_FILE" <<'PY'
-import os, re, sys
-path = sys.argv[1]; key = os.environ["KEY"]
-line = f'YOUTUBE_API_KEY = {{ default = "{key}" }}'
-text = open(path).read() if os.path.exists(path) else ""
-if re.search(r'^YOUTUBE_API_KEY\s*=.*$', text, re.M):
-    text = re.sub(r'^YOUTUBE_API_KEY\s*=.*$', lambda m: line, text, flags=re.M)
-else:
-    if "[secrets]" not in text:
-        text += ("\n" if text and not text.endswith("\n") else "") + "[secrets]\n"
-    text = text.replace("[secrets]\n", "[secrets]\n" + line + "\n", 1)
-open(path, "w").write(text)
-PY
-show chmod 600 "$LOCAL_FILE"
-chmod 600 "$LOCAL_FILE"
-echo "Saved to $LOCAL_FILE (git-ignored, mode 600)."
-
-if command -v gh >/dev/null 2>&1 && gh auth status >/dev/null 2>&1; then
-  read -r -p "Also store it as the GitHub Actions secret YOUTUBE_API_KEY for this repo? [y/N] " g
-  case "$g" in
-    [yY]*) show "printf '%s' <hidden> | gh secret set YOUTUBE_API_KEY   (repo: $(gh repo view --json nameWithOwner -q .nameWithOwner))"; printf '%s' "$key" | gh secret set YOUTUBE_API_KEY && echo "✅ GitHub secret set" ;;
-    *) echo "Skipped. Later: mise run local:apikey:setup, or set it in repo Settings -> Secrets and variables -> Actions." ;;
-  esac
-fi
+show "printf '%s' <hidden> | python3 scripts/secrets.py set YOUTUBE_API_KEY   (encrypted into fnox.toml)"
+printf '%s' "$key" | python3 scripts/secrets.py set YOUTUBE_API_KEY || exit 1
+echo "Saved (encrypted in fnox.toml; local, act and GitHub all read it from there)."
+if [ -t 0 ]; then python3 scripts/secrets.py publish || true
+else echo "Publish it for act and GitHub: mise run local:secrets:publish"; fi
 echo "Verify: mise run local:videos:update  (log should say it used the YouTube Data API)"

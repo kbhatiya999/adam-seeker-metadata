@@ -152,9 +152,10 @@ Everything above works without keys. Keys and a proxy make three things better:
 Try the proxy or the cookies in all three places with the same command: `mise run local:transcripts:download -- proxy ytdlp 3`, then `act:` and `gh:` instead of `local:` (details in [README_AUTOMATION.md](README_AUTOMATION.md)).
 
 - Both keys are free. The proxy is a Webshare account.
-- Each helper opens the right page, checks what you paste with one test call, and saves it in `fnox.local.toml`.
+- Each helper opens the right page, checks what you paste with one test call, and saves it **encrypted** in `fnox.toml`.
 - The proxy is saved as a profile called `proxy`, and the cookies as a profile called `cookies`, so they are used only when you pick them (see [Settings](#settings-fnox-profiles)).
-- That file is never committed: git ignores it. Never put a key in any other file.
+- `fnox.toml` is committed, but only as ciphertext (age). Two keys can read it: your own (`~/.config/fnox/age.txt`) and the one in the GitHub secret `FNOX_AGE_KEY`. So your computer, act and GitHub all read the same values. Run `mise run local:secrets:init` once first; the helpers then offer to publish the change straight to main. Details: [Encrypted secrets](README_AUTOMATION.md#encrypted-secrets-age).
+- Never put a key anywhere else, and never commit a plain value.
 - The chat app does not use this saved Gemini key. Everyone types their own key in the browser.
 
 ### Settings (fnox profiles)
@@ -224,9 +225,9 @@ Every day at 06:00 UTC, GitHub runs **Update Video List**. It:
 1. Click **Fork** on GitHub. Then clone *your* fork in [Step 2](#step-2-get-the-code).
 2. Open your fork's **Actions** tab and click "I understand my workflows, go ahead and enable them". Forks start with workflows switched off, and the daily run starts only after this.
 3. Turn on Issues: **Settings → General → Features → Issues**. Forks start without Issues, and the workflow posts its review notes there.
-4. Optional: add the YouTube key as a secret. Without it, the workflow uses yt-dlp, which also works. To add it, either:
-   - go to **Settings → Secrets and variables → Actions → New repository secret**, name it `YOUTUBE_API_KEY` and paste the key, or
-   - run the command below, which asks for the key without showing it:
+4. Optional: keys. Without any, the workflow uses yt-dlp, which also works. The secrets in `fnox.toml` are encrypted for *our* keys, so a fork cannot read them. Pick one:
+   - **your own encrypted secrets** (the same setup as here): run `mise run local:secrets:init` (your key), `mise run local:secrets:ci-key` (sets your fork's `FNOX_AGE_KEY` secret), then the key helpers ([Keys](#keys-optional)), and `mise run local:secrets:publish`. Delete our old encrypted values first: they can't be decrypted with your keys.
+   - **a plain repository secret** for the YouTube key: **Settings → Secrets and variables → Actions → New repository secret**, name it `YOUTUBE_API_KEY`, or run the command below, which asks for the key without showing it. It is used only when there is no `FNOX_AGE_KEY`.
      ```bash
      gh secret set YOUTUBE_API_KEY
      ```
@@ -303,7 +304,7 @@ mise run nuke -- --all
 
 - `--dry-run` only shows what would be removed.
 - `nuke` removes `.venv` and this project's Docker leftovers. It asks first.
-- `--all` also removes the caches, the tools and `fnox.local.toml`, which holds your keys.
+- `--all` also removes the caches, the tools and `fnox.local.toml`, which holds your own settings. Your age key in `~/.config/fnox/` is never touched.
 
 Docker itself is never uninstalled.
 

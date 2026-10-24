@@ -7,7 +7,8 @@
     fnox_profile.py list [--json]    the profiles and the settings each one sets
     fnox_profile.py use [NAME ...]   make NAME ... the active stack (later ones win); no names = the default profile
 
-Secrets (API keys) sit at the top of fnox.local.toml and every profile inherits them. Settings (methods, model
+Secrets (API keys) sit ENCRYPTED at the top of fnox.toml (scripts/secrets.py) and every profile inherits them; the
+network profiles `proxy` and `cookies` are encrypted too. Settings (methods, model
 provider, model) live only in profiles: the committed ones in fnox.toml, and your own in the local `overrides`
 profile (`mise run local:method:set` writes it), which is always applied last. The active stack is kept in the
 git-ignored .fnox-profile; FNOX_PROFILE in the environment wins over it. Standard library only (Python 3.11+).
@@ -28,8 +29,8 @@ FILES = (ROOT / "fnox.toml", ROOT / "fnox.local.toml")   # later files win, as i
 OVERRIDES = "overrides"
 SETTINGS = ("MASTER_LIST_METHOD", "TRANSCRIPT_METHOD", "TRANSCRIPT_FORMAT", "TRANSCRIPT_FINAL",
             "SEEKER_LLM_PROVIDER", "SEEKER_GEMINI_MODEL", "SEEKER_GEMINI_RPM")
-# The one kind of profile that holds secrets: the local `proxy` (mise run local:proxy:setup), so the proxy is used
-# only when picked and your own runs go direct.
+# The profiles that hold secrets (encrypted in fnox.toml): `proxy` and `cookies`, so they are used only when picked
+# and your own runs go direct.
 NETWORK = ("PROXY_URL", "WEBSHARE_PROXY_USERNAME", "WEBSHARE_PROXY_PASSWORD", "YTDLP_COOKIES_BASE64")
 
 

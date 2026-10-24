@@ -3,10 +3,9 @@ name: Download Transcripts
 # Manual only (no push or schedule trigger). Downloads a few transcripts on a GitHub runner so you can see whether
 # YouTube lets them through: GitHub's addresses are blocked, so this can go through your Webshare proxy and/or
 # YouTube cookies (yt-dlp only). Nothing is committed: transcripts are git-ignored, they are uploaded as an artifact.
-# Secrets (repository Settings > Secrets, or `mise run local:proxy:setup -- --github` and
-# `mise run local:cookies:setup -- --github`): PROXY_URL, WEBSHARE_PROXY_USERNAME, WEBSHARE_PROXY_PASSWORD,
-# YTDLP_COOKIES_BASE64 (the cookies file as one base64 line, so GitHub's log masking cannot garble the logs).
-# The same four names are environment variables locally and in act (scripts/transcripts_run.sh): the code reads them as is.
+# The secrets are the encrypted `proxy` and `cookies` profiles in fnox.toml (`mise run local:proxy:setup`,
+# `mise run local:cookies:setup`); the one repository secret FNOX_AGE_KEY decrypts them. The network picks the same
+# fnox profiles as locally (FNOX_PROFILE=proxy,cookies), so local, act and GitHub read the same values.
 on:
   workflow_dispatch:
     inputs:
@@ -36,30 +35,13 @@ jobs:
   download:
     runs-on: ubuntu-latest
     env:
-      MISE_DISABLE_TOOLS: act,gh,gcloud,tilt  # local-only tools; fnox is kept because tasks run via `fnox exec`
+      MISE_DISABLE_TOOLS: act,gh,gcloud,tilt,age  # local-only tools; fnox is kept because tasks run via `fnox exec`
+      FNOX_AGE_KEY: ${{ secrets.FNOX_AGE_KEY }}  # the `ci` age key: fnox decrypts the secrets in fnox.toml with it
       NETWORK: ${{ inputs.network || 'proxy' }}
       METHOD: ${{ inputs.method || 'ytdlp' }}
       LIMIT: ${{ inputs.limit || '3' }}
-      # the chosen network's secrets as plain environment variables; the others stay empty (= not used)
-      PROXY_URL: ${{ contains(inputs.network || 'proxy', 'proxy') && secrets.PROXY_URL || '' }}
-      WEBSHARE_PROXY_USERNAME: ${{ contains(inputs.network || 'proxy', 'proxy') && secrets.WEBSHARE_PROXY_USERNAME || '' }}
-      WEBSHARE_PROXY_PASSWORD: ${{ contains(inputs.network || 'proxy', 'proxy') && secrets.WEBSHARE_PROXY_PASSWORD || '' }}
-      YTDLP_COOKIES_BASE64: ${{ contains(inputs.network || 'proxy', 'cookies') && secrets.YTDLP_COOKIES_BASE64 || '' }}
 
     steps:
-    - name: Check the secrets for the chosen network
-      run: |
-        case "$NETWORK" in direct|proxy|cookies|proxy+cookies) ;; *) echo "::error::unknown network '$NETWORK'"; exit 1 ;; esac
-        if [[ "$NETWORK" == *proxy* ]]; then
-          [ -n "$PROXY_URL" ] || { echo "::error::Secret PROXY_URL is not set. Run: mise run local:proxy:setup -- --github"; exit 1; }
-          echo "Using the Webshare proxy."
-        fi
-        if [[ "$NETWORK" == *cookies* ]]; then
-          [ -n "$YTDLP_COOKIES_BASE64" ] || { echo "::error::Secret YTDLP_COOKIES_BASE64 is not set. Run: mise run local:cookies:setup -- --github"; exit 1; }
-          echo "Using YouTube cookies (values not shown)."
-        fi
-        [ "$NETWORK" != direct ] || echo "Going direct: expect YouTube to block GitHub's address."
-
     - name: Checkout repository
       uses: actions/checkout@v4
 
@@ -68,6 +50,19 @@ jobs:
 
     - name: Install dependencies
       run: mise run setup:cli
+
+    - name: Unlock the secrets of the chosen network (${{ env.NETWORK }})
+      run: |
+        case "$NETWORK" in
+          direct) profile=""; names="" ;;
+          proxy) profile="proxy"; names="PROXY_URL WEBSHARE_PROXY_USERNAME WEBSHARE_PROXY_PASSWORD" ;;
+          cookies) profile="cookies"; names="YTDLP_COOKIES_BASE64" ;;
+          proxy+cookies) profile="proxy,cookies"; names="PROXY_URL WEBSHARE_PROXY_USERNAME WEBSHARE_PROXY_PASSWORD YTDLP_COOKIES_BASE64" ;;
+          *) echo "::error::unknown network '$NETWORK'"; exit 1 ;;
+        esac
+        echo "FNOX_PROFILE=$profile" >> "$GITHUB_ENV"   # the same profiles as locally: mise run local:profile:use -- proxy cookies
+        if [ -z "$names" ]; then echo "Going direct: expect YouTube to block GitHub's address."; exit 0; fi
+        FNOX_PROFILE="$profile" scripts/ci_unlock.sh $names
 
     - name: Download transcripts (${{ env.METHOD }}, up to ${{ env.LIMIT }}, network ${{ env.NETWORK }})
       run: mise run local:transcripts:manage -- --method "$METHOD" download-missing --limit "$LIMIT"

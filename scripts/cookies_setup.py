@@ -5,20 +5,18 @@
   cookies_setup.py --browser chrome [--profile "Profile 2"]     read them from that browser, no questions
   cookies_setup.py --file cookies.txt   use an exported cookies.txt, no questions
   cookies_setup.py --check              test the saved cookies again
-  cookies_setup.py --github             copy the saved cookies to the GitHub repository secret
 
 Only cookies of youtube.com and google.com are kept: nothing else from your browser is read into the result.
 Like the proxy, the cookies are an ENVIRONMENT VARIABLE everywhere: YTDLP_COOKIES_BASE64 = the cookies.txt as one base64
-line. Locally it is saved in the git-ignored fnox.local.toml as the profile `cookies` (mode 600), so your own runs use
-no cookies unless you pick it: `mise run local:profile:use -- ytdlp proxy cookies`. act gets the same variable with
-`-s`, GitHub as the repository secret of the same name; the transcripts code turns it into a private temp file for
+line. It is saved ENCRYPTED (age) in the committed fnox.toml as the profile `cookies` (scripts/secrets.py), so local,
+act and GitHub all read the same value through fnox, and your own runs use no cookies unless you pick it:
+`mise run local:profile:use -- ytdlp proxy cookies`. The transcripts code turns it into a private temp file for
 yt-dlp. Cookie values are never printed. Only yt-dlp uses cookies (youtube-transcript-api has no cookie option).
 """
 from __future__ import annotations
 
 import argparse
 import base64
-import json
 import os
 import subprocess
 import sys
@@ -31,15 +29,12 @@ from typing import Dict, List, Optional
 from yt_dlp.cookies import SUPPORTED_BROWSERS, YoutubeDLCookieJar, extract_cookies_from_browser
 
 ROOT = Path(__file__).resolve().parents[1]
-LOCAL_FILE = ROOT / "fnox.local.toml"
 PROFILE = "cookies"
 NAME = "YTDLP_COOKIES_BASE64"
-SECRET_LIMIT = 48 * 1024   # GitHub refuses a secret larger than 48 KB
 DOMAINS = ("youtube.com", "google.com")
 LOGIN = ("SID", "__Secure-1PSID", "__Secure-3PSID", "SAPISID", "LOGIN_INFO")  # present only when signed in
 VIDEO = "HyF6HAlId7g"   # has automatic captions; blocked from GitHub's runners (2026-10-18)
 TRIES = 4               # a rotating proxy gives a different address each time, so one try says little
-COMMENT = f"# YouTube login cookies (mise run local:cookies:setup). Used only when you pick the `{PROFILE}` profile."
 
 INTRO = """Cookies are a saved Google login. Use a THROWAWAY Google account (not your own): yt-dlp's authors warn that
 accounts used this way can be flagged or banned. Sign in to YouTube with it in a separate browser profile first.
@@ -97,29 +92,22 @@ def from_base64(value: str):
         os.remove(tmp)
 
 
-def with_profile(text: str, value: str) -> str:
-    """fnox.local.toml text with [profiles.cookies.secrets] holding YTDLP_COOKIES_BASE64 = value (replacing an old one)."""
-    kept: List[str] = []
-    skipping = False
-    for line in text.splitlines():
-        if line.strip() == f"[profiles.{PROFILE}.secrets]":
-            skipping = True
-            while kept and kept[-1].startswith("# YouTube login cookies"):
-                kept.pop()
-            continue
-        if skipping and (line.startswith("[") or line.startswith("#")):
-            skipping = False
-        if not skipping:
-            kept.append(line)
-    body = "\n".join(kept).rstrip("\n")
-    block = [COMMENT, f"[profiles.{PROFILE}.secrets]", f"{NAME} = {{ default = {json.dumps(value)} }}"]
-    return (body + "\n\n" if body else "") + "\n".join(block) + "\n"
+def save(value: str) -> bool:
+    """Encrypt VALUE into fnox.toml as YTDLP_COOKIES_BASE64 in the `cookies` profile (through stdin, never shown)."""
+    shown(f"scripts/secrets.py set {NAME} {PROFILE}   (value from stdin, encrypted into fnox.toml)")
+    r = subprocess.run([sys.executable, str(ROOT / "scripts" / "secrets.py"), "set", NAME, PROFILE], input=value,
+                       text=True, cwd=ROOT, capture_output=True)
+    if r.returncode != 0:
+        say(f"❌ Could not save: {(r.stdout + r.stderr).strip()[-300:]}")
+    return r.returncode == 0
 
 
-def save_profile(value: str) -> None:
-    text = LOCAL_FILE.read_text() if LOCAL_FILE.exists() else ""
-    LOCAL_FILE.write_text(with_profile(text, value))
-    os.chmod(LOCAL_FILE, 0o600)
+def publish() -> None:
+    """Offer to commit fnox.toml to main (secrets.py asks itself); without a terminal just say how."""
+    if sys.stdin.isatty():
+        subprocess.run([sys.executable, str(ROOT / "scripts" / "secrets.py"), "publish"], cwd=ROOT)
+    else:
+        say("Publish it for act and GitHub: mise run local:secrets:publish")
 
 
 def fnox_get(profile: str, name: str) -> str:
@@ -232,37 +220,15 @@ def run_check() -> int:
     return 0 if test_youtube(value) else 1
 
 
-def to_github(value: str) -> int:
-    if subprocess.run(["gh", "auth", "status"], capture_output=True).returncode != 0:
-        say("Sign in to GitHub first: gh auth login")
-        return 1
-    repo = subprocess.run(["gh", "repo", "view", "--json", "nameWithOwner", "-q", ".nameWithOwner"], cwd=ROOT,
-                          capture_output=True, text=True).stdout.strip()
-    shown(f"gh secret set {NAME} --repo {repo}  (value from stdin)")
-    r = subprocess.run(["gh", "secret", "set", NAME, "--repo", repo], input=value, text=True, cwd=ROOT, capture_output=True)
-    if r.returncode != 0:
-        say(f"❌ Could not set the secret: {r.stderr.strip()[:200]}")
-        return 1
-    say(f"✅ Saved as the repository secret {NAME} of {repo} (the Download Transcripts workflow reads it).")
-    return 0
-
-
 def main(argv: Optional[List[str]] = None) -> int:
     ap = argparse.ArgumentParser(description="Collect YouTube cookies for yt-dlp (see the top of this file).")
     ap.add_argument("--check", action="store_true", help="test the saved cookies again")
-    ap.add_argument("--github", action="store_true", help="copy the saved cookies to the GitHub repository secret")
     ap.add_argument("--file", help="use an exported cookies.txt")
     ap.add_argument("--browser", help="read the cookies from this browser: " + ", ".join(sorted(SUPPORTED_BROWSERS)))
     ap.add_argument("--profile", default="", help="the browser profile (Chrome: Default, Profile 2 ...)")
     args = ap.parse_args(argv)
     if args.check:
         return run_check()
-    if args.github:
-        value = fnox_get(PROFILE, NAME)
-        if not value:
-            say("No cookies saved yet: mise run local:cookies:setup")
-            return 1
-        return to_github(value)
     jar = collect(args)
     if jar is None:
         return 1
@@ -270,22 +236,14 @@ def main(argv: Optional[List[str]] = None) -> int:
     if not verdict(describe(kept)):
         return 1
     value = to_base64(kept)
-    kb = len(value) / 1024
-    say(f"   {kb:.1f} KB as one base64 line (GitHub secrets can hold {SECRET_LIMIT // 1024} KB)")
-    if len(value) > SECRET_LIMIT:
-        say("❌ Too big for a GitHub secret. Use a browser profile that is signed in to fewer Google services.")
+    say(f"   {len(value) / 1024:.1f} KB as one base64 line")
+    if not save(value):
         return 1
-    save_profile(value)
-    shown(f"edit fnox.local.toml: [profiles.{PROFILE}.secrets] {NAME} = <hidden>  (git-ignored, mode 600)")
     say("✅ Saved. Use the cookies for one run:")
     say(f"     FNOX_PROFILE={PROFILE} mise run local:transcripts:manage -- --method ytdlp download-missing --limit 5")
     say(f"   or switch them on, with the proxy: mise run local:profile:use -- ytdlp proxy {PROFILE}   (off again: mise run local:profile:use -- ytdlp)")
     ok = test_youtube(value)
-    if sys.stdin.isatty():
-        if input("Also save it as a GitHub repository secret, for the Download Transcripts workflow? [y/N] ").strip().lower().startswith("y"):
-            ok = to_github(value) == 0 and ok
-        else:
-            say("Skipped. Later: mise run local:cookies:setup -- --github")
+    publish()
     return 0 if ok else 1
 
 if __name__ == "__main__":
