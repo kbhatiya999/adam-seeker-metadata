@@ -4429,3 +4429,18 @@
 2026-10-24 19:18:19,293 - INFO - ✅ Successfully added 1 new videos
 2026-10-24 19:18:19,293 - INFO - 📊 Total videos in master list: 200
 2026-10-24 19:18:19,293 - INFO - 🆕 New: Debate Review - Adam Seeker VS Haideri110 (2026-10-24)
+2026-10-28 12:01:24,968 - INFO - ⚙️  MASTER_LIST_METHOD not set: using youtube_api (API key present)
+2026-10-28 12:01:24,968 - INFO - 🔑 YouTube API key provided
+2026-10-28 12:01:24,971 - INFO - 🚀 Starting video list update...
+2026-10-28 12:01:24,974 - INFO - 📊 Current master list has 200 existing videos
+2026-10-28 12:01:24,974 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-10-28 12:01:25,214 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-10-28 12:01:25,215 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-10-28 12:01:25,215 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-10-28 12:01:25,297 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-10-28 12:01:25,660 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-10-28 12:01:25,660 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-10-28 12:01:25,663 - INFO - Master list updated successfully
+2026-10-28 12:01:25,663 - INFO - ✅ Successfully added 1 new videos
+2026-10-28 12:01:25,663 - INFO - 📊 Total videos in master list: 201
+2026-10-28 12:01:25,663 - INFO - 🆕 New: The ultimate Trial - The Case begins (2026-10-28)
