@@ -1,6 +1,17 @@
 {
   "videos": [
     {
+      "video_id": "cm_aVFWcPdM",
+      "title": "Islam in 2026",
+      "url": "https://www.youtube.com/watch?v=cm_aVFWcPdM",
+      "upload_date": "2026-11-02",
+      "description": "if you like Adam Seeker's videos and would like to support, join patreon link\nhttps://www.patreon.com/adamseeker\n\nTo contact me, please join my discord Server: \nhttps://discord.gg/WmDZHqJvKB\n\ntiktok account\nhttps://www.tiktok.com/@adam.seeker.official\n#islam\n#2026\n#moralities",
+      "status": "uncategorized",
+      "auto_detected": true,
+      "needs_review": true,
+      "last_checked": "2026-11-02"
+    },
+    {
       "video_id": "UXDOrl3aMdU",
       "title": "The ultimate Trial - The Case begins",
       "url": "https://www.youtube.com/watch?v=UXDOrl3aMdU",
@@ -2252,8 +2263,8 @@
       "last_checked": "2026-10-04"
     }
   ],
-  "last_updated": "2026-10-28",
-  "total_videos": 201,
+  "last_updated": "2026-11-02",
+  "total_videos": 202,
   "channel_url": "https://www.youtube.com/@AdamSeekerOfficial",
   "rebuild_date": "2026-10-04",
   "rebuild_reason": "Complete rebuild from scratch"

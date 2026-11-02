@@ -4444,3 +4444,18 @@
 2026-10-28 12:01:25,663 - INFO - ✅ Successfully added 1 new videos
 2026-10-28 12:01:25,663 - INFO - 📊 Total videos in master list: 201
 2026-10-28 12:01:25,663 - INFO - 🆕 New: The ultimate Trial - The Case begins (2026-10-28)
+2026-11-02 14:39:07,083 - INFO - ⚙️  MASTER_LIST_METHOD not set: using youtube_api (API key present)
+2026-11-02 14:39:07,083 - INFO - 🔑 YouTube API key provided
+2026-11-02 14:39:07,085 - INFO - 🚀 Starting video list update...
+2026-11-02 14:39:07,086 - INFO - 📊 Current master list has 201 existing videos
+2026-11-02 14:39:07,086 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-11-02 14:39:07,352 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-11-02 14:39:07,353 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-11-02 14:39:07,353 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-11-02 14:39:07,480 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-11-02 14:39:07,809 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-11-02 14:39:07,809 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-11-02 14:39:07,811 - INFO - Master list updated successfully
+2026-11-02 14:39:07,811 - INFO - ✅ Successfully added 1 new videos
+2026-11-02 14:39:07,811 - INFO - 📊 Total videos in master list: 202
+2026-11-02 14:39:07,811 - INFO - 🆕 New: Islam in 2026 (2026-11-02)
