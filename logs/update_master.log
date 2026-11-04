@@ -4475,3 +4475,18 @@
 2026-11-03 13:32:19,673 - INFO - 📊 Total videos in master list: 204
 2026-11-03 13:32:19,674 - INFO - 🆕 New: Mughal faraar faraar faraar .... (2026-11-03)
 2026-11-03 13:32:19,674 - INFO - 🆕 New: Islam 2026 (2026-11-02)
+2026-11-04 13:42:25,236 - INFO - ⚙️  MASTER_LIST_METHOD not set: using youtube_api (API key present)
+2026-11-04 13:42:25,236 - INFO - 🔑 YouTube API key provided
+2026-11-04 13:42:25,239 - INFO - 🚀 Starting video list update...
+2026-11-04 13:42:25,241 - INFO - 📊 Current master list has 204 existing videos
+2026-11-04 13:42:25,241 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-11-04 13:42:25,475 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-11-04 13:42:25,476 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-11-04 13:42:25,476 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-11-04 13:42:25,593 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-11-04 13:42:25,980 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-11-04 13:42:25,980 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-11-04 13:42:25,983 - INFO - Master list updated successfully
+2026-11-04 13:42:25,983 - INFO - ✅ Successfully added 1 new videos
+2026-11-04 13:42:25,983 - INFO - 📊 Total videos in master list: 205
+2026-11-04 13:42:25,983 - INFO - 🆕 New: Adam ki adalat -Kasoorwar kon?? (2026-11-04)

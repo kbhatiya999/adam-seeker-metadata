@@ -1,6 +1,17 @@
 {
   "videos": [
     {
+      "video_id": "qQOXl20udAg",
+      "title": "Adam ki adalat -Kasoorwar kon??",
+      "url": "https://www.youtube.com/watch?v=qQOXl20udAg",
+      "upload_date": "2026-11-04",
+      "description": "if you like Adam Seeker's videos and would like to support, join patreon link\nhttps://www.patreon.com/adamseeker\n\nTo contact me, please join my discord Server: \nhttps://discord.gg/WmDZHqJvKB\n\ntiktok account\nhttps://www.tiktok.com/@adam.seeker.official\n#cout\n#adalat\n#adam",
+      "status": "uncategorized",
+      "auto_detected": true,
+      "needs_review": true,
+      "last_checked": "2026-11-04"
+    },
+    {
       "video_id": "h62Bmr5mgKU",
       "title": "Mughal faraar faraar faraar ....",
       "url": "https://www.youtube.com/watch?v=h62Bmr5mgKU",
@@ -2285,8 +2296,8 @@
       "last_checked": "2026-10-04"
     }
   ],
-  "last_updated": "2026-11-03",
-  "total_videos": 204,
+  "last_updated": "2026-11-04",
+  "total_videos": 205,
   "channel_url": "https://www.youtube.com/@AdamSeekerOfficial",
   "rebuild_date": "2026-10-04",
   "rebuild_reason": "Complete rebuild from scratch"
