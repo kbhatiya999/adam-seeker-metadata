@@ -1,6 +1,17 @@
 {
   "videos": [
     {
+      "video_id": "v4rpt_PE_0g",
+      "title": "Trinity Vs Tawheed - Debate Review",
+      "url": "https://www.youtube.com/watch?v=v4rpt_PE_0g",
+      "upload_date": "2026-11-09",
+      "description": "if you like Adam Seeker's videos and would like to support, join patreon link\nhttps://www.patreon.com/adamseeker\n\nTo contact me, please join my discord Server: \nhttps://discord.gg/WmDZHqJvKB\n\ntiktok account\nhttps://www.tiktok.com/@adam.seeker.official\n#trinity\n#tawheed\n#debate\n#review",
+      "status": "uncategorized",
+      "auto_detected": true,
+      "needs_review": true,
+      "last_checked": "2026-11-09"
+    },
+    {
       "video_id": "qQOXl20udAg",
       "title": "Adam ki adalat -Kasoorwar kon??",
       "url": "https://www.youtube.com/watch?v=qQOXl20udAg",
@@ -2296,8 +2307,8 @@
       "last_checked": "2026-10-04"
     }
   ],
-  "last_updated": "2026-11-04",
-  "total_videos": 205,
+  "last_updated": "2026-11-09",
+  "total_videos": 206,
   "channel_url": "https://www.youtube.com/@AdamSeekerOfficial",
   "rebuild_date": "2026-10-04",
   "rebuild_reason": "Complete rebuild from scratch"
