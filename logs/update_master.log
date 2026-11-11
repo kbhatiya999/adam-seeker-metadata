@@ -4505,3 +4505,18 @@
 2026-11-09 15:00:35,451 - INFO - ✅ Successfully added 1 new videos
 2026-11-09 15:00:35,451 - INFO - 📊 Total videos in master list: 206
 2026-11-09 15:00:35,451 - INFO - 🆕 New: Trinity Vs Tawheed - Debate Review (2026-11-09)
+2026-11-11 13:28:39,674 - INFO - ⚙️  MASTER_LIST_METHOD not set: using youtube_api (API key present)
+2026-11-11 13:28:39,674 - INFO - 🔑 YouTube API key provided
+2026-11-11 13:28:39,677 - INFO - 🚀 Starting video list update...
+2026-11-11 13:28:39,679 - INFO - 📊 Current master list has 206 existing videos
+2026-11-11 13:28:39,679 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-11-11 13:28:39,939 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-11-11 13:28:39,940 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-11-11 13:28:39,940 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-11-11 13:28:40,047 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-11-11 13:28:40,416 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-11-11 13:28:40,416 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-11-11 13:28:40,417 - INFO - Master list updated successfully
+2026-11-11 13:28:40,418 - INFO - ✅ Successfully added 1 new videos
+2026-11-11 13:28:40,418 - INFO - 📊 Total videos in master list: 207
+2026-11-11 13:28:40,418 - INFO - 🆕 New: Sushi Bukhari (the song) (2026-11-10)

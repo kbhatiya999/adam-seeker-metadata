@@ -1,6 +1,17 @@
 {
   "videos": [
     {
+      "video_id": "m5dHccuCY3U",
+      "title": "Sushi Bukhari (the song)",
+      "url": "https://www.youtube.com/watch?v=m5dHccuCY3U",
+      "upload_date": "2026-11-10",
+      "description": "if you like my videos and would like to support me, following is the patreon link\nhttps://www.patreon.com/adamseeker",
+      "status": "uncategorized",
+      "auto_detected": true,
+      "needs_review": true,
+      "last_checked": "2026-11-11"
+    },
+    {
       "video_id": "v4rpt_PE_0g",
       "title": "Trinity Vs Tawheed - Debate Review",
       "url": "https://www.youtube.com/watch?v=v4rpt_PE_0g",
@@ -2307,8 +2318,8 @@
       "last_checked": "2026-10-04"
     }
   ],
-  "last_updated": "2026-11-09",
-  "total_videos": 206,
+  "last_updated": "2026-11-11",
+  "total_videos": 207,
   "channel_url": "https://www.youtube.com/@AdamSeekerOfficial",
   "rebuild_date": "2026-10-04",
   "rebuild_reason": "Complete rebuild from scratch"
