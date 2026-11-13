@@ -1,6 +1,17 @@
 {
   "videos": [
     {
+      "video_id": "uJu7gaCtQs8",
+      "title": "Darpook Kaun? Adam Seeker Vs Syed Mohsin (Sushi Bukhari)",
+      "url": "https://www.youtube.com/watch?v=uJu7gaCtQs8",
+      "upload_date": "2026-11-13",
+      "description": "if you like Adam Seeker's videos and would like to support, join patreon link\nhttps://www.patreon.com/adamseeker\n\nTo contact me, please join my discord Server: \nhttps://discord.gg/WmDZHqJvKB",
+      "status": "uncategorized",
+      "auto_detected": true,
+      "needs_review": true,
+      "last_checked": "2026-11-13"
+    },
+    {
       "video_id": "m5dHccuCY3U",
       "title": "Sushi Bukhari (the song)",
       "url": "https://www.youtube.com/watch?v=m5dHccuCY3U",
@@ -2318,8 +2329,8 @@
       "last_checked": "2026-10-04"
     }
   ],
-  "last_updated": "2026-11-11",
-  "total_videos": 207,
+  "last_updated": "2026-11-13",
+  "total_videos": 208,
   "channel_url": "https://www.youtube.com/@AdamSeekerOfficial",
   "rebuild_date": "2026-10-04",
   "rebuild_reason": "Complete rebuild from scratch"

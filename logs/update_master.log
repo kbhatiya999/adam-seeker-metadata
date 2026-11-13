@@ -4520,3 +4520,18 @@
 2026-11-11 13:28:40,418 - INFO - ✅ Successfully added 1 new videos
 2026-11-11 13:28:40,418 - INFO - 📊 Total videos in master list: 207
 2026-11-11 13:28:40,418 - INFO - 🆕 New: Sushi Bukhari (the song) (2026-11-10)
+2026-11-13 13:51:05,882 - INFO - ⚙️  MASTER_LIST_METHOD not set: using youtube_api (API key present)
+2026-11-13 13:51:05,882 - INFO - 🔑 YouTube API key provided
+2026-11-13 13:51:05,885 - INFO - 🚀 Starting video list update...
+2026-11-13 13:51:05,887 - INFO - 📊 Current master list has 207 existing videos
+2026-11-13 13:51:05,887 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-11-13 13:51:06,148 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-11-13 13:51:06,149 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-11-13 13:51:06,149 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-11-13 13:51:06,240 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-11-13 13:51:06,708 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-11-13 13:51:06,708 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-11-13 13:51:06,793 - INFO - Master list updated successfully
+2026-11-13 13:51:06,793 - INFO - ✅ Successfully added 1 new videos
+2026-11-13 13:51:06,793 - INFO - 📊 Total videos in master list: 208
+2026-11-13 13:51:06,793 - INFO - 🆕 New: Darpook Kaun? Adam Seeker Vs Syed Mohsin (Sushi Bukhari) (2026-11-13)
