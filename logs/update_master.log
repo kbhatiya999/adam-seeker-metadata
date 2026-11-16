@@ -4535,3 +4535,18 @@
 2026-11-13 13:51:06,793 - INFO - ✅ Successfully added 1 new videos
 2026-11-13 13:51:06,793 - INFO - 📊 Total videos in master list: 208
 2026-11-13 13:51:06,793 - INFO - 🆕 New: Darpook Kaun? Adam Seeker Vs Syed Mohsin (Sushi Bukhari) (2026-11-13)
+2026-11-16 14:37:35,935 - INFO - ⚙️  MASTER_LIST_METHOD not set: using youtube_api (API key present)
+2026-11-16 14:37:35,935 - INFO - 🔑 YouTube API key provided
+2026-11-16 14:37:35,937 - INFO - 🚀 Starting video list update...
+2026-11-16 14:37:35,939 - INFO - 📊 Current master list has 208 existing videos
+2026-11-16 14:37:35,939 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-11-16 14:37:36,301 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-11-16 14:37:36,302 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-11-16 14:37:36,302 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-11-16 14:37:36,400 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-11-16 14:37:36,679 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-11-16 14:37:36,679 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-11-16 14:37:36,681 - INFO - Master list updated successfully
+2026-11-16 14:37:36,681 - INFO - ✅ Successfully added 1 new videos
+2026-11-16 14:37:36,682 - INFO - 📊 Total videos in master list: 209
+2026-11-16 14:37:36,682 - INFO - 🆕 New: Attack on Exmuslim Sahil - Islam the religion of peace! (2026-11-16)

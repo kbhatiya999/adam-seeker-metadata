@@ -1,6 +1,17 @@
 {
   "videos": [
     {
+      "video_id": "nWXyPvBsvv8",
+      "title": "Attack on Exmuslim Sahil - Islam the religion of peace!",
+      "url": "https://www.youtube.com/watch?v=nWXyPvBsvv8",
+      "upload_date": "2026-11-16",
+      "description": "if you like Adam Seeker's videos and would like to support, join patreon link\nhttps://www.patreon.com/adamseeker\n\nTo contact me, please join my discord Server: \nhttps://discord.gg/WmDZHqJvKB",
+      "status": "uncategorized",
+      "auto_detected": true,
+      "needs_review": true,
+      "last_checked": "2026-11-16"
+    },
+    {
       "video_id": "uJu7gaCtQs8",
       "title": "Darpook Kaun? Adam Seeker Vs Syed Mohsin (Sushi Bukhari)",
       "url": "https://www.youtube.com/watch?v=uJu7gaCtQs8",
@@ -2329,8 +2340,8 @@
       "last_checked": "2026-10-04"
     }
   ],
-  "last_updated": "2026-11-13",
-  "total_videos": 208,
+  "last_updated": "2026-11-16",
+  "total_videos": 209,
   "channel_url": "https://www.youtube.com/@AdamSeekerOfficial",
   "rebuild_date": "2026-10-04",
   "rebuild_reason": "Complete rebuild from scratch"
