@@ -4550,3 +4550,18 @@
 2026-11-16 14:37:36,681 - INFO - ✅ Successfully added 1 new videos
 2026-11-16 14:37:36,682 - INFO - 📊 Total videos in master list: 209
 2026-11-16 14:37:36,682 - INFO - 🆕 New: Attack on Exmuslim Sahil - Islam the religion of peace! (2026-11-16)
+2026-11-18 15:00:14,040 - INFO - ⚙️  MASTER_LIST_METHOD not set: using youtube_api (API key present)
+2026-11-18 15:00:14,040 - INFO - 🔑 YouTube API key provided
+2026-11-18 15:00:14,044 - INFO - 🚀 Starting video list update...
+2026-11-18 15:00:14,046 - INFO - 📊 Current master list has 209 existing videos
+2026-11-18 15:00:14,046 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-11-18 15:00:14,425 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-11-18 15:00:14,426 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-11-18 15:00:14,426 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-11-18 15:00:14,573 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-11-18 15:00:15,363 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-11-18 15:00:15,363 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-11-18 15:00:15,366 - INFO - Master list updated successfully
+2026-11-18 15:00:15,366 - INFO - ✅ Successfully added 1 new videos
+2026-11-18 15:00:15,366 - INFO - 📊 Total videos in master list: 210
+2026-11-18 15:00:15,366 - INFO - 🆕 New: Adam ki adalat - The Final Trial (2026-11-18)
