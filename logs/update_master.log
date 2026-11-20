@@ -4565,3 +4565,18 @@
 2026-11-18 15:00:15,366 - INFO - ✅ Successfully added 1 new videos
 2026-11-18 15:00:15,366 - INFO - 📊 Total videos in master list: 210
 2026-11-18 15:00:15,366 - INFO - 🆕 New: Adam ki adalat - The Final Trial (2026-11-18)
+2026-11-20 14:49:43,145 - INFO - ⚙️  MASTER_LIST_METHOD not set: using youtube_api (API key present)
+2026-11-20 14:49:43,145 - INFO - 🔑 YouTube API key provided
+2026-11-20 14:49:43,147 - INFO - 🚀 Starting video list update...
+2026-11-20 14:49:43,148 - INFO - 📊 Current master list has 210 existing videos
+2026-11-20 14:49:43,148 - INFO - 🔑 Using YouTube Data API to get channel ID
+2026-11-20 14:49:43,361 - INFO - ✅ Found channel ID via API: UCLXC98YXDDPoaVEQsWPg4ow
+2026-11-20 14:49:43,362 - INFO - 🔑 Using YouTube Data API for video discovery
+2026-11-20 14:49:43,362 - INFO - 🔑 Fetching videos using YouTube Data API v3 (max: 50)
+2026-11-20 14:49:43,433 - INFO - 📺 Found uploads playlist: UULXC98YXDDPoaVEQsWPg4ow
+2026-11-20 14:49:43,756 - INFO - ✅ Successfully fetched 50 videos from YouTube Data API
+2026-11-20 14:49:43,756 - INFO - 🔍 Found 1 new videos (filtered from 50 total)
+2026-11-20 14:49:43,759 - INFO - Master list updated successfully
+2026-11-20 14:49:43,759 - INFO - ✅ Successfully added 1 new videos
+2026-11-20 14:49:43,759 - INFO - 📊 Total videos in master list: 211
+2026-11-20 14:49:43,759 - INFO - 🆕 New: Why I do not accept Islam (2026-11-20)
